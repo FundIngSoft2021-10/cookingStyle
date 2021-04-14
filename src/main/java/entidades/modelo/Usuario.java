@@ -3,7 +3,7 @@ package entidades.modelo;
 import java.util.Date;
 
 public class Usuario {
-    private long idUsuario;
+    private int idUsuario;
     private String nombreUsuario;
     private String correo;
     private Date fechaCreacion;
@@ -11,7 +11,7 @@ public class Usuario {
     private String apellido;
     private CredencialesUsuario credenciales;
 
-    public Usuario(long idUsuario, String nombreUsuario, String correo, Date fechaCreacion,
+    public Usuario(int idUsuario, String nombreUsuario, String correo, Date fechaCreacion,
                    String nombre, String apellido) {
         this.idUsuario = idUsuario;
         this.nombreUsuario = nombreUsuario;
@@ -24,11 +24,11 @@ public class Usuario {
     public Usuario() {
     }
 
-    public long getIdUsuario() {
+    public int getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(long idUsuario) {
+    public void setIdUsuario(int idUsuario) {
         this.idUsuario = idUsuario;
     }
 

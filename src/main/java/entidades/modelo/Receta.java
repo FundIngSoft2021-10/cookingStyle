@@ -3,6 +3,7 @@ package entidades.modelo;
 import java.util.List;
 
 public class Receta {
+    private int idReceta;
     private String nombre;
     private String descripcion;
     private boolean videoReceta;
@@ -14,9 +15,10 @@ public class Receta {
     private List<Calificacion> calificaciones;
     private List<Reporte> reportes;
 
-    public Receta(String nombre, String descripcion, boolean videoReceta, String linkVideo, TipoVideo tipoVideo,
+    public Receta(int idReceta, String nombre, String descripcion, boolean videoReceta, String linkVideo, TipoVideo tipoVideo,
                   List<LineaIngrediente> lineasIngrediente, List<PasoReceta> pasosReceta, List<Categoria> categorias,
                   List<Calificacion> calificaciones, List<Reporte> reportes) {
+        this.idReceta = idReceta;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.videoReceta = videoReceta;
@@ -30,6 +32,14 @@ public class Receta {
     }
 
     public Receta() {
+    }
+
+    public int getIdReceta() {
+        return idReceta;
+    }
+
+    public void setIdReceta(int idReceta) {
+        this.idReceta = idReceta;
     }
 
     public String getNombre() {
