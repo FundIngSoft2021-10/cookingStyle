@@ -3,17 +3,27 @@ package entidades.modelo;
 import java.util.List;
 
 public class ListaFavoritos {
+    private int idListaFavoritos;
     private String nombre;
     private String descripicion;
     private List<Receta> recetasFavoritas;
 
-    public ListaFavoritos(String nombre, String descripicion, List<Receta> recetasFavoritas) {
+    public ListaFavoritos(int idListaFavoritos, String nombre, String descripicion, List<Receta> recetasFavoritas) {
+        this.idListaFavoritos = idListaFavoritos;
         this.nombre = nombre;
         this.descripicion = descripicion;
         this.recetasFavoritas = recetasFavoritas;
     }
 
     public ListaFavoritos() {
+    }
+
+    public int getIdListaFavoritos() {
+        return idListaFavoritos;
+    }
+
+    public void setIdListaFavoritos(int idListaFavoritos) {
+        this.idListaFavoritos = idListaFavoritos;
     }
 
     public String getNombre() {
