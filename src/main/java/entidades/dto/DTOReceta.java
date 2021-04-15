@@ -10,6 +10,9 @@ public class DTOReceta {
     private Chef autor;
     private Categoria categoria;
 
+    public DTOReceta() {
+    }
+
     public DTOReceta(Receta receta, Chef autor, Categoria categoria) {
         this.receta = receta;
         this.autor = autor;

@@ -2,6 +2,9 @@ package logica_negocio.recetas;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import entidades.dto.DTOReceta;
+import entidades.dto.DTORecetaMiniatura;
 import entidades.modelo.Receta;
 import entidades.modelo.Cooker;
 
@@ -25,5 +28,10 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker{
         this.cooker = cooker;
     }
 
+    public DTOReceta verReceta(DTORecetaMiniatura dtoRecetaMiniatura){
+        
+        DTOReceta dtoReceta = new DTOReceta();
+        return dtoReceta;
+    }
 
 }
