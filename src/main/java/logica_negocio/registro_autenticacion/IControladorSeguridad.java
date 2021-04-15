@@ -1,4 +1,4 @@
-package logica_negocio.autenticacion_registro;
+package logica_negocio.registro_autenticacion;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
