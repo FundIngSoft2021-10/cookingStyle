@@ -1,5 +1,6 @@
 package entidades.modelo;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -8,14 +9,14 @@ public class Cooker extends Usuario {
     private List<ListaFavoritos> listasFavoritos;
     private List<Cita> citas;
 
-    public Cooker(int idUsuario, String nombreUsuario, String correo, Date fechaCreacion, String nombre, String apellido, List<ListaFavoritos> listasFavoritos, List<Cita> citas) {
-        super(idUsuario, nombreUsuario, correo, fechaCreacion, nombre, apellido);
+    public Cooker(BigInteger idUsuario, String nombreUsuario, Date fechaCreacion, String nombre, List<ListaFavoritos> listasFavoritos, List<Cita> citas) {
+        super(idUsuario, nombreUsuario, fechaCreacion, nombre);
         this.listasFavoritos = listasFavoritos;
         this.citas = citas;
     }
 
-    public Cooker(int idUsuario, String nombreUsuario, String correo, Date fechaCreacion, String nombre, String apellido) {
-        super(idUsuario, nombreUsuario, correo, fechaCreacion, nombre, apellido);
+    public Cooker(BigInteger idUsuario, String nombreUsuario, Date fechaCreacion, String nombre) {
+        super(idUsuario, nombreUsuario, fechaCreacion, nombre);
         this.citas = new ArrayList<>();
         this.listasFavoritos = new ArrayList<>();
     }

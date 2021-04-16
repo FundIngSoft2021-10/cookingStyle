@@ -1,22 +1,25 @@
 package entidades.modelo;
 
+import java.math.BigInteger;
 import java.util.List;
 
 public class Receta {
-    private int idReceta;
+    private BigInteger idReceta;
     private String nombre;
     private String descripcion;
     private boolean videoReceta;
     private String linkVideo;
     private TipoVideo tipoVideo;
+    private boolean imagenReceta;
+    private String linkImagen;
     private List<LineaIngrediente> lineasIngrediente;
     private List<PasoReceta> pasosReceta;
     private List<Categoria> categorias;
     private List<Calificacion> calificaciones;
     private List<Reporte> reportes;
 
-    public Receta(int idReceta, String nombre, String descripcion, boolean videoReceta, String linkVideo, TipoVideo tipoVideo,
-                  List<LineaIngrediente> lineasIngrediente, List<PasoReceta> pasosReceta, List<Categoria> categorias,
+    public Receta(BigInteger idReceta, String nombre, String descripcion, boolean videoReceta, String linkVideo, TipoVideo tipoVideo,
+                  boolean imagenReceta, String linkImagen, List<LineaIngrediente> lineasIngrediente, List<PasoReceta> pasosReceta, List<Categoria> categorias,
                   List<Calificacion> calificaciones, List<Reporte> reportes) {
         this.idReceta = idReceta;
         this.nombre = nombre;
@@ -24,6 +27,8 @@ public class Receta {
         this.videoReceta = videoReceta;
         this.linkVideo = linkVideo;
         this.tipoVideo = tipoVideo;
+        this.imagenReceta = imagenReceta;
+        this.linkImagen = linkImagen;
         this.lineasIngrediente = lineasIngrediente;
         this.pasosReceta = pasosReceta;
         this.categorias = categorias;
@@ -34,11 +39,11 @@ public class Receta {
     public Receta() {
     }
 
-    public int getIdReceta() {
+    public BigInteger getIdReceta() {
         return idReceta;
     }
 
-    public void setIdReceta(int idReceta) {
+    public void setIdReceta(BigInteger idReceta) {
         this.idReceta = idReceta;
     }
 
@@ -80,6 +85,22 @@ public class Receta {
 
     public void setTipoVideo(TipoVideo tipoVideo) {
         this.tipoVideo = tipoVideo;
+    }
+
+    public boolean isImagenReceta() {
+        return imagenReceta;
+    }
+
+    public void setImagenReceta(boolean imagenReceta) {
+        this.imagenReceta = imagenReceta;
+    }
+
+    public String getLinkImagen() {
+        return linkImagen;
+    }
+
+    public void setLinkImagen(String linkImagen) {
+        this.linkImagen = linkImagen;
     }
 
     public List<LineaIngrediente> getLineasIngrediente() {
