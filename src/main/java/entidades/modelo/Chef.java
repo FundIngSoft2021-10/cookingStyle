@@ -1,5 +1,6 @@
 package entidades.modelo;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -9,15 +10,15 @@ public class Chef extends Usuario {
     private Calendario calendario;
     private List<Cita> citas;
 
-    public Chef(int idUsuario, String nombreUsuario, String correo, Date fechaCreacion, String nombre, String apellido, List<Receta> recetas, Calendario calendario, List<Cita> citas) {
-        super(idUsuario, nombreUsuario, correo, fechaCreacion, nombre, apellido);
+    public Chef(BigInteger idUsuario, String nombreUsuario, Date fechaCreacion, String nombre, List<Receta> recetas, Calendario calendario, List<Cita> citas) {
+        super(idUsuario, nombreUsuario, fechaCreacion, nombre);
         this.recetas = recetas;
         this.calendario = calendario;
         this.citas = citas;
     }
 
-    public Chef(int idUsuario, String nombreUsuario, String correo, Date fechaCreacion, String nombre, String apellido) {
-        super(idUsuario, nombreUsuario, correo, fechaCreacion, nombre, apellido);
+    public Chef(BigInteger idUsuario, String nombreUsuario, Date fechaCreacion, String nombre) {
+        super(idUsuario, nombreUsuario, fechaCreacion, nombre);
         this.citas = new ArrayList<>();
         this.recetas = new ArrayList<>();
     }

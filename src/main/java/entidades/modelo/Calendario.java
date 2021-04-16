@@ -11,6 +11,7 @@ public class Calendario {
     }
 
     public Calendario() {
+        this.bloques = new ArrayList<>();
     }
 
     public List<Bloque> getBloques() {
@@ -19,19 +20,5 @@ public class Calendario {
 
     public void setBloques(List<Bloque> bloques) {
         this.bloques = bloques;
-    }
-
-    // Métodos
-
-    public List<Bloque> getBloquesDisponibles() {
-        List<Bloque> bloquesDisponibles = new ArrayList<>();
-
-        for (Bloque bloque : this.bloques) {
-            if (bloque.isDisponible()) {
-                bloquesDisponibles.add(bloque);
-            }
-        }
-
-        return bloquesDisponibles;
     }
 }
