@@ -1,9 +1,10 @@
 package entidades.modelo;
 
+import java.math.BigInteger;
 import java.util.List;
 
 public class Receta {
-    private int idReceta;
+    private BigInteger idReceta;
     private String nombre;
     private String descripcion;
     private boolean videoReceta;
@@ -17,7 +18,7 @@ public class Receta {
     private List<Calificacion> calificaciones;
     private List<Reporte> reportes;
 
-    public Receta(int idReceta, String nombre, String descripcion, boolean videoReceta, String linkVideo, TipoVideo tipoVideo,
+    public Receta(BigInteger idReceta, String nombre, String descripcion, boolean videoReceta, String linkVideo, TipoVideo tipoVideo,
                   boolean imagenReceta, String linkImagen, List<LineaIngrediente> lineasIngrediente, List<PasoReceta> pasosReceta, List<Categoria> categorias,
                   List<Calificacion> calificaciones, List<Reporte> reportes) {
         this.idReceta = idReceta;
@@ -38,11 +39,11 @@ public class Receta {
     public Receta() {
     }
 
-    public int getIdReceta() {
+    public BigInteger getIdReceta() {
         return idReceta;
     }
 
-    public void setIdReceta(int idReceta) {
+    public void setIdReceta(BigInteger idReceta) {
         this.idReceta = idReceta;
     }
 
