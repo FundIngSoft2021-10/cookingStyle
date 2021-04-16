@@ -20,4 +20,11 @@ public interface IControladorSeguridad {
      * @throws NoSuchAlgorithmException ver también {@link java.security.SecureRandom#getInstance(String) getInstance}
      */
     public byte[] generarSalt() throws NoSuchAlgorithmException;
+
+    /**
+     * Convierte un número representado en bytes a hex
+     * @param arreglo el arreglo de bytes a pasar a hex
+     * @return el String en hex
+     */
+    public String toHex(byte[] arreglo);
 }

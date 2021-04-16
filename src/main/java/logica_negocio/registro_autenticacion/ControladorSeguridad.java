@@ -38,7 +38,8 @@ public class ControladorSeguridad implements IControladorSeguridad {
      * @param arreglo el arreglo de bytes a pasar a hex
      * @return el String en hex
      */
-    private String toHex(byte[] arreglo) {
+    @Override
+    public String toHex(byte[] arreglo) {
         BigInteger bi = new BigInteger(1, arreglo);
         String hex = bi.toString(16);
         int longitudRelleno = (arreglo.length * 2) - hex.length();
