@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0"
+      prefWidth="1600.0" style="-fx-background-color: #fcba03;" xmlns="http://javafx.com/javafx/16"
+      xmlns:fx="http://javafx.com/fxml/1">
+   <BorderPane prefHeight="900.0" prefWidth="1600.0">
+      <top>
+         <ImageView fx:id="logoCooking" fitHeight="122.0" fitWidth="200.0" BorderPane.alignment="CENTER">
+            <Image url="@../img/CookingBlanco.png"/>
+         </ImageView>
+      </top>
+      <center>
+         <AnchorPane prefHeight="561.0" prefWidth="1600.0" BorderPane.alignment="CENTER">
+            <ImageView fx:id="chBotonRegistrarse" fitHeight="116.0" fitWidth="335.0" layoutX="392.0" layoutY="400.0">
+               <Image url="@../img/RegistroChef.png"/>
+            </ImageView>
+            <ImageView fx:id="coBotonRegistrarse" fitHeight="116.0" fitWidth="335.0" layoutX="850.0" layoutY="400.0">
+               <Image url="@../img/RegistroCooker.png"/>
+            </ImageView>
+            <ImageView fx:id="chBotonIniciarSesion" fitHeight="116.0" fitWidth="335.0" layoutX="392.0"
+                       layoutY="225.0">
+               <Image url="@../img/InicioChef.png"/>
+            </ImageView>
+            <ImageView fx:id="coBotonIniciarSesion" fitHeight="116.0" fitWidth="335.0" layoutX="850.0"
+                       layoutY="225.0">
+               <Image url="@../img/InicioCooker.png"/>
+            </ImageView>
+            <Text fill="WHITE" layoutX="687.0" layoutY="679.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0"
+                  text="Iniciar como Administrador" textAlignment="CENTER" underline="true">
+               <font>
+                  <Font name="Comic Sans MS Italic" size="18.0"/>
+               </font>
+            </Text>
+         </AnchorPane>
+      </center>
+   </BorderPane>
+</VBox>
