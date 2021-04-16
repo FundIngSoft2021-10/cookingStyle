@@ -17,7 +17,8 @@ public interface IControladorBDRecetasCooker {
     public List<Reporte> consultaReportes (int idReceta) throws SQLException;
     public List<Receta> buscarRecetas () throws SQLException;
     public Receta buscarRecetas (int idreceta) throws SQLException;
-    public boolean crearListaFavoritosConReceta(DTOListaFavoritos listaFavoritos);
-    public boolean crearListaFavoritos(DTOListaFavoritos listaFavoritos);
+    public boolean crearListaFavoritosConReceta(DTOListaFavoritos listaFavoritos) throws SQLException;
+    public boolean crearListaFavoritos(DTOListaFavoritos listaFavoritos) throws SQLException;
+    public boolean insertarRecetaListaFavoritos(int idreceta, int idlista, int idusuario) throws SQLException;
 
 }

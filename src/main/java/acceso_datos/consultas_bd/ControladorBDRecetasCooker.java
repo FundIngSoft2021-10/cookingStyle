@@ -294,7 +294,7 @@ public class ControladorBDRecetasCooker implements IControladorBDRecetasCooker {
     //Lista Favoritos
 
     @Override
-    public boolean crearListaFavoritosConReceta(DTOListaFavoritos listaFavoritos){
+    public boolean crearListaFavoritosConReceta(DTOListaFavoritos listaFavoritos) throws SQLException{
 
         String insert = "INSERT INTO listafavoritos (idlista, cooker_idusuario, nombre, descripcion) VALUES (?, ?, ?, ?);";
         try {
@@ -306,8 +306,8 @@ public class ControladorBDRecetasCooker implements IControladorBDRecetasCooker {
 
             preparedStatement.executeUpdate();
 
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException sqle) {
+            throw sqle;
         }
 
         Receta receta = listaFavoritos.getListaFavoritos().getRecetasFavoritas().get(0);
@@ -321,15 +321,15 @@ public class ControladorBDRecetasCooker implements IControladorBDRecetasCooker {
             preparedStatement.setInt(3, receta.getIdReceta());
 
             preparedStatement.executeUpdate();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
 
-        return false;
+            return true;
+        } catch (SQLException sqle) {
+            throw sqle;
+        }
     }
 
     @Override
-    public boolean crearListaFavoritos(DTOListaFavoritos listaFavoritos){
+    public boolean crearListaFavoritos(DTOListaFavoritos listaFavoritos) throws SQLException{
 
         String insert = "INSERT INTO listafavoritos (idlista, cooker_idususario, nombre, descripcion) VALUES ('" + listaFavoritos.getListaFavoritos().getIdListaFavoritos() + "' , '"
                 + listaFavoritos.getCooker().getIdUsuario() + "' , '" + listaFavoritos.getListaFavoritos().getNombre() + "' , '" + listaFavoritos.getListaFavoritos().getDescripicion() + "' );" ;
@@ -337,10 +337,27 @@ public class ControladorBDRecetasCooker implements IControladorBDRecetasCooker {
             Statement st = conexion.createStatement();
             st.executeUpdate(insert);
             return true;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException sqle) {
+            throw sqle;
         }
+    }
 
-        return false;
+    @Override
+    public boolean insertarRecetaListaFavoritos(int idreceta, int idlista, int idusuario) throws SQLException{
+
+        String insertRecetas = "INSERT INTO recetaxlista (listafavoritos_idlista, cooker_idusuario, receta_idreceta) VALUES (?,?,?);";
+
+        try {
+            PreparedStatement preparedStatement = conexion.prepareStatement(insertRecetas);
+            preparedStatement.setInt(1, idlista);
+            preparedStatement.setInt(2, idusuario);
+            preparedStatement.setInt(3, idreceta);
+
+            preparedStatement.executeUpdate();
+
+            return true;
+        } catch (SQLException sqle) {
+            throw sqle;
+        }
     }
 }
