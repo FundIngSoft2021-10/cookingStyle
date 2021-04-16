@@ -1,18 +1,17 @@
 package acceso_datos.consultas_bd;
 
 import acceso_datos.conexion_bd.ControladorBDConexion;
-import entidades.dto.DTOListaFavoritos;
 import entidades.modelo.*;
 
+import java.math.BigInteger;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ControladorBDRecetasCooker implements IControladorBDRecetasCooker {
+public class ControladorBDRecetasCooker {
     ControladorBDConexion controladorBDConexion = new ControladorBDConexion();
     Connection conexion = controladorBDConexion.conectarMySQL();
 
-    @Override
     public Ingrediente consultaIngrediente (int idIngrediente) throws SQLException{
         String consultaIngrediente = "SELECT * FROM ingrediente WHERE ingrediente.idingrediente = "+idIngrediente+";";
         String nombreIngrediente = null;
@@ -24,24 +23,47 @@ public class ControladorBDRecetasCooker implements IControladorBDRecetasCooker {
         } catch (SQLException sqle) {
             throw sqle;
         }
-        Ingrediente ingrediente = new Ingrediente(idIngrediente, nombreIngrediente);
-        return ingrediente;
+        return new Ingrediente(idIngrediente, nombreIngrediente);
     }
 
-    @Override
-    public List<LineaIngrediente> consultaLineaIngrediente (int idReceta) throws SQLException{
+    public List<LineaIngrediente> consultaLineaIngrediente (BigInteger idReceta) throws SQLException{
         List<LineaIngrediente> lineaIngredientes = new ArrayList<>();
-        String consultaLineaIngredientes = "SELECT * FROM lineaingrediente WHERE lineaingrediente.receta_idReceta = "+idReceta+";";
+        String consultaLineaIngredientes = "SELECT * FROM lineaingrediente WHERE lineaingrediente.idReceta = "+idReceta+";";
 
         try (PreparedStatement stmt = conexion.prepareStatement(consultaLineaIngredientes)) {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                int idIngrediente = rs.getInt("ingrediente_idingrediente");
+                int idIngrediente = rs.getInt("idingrediente");
                 float cantidad = rs.getFloat("cantidad");
-                //Esto toca cambiarlo-----------------------------------------------------
                 String medida = rs.getString("medida");
                 Ingrediente ingrediente= consultaIngrediente(idIngrediente);
-                LineaIngrediente resultado = new LineaIngrediente(ingrediente, cantidad, Medida.KILOGRAMO);
+                LineaIngrediente resultado = null;
+                switch (medida) {
+                    case "MILIGRAMO":
+                        resultado = new LineaIngrediente(ingrediente, cantidad, Medida.MILIGRAMO);
+                        lineaIngredientes.add(resultado);
+                        break;
+                    case "GRAMO":
+                        resultado = new LineaIngrediente(ingrediente, cantidad, Medida.GRAMO);
+                        lineaIngredientes.add(resultado);
+                        break;
+                    case "KILOGRAMO":
+                        resultado = new LineaIngrediente(ingrediente, cantidad, Medida.KILOGRAMO);
+                        lineaIngredientes.add(resultado);
+                        break;
+                    case "MILILITRO":
+                        resultado = new LineaIngrediente(ingrediente, cantidad, Medida.MILILITRO);
+                        lineaIngredientes.add(resultado);
+                        break;
+                    case "LITRO":
+                        resultado = new LineaIngrediente(ingrediente, cantidad, Medida.LITRO);
+                        lineaIngredientes.add(resultado);
+                        break;
+                    case "UNIDAD":
+                        resultado = new LineaIngrediente(ingrediente, cantidad, Medida.UNIDAD);
+                        lineaIngredientes.add(resultado);
+                        break;
+                }
                 lineaIngredientes.add(resultado);
             }
 
@@ -51,10 +73,9 @@ public class ControladorBDRecetasCooker implements IControladorBDRecetasCooker {
         return lineaIngredientes;
     }
 
-    @Override
-    public List<PasoReceta> consultaPasosReceta (int idReceta) throws SQLException{
+    public List<PasoReceta> consultaPasosReceta (BigInteger idReceta) throws SQLException{
         List<PasoReceta> pasosReceta = new ArrayList<>();
-        String consultaPasos = "SELECT * FROM pasoreceta, receta WHERE pasoreceta.receta_idReceta ="+idReceta+" and receta.idreceta="+idReceta+";";
+        String consultaPasos = "SELECT * FROM pasoreceta, receta WHERE pasoreceta.idReceta ="+idReceta+" and receta.idreceta="+idReceta+";";
 
         try (PreparedStatement stmt = conexion.prepareStatement(consultaPasos)) {
             ResultSet rs = stmt.executeQuery();
@@ -77,15 +98,14 @@ public class ControladorBDRecetasCooker implements IControladorBDRecetasCooker {
         return pasosReceta;
     }
 
-    @Override
-    public List<Categoria> consultaCategorias (int idReceta) throws SQLException{
+    public List<Categoria> consultaCategorias (BigInteger idReceta) throws SQLException{
         List<Categoria> categorias = new ArrayList<>();
-        String consultaCategoriasxRecetas = "SELECT * FROM categoriaxreceta WHERE categoriaxreceta.receta_idReceta="+idReceta+";";
+        String consultaCategoriasxRecetas = "SELECT * FROM categoriaxreceta WHERE categoriaxreceta.idReceta="+idReceta+";";
 
         try (PreparedStatement stmt = conexion.prepareStatement(consultaCategoriasxRecetas)) {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                int idCategoria = rs.getInt("categoria_idcategoria");
+                int idCategoria = rs.getInt("idcategoria");
                 String consultaCategorias = "SELECT * FROM categoria WHERE categoria.idcategoria = "+idCategoria+";";
 
                 String nombre=null, descripcion=null;
@@ -108,10 +128,8 @@ public class ControladorBDRecetasCooker implements IControladorBDRecetasCooker {
         return categorias;
     }
 
-    @Override
-    public Cooker consultaCooker (int idCooker) throws SQLException{
-        Cooker cooker = null;
-        String nombreUsuario=null, correo=null, nombre=null, apellido=null;
+    public Cooker consultaCooker (BigInteger idCooker) throws SQLException{
+        String nombreUsuario=null, nombre=null;
         Date fecha=null;
         String consultaCookers = "SELECT * FROM usuario WHERE usuario.idusuario = "+idCooker+";";
 
@@ -119,30 +137,24 @@ public class ControladorBDRecetasCooker implements IControladorBDRecetasCooker {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 nombreUsuario = rs.getString("nombreusuario");
-                //Toca cambiar estooooooooooooo-----------------------
-                correo = "correo@gmail.com";
                 fecha = rs.getDate("fechacreacion");
                 nombre = rs.getString("nombre");
-                //Esto toca quitarlooooooo---------------------
-                apellido = "No";
             }
         } catch (SQLException sqle) {
             throw sqle;
         }
-        cooker = new Cooker(idCooker, nombreUsuario, correo, fecha, nombre, apellido);
-        return cooker;
+        return new Cooker(idCooker, nombreUsuario, fecha, nombre);
     }
 
-    @Override
-    public List<Calificacion> consultaCalificaciones (int idReceta) throws SQLException{
+    public List<Calificacion> consultaCalificaciones (BigInteger idReceta) throws SQLException{
         List<Calificacion> calificaciones = new ArrayList<>();
-        String consultaCalificacion = "SELECT * FROM calificacion WHERE calificacion.receta_idReceta="+idReceta+";";
+        String consultaCalificacion = "SELECT * FROM calificacion WHERE calificacion.idReceta="+idReceta+";";
 
         try (PreparedStatement stmt = conexion.prepareStatement(consultaCalificacion)) {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                int idCooker = rs.getInt("cooker_idusuario");
+                BigInteger idCooker = rs.getBigDecimal("cooker_idusuario").toBigInteger();
                 int valor = rs.getInt("valor");
                 Cooker cooker = consultaCooker(idCooker);
                 Calificacion resultado = new Calificacion(valor,cooker);
@@ -155,9 +167,7 @@ public class ControladorBDRecetasCooker implements IControladorBDRecetasCooker {
         return calificaciones;
     }
 
-    @Override
     public MotivoReporte consultaMotivoReporte (int idMotivo) throws SQLException{
-        MotivoReporte motivoReporte = null;
         String nombre=null, descripcion=null;
         String consultaMotivo = "SELECT * FROM motivo WHERE motivo.idmotivo = "+idMotivo+";";
 
@@ -170,21 +180,20 @@ public class ControladorBDRecetasCooker implements IControladorBDRecetasCooker {
         } catch (SQLException sqle) {
             throw sqle;
         }
-        motivoReporte = new MotivoReporte(idMotivo, nombre, descripcion);
-        return motivoReporte;
+        return new MotivoReporte(idMotivo, nombre, descripcion);
     }
 
-    @Override
-    public List<Reporte> consultaReportes (int idReceta) throws SQLException{
+    public List<Reporte> consultaReportes (BigInteger idReceta) throws SQLException{
         List<Reporte> reportes = new ArrayList<>();
-        String consultaReporte = "SELECT * FROM reporte WHERE reporte.receta_idReceta="+idReceta+";";
+        String consultaReporte = "SELECT * FROM reporte WHERE reporte.idReceta="+idReceta+";";
         try (PreparedStatement stmt = conexion.prepareStatement(consultaReporte)) {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                int idCooker = rs.getInt("cooker_idusuario");
-                int idMotivo = rs.getInt("motivo_idmotivo");
+                BigInteger idCooker = rs.getBigDecimal("cooker_idusuario").toBigInteger();
+                int idMotivo = rs.getInt("idmotivo");
                 Date fecha = rs.getDate("fecha");
+                //------
                 boolean resuelto = true;
 
                 Cooker cooker = consultaCooker(idCooker);
@@ -199,15 +208,13 @@ public class ControladorBDRecetasCooker implements IControladorBDRecetasCooker {
         return reportes;
     }
 
-    @Override
     public List<Receta> buscarRecetas () throws SQLException{
         List<Receta> recetas = new ArrayList<>();
-        //String consulta = "SELECT * FROM receta WHERE UPPER(nombre) LIKE '%"+nombre+"%';";
         String consulta = "SELECT * FROM receta;";
         try (PreparedStatement stmt = conexion.prepareStatement(consulta)) {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                int idReceta = rs.getInt("idReceta");
+                BigInteger idReceta =  rs.getBigDecimal("idReceta").toBigInteger();
                 String nombre = rs.getString("nombre");
                 String descripcion = rs.getString("descripcion");
                 String linkVideo = rs.getString("linkVideo");
@@ -243,121 +250,5 @@ public class ControladorBDRecetasCooker implements IControladorBDRecetasCooker {
             throw sqle;
         }
         return recetas;
-    }
-
-    @Override
-    public Receta buscarRecetas (int idreceta) throws SQLException{
-        Receta receta = new Receta();
-        //String consulta = "SELECT * FROM receta WHERE UPPER(nombre) LIKE '%"+nombre+"%';";
-        String consulta = "SELECT * FROM receta WHERE receta.idreceta = " + idreceta + ";";
-        try (PreparedStatement stmt = conexion.prepareStatement(consulta)) {
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                int idReceta = rs.getInt("idReceta");
-                String nombre = rs.getString("nombre");
-                String descripcion = rs.getString("descripcion");
-                String linkVideo = rs.getString("linkVideo");
-                boolean videoReceta;
-                if (linkVideo == null)
-                    videoReceta = false;
-                else
-                    videoReceta = true;
-
-                String linkImagen = rs.getString("linkVideo");
-                boolean imagenReceta;
-                if (linkVideo == null)
-                    imagenReceta = false;
-                else
-                    imagenReceta = true;
-
-                List<LineaIngrediente> lineaIngredientes = consultaLineaIngrediente(idReceta);
-
-                List<PasoReceta> pasosReceta = consultaPasosReceta(idReceta);
-
-                List<Categoria> categorias = consultaCategorias(idReceta);
-
-                List<Calificacion> calificaciones = consultaCalificaciones(idReceta);
-
-                List<Reporte> reportes = consultaReportes(idReceta);
-
-                receta = new Receta(idReceta, nombre, descripcion, videoReceta, linkVideo, TipoVideo.VIMEO,
-                        imagenReceta, linkImagen, lineaIngredientes, pasosReceta, categorias, calificaciones, reportes);
-
-            }
-
-        } catch (SQLException sqle) {
-            throw sqle;
-        }
-        return receta;
-    }
-
-    //Lista Favoritos
-
-    @Override
-    public boolean crearListaFavoritosConReceta(DTOListaFavoritos listaFavoritos) throws SQLException{
-
-        String insert = "INSERT INTO listafavoritos (idlista, cooker_idusuario, nombre, descripcion) VALUES (?, ?, ?, ?);";
-        try {
-            PreparedStatement preparedStatement = conexion.prepareStatement(insert);
-            preparedStatement.setInt(1, listaFavoritos.getListaFavoritos().getIdListaFavoritos() );
-            preparedStatement.setInt(2, listaFavoritos.getCooker().getIdUsuario());
-            preparedStatement.setString(3,listaFavoritos.getListaFavoritos().getNombre());
-            preparedStatement.setString(4, listaFavoritos.getListaFavoritos().getDescripicion());
-
-            preparedStatement.executeUpdate();
-
-        } catch (SQLException sqle) {
-            throw sqle;
-        }
-
-        Receta receta = listaFavoritos.getListaFavoritos().getRecetasFavoritas().get(0);
-
-        String insertRecetas = "INSERT INTO recetaxlista (listafavoritos_idlista, cooker_idusuario, receta_idreceta) VALUES (?,?,?);";
-
-        try {
-            PreparedStatement preparedStatement = conexion.prepareStatement(insertRecetas);
-            preparedStatement.setInt(1, listaFavoritos.getListaFavoritos().getIdListaFavoritos());
-            preparedStatement.setInt(2, listaFavoritos.getCooker().getIdUsuario());
-            preparedStatement.setInt(3, receta.getIdReceta());
-
-            preparedStatement.executeUpdate();
-
-            return true;
-        } catch (SQLException sqle) {
-            throw sqle;
-        }
-    }
-
-    @Override
-    public boolean crearListaFavoritos(DTOListaFavoritos listaFavoritos) throws SQLException{
-
-        String insert = "INSERT INTO listafavoritos (idlista, cooker_idususario, nombre, descripcion) VALUES ('" + listaFavoritos.getListaFavoritos().getIdListaFavoritos() + "' , '"
-                + listaFavoritos.getCooker().getIdUsuario() + "' , '" + listaFavoritos.getListaFavoritos().getNombre() + "' , '" + listaFavoritos.getListaFavoritos().getDescripicion() + "' );" ;
-        try {
-            Statement st = conexion.createStatement();
-            st.executeUpdate(insert);
-            return true;
-        } catch (SQLException sqle) {
-            throw sqle;
-        }
-    }
-
-    @Override
-    public boolean insertarRecetaListaFavoritos(int idreceta, int idlista, int idusuario) throws SQLException{
-
-        String insertRecetas = "INSERT INTO recetaxlista (listafavoritos_idlista, cooker_idusuario, receta_idreceta) VALUES (?,?,?);";
-
-        try {
-            PreparedStatement preparedStatement = conexion.prepareStatement(insertRecetas);
-            preparedStatement.setInt(1, idlista);
-            preparedStatement.setInt(2, idusuario);
-            preparedStatement.setInt(3, idreceta);
-
-            preparedStatement.executeUpdate();
-
-            return true;
-        } catch (SQLException sqle) {
-            throw sqle;
-        }
     }
 }
