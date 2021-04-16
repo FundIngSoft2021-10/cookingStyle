@@ -7,14 +7,12 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ControladorBDRecetas {
+public class ControladorBDRecetasCooker {
     ControladorBDConexion controladorBDConexion = new ControladorBDConexion();
     Connection conexion = controladorBDConexion.conectarMySQL();
 
-    public Ingrediente consultaIngrediente (int idIngrediente) {
+    public Ingrediente consultaIngrediente (int idIngrediente) throws SQLException{
         String consultaIngrediente = "SELECT * FROM ingrediente WHERE ingrediente.idingrediente = "+idIngrediente+";";
-        System.out.println(consultaIngrediente);
-
         String nombreIngrediente = null;
         try (PreparedStatement stmt = conexion.prepareStatement(consultaIngrediente)) {
             ResultSet rs = stmt.executeQuery();
@@ -22,17 +20,16 @@ public class ControladorBDRecetas {
                 nombreIngrediente = rs.getString("nombre");
             }
         } catch (SQLException sqle) {
-            System.out.println("Error en la ejecución consultaIngrediente:"
-                    + sqle.getErrorCode() + " " + sqle.getMessage());
+            throw sqle;
         }
         Ingrediente ingrediente = new Ingrediente(idIngrediente, nombreIngrediente);
         return ingrediente;
     }
 
-    public List<LineaIngrediente> consultaLineaIngrediente (int idReceta) {
+    public List<LineaIngrediente> consultaLineaIngrediente (int idReceta) throws SQLException{
         List<LineaIngrediente> lineaIngredientes = new ArrayList<>();
         String consultaLineaIngredientes = "SELECT * FROM lineaingrediente WHERE lineaingrediente.receta_idReceta = "+idReceta+";";
-        System.out.println(consultaLineaIngredientes);
+
         try (PreparedStatement stmt = conexion.prepareStatement(consultaLineaIngredientes)) {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -46,16 +43,15 @@ public class ControladorBDRecetas {
             }
 
         } catch (SQLException sqle) {
-            System.out.println("Error en la ejecución lineaingredientes:"
-                    + sqle.getErrorCode() + " " + sqle.getMessage());
+            throw sqle;
         }
         return lineaIngredientes;
     }
 
-    public List<PasoReceta> consultaPasosReceta (int idReceta) {
+    public List<PasoReceta> consultaPasosReceta (int idReceta) throws SQLException{
         List<PasoReceta> pasosReceta = new ArrayList<>();
         String consultaPasos = "SELECT * FROM pasoreceta, receta WHERE pasoreceta.receta_idReceta ="+idReceta+" and receta.idreceta="+idReceta+";";
-        System.out.println(consultaPasos);
+
         try (PreparedStatement stmt = conexion.prepareStatement(consultaPasos)) {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -72,22 +68,21 @@ public class ControladorBDRecetas {
             }
 
         } catch (SQLException sqle) {
-            System.out.println("Error en la ejecución paso receta:"
-                    + sqle.getErrorCode() + " " + sqle.getMessage());
+            throw sqle;
         }
         return pasosReceta;
     }
 
-    public List<Categoria> consultaCategorias (int idReceta) {
+    public List<Categoria> consultaCategorias (int idReceta) throws SQLException{
         List<Categoria> categorias = new ArrayList<>();
         String consultaCategoriasxRecetas = "SELECT * FROM categoriaxreceta WHERE categoriaxreceta.receta_idReceta="+idReceta+";";
-        System.out.println(consultaCategoriasxRecetas);
+
         try (PreparedStatement stmt = conexion.prepareStatement(consultaCategoriasxRecetas)) {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 int idCategoria = rs.getInt("categoria_idcategoria");
                 String consultaCategorias = "SELECT * FROM categoria WHERE categoria.idcategoria = "+idCategoria+";";
-                System.out.println(consultaCategorias);
+
                 String nombre=null, descripcion=null;
                 try (PreparedStatement stmt1 = conexion.prepareStatement(consultaCategorias)) {
                     ResultSet rs1 = stmt1.executeQuery();
@@ -96,26 +91,24 @@ public class ControladorBDRecetas {
                         descripcion = rs1.getString("descripcion");
                     }
                 } catch (SQLException sqle) {
-                    System.out.println("Error en la ejecución categorias:"
-                            + sqle.getErrorCode() + " " + sqle.getMessage());
+                    throw sqle;
                 }
                 Categoria resultado = new Categoria(idCategoria, nombre, descripcion);
                 categorias.add(resultado);
             }
 
         } catch (SQLException sqle) {
-            System.out.println("Error en la ejecución categoriaxreceta:"
-                    + sqle.getErrorCode() + " " + sqle.getMessage());
+            throw sqle;
         }
         return categorias;
     }
 
-    public Cooker consultaCooker (int idCooker) {
+    public Cooker consultaCooker (int idCooker) throws SQLException{
         Cooker cooker = null;
         String nombreUsuario=null, correo=null, nombre=null, apellido=null;
         Date fecha=null;
         String consultaCookers = "SELECT * FROM usuario WHERE usuario.idusuario = "+idCooker+";";
-        System.out.println(consultaCookers);
+
         try (PreparedStatement stmt = conexion.prepareStatement(consultaCookers)) {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -128,17 +121,16 @@ public class ControladorBDRecetas {
                 apellido = "No";
             }
         } catch (SQLException sqle) {
-            System.out.println("Error en la ejecución cooker:"
-                    + sqle.getErrorCode() + " " + sqle.getMessage());
+            throw sqle;
         }
         cooker = new Cooker(idCooker, nombreUsuario, correo, fecha, nombre, apellido);
         return cooker;
     }
 
-    public List<Calificacion> consultaCalificaciones (int idReceta) {
+    public List<Calificacion> consultaCalificaciones (int idReceta) throws SQLException{
         List<Calificacion> calificaciones = new ArrayList<>();
         String consultaCalificacion = "SELECT * FROM calificacion WHERE calificacion.receta_idReceta="+idReceta+";";
-        System.out.println(consultaCalificacion);
+
         try (PreparedStatement stmt = conexion.prepareStatement(consultaCalificacion)) {
             ResultSet rs = stmt.executeQuery();
 
@@ -151,18 +143,16 @@ public class ControladorBDRecetas {
             }
 
         } catch (SQLException sqle) {
-            System.out.println("Error en la ejecución calificacion:"
-                    + sqle.getErrorCode() + " " + sqle.getMessage());
+            throw sqle;
         }
         return calificaciones;
     }
 
-    public MotivoReporte consultaMotivoReporte (int idMotivo) {
+    public MotivoReporte consultaMotivoReporte (int idMotivo) throws SQLException{
         MotivoReporte motivoReporte = null;
         String nombre=null, descripcion=null;
-
         String consultaMotivo = "SELECT * FROM motivo WHERE motivo.idmotivo = "+idMotivo+";";
-        System.out.println(consultaMotivo);
+
         try (PreparedStatement stmt = conexion.prepareStatement(consultaMotivo)) {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -170,17 +160,15 @@ public class ControladorBDRecetas {
                 descripcion = rs.getString("descripcion");
             }
         } catch (SQLException sqle) {
-            System.out.println("Error en la ejecución cooker:"
-                    + sqle.getErrorCode() + " " + sqle.getMessage());
+            throw sqle;
         }
         motivoReporte = new MotivoReporte(idMotivo, nombre, descripcion);
         return motivoReporte;
     }
 
-    public List<Reporte> consultaReportes (int idReceta) {
+    public List<Reporte> consultaReportes (int idReceta) throws SQLException{
         List<Reporte> reportes = new ArrayList<>();
         String consultaReporte = "SELECT * FROM reporte WHERE reporte.receta_idReceta="+idReceta+";";
-        System.out.println(consultaReporte);
         try (PreparedStatement stmt = conexion.prepareStatement(consultaReporte)) {
             ResultSet rs = stmt.executeQuery();
 
@@ -197,17 +185,15 @@ public class ControladorBDRecetas {
             }
 
         } catch (SQLException sqle) {
-            System.out.println("Error en la ejecución reporte:"
-                    + sqle.getErrorCode() + " " + sqle.getMessage());
+            throw sqle;
         }
         return reportes;
     }
 
-    public List<Receta> buscarRecetas () {
+    public List<Receta> buscarRecetas () throws SQLException{
         List<Receta> recetas = new ArrayList<>();
         //String consulta = "SELECT * FROM receta WHERE UPPER(nombre) LIKE '%"+nombre+"%';";
         String consulta = "SELECT * FROM receta;";
-        System.out.println(consulta);
         try (PreparedStatement stmt = conexion.prepareStatement(consulta)) {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -244,8 +230,7 @@ public class ControladorBDRecetas {
             }
 
         } catch (SQLException sqle) {
-            System.out.println("Error en la ejecución receta:"
-                    + sqle.getErrorCode() + " " + sqle.getMessage());
+            throw sqle;
         }
         return recetas;
     }

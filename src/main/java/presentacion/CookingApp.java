@@ -1,6 +1,5 @@
 package presentacion;
 
-import acceso_datos.consultas_bd.ControladorBDRecetas;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
