@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import acceso_datos.consultas_bd.ControladorBDRecetasCooker;
+import acceso_datos.consultas_bd.IControladorBDRecetasCooker;
 import entidades.dto.DTOListaFavoritos;
 import entidades.dto.DTOReceta;
 import entidades.dto.DTORecetaMiniatura;
@@ -14,7 +15,7 @@ import entidades.modelo.Cooker;
 public class ControladorRecetasCooker implements IControladorRecetasCooker{
 
     private Cooker cooker;
-    ControladorBDRecetasCooker controladorBDRecetasCooker = new ControladorBDRecetasCooker();
+    IControladorBDRecetasCooker controladorBDRecetasCooker = new ControladorBDRecetasCooker();
 
     public ControladorRecetasCooker() {
 
@@ -106,7 +107,7 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker{
 
             System.out.println(listaEnviar.getCooker().getIdUsuario());
 
-            boolean exito = controladorBDRecetasCooker.crearListaFavoritosConReceta(listaEnviar);
+            boolean exito = controladorBDRecetasCooker.crearListaFavoritos(listaEnviar);
 
             System.out.println("Exito");
 
@@ -118,16 +119,7 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker{
 
     @Override
     public boolean agregarRecetaListaFavoritos(DTOReceta receta, int idLista) {
-        try{
-            //AQUÍ ESTARÍA LA LLAMADA A LA BASE DE DATOS
-            //DTOReceta =
-            ListaFavoritos listaFavoritos= new ListaFavoritos();
-            Receta recetaAgregar = receta.getReceta();
 
-            listaFavoritos.getRecetasFavoritas().add(recetaAgregar);
-        }catch (Exception e){
-            return false;
-        }
         return false;
     }
 }

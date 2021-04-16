@@ -8,10 +8,11 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ControladorBDRecetasCooker {
+public class ControladorBDRecetasCooker implements IControladorBDRecetasCooker {
     ControladorBDConexion controladorBDConexion = new ControladorBDConexion();
     Connection conexion = controladorBDConexion.conectarMySQL();
 
+    @Override
     public Ingrediente consultaIngrediente (int idIngrediente) throws SQLException{
         String consultaIngrediente = "SELECT * FROM ingrediente WHERE ingrediente.idingrediente = "+idIngrediente+";";
         String nombreIngrediente = null;
@@ -27,6 +28,7 @@ public class ControladorBDRecetasCooker {
         return ingrediente;
     }
 
+    @Override
     public List<LineaIngrediente> consultaLineaIngrediente (int idReceta) throws SQLException{
         List<LineaIngrediente> lineaIngredientes = new ArrayList<>();
         String consultaLineaIngredientes = "SELECT * FROM lineaingrediente WHERE lineaingrediente.receta_idReceta = "+idReceta+";";
@@ -49,6 +51,7 @@ public class ControladorBDRecetasCooker {
         return lineaIngredientes;
     }
 
+    @Override
     public List<PasoReceta> consultaPasosReceta (int idReceta) throws SQLException{
         List<PasoReceta> pasosReceta = new ArrayList<>();
         String consultaPasos = "SELECT * FROM pasoreceta, receta WHERE pasoreceta.receta_idReceta ="+idReceta+" and receta.idreceta="+idReceta+";";
@@ -74,6 +77,7 @@ public class ControladorBDRecetasCooker {
         return pasosReceta;
     }
 
+    @Override
     public List<Categoria> consultaCategorias (int idReceta) throws SQLException{
         List<Categoria> categorias = new ArrayList<>();
         String consultaCategoriasxRecetas = "SELECT * FROM categoriaxreceta WHERE categoriaxreceta.receta_idReceta="+idReceta+";";
@@ -104,6 +108,7 @@ public class ControladorBDRecetasCooker {
         return categorias;
     }
 
+    @Override
     public Cooker consultaCooker (int idCooker) throws SQLException{
         Cooker cooker = null;
         String nombreUsuario=null, correo=null, nombre=null, apellido=null;
@@ -128,6 +133,7 @@ public class ControladorBDRecetasCooker {
         return cooker;
     }
 
+    @Override
     public List<Calificacion> consultaCalificaciones (int idReceta) throws SQLException{
         List<Calificacion> calificaciones = new ArrayList<>();
         String consultaCalificacion = "SELECT * FROM calificacion WHERE calificacion.receta_idReceta="+idReceta+";";
@@ -149,6 +155,7 @@ public class ControladorBDRecetasCooker {
         return calificaciones;
     }
 
+    @Override
     public MotivoReporte consultaMotivoReporte (int idMotivo) throws SQLException{
         MotivoReporte motivoReporte = null;
         String nombre=null, descripcion=null;
@@ -167,6 +174,7 @@ public class ControladorBDRecetasCooker {
         return motivoReporte;
     }
 
+    @Override
     public List<Reporte> consultaReportes (int idReceta) throws SQLException{
         List<Reporte> reportes = new ArrayList<>();
         String consultaReporte = "SELECT * FROM reporte WHERE reporte.receta_idReceta="+idReceta+";";
@@ -191,6 +199,7 @@ public class ControladorBDRecetasCooker {
         return reportes;
     }
 
+    @Override
     public List<Receta> buscarRecetas () throws SQLException{
         List<Receta> recetas = new ArrayList<>();
         //String consulta = "SELECT * FROM receta WHERE UPPER(nombre) LIKE '%"+nombre+"%';";
@@ -236,6 +245,7 @@ public class ControladorBDRecetasCooker {
         return recetas;
     }
 
+    @Override
     public Receta buscarRecetas (int idreceta) throws SQLException{
         Receta receta = new Receta();
         //String consulta = "SELECT * FROM receta WHERE UPPER(nombre) LIKE '%"+nombre+"%';";
@@ -283,6 +293,7 @@ public class ControladorBDRecetasCooker {
 
     //Lista Favoritos
 
+    @Override
     public boolean crearListaFavoritosConReceta(DTOListaFavoritos listaFavoritos){
 
         String insert = "INSERT INTO listafavoritos (idlista, cooker_idusuario, nombre, descripcion) VALUES (?, ?, ?, ?);";
@@ -317,6 +328,7 @@ public class ControladorBDRecetasCooker {
         return false;
     }
 
+    @Override
     public boolean crearListaFavoritos(DTOListaFavoritos listaFavoritos){
 
         String insert = "INSERT INTO listafavoritos (idlista, cooker_idususario, nombre, descripcion) VALUES ('" + listaFavoritos.getListaFavoritos().getIdListaFavoritos() + "' , '"
