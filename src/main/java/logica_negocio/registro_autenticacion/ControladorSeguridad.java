@@ -34,9 +34,7 @@ public class ControladorSeguridad implements IControladorSeguridad {
     }
 
     /**
-     * Convierte un número representado en bytes a hex
-     * @param arreglo el arreglo de bytes a pasar a hex
-     * @return el String en hex
+     * @inheritDoc
      */
     @Override
     public String toHex(byte[] arreglo) {

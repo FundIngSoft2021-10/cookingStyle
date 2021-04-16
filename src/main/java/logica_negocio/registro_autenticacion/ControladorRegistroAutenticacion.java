@@ -1,12 +1,9 @@
 package logica_negocio.registro_autenticacion;
 
-import entidades.dto.DTOAutenticacion;
-import entidades.dto.DTORegistro;
-
-import entidades.modelo.CredencialesUsuario;
+import entidades.dto.*;
+import entidades.modelo.*;
 
 import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
 
 public class ControladorRegistroAutenticacion {
     public IControladorSeguridad controlSeguridad;
@@ -29,32 +26,32 @@ public class ControladorRegistroAutenticacion {
         return autenticacion;
     }
 
-    public DTORegistro registrarUsuario(String correo, String password, String tipoUsuario, String nombreUsuario, String nombre, String apellido) {
-        // Tener en cuenta que se pueden tener distintos tipos de usuario
-        DTORegistro DTORegistro = null;
+    public DTORegistro registrarUsuario(TipoUsuario tipo, String correo, String password, String nombreUsuario, String nombre) {
         // consultar BD para saber si el correo ya existe, si es asi
         // return mensaje fallo, NO SE CREA USUARIO
         // si el correo no existe, se sigue con las funcionalidades
-        byte [] saltBit = new byte[0];
+
+        // Generar salt y encriptar contraseña en hash
+        byte[] saltByte;
         try {
-            saltBit = controlSeguridad.generarSalt();
+            saltByte = this.controlSeguridad.generarSalt();
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+            return new DTORegistro(false, "Error en la generacion de salt; " + e.getMessage(), null);
+        }
+        String salt = this.controlSeguridad.toHex(saltByte);
+        String hash;
+        try {
+            hash = this.controlSeguridad.generarHash(password, saltByte);
+        } catch (Exception e) {
+            return new DTORegistro(false, "Error en la generacion de hash; " + e.getMessage(), null);
         }
 
-        String salt = controlSeguridad.toHex(saltBit);
-        String hash = "hola";
-        try {
-            hash = controlSeguridad.generarHash(password,saltBit);
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (InvalidKeySpecException e) {
-            e.printStackTrace();
-        }
-        CredencialesUsuario credencialesUsuario = new CredencialesUsuario(correo,salt,hash);
-        // Utilizar this.controlSeguridad y FactoryUsuario
-        // }
-        return DTORegistro;
+        CredencialesUsuario credencialesUsuario = new CredencialesUsuario(correo, salt, hash);
+        FactoryUsuario factory = new FactoryUsuario(tipo);
+        Usuario usuario = factory.crearUsuario(nombreUsuario, nombre);
+
+        // Persistir el usuario en la base de datos
+
+        return new DTORegistro(true, "Usuario creado exitosamente", usuario);
     }
-
 }
