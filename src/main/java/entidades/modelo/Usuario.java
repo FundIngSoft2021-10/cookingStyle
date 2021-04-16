@@ -1,34 +1,31 @@
 package entidades.modelo;
 
+import java.math.BigInteger;
 import java.util.Date;
 
 public class Usuario {
-    private int idUsuario;
+    private BigInteger idUsuario;
     private String nombreUsuario;
-    private String correo;
     private Date fechaCreacion;
     private String nombre;
-    private String apellido;
     private CredencialesUsuario credenciales;
 
-    public Usuario(int idUsuario, String nombreUsuario, String correo, Date fechaCreacion,
-                   String nombre, String apellido) {
+    public Usuario(BigInteger idUsuario, String nombreUsuario, Date fechaCreacion,
+                   String nombre) {
         this.idUsuario = idUsuario;
         this.nombreUsuario = nombreUsuario;
-        this.correo = correo;
         this.fechaCreacion = fechaCreacion;
         this.nombre = nombre;
-        this.apellido = apellido;
     }
 
     public Usuario() {
     }
 
-    public int getIdUsuario() {
+    public BigInteger getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(int idUsuario) {
+    public void setIdUsuario(BigInteger idUsuario) {
         this.idUsuario = idUsuario;
     }
 
@@ -38,14 +35,6 @@ public class Usuario {
 
     public void setNombreUsuario(String nombreUsuario) {
         this.nombreUsuario = nombreUsuario;
-    }
-
-    public String getCorreo() {
-        return correo;
-    }
-
-    public void setCorreo(String correo) {
-        this.correo = correo;
     }
 
     public Date getFechaCreacion() {
@@ -62,14 +51,6 @@ public class Usuario {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public String getApellido() {
-        return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
     }
 
     public CredencialesUsuario getCredenciales() {
