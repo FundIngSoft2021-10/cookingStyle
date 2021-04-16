@@ -1,6 +1,7 @@
 package acceso_datos.consultas_bd;
 
 import acceso_datos.conexion_bd.ControladorBDConexion;
+import entidades.dto.DTOListaFavoritos;
 import entidades.modelo.*;
 
 import java.math.BigInteger;
@@ -250,5 +251,121 @@ public class ControladorBDRecetasCooker {
             throw sqle;
         }
         return recetas;
+    }
+
+    @Override
+    public Receta buscarRecetas (int idreceta) throws SQLException{
+        Receta receta = new Receta();
+        //String consulta = "SELECT * FROM receta WHERE UPPER(nombre) LIKE '%"+nombre+"%';";
+        String consulta = "SELECT * FROM receta WHERE receta.idreceta = " + idreceta + ";";
+        try (PreparedStatement stmt = conexion.prepareStatement(consulta)) {
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                int idReceta = rs.getInt("idReceta");
+                String nombre = rs.getString("nombre");
+                String descripcion = rs.getString("descripcion");
+                String linkVideo = rs.getString("linkVideo");
+                boolean videoReceta;
+                if (linkVideo == null)
+                    videoReceta = false;
+                else
+                    videoReceta = true;
+
+                String linkImagen = rs.getString("linkVideo");
+                boolean imagenReceta;
+                if (linkVideo == null)
+                    imagenReceta = false;
+                else
+                    imagenReceta = true;
+
+                List<LineaIngrediente> lineaIngredientes = consultaLineaIngrediente(idReceta);
+
+                List<PasoReceta> pasosReceta = consultaPasosReceta(idReceta);
+
+                List<Categoria> categorias = consultaCategorias(idReceta);
+
+                List<Calificacion> calificaciones = consultaCalificaciones(idReceta);
+
+                List<Reporte> reportes = consultaReportes(idReceta);
+
+                receta = new Receta(idReceta, nombre, descripcion, videoReceta, linkVideo, TipoVideo.VIMEO,
+                        imagenReceta, linkImagen, lineaIngredientes, pasosReceta, categorias, calificaciones, reportes);
+
+            }
+
+        } catch (SQLException sqle) {
+            throw sqle;
+        }
+        return receta;
+    }
+
+    //Lista Favoritos
+
+    @Override
+    public boolean crearListaFavoritosConReceta(DTOListaFavoritos listaFavoritos) throws SQLException{
+
+        String insert = "INSERT INTO listafavoritos (idlista, cooker_idusuario, nombre, descripcion) VALUES (?, ?, ?, ?);";
+        try {
+            PreparedStatement preparedStatement = conexion.prepareStatement(insert);
+            preparedStatement.setInt(1, listaFavoritos.getListaFavoritos().getIdListaFavoritos() );
+            preparedStatement.setInt(2, listaFavoritos.getCooker().getIdUsuario());
+            preparedStatement.setString(3,listaFavoritos.getListaFavoritos().getNombre());
+            preparedStatement.setString(4, listaFavoritos.getListaFavoritos().getDescripicion());
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException sqle) {
+            throw sqle;
+        }
+
+        Receta receta = listaFavoritos.getListaFavoritos().getRecetasFavoritas().get(0);
+
+        String insertRecetas = "INSERT INTO recetaxlista (listafavoritos_idlista, cooker_idusuario, receta_idreceta) VALUES (?,?,?);";
+
+        try {
+            PreparedStatement preparedStatement = conexion.prepareStatement(insertRecetas);
+            preparedStatement.setInt(1, listaFavoritos.getListaFavoritos().getIdListaFavoritos());
+            preparedStatement.setInt(2, listaFavoritos.getCooker().getIdUsuario());
+            preparedStatement.setInt(3, receta.getIdReceta());
+
+            preparedStatement.executeUpdate();
+
+            return true;
+        } catch (SQLException sqle) {
+            throw sqle;
+        }
+    }
+
+    @Override
+    public boolean crearListaFavoritos(DTOListaFavoritos listaFavoritos) throws SQLException{
+
+        String insert = "INSERT INTO listafavoritos (idlista, cooker_idususario, nombre, descripcion) VALUES ('" + listaFavoritos.getListaFavoritos().getIdListaFavoritos() + "' , '"
+                + listaFavoritos.getCooker().getIdUsuario() + "' , '" + listaFavoritos.getListaFavoritos().getNombre() + "' , '" + listaFavoritos.getListaFavoritos().getDescripicion() + "' );" ;
+        try {
+            Statement st = conexion.createStatement();
+            st.executeUpdate(insert);
+            return true;
+        } catch (SQLException sqle) {
+            throw sqle;
+        }
+    }
+
+    @Override
+    public boolean insertarRecetaListaFavoritos(int idreceta, int idlista, int idusuario) throws SQLException{
+
+        String insertRecetas = "INSERT INTO recetaxlista (listafavoritos_idlista, cooker_idusuario, receta_idreceta) VALUES (?,?,?);";
+
+        try {
+            PreparedStatement preparedStatement = conexion.prepareStatement(insertRecetas);
+            preparedStatement.setInt(1, idlista);
+            preparedStatement.setInt(2, idusuario);
+            preparedStatement.setInt(3, idreceta);
+
+            preparedStatement.executeUpdate();
+
+            return true;
+        } catch (SQLException sqle) {
+            throw sqle;
+        }
     }
 }
