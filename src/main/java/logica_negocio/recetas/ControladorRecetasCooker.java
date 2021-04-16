@@ -1,5 +1,6 @@
 package logica_negocio.recetas;
 
+import java.math.BigInteger;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +45,7 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker{
      * @return true si se creo con éxito, false si no se creó
      */
     @Override
-    public boolean crearListaFavoritos(String nombreLista, String descripcion, int id_receta) throws SQLException {
+    public boolean crearListaFavoritos(String nombreLista, String descripcion, BigInteger id_receta) throws SQLException {
 
         try {
 
