@@ -12,10 +12,10 @@ import java.util.Objects;
 public class CookingApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("CoGUI001IniciarSesion.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("ChGUI002Registrarse.fxml"));
         primaryStage.setTitle("Cooking App");
         primaryStage.setScene(new Scene(root));
-        primaryStage.setMaximized(true);
+        primaryStage.setMaximized(false);
         primaryStage.show();
     }
 
