@@ -14,7 +14,7 @@ public class CookingApp extends Application {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("CoGUI001IniciarSesion.fxml")));
         primaryStage.setTitle("Cooking App");
         primaryStage.setScene(new Scene(root, 1600, 900));
-        primaryStage.setMaximized(true);
+        primaryStage.setMaximized(false);
         primaryStage.show();
     }
 
