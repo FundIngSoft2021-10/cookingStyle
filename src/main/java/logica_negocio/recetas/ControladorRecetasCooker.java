@@ -155,4 +155,51 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker{
             throw sqle;
         }
     }
+
+    // Buscar Recetas Nombre
+    @Override
+    public List<DTOReceta> buscarRecetasNombre (String nombre) throws SQLException {
+        List<DTOReceta> recetasEncontradas;
+        try{
+            recetasEncontradas = this.controladorCBDRecetasCooker.buscarRecetas(nombre);
+            return recetasEncontradas;
+        } catch (SQLException sqle){
+            throw sqle;
+        }
+    }
+
+    // Buscar Recetas Categoria
+    @Override
+    public List<DTOReceta> buscarRecetasCategoria (String categoria) throws SQLException {
+        List<DTOReceta> recetasEncontradas = new ArrayList<>();
+        List<DTOReceta> recetasEncontradasCategoria;
+        List<Integer> idscategorias;
+        idscategorias = this.controladorCBDRecetasCooker.consultaCategoria(categoria);
+        try {
+            for (Integer actual : idscategorias){
+                recetasEncontradasCategoria = this.controladorCBDRecetasCooker.buscarRecetas(actual);
+                recetasEncontradas.addAll(recetasEncontradasCategoria);
+            }
+            return recetasEncontradas;
+        } catch (SQLException sqle){
+            throw sqle;
+        }
+    }
+
+    // Buscar Recetas Ingrediente
+    public List<DTOReceta> buscarRecetasIngrediente (String nom_ingrediente) throws SQLException{
+        List<DTOReceta> recetasEncontradas = new ArrayList<>();
+        List<DTOReceta> recetasEncontradasIngrediente;
+        List<Integer> idsingredientes;
+        idsingredientes = this.controladorCBDRecetasCooker.consultaIngrediente(nom_ingrediente);
+        try {
+            for (Integer actual : idsingredientes){
+                recetasEncontradasIngrediente = this.controladorCBDRecetasCooker.buscarRecetas(actual);
+                recetasEncontradas.addAll(recetasEncontradasIngrediente);
+            }
+            return recetasEncontradas;
+        } catch (SQLException sqle){
+            throw sqle;
+        }
+    }
 }
