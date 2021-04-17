@@ -4,6 +4,7 @@ import acceso_datos.conexion_bd.ControladorBDConexion;
 import entidades.dto.DTOListaFavoritos;
 import entidades.modelo.*;
 
+import java.math.BigInteger;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,25 +19,23 @@ public class ControladorBDRecetasChef implements IControladorBDRecetasChef {
 
 
     @Override
-    public boolean subirReceta( String nombre, String descripcion, String linkVideo, String linkImagen, int idUsuario) throws SQLException {
+    public boolean subirReceta( Receta rec,  BigInteger idUsuario) throws SQLException {
         //boolean resp=false;
         String insertReceta = "INSERT INTO receta VALUES (?, ?, ? , ?, ?, ?)";
 
         try (PreparedStatement stmt = conexion.prepareStatement(insertReceta)){
-            //generar numero aleatorio
-            Long l1 = Long.parseUnsignedLong("10000000000000000000");
-            Long l2 = Long.parseUnsignedLong("1000000000000000000");
-            int  numeroAleatorio = (int) (Math.random()* l1+l2);
 
-            //cambiar a bigint el id usuario
+
+            //cambiar a bigint el id usuario: ya
             //instanciar
             //setbigdecimal
-            stmt.setInt(1, numeroAleatorio);
-            stmt.setInt(2, idUsuario);
-            stmt.setString(3, nombre);
-            stmt.setString(4, descripcion);
-            stmt.setString(5, linkVideo);
-            stmt.setString(6, linkImagen);
+            stmt.setObject(1, randBi(19));//genera el numero aleatorio con 19 cifras
+            stmt.setObject(2, idUsuario);
+
+            stmt.setString(3, rec.getNombre());
+            stmt.setString(4, rec.getDescripcion());
+            stmt.setString(5, rec.getLinkVideo());
+            stmt.setString(6, rec.getLinkImagen());
 
             stmt.executeUpdate();
             return true;
@@ -45,6 +44,16 @@ public class ControladorBDRecetasChef implements IControladorBDRecetasChef {
         }
 
         //return false;
+    }
+    /*metodo para hallar numero aleatorio*/
+    public static BigInteger randBi(int digitosDecimales) {
+        Random rand = new Random();
+        StringBuilder s = new StringBuilder();
+        for( int i = 0; i < digitosDecimales; i++ ) {
+            int ir = i == 0 ? rand.nextInt(9) + 1 : rand.nextInt(10);
+            s.append((char) ('0' + ir));
+        }
+        return new BigInteger(s.toString());
     }
 
     @Override
@@ -91,7 +100,7 @@ public class ControladorBDRecetasChef implements IControladorBDRecetasChef {
                 throw sqle;
             }
         }
-        //si es 1 es que se modifico correctamente la fila que debia, de resto no deberia haber tantas filas modificas
+        //si es 1 es que se modifico correctamente la fila que debia, de resto no deberia haber tantas filas modificadas
         if(valorRet==1){
             return true;
         }
@@ -100,6 +109,21 @@ public class ControladorBDRecetasChef implements IControladorBDRecetasChef {
         }
 
     }
+
+    @Override
+    public int eliminarReceta (BigInteger idUsuario) throws SQLException {
+        int valoresBorra=0;
+        String deleteReceta = "DELETE FROM receta WHERE receta.chef_idusuario = "+idUsuario;
+
+        try(PreparedStatement stmt = conexion.prepareStatement(deleteReceta)){
+            valoresBorra=stmt.executeUpdate();
+        }catch (SQLException sqle){
+            throw sqle;
+        }
+
+        return valoresBorra;//va a devolver la cantidad de recetas eliminadas
+    }
+
 
 
 }
