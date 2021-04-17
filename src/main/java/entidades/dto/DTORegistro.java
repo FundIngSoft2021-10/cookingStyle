@@ -1,6 +1,7 @@
 package entidades.dto;
 
 import entidades.modelo.Usuario;
+
 public class DTORegistro {
     private boolean estado;
     private String mensaje;

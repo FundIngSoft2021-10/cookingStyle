@@ -1,17 +1,16 @@
-package acceso_datos.consultas_bd;
+package acceso_datos.persistencia_bd;
 
 import acceso_datos.conexion_bd.ControladorBDConexion;
 
-import java.sql.*;
+import java.sql.Connection;
 
-public class ControladorCBDRegAut implements IControladorCBDRegAut {
+public class ControladorPBDRegAut implements IControladorPBDRegAut {
     ControladorBDConexion controladorBDConexion;
     Connection conexion;
 
-    public ControladorCBDRegAut() {
+    public ControladorPBDRegAut() {
         controladorBDConexion = new ControladorBDConexion();
         conexion = controladorBDConexion.conectarMySQL();
     }
-
 
 }
