@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" style="-fx-background-color: #fcba03;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <BorderPane prefHeight="900.0" prefWidth="1600.0">
+         <top>
+            <Text fx:id="chFrasePR" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="¡Estás a un paso de ser parte de esta gran comunidad!" textAlignment="CENTER" wrappingWidth="1573.84814453125" BorderPane.alignment="CENTER">
+               <font>
+                  <Font name="Comic Sans MS" size="39.0" />
+               </font>
+               <BorderPane.margin>
+                  <Insets top="40.0" />
+               </BorderPane.margin>
+            </Text>
+         </top>
+         <left>
+            <ImageView fx:id="chLogoPR" fitHeight="340.0" fitWidth="314.0" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets left="200.0" top="-150.0" />
+               </BorderPane.margin>
+               <image>
+                  <Image url="@../img/MiniCookingBlanco.png" />
+               </image>
+            </ImageView>
+         </left>
+         <center>
+            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="803.0" prefWidth="1062.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="chBotonSiguienteProcesoRegistro" layoutX="780.0" layoutY="580.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="212.0" style="-fx-background-radius: 100; -fx-background-color: white;" text="Siguiente">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <AnchorPane fx:id="chAvisoPR" layoutX="113.0" layoutY="137.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="395.0" prefWidth="842.0" style="-fx-background-color: white; -fx-background-radius: 20;">
+                     <children>
+                        <Text layoutX="20.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cooking Aviso">
+                           <font>
+                              <Font name="Comic Sans MS" size="13.0" />
+                           </font>
+                        </Text>
+                        <Line endX="741.0" layoutX="101.0" layoutY="30.0" startX="-100.0" />
+                        <Line endX="736.0" layoutX="106.0" layoutY="360.0" startX="-106.0" />
+                        <Text fx:id="chTextoAviso" layoutX="146.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tu solicitud será revisada y confirmada por el administrador" textAlignment="CENTER" wrappingWidth="550.021484375">
+                           <font>
+                              <Font name="Comic Sans MS" size="41.0" />
+                           </font>
+                        </Text>
+                     </children>
+                     <padding>
+                        <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+                     </padding>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
+         </center>
+      </BorderPane>
+   </children>
+</VBox>

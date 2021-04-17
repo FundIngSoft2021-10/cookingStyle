@@ -26,7 +26,7 @@
          </Text>
       </top>
       <left>
-         <ImageView fx:id="coLogoCooking" fitHeight="340.0" fitWidth="314.0" BorderPane.alignment="BOTTOM_RIGHT">
+         <ImageView fx:id="coInicioLogoCooking" fitHeight="340.0" fitWidth="314.0" BorderPane.alignment="BOTTOM_RIGHT">
             <Image url="@../img/MiniCookingBlanco.png" />
             <BorderPane.margin>
                <Insets left="200.0" />
@@ -34,7 +34,7 @@
          </ImageView>
       </left>
       <bottom>
-         <Text fx:id="coTexto" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Cooker" BorderPane.alignment="TOP_LEFT">
+         <Text fx:id="coTextoInicio" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Cooker" BorderPane.alignment="TOP_LEFT">
             <font>
                <Font name="Comic Sans MS" size="60.0" />
             </font>
@@ -57,13 +57,13 @@
                   </font>
                </Text>
                <TextField fx:id="coCorreoInciarSesion" layoutX="329.0" layoutY="307.0" prefHeight="29.0" prefWidth="474.0" style="-fx-background-radius: 100;" />
-               <PasswordField fx:id="coContraseñaIniciarSesion" layoutX="329.0" layoutY="374.0" prefHeight="29.0" prefWidth="474.0" style="-fx-background-radius: 100;" />
+               <PasswordField fx:id="coContraseniaIniciarSesion" layoutX="329.0" layoutY="374.0" prefHeight="29.0" prefWidth="474.0" style="-fx-background-radius: 100;" />
                <Button fx:id="coBotonIniciarSesion" layoutX="582.0" layoutY="429.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="212.0" style="-fx-background-radius: 100; -fx-background-color: white;" text="Iniciar Sesión">
                   <font>
                      <Font size="18.0" />
                   </font>
                </Button>
-               <ProgressBar fx:id="coProgresoContraseña" layoutX="817.0" layoutY="374.0" prefHeight="29.0" prefWidth="84.0" progress="1.0" style="-fx-accent: red; -fx-background-radius: 100; -fx-border-radius: 100;" />
+               <ProgressBar fx:id="coProgresoContrasenia" layoutX="817.0" layoutY="374.0" prefHeight="29.0" prefWidth="84.0" progress="1.0" style="-fx-accent: red; -fx-background-radius: 100; -fx-border-radius: 100;" />
             </children>
          </AnchorPane>
       </right>

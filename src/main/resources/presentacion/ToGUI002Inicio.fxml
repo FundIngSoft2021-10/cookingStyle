@@ -16,7 +16,7 @@
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" style="-fx-background-color: #fcba03;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <BorderPane prefHeight="900.0" prefWidth="1600.0">
       <top>
-         <ImageView fx:id="logoCooking" fitHeight="167.0" fitWidth="280.0" BorderPane.alignment="CENTER">
+         <ImageView fx:id="toIniciologoCooking" fitHeight="167.0" fitWidth="280.0" BorderPane.alignment="CENTER">
             <Image url="@../img/CookingBlanco.png" />
             <BorderPane.margin>
                <Insets top="10.0" />
@@ -26,7 +26,7 @@
       <center>
          <VBox BorderPane.alignment="CENTER">
             <children>
-                <GridPane prefHeight="613.0" prefWidth="1429.0">
+                <GridPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="613.0" prefWidth="1600.0">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -39,7 +39,7 @@
                         <RowConstraints maxHeight="204.46999104817712" minHeight="10.0" prefHeight="194.18706258138025" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="122.0048217773437" minHeight="10.0" prefHeight="98.86816406249994" vgrow="SOMETIMES" />
                     </rowConstraints>
-                    <ImageView fx:id="coBotonRegistrarse" fitHeight="86.0" fitWidth="290.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                    <ImageView fx:id="toBotonRegistrarseCo" fitHeight="130.0" fitWidth="370.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                         <viewport>
                             <Rectangle2D minX="1.0" width="1.0" />
                         </viewport>
@@ -48,7 +48,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                     </ImageView>
-                    <ImageView fx:id="chBotonRegistrarse" fitHeight="86.0" fitWidth="290.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                    <ImageView fx:id="toBotonRegistrarseCh" fitHeight="130.0" fitWidth="370.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                         <viewport>
                             <Rectangle2D width="1.0" />
                         </viewport>
@@ -57,7 +57,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                     </ImageView>
-                    <ImageView fx:id="chBotonIniciarSesion" fitHeight="86.0" fitWidth="290.0" nodeOrientation="INHERIT" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                    <ImageView fx:id="toBotonIniciarSesionCh" fitHeight="130.0" fitWidth="370.0" nodeOrientation="INHERIT" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                         <viewport>
                             <Rectangle2D minX="1.0" width="1.0" />
                         </viewport>
@@ -66,7 +66,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                     </ImageView>
-                    <ImageView fx:id="coBotonIniciarSesion" fitHeight="86.0" fitWidth="290.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                    <ImageView fx:id="toBotonIniciarSesionCo" fitHeight="130.0" fitWidth="370.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                         <viewport>
                             <Rectangle2D minX="1.0" width="1.0" />
                         </viewport>
@@ -92,7 +92,7 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
-              <Text fill="WHITE" nodeOrientation="LEFT_TO_RIGHT" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Iniciar como Administrador" textAlignment="CENTER" underline="true" wrappingWidth="535.2788696289062" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+              <Text fx:id="toLinkInicarAd" fill="WHITE" nodeOrientation="LEFT_TO_RIGHT" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Iniciar como Administrador" textAlignment="CENTER" underline="true" wrappingWidth="535.2788696289062" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                  <font>
                      <Font name="Comic Sans MS Italic" size="18.0" />
                  </font>
