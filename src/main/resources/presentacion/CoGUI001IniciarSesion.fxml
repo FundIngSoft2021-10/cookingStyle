@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0"
+      prefWidth="1600.0" style="-fx-background-color: #fcba03;" xmlns="http://javafx.com/javafx/16"
+      xmlns:fx="http://javafx.com/fxml/1">
+   <BorderPane prefHeight="900.0" prefWidth="1600.0">
+      <left>
+         <ImageView fitHeight="228.0" fitWidth="213.0" BorderPane.alignment="TOP_LEFT">
+            <BorderPane.margin>
+               <Insets left="170.0" top="135.0"/>
+            </BorderPane.margin>
+            <Image url="@../img/MiniCookingBlanco.png"/>
+         </ImageView>
+      </left>
+      <top>
+         <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0"
+               text="¡Empezemos juntos esta nueva experiencia al cocinar!" textAlignment="CENTER"
+               wrappingWidth="1171.53564453125" BorderPane.alignment="BOTTOM_CENTER">
+            <font>
+               <Font name="Comic Sans MS" size="39.0"/>
+            </font>
+            <BorderPane.margin>
+               <Insets top="50.0"/>
+            </BorderPane.margin>
+         </Text>
+      </top>
+      <center>
+         <Pane prefHeight="693.0" prefWidth="886.0" BorderPane.alignment="CENTER">
+            <Text fill="WHITE" layoutX="190.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                  text="Usuario/Correo">
+               <font>
+                  <Font name="Comic Sans MS" size="21.0"/>
+               </font>
+            </Text>
+            <Text fill="WHITE" layoutX="190.0" layoutY="260.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                  text="Contraseña">
+               <font>
+                  <Font name="Comic Sans MS" size="21.0"/>
+               </font>
+            </Text>
+            <PasswordField fx:id="coUsuario" layoutX="373.0" layoutY="180.0" prefHeight="25.0" prefWidth="233.0"/>
+            <PasswordField fx:id="coContraseña" layoutX="370.0" layoutY="250.0" prefHeight="25.0" prefWidth="233.0"/>
+            <ProgressBar fx:id="coBarraProgreso" layoutX="630.0" layoutY="250.0" prefHeight="26.0" prefWidth="93.0"
+                         progress="0.48" style="-fx-background-radius: 500;"/>
+            <Button fx:id="coBotonIniciarSesion" layoutX="427.0" layoutY="322.0" mnemonicParsing="false"
+                    prefHeight="17.0" prefWidth="166.0"
+                    style="-fx-background-color: white; -fx-background-radius: 100;" text="Iniciar Sesión"
+                    textFill="#4c4c4c">
+               <font>
+                  <Font size="15.0"/>
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND"/>
+               </cursor>
+            </Button>
+         </Pane>
+      </center>
+   </BorderPane>
+</VBox>

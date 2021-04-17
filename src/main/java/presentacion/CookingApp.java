@@ -11,8 +11,8 @@ import java.util.Objects;
 public class CookingApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("ToGUI001Principal.fxml")));
-        primaryStage.setTitle("Hello World");
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("CoGUI001IniciarSesion.fxml")));
+        primaryStage.setTitle("Cooking App");
         primaryStage.setScene(new Scene(root, 1600, 900));
         primaryStage.setMaximized(true);
         primaryStage.show();
