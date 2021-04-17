@@ -33,6 +33,13 @@ public class ControladorSeguridad implements IControladorSeguridad {
         return salt;
     }
 
+    @Override
+    public boolean validarPassword(String password, String salt, String hash) throws InvalidKeySpecException, NoSuchAlgorithmException {
+        String hashValidar = this.generarHash(password, this.fromHex(salt));
+
+        return hash.equals(hashValidar);
+    }
+
     /**
      * @inheritDoc
      */
@@ -46,5 +53,17 @@ public class ControladorSeguridad implements IControladorSeguridad {
         } else {
             return hex;
         }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public byte[] fromHex(String hex) {
+        byte[] bytes = new byte[hex.length() / 2];
+        for (int i = 0; i < bytes.length ; i++) {
+            bytes[i] = (byte) Integer.parseInt(hex.substring(2 * i, 2 * i + 2), 16);
+        }
+        return bytes;
     }
 }

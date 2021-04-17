@@ -1,10 +1,11 @@
 package logica_negocio.registro_autenticacion;
 
+import acceso_datos.consultas_bd.*;
 import entidades.modelo.*;
-import logica_negocio.utilidad.ControladorUtilidad;
-import logica_negocio.utilidad.IControladorUtilidad;
+import logica_negocio.utilidad.*;
 
 import java.math.BigInteger;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -20,8 +21,9 @@ public class FactoryUsuario {
      * @param nombreUsuario el nombre de usuario del objeto
      * @param nombre el nombre del objeto
      * @return el objeto {@link entidades.modelo.Usuario} inicializado abstractamente
+     * @throws SQLException arroja excepción si no logra conectarse a la base de datos
      */
-    public Usuario crearUsuario(String nombreUsuario, String nombre) {
+    public Usuario crearUsuario(String nombreUsuario, String nombre) throws SQLException {
         Usuario usuario = new Usuario();
 
         if (this.tipo == TipoUsuario.ADMIN) {
@@ -46,14 +48,18 @@ public class FactoryUsuario {
     /**
      * Genera un idUsuario único en la base de datos del Sistema
      * @return el idUsuario generado
+     * @throws SQLException arroja excepción si no logra conectarse a la base de datos
      */
-    private BigInteger generarIdUsuarioUnico() {
+    private BigInteger generarIdUsuarioUnico() throws SQLException {
         IControladorUtilidad utilidad = new ControladorUtilidad();
+        IControladorCBDRegAut controlBD = new ControladorCBDRegAut();
         BigInteger idUsuario;
+        boolean existe = true;
 
-        //do {
+        do {
             idUsuario = utilidad.generarRandomBigInt(new BigInteger("1000000000000"), new BigInteger("10000000000000"));
-        //} while();
+            existe = controlBD.existeUsuario(idUsuario);
+        } while (existe);
 
         return idUsuario;
     }
