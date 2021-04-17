@@ -25,11 +25,23 @@ public class ControladorRegAut implements IControladorRegAut {
      */
     @Override
     public DTORegistro registrarUsuario(TipoUsuario tipoUsuario, String correo, String password, String nombreUsuario, String nombre) {
+        boolean existe;
+
         // Determinar si el correo no se encuentra registrado ya en la aplicación
         try {
-            boolean existe = this.controlConsultaBD.existeCorreoUsuario(correo);
+            existe = this.controlConsultaBD.existeCorreoUsuario(correo);
             if (existe) {
                 return new DTORegistro(false, "El correo proporcionado ya se encuentra registrado en la App", null);
+            }
+        } catch (SQLException e) {
+            return new DTORegistro(false, "Error en la base de datos; " + e.getMessage(), null);
+        }
+
+        // Determinar si el nombre de usuario ya existe
+        try {
+            existe = this.controlConsultaBD.existeNombreUsuario(nombreUsuario);
+            if (existe) {
+                return new DTORegistro(false, "El nombre de usuario ya existe", null);
             }
         } catch (SQLException e) {
             return new DTORegistro(false, "Error en la base de datos; " + e.getMessage(), null);

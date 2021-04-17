@@ -64,6 +64,29 @@ public class ControladorCBDRegAut implements IControladorCBDRegAut {
     }
 
     @Override
+    public boolean existeNombreUsuario(String nombreUsuario) throws SQLException {
+        String consulta = "SELECT COUNT(*) FROM usuario WHERE nombreUsuario = ?";
+
+        try {
+            PreparedStatement stmt = conexion.prepareStatement(consulta);
+            stmt.setString(1, nombreUsuario);
+
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                if (rs.getInt(1) == 0) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        } catch (SQLException sqle) {
+            throw sqle;
+        }
+
+        return false;
+    }
+
+    @Override
     public DTOCredencialesBD buscarCredencialesUsuario(String correo) throws SQLException {
         String consulta = "SELECT * FROM credenciales WHERE correo = ?";
 
@@ -114,4 +137,5 @@ public class ControladorCBDRegAut implements IControladorCBDRegAut {
 
         return null;
     }
+
 }
