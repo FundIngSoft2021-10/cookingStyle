@@ -1,6 +1,7 @@
 package acceso_datos.consultas_bd;
 
 import entidades.dto.DTOListaFavoritos;
+import entidades.dto.DTOReceta;
 import entidades.modelo.*;
 
 import java.math.BigInteger;
@@ -16,7 +17,7 @@ public interface IControladorBDRecetasCooker {
     public List<Calificacion> consultaCalificaciones (BigInteger idReceta) throws SQLException;
     public MotivoReporte consultaMotivoReporte (int idMotivo) throws SQLException;
     public List<Reporte> consultaReportes (BigInteger idReceta) throws SQLException;
-    public List<Receta> buscarRecetas () throws SQLException;
+    public List<DTOReceta> buscarRecetas () throws SQLException;
     public Receta buscarRecetas (BigInteger idreceta) throws SQLException;
     public boolean crearListaFavoritosConReceta(DTOListaFavoritos listaFavoritos) throws SQLException;
     public boolean crearListaFavoritos(DTOListaFavoritos listaFavoritos) throws SQLException;
