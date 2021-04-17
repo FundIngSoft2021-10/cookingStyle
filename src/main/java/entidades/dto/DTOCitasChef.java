@@ -1,21 +1,24 @@
 package entidades.dto;
 
+import entidades.modelo.Chef;
 import entidades.modelo.Cita;
 
 import java.util.List;
 
-public class DTOAgendaChef {
+public class DTOCitasChef {
     private boolean estado;
     private String mensaje;
+    private Chef chef;
     private List<Cita> Citas;
 
-    public DTOAgendaChef(){
+    public DTOCitasChef(){
 
     }
 
-    public DTOAgendaChef(boolean estado, String mensaje, List<Cita> citas) {
+    public DTOCitasChef(boolean estado, String mensaje, Chef chef, List<Cita> citas) {
         this.estado = estado;
         this.mensaje = mensaje;
+        this.chef = chef;
         Citas = citas;
     }
 
@@ -41,5 +44,13 @@ public class DTOAgendaChef {
 
     public void setCitas(List<Cita> citas) {
         Citas = citas;
+    }
+
+    public Chef getChef() {
+        return chef;
+    }
+
+    public void setChef(Chef chef) {
+        this.chef = chef;
     }
 }
