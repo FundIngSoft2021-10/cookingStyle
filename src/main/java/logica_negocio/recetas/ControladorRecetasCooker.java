@@ -54,8 +54,9 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker{
      * @throws SQLException
      */
     @Override
-    public DTOListaFavoritos crearListaFavoritos(String nombreLista, String descripcion, BigInteger id_receta) throws SQLException {
+    public DTOListaFavoritos crearListaFavoritos(String nombreLista, String descripcion, BigInteger id_receta) throws SQLException{
 
+        DTOListaFavoritos listaEnviar;
         try {
 
             //Se obtiene el tamaño de la lista de listaFavoritos
@@ -76,7 +77,7 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker{
 
 
             //Se crea un DTO de lista favoritos para enviar a la base de datos
-            DTOListaFavoritos listaEnviar = new DTOListaFavoritos(cooker, listaFavoritos);
+            listaEnviar = new DTOListaFavoritos(cooker, listaFavoritos);
 
             //Se recibe un booleano que indica si se agregó con exito la nueva lista a la base de datos
             boolean exito = controladorPBDRecetasCooker.crearListaFavoritosConReceta(listaEnviar);
@@ -92,12 +93,12 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker{
             if(!controladorCBDRecetasCooker.recetaEnListaRecetas(1, id_receta, cooker.getIdUsuario())) {
                 controladorPBDRecetasCooker.insertarRecetaListaFavoritos(id_receta, 1, cooker.getIdUsuario());
             }
-            return listaEnviar;
+
 
         } catch (SQLException sqle){
             throw sqle;
         }
-
+        return listaEnviar;
     }
 
     /**
