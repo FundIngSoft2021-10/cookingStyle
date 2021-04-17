@@ -5,11 +5,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import acceso_datos.consultas_bd.ControladorBDRecetasCooker;
-import acceso_datos.consultas_bd.IControladorBDRecetasCooker;
+import acceso_datos.consultas_bd.ControladorCBDRecetasCooker;
+import acceso_datos.consultas_bd.IControladorCBDRecetasCooker;
+import acceso_datos.persistencia_bd.ControladorPBDRecetasCooker;
+import acceso_datos.persistencia_bd.IControladorPBDRecetasCooker;
 import entidades.dto.DTOListaFavoritos;
 import entidades.dto.DTOReceta;
-import entidades.dto.DTORecetaMiniatura;
 import entidades.modelo.ListaFavoritos;
 import entidades.modelo.Receta;
 import entidades.modelo.Cooker;
@@ -17,8 +18,8 @@ import entidades.modelo.Cooker;
 public class ControladorRecetasCooker implements IControladorRecetasCooker{
 
     private Cooker cooker;
-    IControladorBDRecetasCooker controladorBDRecetasCooker = new ControladorBDRecetasCooker();
-
+    IControladorCBDRecetasCooker controladorCBDRecetasCooker = new ControladorCBDRecetasCooker();
+    IControladorPBDRecetasCooker controladorPBDRecetasCooker = new ControladorPBDRecetasCooker();
     public ControladorRecetasCooker() {
 
     }
@@ -54,7 +55,7 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker{
             //Se crea el id de la nueva lista
             int id = cooker.getListasFavoritos().get(tamArreglo).getIdListaFavoritos() + 1;
             //Obtengo de la bace de datos la receta correspondiente al id_receta
-            Receta receta = controladorBDRecetasCooker.buscarRecetas(id_receta);
+            Receta receta = controladorCBDRecetasCooker.buscarRecetas(id_receta);
             //Se añade la receta a una lista de recetas
             List<Receta> listaReceta = new ArrayList<>();
             listaReceta.add(receta);
@@ -68,13 +69,13 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker{
             DTOListaFavoritos listaEnviar = new DTOListaFavoritos(cooker, listaFavoritos);
 
             //Se recibe un booleano que indica si se agregó con exito la nueva lista a la base de datos
-            boolean exito = controladorBDRecetasCooker.crearListaFavoritosConReceta(listaEnviar);
+            boolean exito = controladorPBDRecetasCooker.crearListaFavoritosConReceta(listaEnviar);
 
             //La nueva receta favorita, se añade a la lista de favoritos general
             for(ListaFavoritos listaFavoritos1 : cooker.getListasFavoritos()){
                 if(listaFavoritos1.getIdListaFavoritos() == 1){
                     listaFavoritos1.getRecetasFavoritas().add(receta);
-                    controladorBDRecetasCooker.insertarRecetaListaFavoritos(id_receta, 1, cooker.getIdUsuario());
+                    controladorPBDRecetasCooker.insertarRecetaListaFavoritos(id_receta, 1, cooker.getIdUsuario());
                 }
             }
             return exito;
@@ -114,7 +115,7 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker{
 
             System.out.println(listaEnviar.getCooker().getIdUsuario());
 
-            boolean exito = controladorBDRecetasCooker.crearListaFavoritos(listaEnviar);
+            boolean exito = controladorPBDRecetasCooker.crearListaFavoritos(listaEnviar);
 
             return  exito;
 
@@ -133,8 +134,8 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker{
     public boolean agregarRecetaListaFavoritos(DTOReceta receta, int idLista) throws SQLException {
 
         try {
-            boolean exitoEsp = controladorBDRecetasCooker.insertarRecetaListaFavoritos(receta.getReceta().getIdReceta(), idLista, cooker.getIdUsuario());
-            boolean exitoDef = controladorBDRecetasCooker.insertarRecetaListaFavoritos(receta.getReceta().getIdReceta(), 1, cooker.getIdUsuario());
+            boolean exitoEsp = controladorPBDRecetasCooker.insertarRecetaListaFavoritos(receta.getReceta().getIdReceta(), idLista, cooker.getIdUsuario());
+            boolean exitoDef = controladorPBDRecetasCooker.insertarRecetaListaFavoritos(receta.getReceta().getIdReceta(), 1, cooker.getIdUsuario());
             return exitoEsp && exitoDef;
         } catch (SQLException sqle){
             throw sqle;
@@ -146,9 +147,9 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker{
         boolean exitoEsp = false;
         try {
             for (int idLista : idsLista){
-                exitoEsp = controladorBDRecetasCooker.insertarRecetaListaFavoritos(receta.getReceta().getIdReceta(), idLista, cooker.getIdUsuario());
+                exitoEsp = controladorPBDRecetasCooker.insertarRecetaListaFavoritos(receta.getReceta().getIdReceta(), idLista, cooker.getIdUsuario());
             }
-            boolean exitoDef = controladorBDRecetasCooker.insertarRecetaListaFavoritos(receta.getReceta().getIdReceta(), 1, cooker.getIdUsuario());
+            boolean exitoDef = controladorPBDRecetasCooker.insertarRecetaListaFavoritos(receta.getReceta().getIdReceta(), 1, cooker.getIdUsuario());
             return exitoEsp && exitoDef;
         } catch (SQLException sqle){
             throw sqle;

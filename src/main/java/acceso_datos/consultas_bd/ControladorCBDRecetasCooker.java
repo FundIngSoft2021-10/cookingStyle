@@ -4,7 +4,6 @@ import acceso_datos.conexion_bd.ControladorBDConexion;
 import entidades.dto.DTOListaFavoritos;
 import entidades.dto.DTOReceta;
 import entidades.modelo.*;
-import logica_negocio.recetas.IControladorRecetasCooker;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -12,9 +11,14 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ControladorBDRecetasCooker implements IControladorBDRecetasCooker {
-    ControladorBDConexion controladorBDConexion = new ControladorBDConexion();
-    Connection conexion = controladorBDConexion.conectarMySQL();
+public class ControladorCBDRecetasCooker implements IControladorCBDRecetasCooker {
+    ControladorBDConexion controladorBDConexion;
+    Connection conexion;
+
+    public ControladorCBDRecetasCooker() {
+        controladorBDConexion = new ControladorBDConexion();
+        conexion = controladorBDConexion.conectarMySQL();
+    }
 
     @Override
     public Ingrediente consultaIngrediente (int idIngrediente) throws SQLException{
@@ -220,7 +224,7 @@ public class ControladorBDRecetasCooker implements IControladorBDRecetasCooker {
         return reportes;
     }
 
-
+    @Override
     public Chef consultaChef (BigInteger idChef) throws SQLException{
         String nombreUsuario=null, nombre=null;
         Date fecha=null;
@@ -334,78 +338,4 @@ public class ControladorBDRecetasCooker implements IControladorBDRecetasCooker {
         return receta;
     }
 
-    //Lista Favoritos
-
-    @Override
-    public boolean crearListaFavoritosConReceta(DTOListaFavoritos listaFavoritos) throws SQLException{
-
-        String insert = "INSERT INTO listafavoritos (idlista, cooker_idusuario, nombre, descripcion) VALUES (?, ?, ?, ?);";
-        try {
-            PreparedStatement preparedStatement = conexion.prepareStatement(insert);
-            preparedStatement.setInt(1, listaFavoritos.getListaFavoritos().getIdListaFavoritos() );
-            BigDecimal usuario = new BigDecimal(listaFavoritos.getCooker().getIdUsuario());
-            preparedStatement.setBigDecimal(2, usuario);
-            preparedStatement.setString(3,listaFavoritos.getListaFavoritos().getNombre());
-            preparedStatement.setString(4, listaFavoritos.getListaFavoritos().getDescripicion());
-
-            preparedStatement.executeUpdate();
-
-        } catch (SQLException sqle) {
-            throw sqle;
-        }
-
-        Receta receta = listaFavoritos.getListaFavoritos().getRecetasFavoritas().get(0);
-
-        String insertRecetas = "INSERT INTO recetaxlista (listafavoritos_idlista, cooker_idusuario, receta_idreceta) VALUES (?,?,?);";
-
-        try {
-            PreparedStatement preparedStatement = conexion.prepareStatement(insertRecetas);
-            preparedStatement.setInt(1, listaFavoritos.getListaFavoritos().getIdListaFavoritos());
-            BigDecimal usuario = new BigDecimal( listaFavoritos.getCooker().getIdUsuario());
-            preparedStatement.setBigDecimal(2, usuario);
-            BigDecimal recetaId = new BigDecimal(receta.getIdReceta());
-            preparedStatement.setBigDecimal(3, recetaId);
-
-            preparedStatement.executeUpdate();
-
-            return true;
-        } catch (SQLException sqle) {
-            throw sqle;
-        }
-    }
-
-    @Override
-    public boolean crearListaFavoritos(DTOListaFavoritos listaFavoritos) throws SQLException{
-
-        String insert = "INSERT INTO listafavoritos (idlista, cooker_idususario, nombre, descripcion) VALUES ('" + listaFavoritos.getListaFavoritos().getIdListaFavoritos() + "' , '"
-                + listaFavoritos.getCooker().getIdUsuario() + "' , '" + listaFavoritos.getListaFavoritos().getNombre() + "' , '" + listaFavoritos.getListaFavoritos().getDescripicion() + "' );" ;
-        try {
-            Statement st = conexion.createStatement();
-            st.executeUpdate(insert);
-            return true;
-        } catch (SQLException sqle) {
-            throw sqle;
-        }
-    }
-
-    @Override
-    public boolean insertarRecetaListaFavoritos(BigInteger idreceta, int idlista, BigInteger idusuario) throws SQLException{
-
-        String insertRecetas = "INSERT INTO recetaxlista (listafavoritos_idlista, cooker_idusuario, receta_idreceta) VALUES (?,?,?);";
-
-        try {
-            PreparedStatement preparedStatement = conexion.prepareStatement(insertRecetas);
-            preparedStatement.setInt(1, idlista);
-            BigDecimal usuario = new BigDecimal(idusuario);
-            preparedStatement.setBigDecimal(2, usuario);
-            BigDecimal receta = new BigDecimal(idreceta);
-            preparedStatement.setBigDecimal(3, receta);
-
-            preparedStatement.executeUpdate();
-
-            return true;
-        } catch (SQLException sqle) {
-            throw sqle;
-        }
-    }
 }
