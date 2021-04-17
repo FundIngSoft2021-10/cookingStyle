@@ -1,10 +1,5 @@
 package logica_negocio.citas;
 
-import acceso_datos.consultas_bd.IControladorCBDRegAut;
-import acceso_datos.persistencia_bd.IControladorPBDRegAut;
-
-import acceso_datos.consultas_bd.*;
-import acceso_datos.persistencia_bd.*;
 import entidades.dto.*;
 import entidades.modelo.*;
 
@@ -13,7 +8,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.ListIterator;
 
-public class ControladorCitas implements iControladorCitas  {
+public class ControladorCitas implements IControladorCitas {
     private IControladorCBDCitas controlConsultaBD;
     private IControladorPBDCitas controlPersistenciaBD;
 
