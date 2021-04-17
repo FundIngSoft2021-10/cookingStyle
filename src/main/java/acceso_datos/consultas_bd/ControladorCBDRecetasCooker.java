@@ -338,4 +338,72 @@ public class ControladorCBDRecetasCooker implements IControladorCBDRecetasCooker
         return receta;
     }
 
+    @Override
+    public boolean recetaEnListaRecetas(int idLista, BigInteger idReceta, BigInteger idUsuario) throws SQLException {
+
+        BigInteger idRecetaRec = null;
+        BigInteger idUsuarioRec = null;
+        int idListaRec = -1;
+        String consulta = "SELECT *  FROM recetaxlista WHERE recetaxlista.idreceta = " + idReceta + " and recetaxlista.idlista = " + idLista + " and recetaxlista.cooker_idusuario = " + idUsuario;
+
+        try (PreparedStatement stmt = conexion.prepareStatement(consulta)){
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                idRecetaRec = rs.getBigDecimal("idreceta").toBigInteger();
+                idUsuarioRec = rs.getBigDecimal("cooker_idusuario").toBigInteger();
+                idListaRec = rs.getInt("idlista");
+            }
+            if(idListaRec != -1 && idRecetaRec!= null && idUsuarioRec!=null){
+                return true;
+            } else
+            {
+                return false;
+            }
+        } catch (SQLException sqle){
+            throw sqle;
+        }
+    }
+
+    @Override
+    public List<Receta> consultaRecetasListaFavoritos(BigInteger idUsuario, int idlista) throws SQLException {
+        List<Receta> recetas = new ArrayList<>();
+        String consulta = "SELECT * FROM recetaxlista WHERE idlista = " + idlista + " and cooker_idUsuario = " + idUsuario + ";";
+        try (PreparedStatement stmt = conexion.prepareStatement(consulta)){
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()){
+                BigInteger idReceta = rs.getBigDecimal("idreceta").toBigInteger();
+                Receta receta = buscarRecetas(idReceta);
+                recetas.add(receta);
+            }
+
+            return recetas;
+        } catch (SQLException sqle){
+            throw sqle;
+        }
+    }
+
+    @Override
+    public ListaFavoritos consultaListaFavoritos(int idLista) throws SQLException {
+
+        ListaFavoritos listaFavoritos = new ListaFavoritos();
+        String consulta = "SELECT * FROM listafavoritos WHERE listafavoritos.idlista = " + idLista + ";";
+
+        try (PreparedStatement stmt = conexion.prepareStatement(consulta)){
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()){
+
+                BigInteger idUsuario = rs.getBigDecimal("cooker_idusuario").toBigInteger();
+                String nombre = rs.getString("nombre");
+                String descripcion = rs.getString("descripcion");
+
+
+                List<Receta> listaRecetas = consultaRecetasListaFavoritos(idUsuario, idLista);
+                listaFavoritos = new ListaFavoritos(idLista, nombre, descripcion, listaRecetas);
+            }
+            return listaFavoritos;
+        } catch (SQLException sqle){
+            throw sqle;
+        }
+
+    }
 }

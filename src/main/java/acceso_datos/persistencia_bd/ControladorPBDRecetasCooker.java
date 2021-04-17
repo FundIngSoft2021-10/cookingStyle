@@ -42,7 +42,7 @@ public class ControladorPBDRecetasCooker implements IControladorPBDRecetasCooker
 
         Receta receta = listaFavoritos.getListaFavoritos().getRecetasFavoritas().get(0);
 
-        String insertRecetas = "INSERT INTO recetaxlista (listafavoritos_idlista, cooker_idusuario, receta_idreceta) VALUES (?,?,?);";
+        String insertRecetas = "INSERT INTO recetaxlista (idlista, cooker_idusuario, idreceta) VALUES (?,?,?);";
 
         try {
             PreparedStatement preparedStatement = conexion.prepareStatement(insertRecetas);
@@ -77,17 +77,11 @@ public class ControladorPBDRecetasCooker implements IControladorPBDRecetasCooker
     @Override
     public boolean insertarRecetaListaFavoritos(BigInteger idreceta, int idlista, BigInteger idusuario) throws SQLException{
 
-        String insertRecetas = "INSERT INTO recetaxlista (listafavoritos_idlista, cooker_idusuario, receta_idreceta) VALUES (?,?,?);";
+        String insertRecetas = "INSERT INTO recetaxlista (idlista, cooker_idusuario, idreceta) VALUES (" + idlista + ", " + idusuario + " , " + idreceta + ");";
 
         try {
-            PreparedStatement preparedStatement = conexion.prepareStatement(insertRecetas);
-            preparedStatement.setInt(1, idlista);
-            BigDecimal usuario = new BigDecimal(idusuario);
-            preparedStatement.setBigDecimal(2, usuario);
-            BigDecimal receta = new BigDecimal(idreceta);
-            preparedStatement.setBigDecimal(3, receta);
-
-            preparedStatement.executeUpdate();
+            Statement st = conexion.createStatement();
+            st.executeUpdate(insertRecetas);
 
             return true;
         } catch (SQLException sqle) {
