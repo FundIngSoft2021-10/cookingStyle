@@ -1,16 +1,13 @@
-package acceso_datos.consultas_bd;
+package acceso_datos.persistencia_bd;
 
 import acceso_datos.conexion_bd.ControladorBDConexion;
-import entidades.dto.DTOListaFavoritos;
 import entidades.modelo.*;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 
 import java.util.Random;
-import java.security.SecureRandom;
 
 public class ControladorBDRecetasChef implements IControladorBDRecetasChef {
     ControladorBDConexion controladorBDConexion = new ControladorBDConexion();
@@ -29,8 +26,13 @@ public class ControladorBDRecetasChef implements IControladorBDRecetasChef {
             //cambiar a bigint el id usuario: ya
             //instanciar
             //setbigdecimal
-            stmt.setObject(1, randBi(19));//genera el numero aleatorio con 19 cifras
-            stmt.setObject(2, idUsuario);
+            BigInteger big=randBi(19);//genera el numero aleatorio con 19 cifras
+            BigDecimal bigdec = new BigDecimal(big);
+
+            BigDecimal user= new BigDecimal(idUsuario);
+
+            stmt.setBigDecimal(1, bigdec);
+            stmt.setBigDecimal(2, user);
 
             stmt.setString(3, rec.getNombre());
             stmt.setString(4, rec.getDescripcion());

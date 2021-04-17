@@ -1,4 +1,4 @@
-package acceso_datos.consultas_bd;
+package acceso_datos.persistencia_bd;
 
 import entidades.dto.DTOListaFavoritos;
 import entidades.modelo.*;
