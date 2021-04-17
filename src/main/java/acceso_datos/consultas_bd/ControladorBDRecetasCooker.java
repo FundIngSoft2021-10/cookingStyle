@@ -2,6 +2,7 @@ package acceso_datos.consultas_bd;
 
 import acceso_datos.conexion_bd.ControladorBDConexion;
 import entidades.dto.DTOListaFavoritos;
+import entidades.dto.DTOReceta;
 import entidades.modelo.*;
 import logica_negocio.recetas.IControladorRecetasCooker;
 
@@ -219,14 +220,34 @@ public class ControladorBDRecetasCooker implements IControladorBDRecetasCooker {
         return reportes;
     }
 
+
+    public Chef consultaChef (BigInteger idChef) throws SQLException{
+        String nombreUsuario=null, nombre=null;
+        Date fecha=null;
+        String consultaChefs = "SELECT * FROM usuario WHERE usuario.idusuario = "+idChef+";";
+
+        try (PreparedStatement stmt = conexion.prepareStatement(consultaChefs)) {
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                nombreUsuario = rs.getString("nombreusuario");
+                fecha = rs.getDate("fechacreacion");
+                nombre = rs.getString("nombre");
+            }
+        } catch (SQLException sqle) {
+            throw sqle;
+        }
+        return new Chef(idChef, nombreUsuario, fecha, nombre);
+    }
+
     @Override
-    public List<Receta> buscarRecetas () throws SQLException{
-        List<Receta> recetas = new ArrayList<>();
+    public List<DTOReceta> buscarRecetas () throws SQLException{
+        List<DTOReceta> recetas = new ArrayList<>();
         String consulta = "SELECT * FROM receta;";
         try (PreparedStatement stmt = conexion.prepareStatement(consulta)) {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 BigInteger idReceta =  rs.getBigDecimal("idReceta").toBigInteger();
+                BigInteger idChef =  rs.getBigDecimal("chef_idusuario").toBigInteger();
                 String nombre = rs.getString("nombre");
                 String descripcion = rs.getString("descripcion");
                 String linkVideo = rs.getString("linkVideo");
@@ -253,9 +274,12 @@ public class ControladorBDRecetasCooker implements IControladorBDRecetasCooker {
 
                 List<Reporte> reportes = consultaReportes(idReceta);
 
+                Chef chef = consultaChef(idChef);
+
                 Receta resultado = new Receta(idReceta, nombre, descripcion, videoReceta, linkVideo, TipoVideo.VIMEO,
                         imagenReceta, linkImagen, lineaIngredientes, pasosReceta, categorias, calificaciones, reportes);
-                recetas.add(resultado);
+
+                recetas.add(new DTOReceta(resultado, chef));
             }
 
         } catch (SQLException sqle) {
