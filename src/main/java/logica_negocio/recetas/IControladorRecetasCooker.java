@@ -17,4 +17,5 @@ public interface IControladorRecetasCooker {
     public List<DTOReceta> buscarRecetasNombre (String nombre) throws SQLException;
     public List<DTOReceta> buscarRecetasCategoria (String categoria) throws SQLException;
     public List<DTOReceta> buscarRecetasIngrediente (String nom_ingrediente) throws SQLException;
+    public List<DTOReceta> buscarRecetasChef (String nom_chef) throws SQLException;
 }

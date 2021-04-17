@@ -171,15 +171,11 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker{
     // Buscar Recetas Categoria
     @Override
     public List<DTOReceta> buscarRecetasCategoria (String categoria) throws SQLException {
-        List<DTOReceta> recetasEncontradas = new ArrayList<>();
-        List<DTOReceta> recetasEncontradasCategoria;
-        List<Integer> idscategorias;
-        idscategorias = this.controladorCBDRecetasCooker.consultaCategoria(categoria);
+        List<DTOReceta> recetasEncontradas;
+        int idcategoria;
+        idcategoria = this.controladorCBDRecetasCooker.consultaIdCategoria(categoria);
         try {
-            for (Integer actual : idscategorias){
-                recetasEncontradasCategoria = this.controladorCBDRecetasCooker.buscarRecetas(actual);
-                recetasEncontradas.addAll(recetasEncontradasCategoria);
-            }
+            recetasEncontradas = this.controladorCBDRecetasCooker.buscarRecetasCategoria(idcategoria);
             return recetasEncontradas;
         } catch (SQLException sqle){
             throw sqle;
@@ -187,15 +183,34 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker{
     }
 
     // Buscar Recetas Ingrediente
+    @Override
     public List<DTOReceta> buscarRecetasIngrediente (String nom_ingrediente) throws SQLException{
         List<DTOReceta> recetasEncontradas = new ArrayList<>();
         List<DTOReceta> recetasEncontradasIngrediente;
         List<Integer> idsingredientes;
-        idsingredientes = this.controladorCBDRecetasCooker.consultaIngrediente(nom_ingrediente);
+        idsingredientes = this.controladorCBDRecetasCooker.consultaIdsIngrediente(nom_ingrediente);
         try {
             for (Integer actual : idsingredientes){
-                recetasEncontradasIngrediente = this.controladorCBDRecetasCooker.buscarRecetas(actual);
+                recetasEncontradasIngrediente = this.controladorCBDRecetasCooker.buscarRecetasIngrediente(actual);
                 recetasEncontradas.addAll(recetasEncontradasIngrediente);
+            }
+            return recetasEncontradas;
+        } catch (SQLException sqle){
+            throw sqle;
+        }
+    }
+
+    //Buscar Recetas Chef
+    @Override
+    public List<DTOReceta> buscarRecetasChef (String nom_chef) throws SQLException{
+        List<DTOReceta> recetasEncontradas = new ArrayList<>();
+        List<DTOReceta> recetasEncontradasChef;
+        List<BigInteger> idsChefs;
+        idsChefs = this.controladorCBDRecetasCooker.consultaIdsChef(nom_chef);
+        try {
+            for (BigInteger actual : idsChefs){
+                recetasEncontradasChef = this.controladorCBDRecetasCooker.buscarRecetasChef(actual);
+                recetasEncontradas.addAll(recetasEncontradasChef);
             }
             return recetasEncontradas;
         } catch (SQLException sqle){
