@@ -96,13 +96,13 @@ public class ControladorCBDRegAut implements IControladorCBDRegAut {
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 Usuario usuario = new Usuario();
-                if (rs.getInt("tipoUsuario") == 1) {
+                if (rs.getInt("idTipoUsuario") == 1) {
                     usuario = new Admin(idUsuario, rs.getString("nombreUsuario"),
                             rs.getDate("fechaCreacion"), rs.getString("nombre"));
-                } else if (rs.getInt("tipoUsuario") == 2) {
+                } else if (rs.getInt("idTipoUsuario") == 2) {
                     usuario = new Cooker(idUsuario, rs.getString("nombreUsuario"),
                             rs.getDate("fechaCreacion"), rs.getString("nombre"));
-                } else if (rs.getInt("tipoUsuario") == 2) {
+                } else if (rs.getInt("idTipoUsuario") == 2) {
                     usuario = new Chef(idUsuario, rs.getString("nombreUsuario"),
                             rs.getDate("fechaCreacion"), rs.getString("nombre"));
                 }

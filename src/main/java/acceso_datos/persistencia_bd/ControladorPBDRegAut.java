@@ -19,13 +19,13 @@ public class ControladorPBDRegAut implements IControladorPBDRegAut {
 
     @Override
     public void crearUsuario(TipoUsuario tipoUsuario, Usuario usuario) throws SQLException {
-        String insercion = "INSERT INTO usuario (idUsuario, nombreUsuario, fechaCreacion, nombre, tipoUsuario) VALUES (?, ?, ?, ?, ?)";
+        String insercion = "INSERT INTO usuario (idUsuario, nombreUsuario, fechaCreacion, nombre, idTipoUsuario) VALUES (?, ?, ?, ?, ?)";
 
         try {
             PreparedStatement stmt = conexion.prepareStatement(insercion);
             stmt.setBigDecimal(1, new BigDecimal(usuario.getIdUsuario()));
             stmt.setString(2, usuario.getNombreUsuario());
-            stmt.setDate(3, (java.sql.Date) usuario.getFechaCreacion());
+            stmt.setDate(3, new java.sql.Date(usuario.getFechaCreacion().getTime()));
             stmt.setString(4, usuario.getNombre());
             stmt.setInt(5, tipoUsuario.getTipo());
 
