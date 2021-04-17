@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.ProgressBar?>
@@ -59,12 +60,21 @@
                         <Font name="Comic Sans MS" size="31.0" />
                      </font>
                   </Text>
-                  <TextField layoutX="329.0" layoutY="307.0" prefHeight="29.0" prefWidth="474.0" style="-fx-background-radius: 100;" />
-                  <PasswordField layoutX="329.0" layoutY="374.0" prefHeight="29.0" prefWidth="474.0" style="-fx-background-radius: 100;" />
+                  <TextField layoutX="329.0" layoutY="307.0" prefHeight="29.0" prefWidth="474.0" style="-fx-background-radius: 100;">
+                     <cursor>
+                        <Cursor fx:constant="TEXT" />
+                     </cursor></TextField>
+                  <PasswordField layoutX="329.0" layoutY="374.0" prefHeight="29.0" prefWidth="474.0" style="-fx-background-radius: 100;">
+                     <cursor>
+                        <Cursor fx:constant="TEXT" />
+                     </cursor></PasswordField>
                   <Button layoutX="582.0" layoutY="429.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="212.0" style="-fx-background-radius: 100; -fx-background-color: white;" text="Iniciar Sesión">
                      <font>
                         <Font size="18.0" />
                      </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                   <ProgressBar layoutX="817.0" layoutY="374.0" prefHeight="29.0" prefWidth="84.0" progress="1.0" style="-fx-accent: red; -fx-background-radius: 100; -fx-border-radius: 100;" />
                </children>
