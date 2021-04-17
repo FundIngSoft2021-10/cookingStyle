@@ -36,6 +36,23 @@ public class ControladorCBDRecetasCooker implements IControladorCBDRecetasCooker
     }
 
     @Override
+    public List<Integer> consultaIdsIngrediente (String nom_ingrediente) throws SQLException{
+        String consultaIngrediente = "SELECT * FROM ingrediente WHERE ingrediente.nombre = "+nom_ingrediente+";";
+        List<Integer> idsIngredientes = new ArrayList<>();
+        int idIngrediente;
+        try (PreparedStatement stmt = conexion.prepareStatement(consultaIngrediente)) {
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                idIngrediente = rs.getInt("idingrediente");
+                idsIngredientes.add(idIngrediente);
+            }
+        } catch (SQLException sqle) {
+            throw sqle;
+        }
+        return idsIngredientes;
+    }
+
+    @Override
     public List<LineaIngrediente> consultaLineaIngrediente (BigInteger idReceta) throws SQLException{
         List<LineaIngrediente> lineaIngredientes = new ArrayList<>();
         String consultaLineaIngredientes = "SELECT * FROM lineaingrediente WHERE lineaingrediente.idReceta = "+idReceta+";";
@@ -141,6 +158,21 @@ public class ControladorCBDRecetasCooker implements IControladorCBDRecetasCooker
     }
 
     @Override
+    public int consultaIdCategoria (String nom_categoria) throws SQLException{
+        int idCategoria = 0;
+        String consultaCategoria = "SELECT * FROM categoria WHERE categoria.nombre = "+nom_categoria+";";
+        try (PreparedStatement stmt = conexion.prepareStatement(consultaCategoria)) {
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                idCategoria = rs.getInt("idcategoria");
+            }
+        } catch (SQLException sqle) {
+            throw sqle;
+        }
+        return idCategoria;
+    }
+
+    @Override
     public Cooker consultaCooker (BigInteger idCooker) throws SQLException{
         String nombreUsuario=null, nombre=null;
         Date fecha=null;
@@ -225,7 +257,7 @@ public class ControladorCBDRecetasCooker implements IControladorCBDRecetasCooker
     }
 
     @Override
-    public Chef consultaChef (BigInteger idChef) throws SQLException{
+    public Chef consultaChefReceta (BigInteger idChef) throws SQLException{
         String nombreUsuario=null, nombre=null;
         Date fecha=null;
         String consultaChefs = "SELECT * FROM usuario WHERE usuario.idusuario = "+idChef+";";
@@ -241,6 +273,27 @@ public class ControladorCBDRecetasCooker implements IControladorCBDRecetasCooker
             throw sqle;
         }
         return new Chef(idChef, nombreUsuario, fecha, nombre);
+    }
+
+    @Override
+    public List<BigInteger> consultaIdsChef (String nombre) throws SQLException{
+        List<BigInteger> idsChefs = new ArrayList<>();
+        BigInteger idChef;
+        int tipoUsuario;
+        String consulta = "SELECT * FROM usuario WHERE UPPER(nombre) LIKE '%"+nombre+"%' OR UPPER(nombreusuario) LIKE '"+nombre+"';";
+        try (PreparedStatement stmt = conexion.prepareStatement(consulta)){
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                idChef = rs.getBigDecimal("idusuario").toBigInteger();
+                tipoUsuario = rs.getInt("idtipousuario");
+                if (tipoUsuario == 3){
+                    idsChefs.add(idChef);
+                }
+            }
+        } catch (SQLException sqle) {
+            throw sqle;
+        }
+        return idsChefs;
     }
 
     @Override
@@ -278,7 +331,7 @@ public class ControladorCBDRecetasCooker implements IControladorCBDRecetasCooker
 
                 List<Reporte> reportes = consultaReportes(idReceta);
 
-                Chef chef = consultaChef(idChef);
+                Chef chef = consultaChefReceta(idChef);
 
                 Receta resultado = new Receta(idReceta, nombre, descripcion, videoReceta, linkVideo, TipoVideo.VIMEO,
                         imagenReceta, linkImagen, lineaIngredientes, pasosReceta, categorias, calificaciones, reportes);
@@ -337,6 +390,164 @@ public class ControladorCBDRecetasCooker implements IControladorCBDRecetasCooker
         }
         return receta;
     }
+
+    @Override
+    public List<DTOReceta> buscarRecetas (String nombre_receta) throws SQLException{
+        List<DTOReceta> recetas = new ArrayList<>();
+        String consulta = "SELECT * FROM receta WHERE receta.nombre = " + nombre_receta + ";";
+        try (PreparedStatement stmt = conexion.prepareStatement(consulta)) {
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                BigInteger idReceta =  rs.getBigDecimal("idReceta").toBigInteger();
+                BigInteger idChef =  rs.getBigDecimal("chef_idusuario").toBigInteger();
+                String nombre = rs.getString("nombre");
+                String descripcion = rs.getString("descripcion");
+                String linkVideo = rs.getString("linkVideo");
+                boolean videoReceta;
+                if (linkVideo == null)
+                    videoReceta = false;
+                else
+                    videoReceta = true;
+
+                String linkImagen = rs.getString("linkVideo");
+                boolean imagenReceta;
+                if (linkVideo == null)
+                    imagenReceta = false;
+                else
+                    imagenReceta = true;
+
+                List<LineaIngrediente> lineaIngredientes = consultaLineaIngrediente(idReceta);
+
+                List<PasoReceta> pasosReceta = consultaPasosReceta(idReceta);
+
+                List<Categoria> categorias = consultaCategorias(idReceta);
+
+                List<Calificacion> calificaciones = consultaCalificaciones(idReceta);
+
+                List<Reporte> reportes = consultaReportes(idReceta);
+
+                Chef chef = consultaChefReceta(idChef);
+
+                Receta resultado = new Receta(idReceta, nombre, descripcion, videoReceta, linkVideo, TipoVideo.VIMEO,
+                        imagenReceta, linkImagen, lineaIngredientes, pasosReceta, categorias, calificaciones, reportes);
+
+                recetas.add(new DTOReceta(resultado, chef));
+            }
+
+        } catch (SQLException sqle) {
+            throw sqle;
+        }
+        return recetas;
+    }
+
+    @Override
+    public List<DTOReceta> buscarRecetasCategoria (int id_categoria) throws SQLException{
+        List<DTOReceta> recetas = new ArrayList<>();
+        Receta receta;
+        String consultaidReceta = "SELECT * FROM categoriaxreceta WHERE categoriaxreceta.idcategoria = " + id_categoria + ";";
+        try (PreparedStatement stmt = conexion.prepareStatement(consultaidReceta)) {
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                BigInteger idReceta =  rs.getBigDecimal("idreceta").toBigInteger();
+                receta = buscarRecetas(idReceta);
+                BigInteger idChef = null;
+                String consultaChef = "SELECT * FROM receta WHERE receta.idreceta = " + idReceta + ";";
+                try (PreparedStatement stmt1 = conexion.prepareStatement(consultaChef)) {
+                    ResultSet rs1 = stmt1.executeQuery();
+                    while (rs1.next()) {
+                        idChef = rs1.getBigDecimal("idusuario").toBigInteger();
+                    }
+                } catch (SQLException sqle) {
+                    throw sqle;
+                }
+                Chef chef = consultaChefReceta(idChef);
+                recetas.add(new DTOReceta(receta, chef));
+            }
+
+        } catch (SQLException sqle) {
+            throw sqle;
+        }
+        return recetas;
+    }
+
+    @Override
+    public List<DTOReceta> buscarRecetasIngrediente (int id_ingrediente) throws SQLException{
+        List<DTOReceta> recetas = new ArrayList<>();
+        Receta receta;
+        String consultaidReceta = "SELECT * FROM lineaingrediente WHERE lineaingrediente.idingrediente = " + id_ingrediente + ";";
+        try (PreparedStatement stmt = conexion.prepareStatement(consultaidReceta)) {
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                BigInteger idReceta =  rs.getBigDecimal("idreceta").toBigInteger();
+                receta = buscarRecetas(idReceta);
+                BigInteger idChef = null;
+                String consultaChef = "SELECT * FROM receta WHERE receta.idreceta = " + idReceta + ";";
+                try (PreparedStatement stmt1 = conexion.prepareStatement(consultaChef)) {
+                    ResultSet rs1 = stmt1.executeQuery();
+                    while (rs1.next()) {
+                        idChef = rs1.getBigDecimal("idusuario").toBigInteger();
+                    }
+                } catch (SQLException sqle) {
+                    throw sqle;
+                }
+                Chef chef = consultaChefReceta(idChef);
+                recetas.add(new DTOReceta(receta, chef));
+            }
+
+        } catch (SQLException sqle) {
+            throw sqle;
+        }
+        return recetas;
+    }
+
+    @Override
+    public List<DTOReceta> buscarRecetasChef (BigInteger idchef) throws SQLException{
+        List<DTOReceta> recetas = new ArrayList<>();
+        String consulta = "SELECT * FROM receta WHERE receta.chef_idusuario = " + idchef + ";";
+        try (PreparedStatement stmt = conexion.prepareStatement(consulta)) {
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                BigInteger idReceta =  rs.getBigDecimal("idReceta").toBigInteger();
+                String nombre = rs.getString("nombre");
+                String descripcion = rs.getString("descripcion");
+                String linkVideo = rs.getString("linkVideo");
+                boolean videoReceta;
+                if (linkVideo == null)
+                    videoReceta = false;
+                else
+                    videoReceta = true;
+
+                String linkImagen = rs.getString("linkVideo");
+                boolean imagenReceta;
+                if (linkVideo == null)
+                    imagenReceta = false;
+                else
+                    imagenReceta = true;
+
+                List<LineaIngrediente> lineaIngredientes = consultaLineaIngrediente(idReceta);
+
+                List<PasoReceta> pasosReceta = consultaPasosReceta(idReceta);
+
+                List<Categoria> categorias = consultaCategorias(idReceta);
+
+                List<Calificacion> calificaciones = consultaCalificaciones(idReceta);
+
+                List<Reporte> reportes = consultaReportes(idReceta);
+
+                Chef chef = consultaChefReceta(idchef);
+
+                Receta resultado = new Receta(idReceta, nombre, descripcion, videoReceta, linkVideo, TipoVideo.VIMEO,
+                        imagenReceta, linkImagen, lineaIngredientes, pasosReceta, categorias, calificaciones, reportes);
+
+                recetas.add(new DTOReceta(resultado, chef));
+            }
+
+        } catch (SQLException sqle) {
+            throw sqle;
+        }
+        return recetas;
+    }
+
 
     @Override
     public boolean recetaEnListaRecetas(int idLista, BigInteger idReceta, BigInteger idUsuario) throws SQLException {
