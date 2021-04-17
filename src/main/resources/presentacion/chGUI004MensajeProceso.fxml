@@ -20,7 +20,7 @@
             </Text>
          </center>
          <bottom>
-            <Button alignment="BASELINE_LEFT" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="121.0" style="-fx-background-color: white; -fx-background-radius: 100;" text="Finalizar" textAlignment="CENTER" wrapText="true" BorderPane.alignment="TOP_RIGHT">
+            <Button fx:id="chBotonFinalizarProceso" alignment="BASELINE_LEFT" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="121.0" style="-fx-background-color: white; -fx-background-radius: 100;" text="Finalizar" textAlignment="CENTER" wrapText="true" BorderPane.alignment="TOP_RIGHT">
                <font>
                   <Font name="Comic Sans MS" size="22.0" />
                </font>
@@ -30,7 +30,7 @@
             </Button>
          </bottom>
          <top>
-            <ImageView fitHeight="133.0" fitWidth="250.0" BorderPane.alignment="CENTER">
+            <ImageView fx:id="ChLogoMProceso" fitHeight="133.0" fitWidth="250.0" BorderPane.alignment="CENTER">
                <image>
                   <Image url="@../img/CookingBlanco.png" />
                </image>
