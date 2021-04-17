@@ -28,6 +28,9 @@ public class ControladorBDRecetasChef implements IControladorBDRecetasChef {
             Long l2 = Long.parseUnsignedLong("1000000000000000000");
             int  numeroAleatorio = (int) (Math.random()* l1+l2);
 
+            //cambiar a bigint el id usuario
+            //instanciar
+            //setbigdecimal
             stmt.setInt(1, numeroAleatorio);
             stmt.setInt(2, idUsuario);
             stmt.setString(3, nombre);
