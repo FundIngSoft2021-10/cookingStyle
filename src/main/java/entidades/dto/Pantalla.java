@@ -8,6 +8,7 @@ public enum Pantalla {
     // Pantallas del usuario Cooker
     CO_GUI001_INICIARSESION("CoGUI001IniciarSesion.fxml"),
     CO_GUI002_REGISTRAR("CoGUI002Registrarse.fxml"),
+    CO_GUI004_BUSQUEDAS("CoGUI004BusquedasRecientes"),
 
     // Pantallas del usuario Chef
     CH_GUI001_INICIARSESION("ChGUI001IniciarSesion.fxml"),
