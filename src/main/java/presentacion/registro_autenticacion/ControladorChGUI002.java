@@ -26,6 +26,8 @@ public class ControladorChGUI002 implements ControladorPantalla {
     @FXML
     public Button btnRegistrarse;
     @FXML
+    public Button btnCancelar;
+    @FXML
     public TextField fieldNombres;
     @FXML
     public TextField fieldApellidos;
@@ -85,8 +87,8 @@ public class ControladorChGUI002 implements ControladorPantalla {
         }
     }
 
-    // TODO: Botón volver pantalla
-    public void clickVolver(ActionEvent actionEvent) {
+    @FXML
+    public void clickCancelar(ActionEvent actionEvent) {
         try {
             this.volverPantalla((Event) actionEvent, this.sesion);
         } catch (IOException e) {

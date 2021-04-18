@@ -26,6 +26,8 @@ public class ControladorCoGUI001 implements ControladorPantalla {
     @FXML
     public Button btnIniciarSesion;
     @FXML
+    public Button btnCancelar;
+    @FXML
     public ProgressBar barra;
 
     @Override
@@ -67,8 +69,8 @@ public class ControladorCoGUI001 implements ControladorPantalla {
         }
     }
 
-    // TODO: Botón volver pantalla
-    public void clickVolver(ActionEvent actionEvent) {
+    @FXML
+    public void clickCancelar(ActionEvent actionEvent) {
         try {
             this.volverPantalla((Event) actionEvent, this.sesion);
         } catch (IOException e) {

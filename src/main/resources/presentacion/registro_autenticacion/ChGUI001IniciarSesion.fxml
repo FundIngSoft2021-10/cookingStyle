@@ -73,6 +73,11 @@
                      </font>
                   </Button>
                   <ProgressBar fx:id="barra" layoutX="817.0" layoutY="374.0" prefHeight="29.0" prefWidth="84.0" progress="1.0" style="-fx-accent: red; -fx-background-radius: 100; -fx-border-radius: 100;" />
+                  <Button fx:id="btnCancelar" layoutX="351.0" layoutY="429.0" mnemonicParsing="false" onAction="#clickCancelar" prefHeight="36.0" prefWidth="212.0" style="-fx-background-radius: 100; -fx-background-color: #FF675A;" text="Cancelar">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Button>
                </children>
             </AnchorPane>
          </right>
