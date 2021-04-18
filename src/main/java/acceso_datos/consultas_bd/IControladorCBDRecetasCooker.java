@@ -8,7 +8,8 @@ import java.math.BigInteger;
 import java.sql.SQLException;
 import java.util.List;
 
-public interface IControladorCBDRecetasCooker {
+public interface IControladorCBDRecetasCooker{
+
     public Ingrediente consultaIngrediente (int idIngrediente) throws SQLException;
     public List<Integer> consultaIdsIngrediente (String nom_ingrediente) throws SQLException;
     public List<LineaIngrediente> consultaLineaIngrediente (BigInteger idReceta) throws SQLException;

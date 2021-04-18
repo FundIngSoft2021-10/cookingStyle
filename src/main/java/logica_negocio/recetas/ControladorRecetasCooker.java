@@ -15,12 +15,12 @@ import entidades.modelo.*;
 public class ControladorRecetasCooker implements IControladorRecetasCooker{
 
     private Cooker cooker;
-    private IControladorCBDRecetasCooker controladorCBDRecetasCooker ;
-    private IControladorPBDRecetasCooker controladorPBDRecetasCooker;
+    private IControladorCBDRecetasCooker controlCBD ;
+    private IControladorPBDRecetasCooker controlPBD;
 
     public ControladorRecetasCooker(Cooker cooker) {
-        this.controladorCBDRecetasCooker = new ControladorCBDRecetasCooker();
-        this.controladorPBDRecetasCooker = new ControladorPBDRecetasCooker();
+        this.controlCBD = new ControladorCBDRecetasCooker();
+        this.controlPBD = new ControladorPBDRecetasCooker();
         this.cooker = cooker;
     }
 
@@ -50,7 +50,7 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker{
             int id = this.cooker.getListasFavoritos().get(tamArreglo-1).getIdListaFavoritos() + 1;
 
             //Obtengo de la bace de datos la receta correspondiente al id_receta
-            Receta receta = this.controladorCBDRecetasCooker.buscarRecetas(id_receta);
+            Receta receta = this.controlCBD.buscarRecetas(id_receta);
 
             //Se añade la receta a una lista de recetas
             List<Receta> listaReceta = new ArrayList<>();
@@ -64,7 +64,7 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker{
             listaEnviar = new DTOListaFavoritos(this.cooker, listaFavoritos);
 
             //Se recibe un booleano que indica si se agregó con exito la nueva lista a la base de datos
-            boolean exito = this.controladorPBDRecetasCooker.crearListaFavoritosConReceta(listaEnviar);
+            boolean exito = this.controlPBD.crearListaFavoritosConReceta(listaEnviar);
 
             //Mensaje de creación
             if(exito){
@@ -72,8 +72,8 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker{
             }
 
             //Si la receta no se ha añadido a la lista de favoritos general, se añade
-            if(!this.controladorCBDRecetasCooker.recetaEnListaRecetas(1, id_receta, this.cooker.getIdUsuario())) {
-                this.controladorPBDRecetasCooker.insertarRecetaListaFavoritos(id_receta, 1, this.cooker.getIdUsuario());
+            if(!this.controlCBD.recetaEnListaRecetas(1, id_receta, this.cooker.getIdUsuario())) {
+                this.controlPBD.insertarRecetaListaFavoritos(id_receta, 1, this.cooker.getIdUsuario());
             }
 
 
@@ -110,7 +110,7 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker{
             listaEnviar = new DTOListaFavoritos(this.cooker, listaFavoritos);
 
             //Se recibe un booleano que indica si se agregó con exito la nueva lista a la base de datos
-            boolean exito = this.controladorPBDRecetasCooker.crearListaFavoritos(listaEnviar);
+            boolean exito = this.controlPBD.crearListaFavoritos(listaEnviar);
 
             //Mensaje de creación
             if(exito){
@@ -133,19 +133,21 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker{
         boolean agregado = false;
         try {
             //Agrega la receta a la lista
-            if(!this.controladorCBDRecetasCooker.recetaEnListaRecetas(idLista, idreceta, this.cooker.getIdUsuario())){
-                agregado = this.controladorPBDRecetasCooker.insertarRecetaListaFavoritos(idreceta, idLista, this.cooker.getIdUsuario());
+            if(!this.controlCBD.recetaEnListaRecetas(idLista, idreceta, this.cooker.getIdUsuario())){
+                agregado = this.controlPBD.insertarRecetaListaFavoritos(idreceta, idLista, this.cooker.getIdUsuario());
             }
 
             //Agrega la receta a la lista general
-            if(!this.controladorCBDRecetasCooker.recetaEnListaRecetas(1, idreceta, this.cooker.getIdUsuario())){
-                this.controladorPBDRecetasCooker.insertarRecetaListaFavoritos(idreceta, 1, this.cooker.getIdUsuario());
+            if(!this.controlCBD.recetaEnListaRecetas(1, idreceta, this.cooker.getIdUsuario())){
+                this.controlPBD.insertarRecetaListaFavoritos(idreceta, 1, this.cooker.getIdUsuario());
             }
 
             exito.setEstado(agregado);
 
             if(agregado){
-                exito.setMensaje("¡La receta ha sido agregada a la lsita con éxito");
+                exito.setMensaje("¡La receta ha sido agregada a la lsita con éxito!");
+            } else{
+                exito.setMensaje("La receta ya está en la lista");
             }
 
         } catch (SQLException sqle){
@@ -168,10 +170,10 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker{
             //Agrego en todas las listas la receta
             for (int idLista : idsLista) {
                 agregado = false;
-                DTOListaFavoritos listaAgregar = new DTOListaFavoritos(this.cooker, this.controladorCBDRecetasCooker.consultaListaFavoritos(idLista));
+                DTOListaFavoritos listaAgregar = new DTOListaFavoritos(this.cooker, this.controlCBD.consultaListaFavoritos(idLista));
 
-                if(!this.controladorCBDRecetasCooker.recetaEnListaRecetas(idLista, idreceta, this.cooker.getIdUsuario())){
-                    agregado = this.controladorPBDRecetasCooker.insertarRecetaListaFavoritos(idreceta, idLista, this.cooker.getIdUsuario());
+                if(!this.controlCBD.recetaEnListaRecetas(idLista, idreceta, this.cooker.getIdUsuario())){
+                    agregado = this.controlPBD.insertarRecetaListaFavoritos(idreceta, idLista, this.cooker.getIdUsuario());
                 }
 
                 listaAgregar.setAgregado(agregado);
@@ -185,8 +187,8 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker{
                 }
             }
             //Agrego la receta a la lista general
-            if(!this.controladorCBDRecetasCooker.recetaEnListaRecetas(1, idreceta, this.cooker.getIdUsuario())){
-                this.controladorPBDRecetasCooker.insertarRecetaListaFavoritos(idreceta, 1, this.cooker.getIdUsuario());
+            if(!this.controlCBD.recetaEnListaRecetas(1, idreceta, this.cooker.getIdUsuario())){
+                this.controlPBD.insertarRecetaListaFavoritos(idreceta, 1, this.cooker.getIdUsuario());
             }
 
 
@@ -205,7 +207,7 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker{
     public List<DTOReceta> buscarRecetasNombre (String nombre){
         List<DTOReceta> recetasEncontradas;
         try{
-            recetasEncontradas = this.controladorCBDRecetasCooker.buscarRecetas(nombre);
+            recetasEncontradas = this.controlCBD.buscarRecetas(nombre);
 
         } catch (SQLException sqle){
             recetasEncontradas = null;
@@ -221,8 +223,8 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker{
         List<DTOReceta> recetasEncontradas;
         int idcategoria;
         try {
-            idcategoria = this.controladorCBDRecetasCooker.consultaIdCategoria(categoria);
-            recetasEncontradas = this.controladorCBDRecetasCooker.buscarRecetasCategoria(idcategoria);
+            idcategoria = this.controlCBD.consultaIdCategoria(categoria);
+            recetasEncontradas = this.controlCBD.buscarRecetasCategoria(idcategoria);
 
         } catch (SQLException sqle){
             recetasEncontradas = null;
@@ -240,9 +242,9 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker{
         List<Integer> idsingredientes;
 
         try {
-            idsingredientes = this.controladorCBDRecetasCooker.consultaIdsIngrediente(nom_ingrediente);
+            idsingredientes = this.controlCBD.consultaIdsIngrediente(nom_ingrediente);
             for (Integer actual : idsingredientes){
-                recetasEncontradasIngrediente = this.controladorCBDRecetasCooker.buscarRecetasIngrediente(actual);
+                recetasEncontradasIngrediente = this.controlCBD.buscarRecetasIngrediente(actual);
                 recetasEncontradas.addAll(recetasEncontradasIngrediente);
             }
 
@@ -262,9 +264,9 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker{
         List<BigInteger> idsChefs;
 
         try {
-            idsChefs = this.controladorCBDRecetasCooker.consultaIdsChef(nom_chef);
+            idsChefs = this.controlCBD.consultaIdsChef(nom_chef);
             for (BigInteger actual : idsChefs){
-                recetasEncontradasChef = this.controladorCBDRecetasCooker.buscarRecetasChef(actual);
+                recetasEncontradasChef = this.controlCBD.buscarRecetasChef(actual);
                 recetasEncontradas.addAll(recetasEncontradasChef);
             }
 
@@ -282,8 +284,8 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker{
 
         DTORecetaMiniatura recetaMiniatura = new DTORecetaMiniatura();
         try {
-            Receta receta = this.controladorCBDRecetasCooker.buscarRecetas(idReceta);
-            Chef chef = this.controladorCBDRecetasCooker.consultaRecetaXChef(idReceta);
+            Receta receta = this.controlCBD.buscarRecetas(idReceta);
+            Chef chef = this.controlCBD.consultaRecetaXChef(idReceta);
 
 
             if(receta != null && chef != null){
@@ -306,8 +308,8 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker{
 
         DTORecetasMiniaturaCategoria miniaturas = new DTORecetasMiniaturaCategoria();
         try {
-            List<DTOReceta> recetas = controladorCBDRecetasCooker.buscarRecetasCategoria(idCategoria);
-            Categoria categoria = controladorCBDRecetasCooker.consultaCategoria(idCategoria);
+            List<DTOReceta> recetas = controlCBD.buscarRecetasCategoria(idCategoria);
+            Categoria categoria = controlCBD.consultaCategoria(idCategoria);
             List<DTORecetaMiniatura> listaMiniaturas = new ArrayList<>();
 
             for(DTOReceta receta : recetas){
@@ -325,8 +327,6 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker{
         return miniaturas;
     }
 
-
-
     /**
      * @inheritDoc
      */
@@ -335,8 +335,8 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker{
 
         DTOReceta recetaMostrar = new DTOReceta();
         try {
-            Receta receta = controladorCBDRecetasCooker.buscarRecetas(idReceta);
-            Chef chef = controladorCBDRecetasCooker.consultaRecetaXChef(idReceta);
+            Receta receta = controlCBD.buscarRecetas(idReceta);
+            Chef chef = controlCBD.consultaRecetaXChef(idReceta);
             recetaMostrar = new DTOReceta(receta, chef);
             recetaMostrar.setEncotrado(true);
         } catch (SQLException sqle){
