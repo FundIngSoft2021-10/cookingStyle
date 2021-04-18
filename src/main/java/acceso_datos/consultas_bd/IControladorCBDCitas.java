@@ -6,5 +6,5 @@ import entidades.modelo.Chef;
 import java.sql.SQLException;
 
 public interface IControladorCBDCitas {
-    Calendario buscarCalendarioChef (Chef chef) throws SQLException;
+    public Calendario buscarCalendarioChef (Chef chef) throws SQLException;
 }
