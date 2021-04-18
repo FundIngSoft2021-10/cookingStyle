@@ -22,12 +22,12 @@
                <children>
                   <ImageView fx:id="coLogoCookingBR" fitHeight="135.0" fitWidth="276.0" AnchorPane.leftAnchor="40.0">
                      <image>
-                        <Image url="@../img/CookingBlanco.png" />
+                        <Image url="@../../img/CookingBlanco.png" />
                      </image>
                   </ImageView>
                   <ImageView fx:id="coFotoPerfilBR" fitHeight="101.0" fitWidth="122.0" layoutX="1482.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="0.5772323608398438">
                      <image>
-                        <Image url="@../img/Cooker4.png" />
+                        <Image url="@../../img/Cooker4.png" />
                      </image>
                      <cursor>
                         <Cursor fx:constant="HAND" />
@@ -35,7 +35,7 @@
                   </ImageView>
                   <ImageView fx:id="coBotonBuscar" layoutX="910.0" layoutY="55.0" AnchorPane.rightAnchor="664.0">
                      <image>
-                        <Image url="@../img/buscar.png" />
+                        <Image url="@../../img/buscar.png" />
                      </image>
                      <cursor>
                         <Cursor fx:constant="HAND" />
@@ -62,7 +62,7 @@
                   </Text>
                   <ImageView fx:id="iconoServicioAlClienteBR" fitHeight="38.0" fitWidth="47.0" layoutX="1450.0" layoutY="60.0" AnchorPane.rightAnchor="103.0">
                      <image>
-                        <Image url="@../img/ServicioAlCliente.png" />
+                        <Image url="@../../img/ServicioAlCliente.png" />
                      </image>
                      <cursor>
                         <Cursor fx:constant="HAND" />

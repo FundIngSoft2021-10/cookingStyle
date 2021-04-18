@@ -32,12 +32,12 @@
                         <ImageView fx:id="fotoChefIngredientes" fitHeight="60.0" fitWidth="60.0" layoutX="66.0" layoutY="396.0" pickOnBounds="true" preserveRatio="true" />
                         <ImageView fx:id="iconoFavoritoCI" fitHeight="53.0" fitWidth="57.0" layoutX="237.0" layoutY="466.0">
                            <image>
-                              <Image url="@../img/Favorita.png" />
+                              <Image url="@../../img/Favorita.png" />
                            </image>
                         </ImageView>
                         <ImageView fx:id="iconoReporteCI" fitHeight="53.0" fitWidth="57.0" layoutX="302.0" layoutY="466.0">
                            <image>
-                              <Image url="@../img/reportar.png" />
+                              <Image url="@../../img/reportar.png" />
                            </image>
                         </ImageView>
                         <Text fx:id="puntuacionesTextoCI" fill="#ff9f54" layoutX="126.0" layoutY="550.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Puntuaciones" textAlignment="CENTER" wrappingWidth="352.19281005859375">
@@ -56,7 +56,7 @@
                      <children>
                         <ImageView fx:id="iconoCarulla" fitHeight="271.0" fitWidth="286.0" layoutX="132.0" layoutY="67.0">
                            <image>
-                              <Image url="@../img/Carulla_logo.png" />
+                              <Image url="@../../img/Carulla_logo.png" />
                            </image>
                            <cursor>
                               <Cursor fx:constant="HAND" />
@@ -64,7 +64,7 @@
                         </ImageView>
                         <ImageView fx:id="iconoExito" fitHeight="271.0" fitWidth="396.0" layoutX="522.0" layoutY="67.0">
                            <image>
-                              <Image url="@../img/Exito.png" />
+                              <Image url="@../../img/Exito.png" />
                            </image>
                            <cursor>
                               <Cursor fx:constant="HAND" />
@@ -72,7 +72,7 @@
                         </ImageView>
                         <ImageView fx:id="iconoJumbo" fitHeight="271.0" fitWidth="286.0" layoutX="354.0" layoutY="377.0">
                            <image>
-                              <Image url="@../img/Jumbo.png" />
+                              <Image url="@../../img/Jumbo.png" />
                            </image>
                            <cursor>
                               <Cursor fx:constant="HAND" />
@@ -88,12 +88,12 @@
                <children>
                   <ImageView fx:id="coLogoCookingCI" fitHeight="113.0" fitWidth="252.0" layoutX="39.0" layoutY="4.0" AnchorPane.leftAnchor="39.0">
                      <image>
-                        <Image url="@../img/CookingBlanco.png" />
+                        <Image url="@../../img/CookingBlanco.png" />
                      </image>
                   </ImageView>
                   <ImageView fx:id="coFotoPerfilCI" fitHeight="101.0" fitWidth="122.0" layoutX="1482.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="0.5772323608398438">
                      <image>
-                        <Image url="@../img/Cooker4.png" />
+                        <Image url="@../../img/Cooker4.png" />
                      </image>
                      <cursor>
                         <Cursor fx:constant="HAND" />
@@ -117,7 +117,7 @@
                   </Text>
                   <ImageView fx:id="iconoServicioAlClienteCI" fitHeight="38.0" fitWidth="47.0" layoutX="1450.0" layoutY="60.0" AnchorPane.rightAnchor="103.0">
                      <image>
-                        <Image url="@../img/ServicioAlCliente.png" />
+                        <Image url="@../../img/ServicioAlCliente.png" />
                      </image>
                      <cursor>
                         <Cursor fx:constant="HAND" />

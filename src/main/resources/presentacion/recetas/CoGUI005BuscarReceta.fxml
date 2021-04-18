@@ -25,7 +25,7 @@
                <children>
                   <ImageView fx:id="coLogoCookingPrincipal" fitHeight="113.0" fitWidth="252.0" layoutX="39.0" layoutY="4.0" AnchorPane.leftAnchor="39.0">
                      <image>
-                        <Image url="@../img/CookingBlanco.png" />
+                        <Image url="@../../img/CookingBlanco.png" />
                      </image>
                   </ImageView>
                   <TextField fx:id="coCampoBuscar" layoutX="657.0" layoutY="50.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="36.0" prefWidth="286.0" promptText="Buscar.." style="-fx-background-color: white; -fx-background-radius: 100;" AnchorPane.leftAnchor="657.0" AnchorPane.rightAnchor="657.0">
@@ -35,7 +35,7 @@
                   </TextField>
                   <ImageView fx:id="coFotoPerfilInicio" fitHeight="101.0" fitWidth="122.0" layoutX="1482.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="0.5772323608398438">
                      <image>
-                        <Image url="@../img/Cooker4.png" />
+                        <Image url="@../../img/Cooker4.png" />
                      </image>
                      <cursor>
                         <Cursor fx:constant="HAND" />
@@ -43,7 +43,7 @@
                   </ImageView>
                   <ImageView fx:id="coBotonBuscar" layoutX="910.0" layoutY="55.0" AnchorPane.rightAnchor="664.0">
                      <image>
-                        <Image url="@../img/buscar.png" />
+                        <Image url="@../../img/buscar.png" />
                      </image>
                      <cursor>
                         <Cursor fx:constant="HAND" />
@@ -70,7 +70,7 @@
                   </Text>
                   <ImageView fx:id="iconoServicioAlCliente" fitHeight="38.0" fitWidth="47.0" layoutX="1450.0" layoutY="60.0" AnchorPane.rightAnchor="103.0">
                      <image>
-                        <Image url="@../img/ServicioAlCliente.png" />
+                        <Image url="@../../img/ServicioAlCliente.png" />
                      </image>
                      <cursor>
                         <Cursor fx:constant="HAND" />
@@ -214,7 +214,7 @@
                         </Text>
                         <ImageView layoutX="416.0" layoutY="180.0">
                            <image>
-                              <Image url="@../img/VerMasCategoria.png" />
+                              <Image url="@../../img/VerMasCategoria.png" />
                            </image>
                            <cursor>
                               <Cursor fx:constant="HAND" />
@@ -239,7 +239,7 @@
                         </Text>
                         <ImageView fx:id="bajarCategoriasInicio" layoutX="212.0" layoutY="356.0">
                            <image>
-                              <Image url="@../img/bajarCategorias.png" />
+                              <Image url="@../../img/bajarCategorias.png" />
                            </image>
                            <cursor>
                               <Cursor fx:constant="HAND" />
@@ -264,7 +264,7 @@
                         </Text>
                         <ImageView layoutX="416.0" layoutY="180.0">
                            <image>
-                              <Image url="@../img/VerMasCategoria.png" />
+                              <Image url="@../../img/VerMasCategoria.png" />
                            </image>
                            <cursor>
                               <Cursor fx:constant="HAND" />
