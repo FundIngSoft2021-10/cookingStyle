@@ -18,9 +18,11 @@ public interface IControladorRegAut {
 
     /**
      * Autentica un usuario en la aplicación, buscando su información en la base de datos
+     *
+     * @param tipoUsuario el tipo de usuario
      * @param correo el correo de intento de autenticación
      * @param password la contraseña de intento de autenticación
      * @return el estado de intento de autenticación
      */
-    public DTOAutenticacion autenticarUsuario(String correo, String password);
+    public DTOAutenticacion autenticarUsuario(TipoUsuario tipoUsuario, String correo, String password);
 }

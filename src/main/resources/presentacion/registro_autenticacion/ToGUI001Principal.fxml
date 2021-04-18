@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" style="-fx-background-color: #fcba03;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.registro_autenticacion.ControladorToGUI001">
+   <children>
+      <BorderPane onMouseClicked="#clickPantalla" prefHeight="900.0" prefWidth="1600.0">
+         <center>
+            <ImageView fitHeight="202.0" fitWidth="347.0" BorderPane.alignment="CENTER">
+               <image>
+                  <Image url="@../../img/CookingBlanco.png" />
+               </image>
+            </ImageView>
+         </center>
+      </BorderPane>
+   </children>
+</VBox>
