@@ -6,7 +6,6 @@ import entidades.dto.*;
 import entidades.modelo.*;
 
 import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
 import java.sql.SQLException;
 
 public class ControladorRegAut implements IControladorRegAut {
@@ -87,7 +86,7 @@ public class ControladorRegAut implements IControladorRegAut {
      * @inheritDoc
      */
     @Override
-    public DTOAutenticacion autenticarUsuario(String correo, String password) {
+    public DTOAutenticacion autenticarUsuario(TipoUsuario tipoUsuario, String correo, String password) {
         // Verificar si el correo está registrado en la aplicación
         DTOCredencialesBD credencialesBD;
         try {

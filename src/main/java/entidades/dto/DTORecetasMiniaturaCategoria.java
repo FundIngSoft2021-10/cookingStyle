@@ -6,8 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 public class DTORecetasMiniaturaCategoria {
-    Categoria categoria;
-    List<DTORecetaMiniatura> recetasCategoria;
+    private Categoria categoria;
+    private List<DTORecetaMiniatura> recetasCategoria;
+    private boolean encontrada;
 
     public DTORecetasMiniaturaCategoria(Categoria categoria, List<DTORecetaMiniatura> recetasCategoria) {
         this.categoria = categoria;
@@ -31,6 +32,14 @@ public class DTORecetasMiniaturaCategoria {
 
     public void setRecetasCategoria(List<DTORecetaMiniatura> recetasCategoria) {
         this.recetasCategoria = recetasCategoria;
+    }
+
+    public boolean isEncontrada() {
+        return encontrada;
+    }
+
+    public void setEncontrada(boolean encontrada) {
+        this.encontrada = encontrada;
     }
 }
 
