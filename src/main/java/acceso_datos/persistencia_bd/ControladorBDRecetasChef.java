@@ -1,19 +1,148 @@
 package acceso_datos.persistencia_bd;
 
 import acceso_datos.conexion_bd.ControladorBDConexion;
+import entidades.dto.DTOIngrediente;
+import entidades.dto.DTOLineaIngrediente;
 import entidades.modelo.*;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class ControladorBDRecetasChef implements IControladorBDRecetasChef {
     ControladorBDConexion controladorBDConexion = new ControladorBDConexion();
     Connection conexion = controladorBDConexion.conectarMySQL();
+/*
+    @Override
+    public boolean subirIngrediente (Ingrediente ingrediente)throws SQLException{
+        String insertIngrediente = "INSERT INTO ingrediente VALUES (?, ?)";
+
+        try (PreparedStatement smtm =conexion.prepareStatement(insertIngrediente)){
+
+            smtm.setInt(1, ingrediente.getIdIngrediente());
+            smtm.setString(2, ingrediente.getNombre());
+
+            smtm.executeUpdate();
+            return true;
+
+        }catch (SQLException sqle){
+            throw sqle;
+        }
+
+    }*/
+
+    @Override
+    public boolean subirLineaIngrediente(List<LineaIngrediente> lineaIngrediente, BigInteger idReceta) throws SQLException {
+        String insertLineaIngre = "INSERT INTO lineaingrediente VALUES (?, ?, ?, ?)";
+
+        try (PreparedStatement stmt = conexion.prepareStatement(insertLineaIngre)){
+            for(int i=0; i < lineaIngrediente.size(); i++){
+                BigDecimal bigdec= new BigDecimal(idReceta);
+                stmt.setBigDecimal(1, bigdec);
+                stmt.setInt(2, lineaIngrediente.get(i).getIngrediente().getIdIngrediente());
+                stmt.setFloat(3, lineaIngrediente.get(i).getCantidad());
+                stmt.setString(4, lineaIngrediente.get(i).getMedida().toString());
+
+                stmt.executeUpdate();
+            }
+            return true;
+
+        }catch (SQLException sqle){
+            throw sqle;
+        }
+
+    }
 
 
+
+    @Override
+    public boolean subirPasoreceta(List<PasoReceta> pasoReceta, BigInteger idReceta) throws SQLException{
+        String insertPasoReceta = "INSERT INTO pasoreceta VALUES (?, ?, ?, ?)";
+
+        try(PreparedStatement stmt = conexion.prepareStatement(insertPasoReceta)){
+            for(int i=0; i< pasoReceta.size(); i++){
+                stmt.setInt(1, pasoReceta.get(i).getNumero());
+                BigDecimal bigdec= new BigDecimal(idReceta);
+                stmt.setBigDecimal(2, bigdec);
+                stmt.setString(3, pasoReceta.get(i).getTexto());
+                stmt.setString(4, pasoReceta.get(i).getLinkImagen());
+
+                stmt.executeUpdate();
+
+
+            }
+            return true;
+        }catch (SQLException sqle){
+            throw sqle;
+        }
+    }
+
+
+
+    @Override
+    public boolean subirCategoria(List<Categoria> categorias, BigInteger idReceta) throws SQLException {
+        String insertCategoria = "INSERT INTO categoriaxreceta VALUES (?, ?)";//no se hace el insert en categoria si no en categoriaxreceta
+
+        try(PreparedStatement stmt = conexion.prepareStatement(insertCategoria)){
+            for(int i=0; i<categorias.size();i++){
+                BigDecimal bigdec= new BigDecimal(idReceta);
+                stmt.setBigDecimal(1, bigdec);
+                stmt.setInt(2, categorias.get(i).getIdCategoria());
+
+                stmt.executeUpdate();
+
+            }
+            return true;
+        }catch (SQLException sqle){
+            throw sqle;
+        }
+    }
+
+    @Override
+    public boolean subirCalificacion(List<Calificacion> calificaciones, BigInteger idReceta) throws SQLException {
+        String insertCalificacion = "INSERT INTO calificacion VALUES (?, ?, ?)";
+
+        try(PreparedStatement stmt=conexion.prepareStatement(insertCalificacion)){
+            for(int i=0; i<calificaciones.size(); i++){
+                BigDecimal bigdec= new BigDecimal(idReceta);
+                BigDecimal idUser= new BigDecimal(calificaciones.get(i).getUsuario().getIdUsuario());
+                stmt.setBigDecimal(1, idUser);
+                stmt.setBigDecimal(2, bigdec);
+
+                stmt.setInt(3, (int) calificaciones.get(i).getValor());
+
+                stmt.executeUpdate();
+            }
+
+            return true;
+        }catch (SQLException sqle){
+            throw sqle;
+        }
+    }
+
+    @Override
+    public boolean subirReporte(List<Reporte> reportes, BigInteger idReceta) throws SQLException {
+        String insertReceta = "INSERT INTO reporte VALUES (?, ?, ? , ?, ?)";
+
+        try(PreparedStatement stmt=conexion.prepareStatement(insertReceta)){
+            for(int i=0; i<reportes.size(); i++){
+                stmt.setInt(1, reportes.get(i).getMotivo().getIdMotivo());
+                BigDecimal bigdec= new BigDecimal(idReceta);
+                stmt.setBigDecimal(2, bigdec);
+                BigDecimal idUser= new BigDecimal(reportes.get(i).getUsuario().getIdUsuario());
+                stmt.setBigDecimal(3, idUser);
+                stmt.setInt(4, reportes.get(i).getMotivo().getIdMotivo());
+                stmt.setDate(5, (Date) reportes.get(i).getFecha());
+            }
+            return true;
+        }catch (SQLException sqle){
+            throw sqle;
+        }
+    }
 
     @Override
     public boolean subirReceta( Receta rec,  BigInteger idUsuario) throws SQLException {
@@ -31,13 +160,23 @@ public class ControladorBDRecetasChef implements IControladorBDRecetasChef {
 
             BigDecimal user= new BigDecimal(idUsuario);
 
-            stmt.setBigDecimal(1, bigdec);
+            stmt.setBigDecimal(1, bigdec);//id receta
             stmt.setBigDecimal(2, user);
 
             stmt.setString(3, rec.getNombre());
             stmt.setString(4, rec.getDescripcion());
             stmt.setString(5, rec.getLinkVideo());
             stmt.setString(6, rec.getLinkImagen());
+
+            subirLineaIngrediente(rec.getLineasIngrediente(), big);//se manda a metodo de subir receta
+
+            subirPasoreceta(rec.getPasosReceta(), big);// se manda a metodo de subir pasoreceta
+
+            subirCategoria(rec.getCategorias(), big);
+
+            subirCalificacion(rec.getCalificaciones(), big);
+
+            subirCalificacion(rec.getCalificaciones(), big);
 
             stmt.executeUpdate();
             return true;
@@ -47,6 +186,9 @@ public class ControladorBDRecetasChef implements IControladorBDRecetasChef {
 
         //return false;
     }
+
+
+
     /*metodo para hallar numero aleatorio*/
     public static BigInteger randBi(int digitosDecimales) {
         Random rand = new Random();
