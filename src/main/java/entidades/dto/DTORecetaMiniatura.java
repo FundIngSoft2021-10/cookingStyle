@@ -11,7 +11,7 @@ public class DTORecetaMiniatura {
     private String nombreReceta;
     private String linkImagen;
     private Chef autor;
-    private String mensaje;
+    private boolean encontrado;
     private int idCategoria;
 
     public DTORecetaMiniatura(BigInteger idReceta, String nombreReceta, String linkImagen, Chef autor) {
@@ -56,12 +56,12 @@ public class DTORecetaMiniatura {
         this.autor = autor;
     }
 
-    public String getMensaje() {
-        return mensaje;
+    public boolean isEncontrado() {
+        return encontrado;
     }
 
-    public void setMensaje(String mensaje) {
-        this.mensaje = mensaje;
+    public void setEncontrado(boolean encontrado) {
+        this.encontrado = encontrado;
     }
 
     public int getIdCategoria() {

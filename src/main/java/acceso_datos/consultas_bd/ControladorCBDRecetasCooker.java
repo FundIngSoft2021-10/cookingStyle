@@ -636,4 +636,28 @@ public class ControladorCBDRecetasCooker implements IControladorCBDRecetasCooker
             throw sqle;
         }
     }
+
+    @Override
+    public Categoria consultaCategoria(int idCategoria) throws SQLException {
+
+        Categoria categoria = new Categoria();
+        String nombre = null, descripcion = null;
+
+        String consulta = "SELECT * FROM categoria WHERE categoria.idcategoria = " + idCategoria + ";";
+
+        try (PreparedStatement stmt = conexion.prepareStatement(consulta)){
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()){
+                nombre = rs.getString("nombre");
+                descripcion = rs.getString("descripcion");
+            }
+            categoria.setIdCategoria(idCategoria);
+            categoria.setNombre(nombre);
+            categoria.setDescripcion(descripcion);
+
+            return categoria;
+        } catch (SQLException sqle){
+            throw sqle;
+        }
+    }
 }
