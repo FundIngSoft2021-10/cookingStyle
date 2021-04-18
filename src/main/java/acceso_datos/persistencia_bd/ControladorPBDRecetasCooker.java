@@ -63,7 +63,7 @@ public class ControladorPBDRecetasCooker implements IControladorPBDRecetasCooker
     @Override
     public boolean crearListaFavoritos(DTOListaFavoritos listaFavoritos) throws SQLException{
 
-        String insert = "INSERT INTO listafavoritos (idlista, cooker_idususario, nombre, descripcion) VALUES ('" + listaFavoritos.getListaFavoritos().getIdListaFavoritos() + "' , '"
+        String insert = "INSERT INTO listafavoritos (idlista, cooker_idusuario, nombre, descripcion) VALUES ('" + listaFavoritos.getListaFavoritos().getIdListaFavoritos() + "' , '"
                 + listaFavoritos.getCooker().getIdUsuario() + "' , '" + listaFavoritos.getListaFavoritos().getNombre() + "' , '" + listaFavoritos.getListaFavoritos().getDescripicion() + "' );" ;
         try {
             Statement st = conexion.createStatement();

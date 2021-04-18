@@ -11,6 +11,8 @@ import acceso_datos.persistencia_bd.ControladorPBDRecetasCooker;
 import acceso_datos.persistencia_bd.IControladorPBDRecetasCooker;
 import entidades.dto.DTOListaFavoritos;
 import entidades.dto.DTOReceta;
+import entidades.dto.DTORecetaMiniatura;
+import entidades.modelo.Chef;
 import entidades.modelo.ListaFavoritos;
 import entidades.modelo.Receta;
 import entidades.modelo.Cooker;
@@ -38,6 +40,13 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker{
 
     //Métodos Funcionalidad Crear Lista Favoritos
 
+    /**
+     * Encontrar una receta en una lista de favoritos
+     * @param idLista id de la lista donde se va a buscar la receta
+     * @param idReceta id de la receta que se va a buscar
+     * @return tre si encuentra la receta en la lista de favoritos, false si no
+     * @throws SQLException arroja excepción si no logra conectarse a la base de datos
+     */
     @Override
     public boolean existeRecetaListaFavoritos(int idLista, BigInteger idReceta) throws SQLException{
 
@@ -51,7 +60,7 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker{
      * @param descripcion decripcion de la lista
      * @param id_receta ide de la receta a añiadir a la lista
      * @return la lista creada
-     * @throws SQLException
+     * @throws SQLException arroja excepción si no logra conectarse a la base de datos
      */
     @Override
     public DTOListaFavoritos crearListaFavoritos(String nombreLista, String descripcion, BigInteger id_receta) throws SQLException{
@@ -106,7 +115,7 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker{
      * @param nombreLista nombre de la lista de favoritos
      * @param descripcion decripcion de la lista
      * @return la lista creada
-     * @throws SQLException
+     * @throws SQLException arroja excepción si no logra conectarse a la base de datos
      */
     @Override
     public DTOListaFavoritos crearListaFavoritos(String nombreLista, String descripcion) throws SQLException {
@@ -131,7 +140,7 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker{
             DTOListaFavoritos listaEnviar = new DTOListaFavoritos(cooker, listaFavoritos);
 
             //Se recibe un booleano que indica si se agregó con exito la nueva lista a la base de datos
-            boolean exito = controladorPBDRecetasCooker.crearListaFavoritosConReceta(listaEnviar);
+            boolean exito = controladorPBDRecetasCooker.crearListaFavoritos(listaEnviar);
 
             //Mensaje de creación
             if(exito){
@@ -152,7 +161,7 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker{
      * @param idreceta id de la receta a agregar
      * @param idLista id de la lista a la que se le va a agregar la receta
      * @return true si se agregó con éxito, false si no
-     * @throws SQLException
+     * @throws SQLException arroja excepción si no logra conectarse a la base de datos
      */
     @Override
     public boolean agregarRecetaListaFavoritos(BigInteger idreceta, int idLista) throws SQLException {
@@ -179,7 +188,7 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker{
      * @param idreceta id de la receta a agregar
      * @param idsLista lista con los id's de las listas
      * @return una lista de DTOListaFavoritos con las listas actualizadas
-     * @throws SQLException
+     * @throws SQLException arroja excepción si no logra conectarse a la base de datos
      */
     @Override
     public List<DTOListaFavoritos> agregarRecetaListaFavoritos(BigInteger idreceta, List<Integer> idsLista) throws SQLException {
@@ -212,7 +221,12 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker{
 
     }
 
-    // Buscar Recetas Nombre
+    /**
+     * Buscar Recetas Nombre
+     * @param nombre nombre de la receta
+     * @return lista DTOReceta con todas las recetas que tienen el nombre recibido en el nombre de la receta
+     * @throws SQLException arroja excepción si no logra conectarse a la base de datos
+     */
     @Override
     public List<DTOReceta> buscarRecetasNombre (String nombre) throws SQLException {
         List<DTOReceta> recetasEncontradas;
@@ -224,7 +238,12 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker{
         }
     }
 
-    // Buscar Recetas Categoria
+    /**
+     * Buscar Recetas Categoria
+     * @param categoria categoria que se está buscando
+     * @return lista DTOReceta con las recetas que hacen parte de esa categoria
+     * @throws SQLException arroja excepción si no logra conectarse a la base de datos
+     */
     @Override
     public List<DTOReceta> buscarRecetasCategoria (String categoria) throws SQLException {
         List<DTOReceta> recetasEncontradas;
@@ -238,7 +257,12 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker{
         }
     }
 
-    // Buscar Recetas Ingrediente
+    /**
+     * Buscar Recetas Ingrediente
+     * @param nom_ingrediente nombre del ingrediente
+     * @return lista DTOReceta con las recetas que tienen ese ingrediente
+     * @throws SQLException arroja excepción si no logra conectarse a la base de datos
+     */
     @Override
     public List<DTOReceta> buscarRecetasIngrediente (String nom_ingrediente) throws SQLException{
         List<DTOReceta> recetasEncontradas = new ArrayList<>();
@@ -256,7 +280,12 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker{
         }
     }
 
-    //Buscar Recetas Chef
+    /**
+     * Buscar Recetas Chef
+     * @param nom_chef nombre del chef
+     * @return lista DTOReceta con las recetas que están asociadas con el chef
+     * @throws SQLException arroja excepción si no logra conectarse a la base de datos
+     */
     @Override
     public List<DTOReceta> buscarRecetasChef (String nom_chef) throws SQLException{
         List<DTOReceta> recetasEncontradas = new ArrayList<>();
@@ -269,6 +298,70 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker{
                 recetasEncontradas.addAll(recetasEncontradasChef);
             }
             return recetasEncontradas;
+        } catch (SQLException sqle){
+            throw sqle;
+        }
+    }
+
+    /**
+     * Lista de DTORecetaMiniatura con las recetas que pertenecen a la misma categoria
+     * @param idCategoria  id de la categoria de las recetas
+     * @return lista de DTORecetaMiniatura con las recetas de esa categoria
+     * @throws SQLException arroja excepción si no logra conectarse a la base de datos
+     */
+    @Override
+    public List<DTORecetaMiniatura> miniaturaRecetasCategoria(int idCategoria) throws SQLException {
+
+        try {
+            List<DTOReceta> recetas = controladorCBDRecetasCooker.buscarRecetasCategoria(idCategoria);
+            List<DTORecetaMiniatura> miniaturas = new ArrayList<>();
+
+            for (DTOReceta receta : recetas) {
+                Chef chef = controladorCBDRecetasCooker.consultaRecetaXChef(receta.getReceta().getIdReceta());
+                DTORecetaMiniatura recetaMiniatura = new DTORecetaMiniatura(receta.getReceta().getIdReceta(), receta.getReceta().getNombre(), receta.getReceta().getLinkImagen(), chef);
+                recetaMiniatura.setIdCategoria(idCategoria);
+                miniaturas.add(recetaMiniatura);
+            }
+            return miniaturas;
+        } catch (SQLException sqle){
+            throw sqle;
+        }
+    }
+
+    @Override
+    public DTORecetaMiniatura miniaturaRecetasCategoria(BigInteger idReceta) throws SQLException {
+        try {
+            Receta receta = controladorCBDRecetasCooker.buscarRecetas(idReceta);
+            Chef chef = controladorCBDRecetasCooker.consultaRecetaXChef(idReceta);
+            DTORecetaMiniatura recetaMiniatura;
+
+            if(receta != null && chef != null){
+                recetaMiniatura = new DTORecetaMiniatura(idReceta, receta.getNombre(), receta.getLinkImagen(), chef);
+            } else {
+                recetaMiniatura = null;
+            }
+
+            return recetaMiniatura;
+        } catch (SQLException sqle){
+            throw sqle;
+        }
+    }
+
+    /**
+     * Busca la receta que se quiere mostrar
+     * @param idReceta id de la receta que se quiere mostrar
+     * @return DTOReceta con la receta y el autor de esta
+     * @throws SQLException arroja excepción si no logra conectarse a la base de datos
+     */
+    @Override
+    public DTOReceta mostrarReceta(BigInteger idReceta) throws SQLException {
+
+        try {
+            Receta receta = controladorCBDRecetasCooker.buscarRecetas(idReceta);
+            Chef chef = controladorCBDRecetasCooker.consultaRecetaXChef(idReceta);
+            DTOReceta recetaMostrar = new DTOReceta(receta, chef);
+
+            return recetaMostrar;
         } catch (SQLException sqle){
             throw sqle;
         }

@@ -30,4 +30,5 @@ public interface IControladorCBDRecetasCooker {
     public boolean recetaEnListaRecetas(int idLista, BigInteger idReceta, BigInteger idUsuario) throws SQLException;
     public ListaFavoritos consultaListaFavoritos (int idLista) throws SQLException;
     public List<Receta> consultaRecetasListaFavoritos (BigInteger idUsuario, int idlista) throws SQLException;
+    public Chef consultaRecetaXChef (BigInteger idReceta) throws  SQLException;
 }

@@ -3,15 +3,18 @@ package entidades.dto;
 import entidades.modelo.Categoria;
 import entidades.modelo.Chef;
 
+import java.math.BigInteger;
 import java.util.List;
 
 public class DTORecetaMiniatura {
-    private int idReceta;
+    private BigInteger idReceta;
     private String nombreReceta;
     private String linkImagen;
     private Chef autor;
+    private String mensaje;
+    private int idCategoria;
 
-    public DTORecetaMiniatura(int idReceta, String nombreReceta, String linkImagen, Chef autor) {
+    public DTORecetaMiniatura(BigInteger idReceta, String nombreReceta, String linkImagen, Chef autor) {
         this.idReceta = idReceta;
         this.nombreReceta = nombreReceta;
         this.linkImagen = linkImagen;
@@ -21,11 +24,11 @@ public class DTORecetaMiniatura {
     public DTORecetaMiniatura() {
     }
 
-    public int getIdReceta() {
+    public BigInteger getIdReceta() {
         return idReceta;
     }
 
-    public void setIdReceta(int idReceta) {
+    public void setIdReceta(BigInteger idReceta) {
         this.idReceta = idReceta;
     }
 
@@ -51,5 +54,21 @@ public class DTORecetaMiniatura {
 
     public void setAutor(Chef autor) {
         this.autor = autor;
+    }
+
+    public String getMensaje() {
+        return mensaje;
+    }
+
+    public void setMensaje(String mensaje) {
+        this.mensaje = mensaje;
+    }
+
+    public int getIdCategoria() {
+        return idCategoria;
+    }
+
+    public void setIdCategoria(int idCategoria) {
+        this.idCategoria = idCategoria;
     }
 }

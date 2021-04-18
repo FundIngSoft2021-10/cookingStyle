@@ -31,4 +31,5 @@ public class DTOReceta {
     public void setAutor(Chef autor) {
         this.autor = autor;
     }
+
 }

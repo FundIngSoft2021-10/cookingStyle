@@ -2,6 +2,7 @@ package logica_negocio.recetas;
 
 import entidades.dto.DTOListaFavoritos;
 import entidades.dto.DTOReceta;
+import entidades.dto.DTORecetaMiniatura;
 import entidades.modelo.Receta;
 
 import java.math.BigInteger;
@@ -19,4 +20,7 @@ public interface IControladorRecetasCooker {
     public List<DTOReceta> buscarRecetasCategoria (String categoria) throws SQLException;
     public List<DTOReceta> buscarRecetasIngrediente (String nom_ingrediente) throws SQLException;
     public List<DTOReceta> buscarRecetasChef (String nom_chef) throws SQLException;
+    public List<DTORecetaMiniatura> miniaturaRecetasCategoria (int idCategoria) throws SQLException;
+    public DTORecetaMiniatura miniaturaRecetasCategoria (BigInteger idReceta) throws SQLException;
+    public DTOReceta mostrarReceta(BigInteger idReceta) throws  SQLException;
 }

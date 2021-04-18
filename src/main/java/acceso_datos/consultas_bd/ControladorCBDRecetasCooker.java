@@ -37,7 +37,7 @@ public class ControladorCBDRecetasCooker implements IControladorCBDRecetasCooker
 
     @Override
     public List<Integer> consultaIdsIngrediente (String nom_ingrediente) throws SQLException{
-        String consultaIngrediente = "SELECT * FROM ingrediente WHERE ingrediente.nombre = "+nom_ingrediente+";";
+        String consultaIngrediente = "SELECT * FROM ingrediente WHERE UPPER(ingrediente.nombre) LIKE '%"+ nom_ingrediente +"%';";
         List<Integer> idsIngredientes = new ArrayList<>();
         int idIngrediente;
         try (PreparedStatement stmt = conexion.prepareStatement(consultaIngrediente)) {
@@ -160,7 +160,7 @@ public class ControladorCBDRecetasCooker implements IControladorCBDRecetasCooker
     @Override
     public int consultaIdCategoria (String nom_categoria) throws SQLException{
         int idCategoria = 0;
-        String consultaCategoria = "SELECT * FROM categoria WHERE categoria.nombre = "+nom_categoria+";";
+        String consultaCategoria = "SELECT * FROM categoria WHERE UPPER(categoria.nombre) LIKE '%"+ nom_categoria +"%';";
         try (PreparedStatement stmt = conexion.prepareStatement(consultaCategoria)) {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -394,7 +394,7 @@ public class ControladorCBDRecetasCooker implements IControladorCBDRecetasCooker
     @Override
     public List<DTOReceta> buscarRecetas (String nombre_receta) throws SQLException{
         List<DTOReceta> recetas = new ArrayList<>();
-        String consulta = "SELECT * FROM receta WHERE receta.nombre = " + nombre_receta + ";";
+        String consulta = "SELECT * FROM receta WHERE UPPER(nombre) LIKE '%"+ nombre_receta +"%';";
         try (PreparedStatement stmt = conexion.prepareStatement(consulta)) {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -455,7 +455,7 @@ public class ControladorCBDRecetasCooker implements IControladorCBDRecetasCooker
                 try (PreparedStatement stmt1 = conexion.prepareStatement(consultaChef)) {
                     ResultSet rs1 = stmt1.executeQuery();
                     while (rs1.next()) {
-                        idChef = rs1.getBigDecimal("idusuario").toBigInteger();
+                        idChef = rs1.getBigDecimal("chef_idusuario").toBigInteger();
                     }
                 } catch (SQLException sqle) {
                     throw sqle;
@@ -485,7 +485,7 @@ public class ControladorCBDRecetasCooker implements IControladorCBDRecetasCooker
                 try (PreparedStatement stmt1 = conexion.prepareStatement(consultaChef)) {
                     ResultSet rs1 = stmt1.executeQuery();
                     while (rs1.next()) {
-                        idChef = rs1.getBigDecimal("idusuario").toBigInteger();
+                        idChef = rs1.getBigDecimal("chef_idusuario").toBigInteger();
                     }
                 } catch (SQLException sqle) {
                     throw sqle;
@@ -616,5 +616,24 @@ public class ControladorCBDRecetasCooker implements IControladorCBDRecetasCooker
             throw sqle;
         }
 
+    }
+
+    @Override
+    public Chef consultaRecetaXChef(BigInteger idReceta) throws SQLException {
+        Chef chef = new Chef ();
+
+        String consulta = "SELECT * FROM receta WHERE idReceta = " + idReceta + ";";
+
+        try (PreparedStatement stmt = conexion.prepareStatement(consulta)){
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()){
+                BigInteger idChef = rs.getBigDecimal("chef_idusuario").toBigInteger();
+                chef = consultaChefReceta(idChef);
+            }
+            return  chef;
+
+        } catch (SQLException sqle){
+            throw sqle;
+        }
     }
 }
