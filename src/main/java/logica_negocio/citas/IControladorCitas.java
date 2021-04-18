@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface IControladorCitas {
     public DTOAgendaChef crearAgendaChef(Chef chef, List<Dia> dias, List<Integer> horas);
+    public DTOAgendaChef consultarDisponibilidadChef(Chef chef);
 }

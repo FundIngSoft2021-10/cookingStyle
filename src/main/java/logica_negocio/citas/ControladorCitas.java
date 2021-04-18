@@ -1,5 +1,6 @@
 package logica_negocio.citas;
 
+import acceso_datos.consultas_bd.IControladorCBDCitas;
 import acceso_datos.consultas_bd.IControladorCBDRegAut;
 import acceso_datos.persistencia_bd.IControladorPBDCitas;
 import entidades.dto.*;
@@ -11,7 +12,7 @@ import java.util.List;
 import java.util.ListIterator;
 
 public class ControladorCitas implements IControladorCitas {
-    //private IControladorCBDRegAut controlConsultaBD;
+    private IControladorCBDCitas controlConsultaBD;
     private IControladorPBDCitas controlPersistenciaBD;
 
     @Override
@@ -33,6 +34,17 @@ public class ControladorCitas implements IControladorCitas {
     }
     Calendario calendario = new Calendario(bloques);
     return new DTOAgendaChef(true, "Agenda creada exitosamente",chef,calendario);
+    }
+    @Override
+    public DTOAgendaChef consultarDisponibilidadChef(Chef chef){
+        List<Bloque> bloques = new ArrayList<>();
+        Calendario calendario;
+        try{
+            calendario =this.controlConsultaBD.buscarCalendarioChef(chef);
+        } catch (SQLException e){
+            return new DTOAgendaChef(false, "Error en al base de datos"+ e.getMessage(),null,null);
+        }
+        return new DTOAgendaChef(true,"Agenda del chef",chef,calendario);
     }
     /*
     //IMPORTANTE, NO BORRAR, CODIGO DE CREACIÓN DE LAS CITAS DEL CHEF
