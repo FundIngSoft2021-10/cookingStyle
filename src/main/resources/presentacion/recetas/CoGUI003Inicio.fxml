@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.Cursor?>
@@ -17,23 +24,23 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.recetas.ControladorCoGUI003">
    <children>
       <BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" style="-fx-background-color: white;">
          <top>
             <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="114.0" prefWidth="1600.0" style="-fx-background-color: #fcba03;" BorderPane.alignment="CENTER">
                <children>
-                  <ImageView fx:id="coLogoCookingPrincipal" fitHeight="113.0" fitWidth="252.0" layoutX="39.0" layoutY="4.0" AnchorPane.leftAnchor="39.0">
+                  <ImageView fx:id="coLogoCookingPrincipal" fitHeight="113.0" fitWidth="252.0" layoutX="39.0" layoutY="4.0" preserveRatio="true" AnchorPane.leftAnchor="39.0">
                      <image>
                         <Image url="@../../img/CookingBlanco.png" />
                      </image>
                   </ImageView>
-                  <TextField fx:id="coCampoBuscar" layoutX="657.0" layoutY="50.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="36.0" prefWidth="286.0" promptText="Buscar.." style="-fx-background-color: white; -fx-background-radius: 100;" AnchorPane.leftAnchor="657.0" AnchorPane.rightAnchor="657.0">
+                  <TextField fx:id="fieldBuscar" layoutX="657.0" layoutY="50.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="36.0" prefWidth="286.0" promptText="Buscar..." style="-fx-background-color: white; -fx-background-radius: 100;" AnchorPane.leftAnchor="657.0" AnchorPane.rightAnchor="657.0">
                      <cursor>
                         <Cursor fx:constant="TEXT" />
                      </cursor>
                   </TextField>
-                  <ImageView fx:id="coFotoPerfilInicio" fitHeight="101.0" fitWidth="122.0" layoutX="1482.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="0.5772323608398438">
+                  <ImageView fx:id="imgFotoUsuario" fitHeight="101.0" fitWidth="122.0" layoutX="1482.0" layoutY="2.0" onMouseClicked="#clickPerfil" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="0.5772323608398438">
                      <image>
                         <Image url="@../../img/Cooker4.png" />
                      </image>
@@ -41,7 +48,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ImageView>
-                  <ImageView fx:id="coBotonBuscar" layoutX="910.0" layoutY="55.0" AnchorPane.rightAnchor="664.0">
+                  <ImageView fx:id="btnBuscar" layoutX="910.0" layoutY="55.0" onMouseClicked="#clickBuscar" AnchorPane.rightAnchor="664.0">
                      <image>
                         <Image url="@../../img/buscar.png" />
                      </image>
@@ -52,7 +59,7 @@
                         <Rectangle2D />
                      </viewport>
                   </ImageView>
-                  <Text fx:id="nombreUsuarioInicio" fill="WHITE" layoutX="1318.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre Usuario" textAlignment="RIGHT" wrappingWidth="168.67822265625" AnchorPane.rightAnchor="113.32177734375">
+                  <Text fx:id="textNombreUsuario" fill="WHITE" layoutX="1318.0" layoutY="35.0" onMouseClicked="#clickPerfil" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre Usuario" textAlignment="RIGHT" wrappingWidth="168.67822265625" AnchorPane.rightAnchor="113.32177734375">
                      <font>
                         <Font name="Comic Sans MS" size="19.0" />
                      </font>
@@ -60,7 +67,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Text>
-                  <Text fx:id="membresiaCliente" fill="WHITE" layoutX="1374.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Membresía" textAlignment="RIGHT" wrappingWidth="111.61865234375" AnchorPane.rightAnchor="114.38134765625">
+                  <Text fx:id="textMembresia" fill="WHITE" layoutX="1374.0" layoutY="60.0" onMouseClicked="#clickMembresia" strokeType="OUTSIDE" strokeWidth="0.0" text="Membresía" textAlignment="RIGHT" wrappingWidth="111.61865234375" AnchorPane.rightAnchor="114.38134765625">
                      <font>
                         <Font name="Comic Sans MS" size="15.0" />
                      </font>
@@ -68,7 +75,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Text>
-                  <ImageView fx:id="iconoServicioAlCliente" fitHeight="38.0" fitWidth="47.0" layoutX="1450.0" layoutY="60.0" AnchorPane.rightAnchor="103.0">
+                  <ImageView fx:id="btnServicioCliente" fitHeight="38.0" fitWidth="47.0" layoutX="1450.0" layoutY="60.0" onMouseClicked="#clickServicioCliente" AnchorPane.rightAnchor="103.0">
                      <image>
                         <Image url="@../../img/ServicioAlCliente.png" />
                      </image>
@@ -76,7 +83,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ImageView>
-                  <Text fx:id="servicioAlClienteTexto" fill="WHITE" layoutX="1310.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Servicio al Cliente" textAlignment="RIGHT" wrappingWidth="139.61865234375" AnchorPane.rightAnchor="150.38134765625">
+                  <Text fx:id="textServicioCliente" fill="WHITE" layoutX="1310.0" layoutY="83.0" onMouseClicked="#clickServicioCliente" strokeType="OUTSIDE" strokeWidth="0.0" text="Servicio al Cliente" textAlignment="RIGHT" wrappingWidth="139.61865234375" AnchorPane.rightAnchor="150.38134765625">
                      <font>
                         <Font name="Comic Sans MS" size="12.0" />
                      </font>
@@ -90,7 +97,7 @@
          <left>
             <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="788.0" prefWidth="276.0" BorderPane.alignment="CENTER">
                <children>
-                  <Text fx:id="coBusquedasRecientes" layoutX="4.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Búsquedas Recientes " textAlignment="CENTER" underline="true" wrappingWidth="246.134765625">
+                  <Text fx:id="btnBusquedasRecientes" layoutX="4.0" layoutY="28.0" onMouseClicked="#clickBusquedasRecientes" strokeType="OUTSIDE" strokeWidth="0.0" text="Búsquedas Recientes " textAlignment="CENTER" underline="true" wrappingWidth="246.134765625">
                      <font>
                         <Font name="Comic Sans MS" size="15.0" />
                      </font>
@@ -108,12 +115,12 @@
                         <Font name="Comic Sans MS" size="13.0" />
                      </font>
                   </Button>
-                  <ListView fx:id="coListaCategorias" layoutX="27.0" layoutY="124.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="581.0" prefWidth="222.0" AnchorPane.bottomAnchor="83.0">
+                  <ListView fx:id="listviewCategorias" layoutX="27.0" layoutY="124.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="581.0" prefWidth="222.0" AnchorPane.bottomAnchor="83.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ListView>
-                  <Text fx:id="coVerMasCategorias" layoutX="26.0" layoutY="737.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ver más" textAlignment="RIGHT" underline="true" wrappingWidth="201.134765625" AnchorPane.bottomAnchor="46.62744140625">
+                  <Text fx:id="btnVerMasCategorias" layoutX="26.0" layoutY="737.0" onMouseClicked="#clickVerMasCategorias" strokeType="OUTSIDE" strokeWidth="0.0" text="Ver más" textAlignment="RIGHT" underline="true" wrappingWidth="201.134765625" AnchorPane.bottomAnchor="46.62744140625">
                      <font>
                         <Font name="Comic Sans MS" size="15.0" />
                      </font>
@@ -137,12 +144,12 @@
                <children>
                   <AnchorPane fx:id="PaneReceta1" prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <ImageView fx:id="imagenReceta1" fitHeight="179.0" fitWidth="262.0" layoutX="90.0" layoutY="106.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="102.0" AnchorPane.leftAnchor="94.0" AnchorPane.rightAnchor="94.0" AnchorPane.topAnchor="102.0">
+                        <ImageView fx:id="imgC1R1" fitHeight="179.0" fitWidth="262.0" layoutX="90.0" layoutY="106.0" onMouseClicked="#clickC1R1" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="102.0" AnchorPane.leftAnchor="94.0" AnchorPane.rightAnchor="94.0" AnchorPane.topAnchor="102.0">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </ImageView>
-                        <Text fx:id="nombreReceta1" layoutX="154.0" layoutY="310.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre receta" textAlignment="CENTER">
+                        <Text fx:id="textNombreC1R1" layoutX="154.0" layoutY="310.0" onMouseClicked="#clickC1R1" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre receta" textAlignment="CENTER">
                            <font>
                               <Font name="Comic Sans MS" size="20.0" />
                            </font>
@@ -150,21 +157,29 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Text>
-                        <Text fx:id="nombreCategoria1Inicio" fill="#fcba03" layoutX="10.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Categoría 1" wrappingWidth="168.32421875">
+                        <Text fx:id="textC1" fill="#fcba03" layoutX="10.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Categoría 1" wrappingWidth="168.32421875">
                            <font>
                               <Font name="Comic Sans MS" size="25.0" />
                            </font>
                         </Text>
+                        <ImageView fx:id="btnAntC1" layoutX="2.0" layoutY="180.0" onMouseClicked="#clickAntC1" rotate="180.0">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <image>
+                              <Image url="@../../img/VerMasCategoria.png" />
+                           </image>
+                        </ImageView>
                      </children>
                   </AnchorPane>
                   <AnchorPane fx:id="paneReceta2" prefHeight="200.0" prefWidth="389.0" GridPane.columnIndex="1">
                      <children>
-                        <ImageView fx:id="imagenReceta2" fitHeight="179.0" fitWidth="262.0" layoutX="90.0" layoutY="106.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="102.0" AnchorPane.leftAnchor="94.0" AnchorPane.rightAnchor="94.0" AnchorPane.topAnchor="102.0">
+                        <ImageView fx:id="imgC1R2" fitHeight="179.0" fitWidth="262.0" layoutX="90.0" layoutY="106.0" onMouseClicked="#clickC1R2" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="102.0" AnchorPane.leftAnchor="94.0" AnchorPane.rightAnchor="94.0" AnchorPane.topAnchor="102.0">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </ImageView>
-                        <Text fx:id="nombreReceta2" layoutX="154.0" layoutY="310.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre receta" textAlignment="CENTER">
+                        <Text fx:id="textNombreC1R2" layoutX="154.0" layoutY="310.0" onMouseClicked="#clickC1R2" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre receta" textAlignment="CENTER">
                            <font>
                               <Font name="Comic Sans MS" size="20.0" />
                            </font>
@@ -172,16 +187,24 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Text>
+                        <ImageView fx:id="btnAntCategorias" layoutX="212.0" layoutY="14.0" onMouseClicked="#clickAntCategorias" rotate="180.0">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <image>
+                              <Image url="@../../img/bajarCategorias.png" />
+                           </image>
+                        </ImageView>
                      </children>
                   </AnchorPane>
                   <AnchorPane fx:id="paneReceta4" prefHeight="383.0" prefWidth="463.0" GridPane.rowIndex="1">
                      <children>
-                        <ImageView fx:id="imagenReceta4" fitHeight="179.0" fitWidth="262.0" layoutX="90.0" layoutY="106.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="102.0" AnchorPane.leftAnchor="94.0" AnchorPane.rightAnchor="94.0" AnchorPane.topAnchor="102.0">
+                        <ImageView fx:id="imgC2R1" fitHeight="179.0" fitWidth="262.0" layoutX="90.0" layoutY="106.0" onMouseClicked="#clickC2R1" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="102.0" AnchorPane.leftAnchor="94.0" AnchorPane.rightAnchor="94.0" AnchorPane.topAnchor="102.0">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </ImageView>
-                        <Text fx:id="nombreReceta4" layoutX="154.0" layoutY="310.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre receta" textAlignment="CENTER">
+                        <Text fx:id="textNombreC2R1" layoutX="154.0" layoutY="310.0" onMouseClicked="#clickC2R1" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre receta" textAlignment="CENTER">
                            <font>
                               <Font name="Comic Sans MS" size="20.0" />
                            </font>
@@ -189,21 +212,29 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Text>
-                        <Text fx:id="nombreCategoria2Inicio" fill="#fcba03" layoutX="10.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Categoría 2" wrappingWidth="168.32421875">
+                        <Text fx:id="textC2" fill="#fcba03" layoutX="10.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Categoría 2" wrappingWidth="168.32421875">
                            <font>
                               <Font name="Comic Sans MS" size="25.0" />
                            </font>
                         </Text>
+                        <ImageView fx:id="btnAntC2" layoutX="2.0" layoutY="180.0" onMouseClicked="#clickAntC2" rotate="180.0">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <image>
+                              <Image url="@../../img/VerMasCategoria.png" />
+                           </image>
+                        </ImageView>
                      </children>
                   </AnchorPane>
                   <AnchorPane fx:id="paneReceta3" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
                      <children>
-                        <ImageView fx:id="imagenReceta3" fitHeight="179.0" fitWidth="262.0" layoutX="90.0" layoutY="106.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="102.0" AnchorPane.leftAnchor="94.0" AnchorPane.rightAnchor="94.0" AnchorPane.topAnchor="102.0">
+                        <ImageView fx:id="imgC1R3" fitHeight="179.0" fitWidth="262.0" layoutX="96.0" layoutY="102.0" onMouseClicked="#clickC1R3" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="102.0" AnchorPane.leftAnchor="96.0" AnchorPane.rightAnchor="96.0" AnchorPane.topAnchor="102.0">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </ImageView>
-                        <Text fx:id="nombreReceta3" layoutX="154.0" layoutY="310.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre receta" textAlignment="CENTER">
+                        <Text fx:id="textNombreC1R3" layoutX="154.0" layoutY="310.0" onMouseClicked="#clickC1R3" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre receta" textAlignment="CENTER">
                            <font>
                               <Font name="Comic Sans MS" size="20.0" />
                            </font>
@@ -211,7 +242,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Text>
-                        <ImageView layoutX="416.0" layoutY="180.0">
+                        <ImageView fx:id="btnSigC1" layoutX="416.0" layoutY="180.0" onMouseClicked="#clickSigC1">
                            <image>
                               <Image url="@../../img/VerMasCategoria.png" />
                            </image>
@@ -223,12 +254,12 @@
                   </AnchorPane>
                   <AnchorPane fx:id="paneReceta5" prefHeight="383.0" prefWidth="411.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <children>
-                        <ImageView fx:id="imagenReceta5" fitHeight="179.0" fitWidth="262.0" layoutX="90.0" layoutY="106.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="102.0" AnchorPane.leftAnchor="94.0" AnchorPane.rightAnchor="94.0" AnchorPane.topAnchor="102.0">
+                        <ImageView fx:id="imgC2R2" fitHeight="179.0" fitWidth="262.0" layoutX="90.0" layoutY="106.0" onMouseClicked="#clickC2R2" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="102.0" AnchorPane.leftAnchor="94.0" AnchorPane.rightAnchor="94.0" AnchorPane.topAnchor="102.0">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </ImageView>
-                        <Text fx:id="nombreReceta5" layoutX="154.0" layoutY="310.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre receta" textAlignment="CENTER">
+                        <Text fx:id="textNombreC2R2" layoutX="154.0" layoutY="310.0" onMouseClicked="#clickC2R2" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre receta" textAlignment="CENTER">
                            <font>
                               <Font name="Comic Sans MS" size="20.0" />
                            </font>
@@ -236,7 +267,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Text>
-                        <ImageView fx:id="bajarCategoriasInicio" layoutX="212.0" layoutY="356.0">
+                        <ImageView fx:id="btnSigCategorias" layoutX="212.0" layoutY="356.0" onMouseClicked="#clickSigCategorias">
                            <image>
                               <Image url="@../../img/bajarCategorias.png" />
                            </image>
@@ -248,12 +279,12 @@
                   </AnchorPane>
                   <AnchorPane fx:id="paneReceta6" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <children>
-                        <ImageView fx:id="imagenReceta6" fitHeight="179.0" fitWidth="262.0" layoutX="90.0" layoutY="106.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="102.0" AnchorPane.leftAnchor="94.0" AnchorPane.rightAnchor="94.0" AnchorPane.topAnchor="102.0">
+                        <ImageView fx:id="imgC2R3" fitHeight="179.0" fitWidth="262.0" layoutX="96.0" layoutY="102.0" onMouseClicked="#clickC2R3" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="102.0" AnchorPane.leftAnchor="96.0" AnchorPane.rightAnchor="96.0" AnchorPane.topAnchor="102.0">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </ImageView>
-                        <Text fx:id="nombreReceta6" layoutX="154.0" layoutY="310.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre receta" textAlignment="CENTER">
+                        <Text fx:id="textNombreC2R3" layoutX="154.0" layoutY="310.0" onMouseClicked="#clickC2R3" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre receta" textAlignment="CENTER">
                            <font>
                               <Font name="Comic Sans MS" size="20.0" />
                            </font>
@@ -261,7 +292,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Text>
-                        <ImageView layoutX="416.0" layoutY="180.0">
+                        <ImageView fx:id="btnSigC2" layoutX="416.0" layoutY="180.0" onMouseClicked="#clickSigC2">
                            <image>
                               <Image url="@../../img/VerMasCategoria.png" />
                            </image>

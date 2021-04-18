@@ -4,14 +4,14 @@ import entidades.dto.DTOSesion;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
-import presentacion.ControladorPantalla;
+import presentacion.IControladorPantalla;
 import entidades.dto.Pantalla;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ControladorToGUI002 implements ControladorPantalla {
+public class ControladorToGUI002 implements IControladorPantalla {
     private DTOSesion sesion;
 
     @Override

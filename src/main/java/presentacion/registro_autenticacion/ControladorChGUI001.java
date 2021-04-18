@@ -9,13 +9,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import logica_negocio.registro_autenticacion.ControladorRegAut;
 import logica_negocio.registro_autenticacion.IControladorRegAut;
-import presentacion.ControladorPantalla;
+import presentacion.IControladorPantalla;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ControladorChGUI001 implements ControladorPantalla {
+public class ControladorChGUI001 implements IControladorPantalla {
     private DTOSesion sesion;
     private IControladorRegAut controlRegAut;
 

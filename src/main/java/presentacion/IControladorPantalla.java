@@ -18,7 +18,7 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 
-public interface ControladorPantalla extends Initializable {
+public interface IControladorPantalla extends Initializable {
     /**
      * Inicializa y desempaqueta los datos de la sesión en el controlador
      * @param sesion los datos de la sesión
@@ -43,8 +43,8 @@ public interface ControladorPantalla extends Initializable {
         Parent nuevaPantallaParent = loader.load();
 
         // Acceder al controlador de la nueva pantalla, e inicializarlo
-        ControladorPantalla controladorPantalla = loader.getController();
-        controladorPantalla.inicializar(sesion);
+        IControladorPantalla IControladorPantalla = loader.getController();
+        IControladorPantalla.inicializar(sesion);
 
         // Obtener la información del Stage
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
