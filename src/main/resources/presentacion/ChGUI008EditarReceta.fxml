@@ -29,7 +29,7 @@
                               <Font name="Comic Sans MS" size="16.0" />
                            </font>
                         </Text>
-                        <TextField fx:id="linkImagenRecetaSR" layoutX="299.0" layoutY="48.0" opacity="0.51" prefHeight="25.0" prefWidth="442.0" style="-fx-background-color: #fad161; -fx-background-radius: 50;">
+                        <TextField fx:id="linkImagenRecetaMR" layoutX="299.0" layoutY="48.0" opacity="0.51" prefHeight="25.0" prefWidth="442.0" style="-fx-background-color: #fad161; -fx-background-radius: 50;">
                            <cursor>
                               <Cursor fx:constant="TEXT" />
                            </cursor>
@@ -39,7 +39,7 @@
                               <Font name="Comic Sans MS" size="16.0" />
                            </font>
                         </Text>
-                        <TextField fx:id="nombreRecetaSR" layoutX="300.0" layoutY="85.0" opacity="0.51" prefHeight="25.0" prefWidth="441.0" style="-fx-background-color: #fad161; -fx-background-radius: 50;">
+                        <TextField fx:id="nombreRecetaMR" layoutX="300.0" layoutY="85.0" opacity="0.51" prefHeight="25.0" prefWidth="441.0" style="-fx-background-color: #fad161; -fx-background-radius: 50;">
                            <cursor>
                               <Cursor fx:constant="TEXT" />
                            </cursor>
@@ -49,18 +49,18 @@
                               <Font name="Comic Sans MS" size="16.0" />
                            </font>
                         </Text>
-                        <TextArea layoutX="298.0" layoutY="143.0" prefHeight="181.0" prefWidth="446.0" style="-fx-background-color: #fad161;" />
+                        <TextArea fx:id="descripcionRecetaMR" layoutX="298.0" layoutY="143.0" prefHeight="181.0" prefWidth="446.0" style="-fx-background-color: #fad161;" />
                         <Text fill="#fcba03" layoutX="47.0" layoutY="370.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Link del video de su receta: ">
                            <font>
                               <Font name="Comic Sans MS" size="16.0" />
                            </font>
                         </Text>
-                        <TextField fx:id="coNombreRegistro2" layoutX="299.0" layoutY="350.0" opacity="0.51" prefHeight="25.0" prefWidth="324.0" style="-fx-background-color: #fad161; -fx-background-radius: 50;">
+                        <TextField fx:id="linkVideoRecetaMR" layoutX="299.0" layoutY="350.0" opacity="0.51" prefHeight="25.0" prefWidth="324.0" style="-fx-background-color: #fad161; -fx-background-radius: 50;">
                            <cursor>
                               <Cursor fx:constant="TEXT" />
                            </cursor>
                         </TextField>
-                        <MenuButton layoutX="644.0" layoutY="351.0" mnemonicParsing="false" style="-fx-background-color: #fad161; -fx-background-radius: 100;" text="Plataforma">
+                        <MenuButton fx:id="menuPlataformasMR" layoutX="644.0" layoutY="351.0" mnemonicParsing="false" style="-fx-background-color: #fad161; -fx-background-radius: 100;" text="Plataforma">
                           <items>
                             <MenuItem mnemonicParsing="false" text="Vimeo" />
                             <MenuItem mnemonicParsing="false" text="Youtube" />
@@ -89,23 +89,23 @@
                               <Font name="Comic Sans MS" size="16.0" />
                            </font>
                         </Text>
-                        <ScrollPane layoutX="36.0" layoutY="469.0">
+                        <ScrollPane fx:id="scrollPaneIngredientesMR" layoutX="36.0" layoutY="469.0">
                            <content>
-                              <VBox prefHeight="302.0" prefWidth="725.0">
+                              <VBox fx:id="vBoxIngredientesMR" prefHeight="302.0" prefWidth="725.0">
                                  <children>
                                     <AnchorPane prefHeight="57.0" prefWidth="725.0">
                                        <children>
-                                          <TextField fx:id="coNombreRegistro11" layoutX="5.0" layoutY="16.0" opacity="0.51" prefHeight="25.0" prefWidth="299.0" promptText="Nombre Ingrediente" style="-fx-background-color: #fad161; -fx-background-radius: 50;">
+                                          <TextField fx:id="nombreIngredienteMR" layoutX="5.0" layoutY="16.0" opacity="0.51" prefHeight="25.0" prefWidth="299.0" promptText="Nombre Ingrediente" style="-fx-background-color: #fad161; -fx-background-radius: 50;">
                                              <cursor>
                                                 <Cursor fx:constant="TEXT" />
                                              </cursor>
                                           </TextField>
-                                          <TextField fx:id="coNombreRegistro111" layoutX="320.0" layoutY="16.0" opacity="0.51" prefHeight="25.0" prefWidth="118.0" promptText="Cantidad" style="-fx-background-color: #fad161; -fx-background-radius: 50;">
+                                          <TextField fx:id="cantidadIngredienteMR" layoutX="320.0" layoutY="16.0" opacity="0.51" prefHeight="25.0" prefWidth="118.0" promptText="Cantidad" style="-fx-background-color: #fad161; -fx-background-radius: 50;">
                                              <cursor>
                                                 <Cursor fx:constant="TEXT" />
                                              </cursor>
                                           </TextField>
-                                          <MenuButton layoutX="456.0" layoutY="16.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="109.0" style="-fx-background-color: #fad161; -fx-background-radius: 100;" text="Medida">
+                                          <MenuButton fx:id="menuMedidasMR" layoutX="456.0" layoutY="16.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="109.0" style="-fx-background-color: #fad161; -fx-background-radius: 100;" text="Medida">
                                              <items>
                                                 <MenuItem mnemonicParsing="false" text="Gramos (g)" />
                                                 <MenuItem mnemonicParsing="false" text="Kilogramos (kg)" />
@@ -118,37 +118,52 @@
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                           </MenuButton>
+                                          <ImageView fx:id="botonAniadirIngrediente" layoutX="586.0" layoutY="11.0">
+                                             <image>
+                                                <Image url="@../img/Aniadir.png" />
+                                             </image>
+                                          </ImageView>
+                                          <ImageView fx:id="botonQuitarIngrediente" fitHeight="25.0" fitWidth="24.0" layoutX="629.0" layoutY="14.0">
+                                             <image>
+                                                <Image url="@../img/Quitar.png" />
+                                             </image>
+                                          </ImageView>
                                        </children>
                                     </AnchorPane>
                                  </children>
                               </VBox>
                            </content>
                         </ScrollPane>
-                        <ImageView layoutX="674.0" layoutY="437.0">
-                           <image>
-                              <Image url="@../img/Aniadir.png" />
-                           </image>
-                        </ImageView>
                      </children>
                   </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                      <children>
-                        <ScrollPane layoutX="25.0" layoutY="68.0">
+                        <ScrollPane fx:id="scrollPanePasosMR" layoutX="25.0" layoutY="68.0">
                            <content>
-                              <VBox prefHeight="630.0" prefWidth="725.0">
+                              <VBox fx:id="vboxPasosMR" prefHeight="630.0" prefWidth="725.0">
                                  <children>
                                     <AnchorPane prefHeight="57.0" prefWidth="725.0">
                                        <children>
-                                          <TextField fx:id="coNombreRegistro111" layoutX="5.0" layoutY="16.0" opacity="0.51" prefHeight="25.0" prefWidth="426.0" promptText="Descripción del paso" style="-fx-background-color: #fad161; -fx-background-radius: 50;">
+                                          <TextField fx:id="descripcionPasoMR" layoutX="5.0" layoutY="16.0" opacity="0.51" prefHeight="25.0" prefWidth="426.0" promptText="Descripción del paso" style="-fx-background-color: #fad161; -fx-background-radius: 50;">
                                              <cursor>
                                                 <Cursor fx:constant="TEXT" />
                                              </cursor>
                                           </TextField>
-                                          <TextField fx:id="coNombreRegistro1111" layoutX="442.0" layoutY="16.0" opacity="0.51" prefHeight="25.0" prefWidth="158.0" promptText="Link" style="-fx-background-color: #fad161; -fx-background-radius: 50;">
+                                          <TextField fx:id="linkImagenPasoMR" layoutX="442.0" layoutY="16.0" opacity="0.51" prefHeight="25.0" prefWidth="158.0" promptText="Link" style="-fx-background-color: #fad161; -fx-background-radius: 50;">
                                              <cursor>
                                                 <Cursor fx:constant="TEXT" />
                                              </cursor>
                                           </TextField>
+                                          <ImageView fx:id="botonAniadirPaso" layoutX="622.0" layoutY="14.0">
+                                             <image>
+                                                <Image url="@../img/Aniadir.png" />
+                                             </image>
+                                          </ImageView>
+                                          <ImageView fx:id="botonQuitarPaso" fitHeight="25.0" fitWidth="24.0" layoutX="663.0" layoutY="17.0">
+                                             <image>
+                                                <Image url="@../img/Quitar.png" />
+                                             </image>
+                                          </ImageView>
                                        </children>
                                     </AnchorPane>
                                  </children>
@@ -165,7 +180,7 @@
                               <Font name="Comic Sans MS" size="16.0" />
                            </font>
                         </Text>
-                        <Button layoutX="663.0" layoutY="723.0" mnemonicParsing="false" style="-fx-background-color: #fcba03; -fx-background-radius: 50;" text="Enviar Receta" AnchorPane.bottomAnchor="35.94342353905097" AnchorPane.rightAnchor="47.03776140168972" />
+                        <Button fx:id="botonModificarReceta" layoutX="663.0" layoutY="723.0" mnemonicParsing="false" style="-fx-background-color: #fcba03; -fx-background-radius: 50;" text="Modificar Receta" AnchorPane.bottomAnchor="35.94342353905097" AnchorPane.rightAnchor="47.03776140168972" />
                      </children></AnchorPane>
               </items>
             </SplitPane>
