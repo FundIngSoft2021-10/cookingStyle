@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -14,7 +21,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" style="-fx-background-color: #fcba03;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" style="-fx-background-color: #fcba03;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.registro_autenticacion.ControladorCoGUI002">
    <children>
       <BorderPane prefHeight="900.0" prefWidth="1600.0">
          <top>
@@ -33,24 +40,14 @@
                   <Insets left="200.0" />
                </BorderPane.margin>
                <image>
-                  <Image url="@../img/MiniCookingBlanco.png" />
+                  <Image url="@../../img/MiniCookingBlanco.png" />
                </image>
             </ImageView>
          </left>
-         <bottom>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Chef" textAlignment="CENTER" wrappingWidth="178.1796875" BorderPane.alignment="BOTTOM_LEFT">
-               <font>
-                  <Font name="Comic Sans MS" size="60.0" />
-               </font>
-               <BorderPane.margin>
-                  <Insets bottom="150.0" left="250.0" />
-               </BorderPane.margin>
-            </Text>
-         </bottom>
          <right>
             <AnchorPane prefHeight="607.0" prefWidth="1006.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button layoutX="585.0" layoutY="484.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="212.0" style="-fx-background-radius: 100; -fx-background-color: white;" text="Registrarse">
+                  <Button fx:id="btnRegistrarse" layoutX="585.0" layoutY="484.0" mnemonicParsing="false" onAction="#clickRegistrarse" prefHeight="36.0" prefWidth="212.0" style="-fx-background-radius: 100; -fx-background-color: white;" text="Registrarse">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -78,18 +75,18 @@
                         <Font name="Comic Sans MS" size="31.0" />
                      </font>
                   </Text>
-                  <ProgressBar layoutX="819.0" layoutY="380.0" prefHeight="29.0" prefWidth="84.0" progress="1.0" style="-fx-accent: red; -fx-background-radius: 100; -fx-border-radius: 100;" />
-                  <TextField layoutX="277.0" layoutY="164.0" prefHeight="25.0" prefWidth="520.0" style="-fx-background-color: #fad161; -fx-background-radius: 50;">
+                  <ProgressBar fx:id="barraPassword" layoutX="819.0" layoutY="380.0" prefHeight="29.0" prefWidth="84.0" progress="1.0" style="-fx-accent: red; -fx-background-radius: 100; -fx-border-radius: 100;" />
+                  <TextField fx:id="fieldNombres" layoutX="277.0" layoutY="164.0" prefHeight="25.0" prefWidth="520.0" style="-fx-background-color: #fad161; -fx-background-radius: 50;">
                      <cursor>
                         <Cursor fx:constant="TEXT" />
                      </cursor>
                   </TextField>
-                  <TextField layoutX="277.0" layoutY="221.0" prefHeight="25.0" prefWidth="520.0" style="-fx-background-color: #fad161; -fx-background-radius: 50;">
+                  <TextField fx:id="fieldApellidos" layoutX="277.0" layoutY="221.0" prefHeight="25.0" prefWidth="520.0" style="-fx-background-color: #fad161; -fx-background-radius: 50;">
                      <cursor>
                         <Cursor fx:constant="TEXT" />
                      </cursor>
                   </TextField>
-                  <TextField layoutX="277.0" layoutY="329.0" prefHeight="25.0" prefWidth="520.0" style="-fx-background-color: #fad161; -fx-background-radius: 50;">
+                  <TextField fx:id="fieldCorreo" layoutX="277.0" layoutY="329.0" prefHeight="25.0" prefWidth="520.0" style="-fx-background-color: #fad161; -fx-background-radius: 50;">
                      <cursor>
                         <Cursor fx:constant="TEXT" />
                      </cursor>
@@ -99,23 +96,23 @@
                         <Font name="Comic Sans MS" size="31.0" />
                      </font>
                   </Text>
-                  <ProgressBar layoutX="819.0" layoutY="432.0" prefHeight="29.0" prefWidth="84.0" progress="1.0" style="-fx-accent: red; -fx-background-radius: 100; -fx-border-radius: 100;" />
+                  <ProgressBar fx:id="barraConfirmarPassword" layoutX="819.0" layoutY="432.0" prefHeight="29.0" prefWidth="84.0" progress="1.0" style="-fx-accent: red; -fx-background-radius: 100; -fx-border-radius: 100;" />
                   <Text fill="WHITE" layoutX="58.0" layoutY="302.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Usuario:" wrappingWidth="876.6400756835938">
                      <font>
                         <Font name="Comic Sans MS" size="31.0" />
                      </font>
                   </Text>
-                  <TextField layoutX="277.0" layoutY="277.0" prefHeight="25.0" prefWidth="520.0" style="-fx-background-color: #fad161; -fx-background-radius: 50;">
+                  <TextField fx:id="fieldNombreUsuario" layoutX="277.0" layoutY="277.0" prefHeight="25.0" prefWidth="520.0" style="-fx-background-color: #fad161; -fx-background-radius: 50;">
                      <cursor>
                         <Cursor fx:constant="TEXT" />
                      </cursor>
                   </TextField>
-                  <PasswordField layoutX="277.0" layoutY="434.0" prefHeight="25.0" prefWidth="520.0" style="-fx-background-color: #fad161; -fx-background-radius: 50;">
+                  <PasswordField fx:id="fieldConfirmarPassword" layoutX="277.0" layoutY="434.0" prefHeight="25.0" prefWidth="520.0" style="-fx-background-color: #fad161; -fx-background-radius: 50;">
                      <cursor>
                         <Cursor fx:constant="TEXT" />
                      </cursor>
                   </PasswordField>
-                  <PasswordField layoutX="277.0" layoutY="382.0" prefHeight="25.0" prefWidth="520.0" style="-fx-background-color: #fad161; -fx-background-radius: 50;">
+                  <PasswordField fx:id="fieldPassword" layoutX="277.0" layoutY="382.0" prefHeight="25.0" prefWidth="520.0" style="-fx-background-color: #fad161; -fx-background-radius: 50;">
                      <cursor>
                         <Cursor fx:constant="TEXT" />
                      </cursor>
@@ -123,6 +120,18 @@
                </children>
             </AnchorPane>
          </right>
+         <bottom>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Cooker" textAlignment="CENTER" wrappingWidth="199.1796875" BorderPane.alignment="BOTTOM_LEFT">
+               <font>
+                  <Font name="Comic Sans MS" size="60.0" />
+               </font>
+               <BorderPane.margin>
+                  <Insets bottom="150.0" left="250.0" />
+               </BorderPane.margin>
+            </Text>
+         </bottom>
       </BorderPane>
    </children>
+
+
 </VBox>
