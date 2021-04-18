@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -24,22 +25,25 @@
             </Text>
          </top>
          <center>
-            <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="805.0" prefWidth="1408.0" BorderPane.alignment="CENTER">
                <children>
                   <Button fx:id="chBotonFinalizarProcesoNA" alignment="BASELINE_LEFT" contentDisplay="CENTER" layoutX="1195.0" layoutY="615.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="47.0" prefWidth="129.0" style="-fx-background-color: white; -fx-background-radius: 100;" text="Finalizar" textAlignment="CENTER" wrapText="true">
                      <font>
                         <Font name="Comic Sans MS" size="22.0" />
                      </font>
                   </Button>
-                  <Text fill="WHITE" layoutX="409.0" layoutY="258.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No has pasado todos los filtros Chef" textAlignment="CENTER">
+                  <Text fill="WHITE" layoutX="380.0" layoutY="322.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No has pasado los filtros Chef" textAlignment="CENTER" textOrigin="CENTER">
                      <font>
                         <Font name="Comic Sans MS" size="46.0" />
                      </font>
                   </Text>
-                  <ImageView fitHeight="107.0" fitWidth="112.0" layoutX="775.0" layoutY="88.0">
+                  <ImageView fitHeight="107.0" fitWidth="112.0" layoutX="648.0" layoutY="94.0">
                      <image>
                         <Image url="@../img/CaraTriste.png" />
                      </image>
+                     <viewport>
+                        <Rectangle2D />
+                     </viewport>
                   </ImageView>
                </children>
             </AnchorPane>

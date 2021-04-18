@@ -12,7 +12,7 @@ import java.util.Objects;
 public class CookingApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("ChGUI004MensajeProceso.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("CoGUI003Inicio.fxml"));
         primaryStage.setTitle("Cooking App");
         primaryStage.setScene(new Scene(root));
         primaryStage.setForceIntegerRenderScale(true);
