@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import logica_negocio.recetas.ControladorRecetasChef;
 
 public class CookingApp extends Application {
     @Override
@@ -16,6 +17,6 @@ public class CookingApp extends Application {
         primaryStage.show();
     }
 
-    public static void main(String[] args) { launch(args); }
+    public static void main(String[] args) { launch(args);}
 
 }
