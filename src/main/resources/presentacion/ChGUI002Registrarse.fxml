@@ -120,6 +120,14 @@
                         <Cursor fx:constant="TEXT" />
                      </cursor>
                   </PasswordField>
+                  <Button fx:id="botonCancelarRCh" layoutX="482.0" layoutY="492.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="80.0" style="-fx-background-radius: 100; -fx-background-color: #FF675A;" text="Cancelar">
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
                </children>
             </AnchorPane>
          </right>

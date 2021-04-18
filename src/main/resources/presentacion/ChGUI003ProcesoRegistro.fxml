@@ -65,6 +65,14 @@
                         <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                      </padding>
                   </AnchorPane>
+                  <Button fx:id="botonCancelarPR" layoutX="667.0" layoutY="589.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="80.0" style="-fx-background-radius: 100; -fx-background-color: #FF675A;" text="Cancelar">
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
                </children>
             </AnchorPane>
          </center>

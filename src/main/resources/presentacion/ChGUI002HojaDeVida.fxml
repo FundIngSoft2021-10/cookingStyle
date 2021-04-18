@@ -15,7 +15,7 @@
    <children>
       <BorderPane prefHeight="900.0" prefWidth="1600.0">
          <top>
-            <Text fx:id="chFraseHV" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="¡Estás a un paso de ser parte de esta gran comunidad!" textAlignment="CENTER" wrappingWidth="1602.84814453125" BorderPane.alignment="CENTER">
+            <Text fx:id="chFraseHV" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="¡Estás a un paso de ser parte de esta gran comunidad!" textAlignment="CENTER" wrappingWidth="1591.980224609375" BorderPane.alignment="CENTER">
                <font>
                   <Font name="Comic Sans MS" size="39.0" />
                </font>
@@ -73,6 +73,14 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ImageView>
+                  <Button fx:id="botonCancelarHV" layoutX="478.0" layoutY="434.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="80.0" style="-fx-background-radius: 100; -fx-background-color: #FF675A;" text="Cancelar">
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
                </children>
             </AnchorPane>
          </right>

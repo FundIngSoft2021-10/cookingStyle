@@ -77,6 +77,14 @@
                      </cursor>
                   </Button>
                   <ProgressBar fx:id="chProgresoContrasenia" layoutX="817.0" layoutY="374.0" prefHeight="29.0" prefWidth="84.0" progress="1.0" style="-fx-accent: red; -fx-background-radius: 100; -fx-border-radius: 100;" />
+                  <Button fx:id="botonCancelarIS" layoutX="493.0" layoutY="434.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="72.0" style="-fx-background-radius: 100; -fx-background-color: #FF675A;" text="Cancelar">
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
                </children>
             </AnchorPane>
          </right>
