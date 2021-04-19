@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="307.0" prefWidth="600.0" style="-fx-background-radius: 50; -fx-background-color: white;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <BorderPane prefHeight="305.0" prefWidth="600.0" style="-fx-background-radius: 50;">
+         <top>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Aviso" BorderPane.alignment="BOTTOM_CENTER">
+               <font>
+                  <Font name="Comic Sans MS" size="18.0" />
+               </font>
+            </Text>
+         </top>
+         <bottom>
+            <GridPane prefHeight="41.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="304.0566144639722" minWidth="10.0" prefWidth="304.0566144639722" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="195.09434554363847" minWidth="0.0" prefWidth="0.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="302.8679661491072" minWidth="10.0" prefWidth="289.28306624676344" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Text fill="#ff736e" strokeType="OUTSIDE" strokeWidth="0.0" text="Cancelar" textAlignment="CENTER" wrappingWidth="297.03978157043457" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="Comic Sans MS" size="22.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets bottom="5.0" />
+                     </GridPane.margin>
+                  </Text>
+                  <Text fill="#96ff7c" strokeType="OUTSIDE" strokeWidth="0.0" text="Aceptar" textAlignment="CENTER" wrappingWidth="297.03978157043457" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="Comic Sans MS" size="22.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets bottom="5.0" />
+                     </GridPane.margin>
+                  </Text>
+                  <Line endX="497.01202392578125" endY="2.915513277053833" startX="-100.0" />
+                  <Line endX="497.01202392578125" endY="2.915513277053833" startX="-100.0" />
+                  <Line endX="-10.96555233001709" endY="-24.017555236816406" startX="-10.965580940246582" startY="14.708179473876953" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+               </children>
+            </GridPane>
+         </bottom>
+         <center>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="La receta ha sido agregada a tu sección de favoritos" textAlignment="CENTER" wrappingWidth="571.199462890625" BorderPane.alignment="CENTER">
+               <font>
+                  <Font name="Comic Sans MS" size="30.0" />
+               </font>
+            </Text>
+         </center>
+      </BorderPane>
+   </children>
+</VBox>
