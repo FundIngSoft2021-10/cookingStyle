@@ -163,7 +163,13 @@ public class ControladorCoGUI004 implements IControladorPantalla {
             btnSigRetas.setVisible(true);
         }
 
-        contadorRecetasPantalla = contadorRecetasPantalla - contadorObservadas - 6;
+        int indice = contadorRecetasPantalla - contadorObservadas - 6;
+        int indiceGu = indice;
+
+        if(indice == 0){
+            btnAntRecetas.setVisible(false);
+        }
+        System.out.println("Indice: " + indice);
 
         if(contadorRecetasPantalla==0){
             btnAntRecetas.setVisible(false);
@@ -171,22 +177,21 @@ public class ControladorCoGUI004 implements IControladorPantalla {
 
         for(int i=0; i<miniaturasFX.length; i++){
             for(int j=0; j<miniaturasFX[0].length; j++){
-                if(this.miniaturas.size() > contadorRecetasPantalla){
-                    DTORecetaMiniatura infoReceta = this.miniaturas.get(this.contadorRecetasPantalla);
+                if(this.miniaturas.size() > indice){
+                    DTORecetaMiniatura infoReceta = this.miniaturas.get(indice);
                     Image image = new Image("https://i.pinimg.com/originals/1f/04/85/1f048500d47614a086ee689bcf024233.jpg");
-                    System.out.println(infoReceta.getNombreReceta());
                     this.miniaturasFX[i][j].getNombre().setText(infoReceta.getNombreReceta());
                     this.miniaturasFX[i][j].getImagen().setImage(image);
-                    this.contadorRecetasPantalla++;
-                    System.out.println("Recetas conta: " + this.contadorRecetasPantalla);
+                    indice++;
                 }
             }
         }
 
-        if(contadorRecetasPantalla == miniaturas.size()){
-            contadorRecetasPantalla = 0;
-            contadorObservadas = 0;
-        }
+
+        contadorRecetasPantalla = contadorRecetasPantalla - contadorObservadas;
+        System.out.println("Recetas conta: " + this.contadorRecetasPantalla);
+        contadorObservadas = indiceGu;
+        System.out.println("Recetas obs: " + this.contadorObservadas);
 
     }
 
@@ -197,9 +202,7 @@ public class ControladorCoGUI004 implements IControladorPantalla {
             btnSigRetas.setVisible(false);
         }
 
-
         contadorObservadas = 0;
-
 
         btnAntRecetas.setVisible(true);
 
@@ -208,13 +211,12 @@ public class ControladorCoGUI004 implements IControladorPantalla {
                 if(this.miniaturas.size() > contadorRecetasPantalla){
                     DTORecetaMiniatura infoReceta = this.miniaturas.get(this.contadorRecetasPantalla);
                     Image image = new Image("https://i.pinimg.com/originals/1f/04/85/1f048500d47614a086ee689bcf024233.jpg");
-                    System.out.println(infoReceta.getNombreReceta());
                     this.miniaturasFX[i][j].getNombre().setText(infoReceta.getNombreReceta());
                     this.miniaturasFX[i][j].getImagen().setImage(image);
                     this.contadorRecetasPantalla++;
-                    System.out.println("Recetas conta: " + this.contadorRecetasPantalla);
+                    //System.out.println("Recetas conta: " + this.contadorRecetasPantalla);
                     this.contadorObservadas++;
-                    System.out.println("Recetas obser: " + this.contadorObservadas);
+                    //System.out.println("Recetas obser: " + this.contadorObservadas);
                 }
             }
         }
@@ -239,11 +241,10 @@ public class ControladorCoGUI004 implements IControladorPantalla {
                 if(this.miniaturas.size() != contadorRecetasPantalla) {
                     DTORecetaMiniatura infoReceta = this.miniaturas.get(this.contadorRecetasPantalla);
                     Image image = new Image("https://i.pinimg.com/originals/1f/04/85/1f048500d47614a086ee689bcf024233.jpg");
-                    System.out.println(infoReceta.getNombreReceta());
                     this.miniaturasFX[i][j].getNombre().setText(infoReceta.getNombreReceta());
                     this.miniaturasFX[i][j].getImagen().setImage(image);
                     this.contadorRecetasPantalla++;
-                    System.out.println("Recetas conta: " + this.contadorRecetasPantalla);
+                    //System.out.println("Recetas conta: " + this.contadorRecetasPantalla);
                 }
            }
         }
