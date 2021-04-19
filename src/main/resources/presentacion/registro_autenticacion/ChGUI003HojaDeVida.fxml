@@ -30,7 +30,7 @@
                   <Insets left="200.0" />
                </BorderPane.margin>
                <image>
-                  <Image url="@../img/MiniCookingBlanco.png" />
+                  <Image url="@../../img/MiniCookingBlanco.png" />
                </image>
             </ImageView>
          </left>
@@ -67,7 +67,7 @@
                   </Button>
                   <ImageView fx:id="chIconoCargar" layoutX="330.0" layoutY="248.0">
                      <image>
-                        <Image url="@../img/cargar.png" />
+                        <Image url="@../../img/cargar.png" />
                      </image>
                      <cursor>
                         <Cursor fx:constant="HAND" />

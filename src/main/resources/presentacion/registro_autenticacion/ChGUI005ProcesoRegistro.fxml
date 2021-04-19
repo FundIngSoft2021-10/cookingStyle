@@ -31,7 +31,7 @@
                   <Insets left="200.0" top="-150.0" />
                </BorderPane.margin>
                <image>
-                  <Image url="@../img/MiniCookingBlanco.png" />
+                  <Image url="@../../img/MiniCookingBlanco.png" />
                </image>
             </ImageView>
          </left>

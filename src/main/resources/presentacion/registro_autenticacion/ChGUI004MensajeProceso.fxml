@@ -32,7 +32,7 @@
          <top>
             <ImageView fx:id="ChLogoMProceso" fitHeight="133.0" fitWidth="250.0" BorderPane.alignment="CENTER">
                <image>
-                  <Image url="@../img/CookingBlanco.png" />
+                  <Image url="@../../img/CookingBlanco.png" />
                </image>
             </ImageView>
          </top>

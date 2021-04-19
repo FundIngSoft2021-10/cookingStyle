@@ -39,7 +39,7 @@
                   </Text>
                   <ImageView fitHeight="107.0" fitWidth="112.0" layoutX="648.0" layoutY="94.0">
                      <image>
-                        <Image url="@../img/CaraTriste.png" />
+                        <Image url="@../../img/CaraTriste.png" />
                      </image>
                      <viewport>
                         <Rectangle2D />

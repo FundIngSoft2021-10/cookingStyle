@@ -101,32 +101,32 @@
                         </Text>
                         <ImageView fx:id="iconoServicioAlCliente" fitHeight="41.0" fitWidth="55.0" layoutX="28.0" layoutY="83.0">
                            <image>
-                              <Image url="@../img/ServicioAlCliente.png" />
+                              <Image url="@../../img/ServicioAlCliente.png" />
                            </image>
                         </ImageView>
                         <ImageView fx:id="iconoEditarFotoPerfilChef" layoutX="572.0" layoutY="233.0">
                            <image>
-                              <Image url="@../img/editar.png" />
+                              <Image url="@../../img/editar.png" />
                            </image>
                         </ImageView>
                         <ImageView fx:id="iconoEditarNombreChef" layoutX="438.0" layoutY="449.0">
                            <image>
-                              <Image url="@../img/editar.png" />
+                              <Image url="@../../img/editar.png" />
                            </image>
                         </ImageView>
                         <ImageView fx:id="iconoEditarCategoriasChef" layoutX="276.0" layoutY="587.0">
                            <image>
-                              <Image url="@../img/editar.png" />
+                              <Image url="@../../img/editar.png" />
                            </image>
                         </ImageView>
                         <ImageView fx:id="IconoEditarBiografíaChef" layoutX="731.0" layoutY="622.0">
                            <image>
-                              <Image url="@../img/editar.png" />
+                              <Image url="@../../img/editar.png" />
                            </image>
                         </ImageView>
                         <ImageView fx:id="iconoCerrarSesion" fitHeight="28.0" fitWidth="30.0" layoutX="40.0" layoutY="28.0">
                            <image>
-                              <Image url="@../img/CerrarSesion.png" />
+                              <Image url="@../../img/CerrarSesion.png" />
                            </image>
                         </ImageView>
                         <Text fx:id="linkVerAgenda" fill="#ffb94a" layoutX="396.0" layoutY="845.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ver Agenda" textAlignment="CENTER" underline="true" wrappingWidth="253.13235473632812">
@@ -156,12 +156,12 @@
                         <ImageView fx:id="imagenRecetaPerfilChef" fitHeight="370.0" fitWidth="369.0" layoutX="216.0" layoutY="112.0" pickOnBounds="true" preserveRatio="true" />
                         <ImageView fx:id="botonSiguienteReceta" layoutX="622.0" layoutY="272.0">
                            <image>
-                              <Image url="@../img/siguienteReceta.png" />
+                              <Image url="@../../img/siguienteReceta.png" />
                            </image>
                         </ImageView>
                         <ImageView fx:id="botonRecetaAnterior" layoutX="124.0" layoutY="272.0" rotate="180.0">
                            <image>
-                              <Image url="@../img/siguienteReceta.png" />
+                              <Image url="@../../img/siguienteReceta.png" />
                            </image>
                         </ImageView>
                         <Button fx:id="botonEditarReceta" layoutX="338.0" layoutY="482.0" mnemonicParsing="false" style="-fx-background-color: #A2F59E; -fx-background-radius: 10;" text="Editar" textFill="#040303">

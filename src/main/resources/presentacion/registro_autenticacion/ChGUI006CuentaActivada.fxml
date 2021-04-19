@@ -43,7 +43,7 @@
                   </Text>
                   <ImageView fitHeight="72.0" fitWidth="80.0" layoutX="705.0" layoutY="91.0">
                      <image>
-                        <Image url="@../img/Verificada.png" />
+                        <Image url="@../../img/Verificada.png" />
                      </image>
                   </ImageView>
                </children>
