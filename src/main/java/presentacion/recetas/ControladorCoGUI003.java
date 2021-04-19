@@ -15,6 +15,7 @@ import java.util.ResourceBundle;
 
 public class ControladorCoGUI003 implements IControladorPantalla {
     private DTOSesion sesion;
+    private FXRecetaMiniatura[][] miniaturasFX;
 
     @FXML
     public TextField fieldBuscar;
@@ -81,15 +82,35 @@ public class ControladorCoGUI003 implements IControladorPantalla {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        // Empaquetar el grid de categorias / recetas dentro de una matriz para fácil acceso
+        miniaturasFX = new FXRecetaMiniatura[2][3];
+        this.crearMiniaturasFX();
+
+        // Test
+        this.miniaturasFX[0][0].getNombre().setText("abc");
+
 
     }
 
     @Override
     public void inicializar(DTOSesion sesion) {
         this.sesion = sesion;
-
     }
 
+    private void crearMiniaturasFX() {
+        this.llenarMiniaturasFX(0, 0, imgC1R1, textNombreC1R1);
+        this.llenarMiniaturasFX(0, 1, imgC1R2, textNombreC1R2);
+        this.llenarMiniaturasFX(0, 2, imgC1R3, textNombreC1R3);
+        this.llenarMiniaturasFX(1, 0, imgC2R1, textNombreC2R1);
+        this.llenarMiniaturasFX(1, 1, imgC2R2, textNombreC2R2);
+        this.llenarMiniaturasFX(1, 2, imgC2R3, textNombreC2R3);
+    }
+
+    private void llenarMiniaturasFX(int i, int j, ImageView imagen, Text nombre) {
+        miniaturasFX[i][j] = new FXRecetaMiniatura();
+        miniaturasFX[i][j].setImagen(imagen);
+        miniaturasFX[i][j].setNombre(nombre);
+    }
 
     public void clickPerfil(MouseEvent mouseEvent) {
     }

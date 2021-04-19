@@ -24,17 +24,20 @@ public class FactoryUsuario {
      * @throws SQLException arroja excepción si no logra conectarse a la base de datos
      */
     public Usuario crearUsuario(String nombreUsuario, String nombre) throws SQLException {
-        Usuario usuario = new Usuario();
+        Usuario usuario = null;
 
         if (this.tipo == TipoUsuario.ADMIN) {
-            usuario = new Admin();
+            Admin admin = new Admin();
+            usuario = (Admin) admin;
         } else if (this.tipo == TipoUsuario.COOKER) {
-            usuario = new Cooker();
-            ((Cooker) usuario).getListasFavoritos().add(new ListaFavoritos(1, "Todas las recetas",
+            Cooker cooker = new Cooker();
+            cooker.getListasFavoritos().add(new ListaFavoritos(1, "Todas las recetas",
                     "Todas mis recetas favoritas", new ArrayList<>()));
+            usuario = (Usuario) cooker;
         } else if (this.tipo == TipoUsuario.CHEF) {
-            usuario = new Chef();
-            ((Chef) usuario).setCalendario(new Calendario());
+            Chef chef = new Chef();
+            chef.setCalendario(new Calendario());
+            usuario = (Chef) chef;
         }
 
         usuario.setIdUsuario(this.generarIdUsuarioUnico());
