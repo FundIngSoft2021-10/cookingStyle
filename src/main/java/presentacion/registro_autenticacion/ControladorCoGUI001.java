@@ -65,7 +65,7 @@ public class ControladorCoGUI001 implements IControladorPantalla {
 
             // TODO: Cargar siguiente pantalla
             try {
-                this.cargarPantalla((Event) actionEvent, Pantalla.CO_GUI003_INICIO, this.sesion, false);
+                this.cargarPantalla((Event) actionEvent, Pantalla.CO_GUI004_RESULTADOSBUSQ, this.sesion, false);
             } catch (IOException e) {
                 e.printStackTrace();
             }

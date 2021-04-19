@@ -71,6 +71,13 @@ public interface IControladorRecetasCooker {
     public List<DTOReceta> buscarRecetasChef (String nom_chef);
 
     /**
+     * Buscar todas las recetas
+     * @param busqueda String con la busqueda
+     * @return Lista de DTOReceta con las recetas que conincidieron el a búsqueda
+     */
+    public  List<DTOReceta> buscarReceta(String busqueda);
+
+    /**
      * Obtiene las recetas que pertenecen a la misma categoria
      * @param idCategoria  id de la categoria de las recetas
      * @return DTORecetaMiniaturaCategoria con las recetas de esa categoria

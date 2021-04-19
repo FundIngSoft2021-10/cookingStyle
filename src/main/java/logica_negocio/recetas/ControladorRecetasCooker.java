@@ -280,6 +280,24 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker{
      * @inheritDoc
      */
     @Override
+    public  List<DTOReceta> buscarReceta(String busqueda){
+        List<DTOReceta> recetas = new ArrayList<>();
+        List<DTOReceta> busquedaChef = buscarRecetasChef(busqueda);
+        List<DTOReceta> busquedaIngredientes = buscarRecetasIngrediente(busqueda);
+        List<DTOReceta> busquedaCategoria = buscarRecetasCategoria(busqueda);
+        List<DTOReceta> busquedaNombre = buscarRecetasNombre(busqueda);
+
+        recetas.addAll(busquedaNombre);
+        recetas.addAll(busquedaCategoria);
+        recetas.addAll(busquedaIngredientes);
+        recetas.addAll(busquedaChef);
+        return recetas;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
     public DTORecetaMiniatura miniaturaRecetas(BigInteger idReceta){
 
         DTORecetaMiniatura recetaMiniatura = new DTORecetaMiniatura();
