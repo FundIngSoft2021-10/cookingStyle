@@ -81,7 +81,11 @@ public class ControladorCoGUI002 implements IControladorPantalla {
             this.sesion.setTipoUsuario(TipoUsuario.COOKER);
             this.sesion.setUsuario(registro.getUsuario());
 
-            // TODO: Cargar siguiente pantalla
+            try {
+                this.cargarPantalla((Event) actionEvent, Pantalla.CO_GUI003_INICIO, this.sesion, false);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         } else {
             this.crearAlerta(Alert.AlertType.ERROR, registro.getMensaje());
             return;

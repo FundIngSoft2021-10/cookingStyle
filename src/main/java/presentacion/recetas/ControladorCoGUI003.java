@@ -2,6 +2,7 @@ package presentacion.recetas;
 
 import entidades.dto.*;
 import entidades.modelo.*;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -14,6 +15,7 @@ import logica_negocio.recetas.ControladorRecetasCooker;
 import logica_negocio.recetas.IControladorRecetasCooker;
 import presentacion.IControladorPantalla;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -110,6 +112,9 @@ public class ControladorCoGUI003 implements IControladorPantalla {
         this.sesion = sesion;
         this.controlRecetas = new ControladorRecetasCooker((Cooker) this.sesion.getUsuario());
 
+        // Cargar el perfil
+        this.textNombreUsuario.setText(this.sesion.getUsuario().getNombreUsuario());
+
         // Obtener la información de la pantalla
         this.categorias = this.controlRecetas.buscarCategorias();
         this.miniaturasCategorias = this.controlRecetas.buscarMiniaturasRecetasCategoria();
@@ -120,8 +125,6 @@ public class ControladorCoGUI003 implements IControladorPantalla {
         // Cargar las miniaturas iniciales
         this.cargarTodasMiniaturas();
         this.determinarBotonesCategorias();
-
-
     }
 
     private void crearMiniaturas() {
@@ -273,7 +276,19 @@ public class ControladorCoGUI003 implements IControladorPantalla {
     public void clickPerfil(MouseEvent mouseEvent) {
     }
 
+    @FXML
     public void clickBuscar(MouseEvent mouseEvent) {
+        String busqueda = fieldBuscar.getText();
+
+        if (!busqueda.isEmpty()) {
+            this.sesion.setBusqueda(busqueda);
+
+            try {
+                this.cargarPantalla((Event) mouseEvent, Pantalla.CO_GUI004_RESULTADOSBUSQ, this.sesion, false);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void clickMembresia(MouseEvent mouseEvent) {
@@ -288,44 +303,49 @@ public class ControladorCoGUI003 implements IControladorPantalla {
     public void clickVerMasCategorias(MouseEvent mouseEvent) {
     }
 
-    public void irReceta(MouseEvent mouseEvent, DTORecetaMiniatura miniatura) {
-
+    public void irReceta(Event event, DTORecetaMiniatura miniatura) {
+        this.sesion.setIdReceta(miniatura.getIdReceta());
+        try {
+            this.cargarPantalla((Event) event, Pantalla.CO_GUI006_VERRECETA, this.sesion, false);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     public void clickC1R1(MouseEvent mouseEvent) {
         if (this.miniaturas[0][0] != null)
-            this.irReceta(mouseEvent, this.miniaturas[0][0]);
+            this.irReceta((Event) mouseEvent, this.miniaturas[0][0]);
     }
 
     @FXML
     public void clickC1R2(MouseEvent mouseEvent) {
         if (this.miniaturas[0][1] != null)
-            this.irReceta(mouseEvent, this.miniaturas[0][1]);
+            this.irReceta((Event) mouseEvent, this.miniaturas[0][1]);
     }
 
     @FXML
     public void clickC2R1(MouseEvent mouseEvent) {
         if (this.miniaturas[0][2] != null)
-            this.irReceta(mouseEvent, this.miniaturas[0][2]);
+            this.irReceta((Event) mouseEvent, this.miniaturas[0][2]);
     }
 
     @FXML
     public void clickC1R3(MouseEvent mouseEvent) {
         if (this.miniaturas[1][0] != null)
-            this.irReceta(mouseEvent, this.miniaturas[1][0]);
+            this.irReceta((Event) mouseEvent, this.miniaturas[1][0]);
     }
 
     @FXML
     public void clickC2R2(MouseEvent mouseEvent) {
         if (this.miniaturas[1][1] != null)
-            this.irReceta(mouseEvent, this.miniaturas[1][1]);
+            this.irReceta((Event) mouseEvent, this.miniaturas[1][1]);
     }
 
     @FXML
     public void clickC2R3(MouseEvent mouseEvent) {
         if (this.miniaturas[1][2] != null)
-            this.irReceta(mouseEvent, this.miniaturas[1][2]);
+            this.irReceta((Event) mouseEvent, this.miniaturas[1][2]);
     }
 
     @FXML

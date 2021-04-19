@@ -9,6 +9,7 @@ public class DTOSesion {
     private TipoUsuario tipoUsuario;
     private Usuario usuario;
     private Stack<Pantalla> historial;
+    private String busqueda;
     private BigInteger idReceta;
 
     public DTOSesion(TipoUsuario tipoUsuario, Usuario usuario, Stack<Pantalla> historial) {
@@ -49,6 +50,14 @@ public class DTOSesion {
 
     public void setHistorial(Stack<Pantalla> historial) {
         this.historial = historial;
+    }
+
+    public String getBusqueda() {
+        return busqueda;
+    }
+
+    public void setBusqueda(String busqueda) {
+        this.busqueda = busqueda;
     }
 
     public BigInteger getIdReceta() {
