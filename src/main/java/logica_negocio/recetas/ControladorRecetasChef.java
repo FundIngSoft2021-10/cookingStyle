@@ -77,7 +77,7 @@ public class ControladorRecetasChef implements IControladorRecetasChef {
             //Igualar el chef
             //Mensaje de éxito o fallo correspondiente.
 
-
+        return recetaLista;
     }
 
     //Generar un IdReceta único
@@ -162,7 +162,7 @@ public class ControladorRecetasChef implements IControladorRecetasChef {
     }
 
     //NO SIRVE
-    public  boolean validarImagen (String url){
+    /*public  boolean validarImagen (String url){
         String url1 = "https://fbcdn-dragon-a.akamaihd.net/hphotos-ak-xft1/t39.1997-6/p200x200/851575_126362190881911_254357215_n.png";
         boolean exitoUrl;
         exitoUrl = validarUrl(url);
@@ -173,7 +173,7 @@ public class ControladorRecetasChef implements IControladorRecetasChef {
             }
         }
         return false;
-    }
+    }*/
 
 
 }
