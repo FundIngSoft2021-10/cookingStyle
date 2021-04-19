@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.web.*?>
 <?import java.lang.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
@@ -70,11 +69,7 @@
                         </Text>
                         <TextArea fx:id="textAreaDescripcion" layoutX="60.0" layoutY="511.0" prefHeight="200.0" prefWidth="837.0" />
                         <Button fx:id="btnVerIng" layoutX="846.0" layoutY="726.0" mnemonicParsing="false" onAction="#clickVerIng" style="-fx-background-color: #fcba03; -fx-background-radius: 50;" text="Ver Ingredientes" textFill="WHITE" />
-                        <StackPane layoutX="61.0" layoutY="28.0" prefHeight="416.0" prefWidth="835.0">
-                           <children>
-                              <WebView fx:id="webVideo" prefHeight="-1.0" prefWidth="-1.0" />
-                           </children>
-                        </StackPane>
+                        <StackPane fx:id="paneVideo" layoutX="61.0" layoutY="28.0" prefHeight="416.0" prefWidth="835.0" />
                      </children>
                   </AnchorPane>
               </items>
