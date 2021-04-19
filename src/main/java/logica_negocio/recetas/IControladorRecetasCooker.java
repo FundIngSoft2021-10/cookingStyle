@@ -2,6 +2,7 @@ package logica_negocio.recetas;
 
 import entidades.dto.*;
 import entidades.modelo.Categoria;
+import entidades.modelo.LineaIngrediente;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -110,4 +111,5 @@ public interface IControladorRecetasCooker {
     public DTOReceta mostrarReceta(BigInteger idReceta);
 
     public DTOReceta buscarReceta(BigInteger idreceta);
+    public List<LineaIngrediente> ingredientesxReceta(BigInteger idReceta);
 }

@@ -131,7 +131,7 @@ public class ControladorCoGUI004 implements IControladorPantalla {
 
     private BigInteger enviarReceta(String nombreReceta){
 
-        BigInteger idReceta = null; 
+        BigInteger idReceta = null;
         for(DTORecetaMiniatura miniatura : this.miniaturas){
             if(miniatura.getNombreReceta().equals(nombreReceta)){
                 idReceta = miniatura.getIdReceta();
@@ -186,11 +186,11 @@ public class ControladorCoGUI004 implements IControladorPantalla {
 
 
     public void clickR1(MouseEvent mouseEvent) {
-        String nombreReceta = String.valueOf(textNombreR1);
+        String nombreReceta = textNombreR1.getText();
         this.sesion.setIdReceta(enviarReceta(nombreReceta));
 
         try {
-            this.cargarPantalla((Event) mouseEvent, Pantalla.CO_GUI006_VERRECETA, this.sesion, false);
+            this.cargarPantalla((Event) mouseEvent, Pantalla.CO_GUI007_RECETAING, this.sesion, false);
         } catch (IOException e){
             e.printStackTrace();
         }

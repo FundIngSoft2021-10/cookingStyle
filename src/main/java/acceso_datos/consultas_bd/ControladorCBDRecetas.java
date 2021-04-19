@@ -72,7 +72,6 @@ public class ControladorCBDRecetas implements IControladorCBDRecetas{
                         lineaIngredientes.add(resultado);
                         break;
                 }
-                lineaIngredientes.add(resultado);
             }
 
         } catch (SQLException sqle) {

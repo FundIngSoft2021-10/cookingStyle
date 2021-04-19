@@ -416,6 +416,16 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker {
         return miniaturasCategoria;
     }
 
+    @Override
+    public List<LineaIngrediente> ingredientesxReceta(BigInteger idReceta){
+        List<LineaIngrediente> ingredientes;
+        try {
+            ingredientes = this.controlCBD.consultaLineaIngrediente(idReceta);
+        } catch (SQLException sqlException) {
+            ingredientes = null;
+        }
+        return ingredientes;
+    }
     /**
      * @inheritDoc
      */
