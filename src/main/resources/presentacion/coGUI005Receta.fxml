@@ -12,7 +12,6 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
 <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0">
@@ -31,6 +30,9 @@
                            <font>
                               <Font name="Comic Sans MS" size="20.0" />
                            </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </Text>
                         <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="63.0" layoutY="426.0" pickOnBounds="true" preserveRatio="true" />
                         <ImageView fx:id="iconoFavorito" fitHeight="53.0" fitWidth="57.0" layoutX="237.0" layoutY="466.0">
@@ -92,8 +94,24 @@
                               <Font name="Comic Sans MS" size="26.0" />
                            </font>
                         </Text>
-                        <TextArea fx:id="descripcionVideo" layoutX="60.0" layoutY="511.0" prefHeight="200.0" prefWidth="837.0" />
-                        <Button fx:id="botonVerIngredientes" layoutX="846.0" layoutY="726.0" mnemonicParsing="false" style="-fx-background-color: #fcba03; -fx-background-radius: 50;" text="Ver Ingredientes" textFill="WHITE" />
+                        <TextArea fx:id="descripcionVideo" layoutX="60.0" layoutY="511.0" prefHeight="200.0" prefWidth="787.0" />
+                        <Button fx:id="botonVerIngredientes" layoutX="846.0" layoutY="726.0" mnemonicParsing="false" style="-fx-background-color: #fcba03; -fx-background-radius: 50;" text="Ver Ingredientes" textFill="WHITE">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></Button>
+                        <ImageView fx:id="iconoVerPasos" layoutX="884.0" layoutY="547.0">
+                           <image>
+                              <Image url="@../img/pasos.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                        <Text fx:id="textoVerPasos" fill="#fcba03" layoutX="887.0" layoutY="633.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ver pasos">
+                           <font>
+                              <Font name="Comic Sans MS" size="13.0" />
+                           </font>
+                        </Text>
                      </children>
                   </AnchorPane>
               </items>
