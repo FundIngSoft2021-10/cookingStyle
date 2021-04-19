@@ -37,10 +37,37 @@ public class ControladorRecetasChef implements IControladorRecetasChef {
     }
 
     //DTO para mostrar mensaje.
-    public DTOReceta subirReceta (String nombre, String descripcion, String link_video, TipoVideo tipovideo, String link_imagen, List<LineaIngrediente> ingredientes, List<Categoria> categorias, List<PasoReceta> pasosReceta){
-        //Generar IdReceta y comprobar que sea único
-        //Comprobar linkvideo: incluye, la existencia del URL y la concordancia con su tipo de video
-        //Combertir el linkvideo a player. o embed/ dependiendo su tipo de video.
+    public DTOReceta subirReceta (String nombre, String descripcion, String link_video, TipoVideo tipovideo, String link_imagen, List<LineaIngrediente> ingredientes, List<Categoria> categorias, List<PasoReceta> pasosReceta) {
+        DTOReceta recetaLista = new DTOReceta();
+        Receta receta = new Receta();
+        boolean existeUrl = true;
+        boolean validarTipo = true;
+        String link_videoFinal;
+        receta.setNombre(nombre);
+        receta.setDescripcion(descripcion);
+        //Generar un idReceta único
+        try {
+            BigInteger idReceta = generarIdRecetaUnico();
+            receta.setIdReceta(idReceta);
+        } catch (SQLException sqle){
+            return new DTOReceta(null, null, "Error en la base de datos; " + sqle.getMessage());
+        }
+        //Comprobar linkvideo:
+            //Existencia del URL
+        existeUrl = validarUrl(link_video);
+        if (!existeUrl){
+            return new DTOReceta(null, null, "El url ingresado del video, ¡No existe!");
+        } else {
+         //Link_video correspondiente
+            validarTipo = validarTipoVideo(link_video, tipovideo);
+            if (!validarTipo){
+                return new DTOReceta(null, null, "El link ingresado no corresponde al tipo de video seleccionado. ");
+            } else {
+                //Convertir link video
+                link_videoFinal = convertirLink(link_video, tipovideo);
+                receta.setLinkVideo(link_videoFinal);
+            }
+        }
         //Comprobar la existencia del link_imagen. (Método que envió Alejo, buscar otra opción)
         //Ingredientes: ¿se recibe una lista de la interfaz? ¿cómo valido estos datos? (Piense:D)
         //Categorias:
