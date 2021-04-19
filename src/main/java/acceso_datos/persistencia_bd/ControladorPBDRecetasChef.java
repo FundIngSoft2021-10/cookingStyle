@@ -1,19 +1,16 @@
 package acceso_datos.persistencia_bd;
 
 import acceso_datos.conexion_bd.ControladorBDConexion;
-import entidades.dto.DTOIngrediente;
-import entidades.dto.DTOLineaIngrediente;
 import entidades.modelo.*;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class ControladorBDRecetasChef implements IControladorBDRecetasChef {
+public class ControladorPBDRecetasChef implements IControladorPBDRecetasChef {
     ControladorBDConexion controladorBDConexion = new ControladorBDConexion();
     Connection conexion = controladorBDConexion.conectarMySQL();
 /*
@@ -195,30 +192,46 @@ public class ControladorBDRecetasChef implements IControladorBDRecetasChef {
     }
 
     @Override
+    public boolean modificarNombreReceta(String nuevoNombre, BigInteger idReceta) throws SQLException{
+        String updateReceta = "UPDATE receta SET nombre= ? WHERE receta.idreceta = ?";
+
+        try(PreparedStatement stmt = conexion.prepareStatement(updateReceta)){
+
+            stmt.setString(1, nuevoNombre);
+            BigDecimal idRec = new BigDecimal(idReceta);
+            stmt.setBigDecimal(2, idRec);
+
+            stmt.executeUpdate();
+
+            return true;
+        } catch (SQLException sqle){
+            throw sqle;
+        }
+    }
+
+    @Override
+    public boolean modificarDescrReceta(String nuevaDecrip, BigInteger idReceta) throws SQLException{
+        String updateReceta = "UPDATE receta SET descripcion= ? WHERE receta.idreceta = ?";
+
+        try(PreparedStatement stmt = conexion.prepareStatement(updateReceta)){
+
+            stmt.setString(1, nuevaDecrip);
+            BigDecimal idRec = new BigDecimal(idReceta);
+            stmt.setBigDecimal(2, idRec);
+
+            stmt.executeUpdate();
+
+            return true;
+        } catch (SQLException sqle){
+            throw sqle;
+        }
+    }
+
+    @Override
     public boolean modificarReceta(Receta rec, String valorAModificar, String modificacion) throws SQLException{
-        int valorRet=0;
-        if(valorAModificar=="nombre"){
-            String updateReceta = "UPDATE receta SET nombre="+modificacion+" WHERE receta.nombre = "+valorAModificar;
 
-            try(PreparedStatement stmt = conexion.prepareStatement(updateReceta)){
-                stmt.setString(1, modificacion);
-                valorRet= stmt.executeUpdate();
-            } catch (SQLException sqle){
-                throw sqle;
-            }
-
-        }
-        else if(valorAModificar=="descripcion"){
-            String updateReceta = "UPDATE receta SET descripcion="+modificacion+" WHERE receta.nombre = "+valorAModificar;
-
-            try(PreparedStatement stmt = conexion.prepareStatement(updateReceta)){
-                stmt.setString(1, modificacion);
-                valorRet= stmt.executeUpdate();
-            } catch (SQLException sqle){
-                throw sqle;
-            }
-        }
-        else if(valorAModificar=="linkvideo"){
+        int valorRet=-1;
+        if(valorAModificar=="linkvideo"){
             String updateReceta = "UPDATE receta SET linkvideo="+modificacion+" WHERE receta.nombre = "+valorAModificar;
 
             try(PreparedStatement stmt = conexion.prepareStatement(updateReceta)){
