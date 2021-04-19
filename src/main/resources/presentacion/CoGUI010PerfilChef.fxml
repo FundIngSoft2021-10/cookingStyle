@@ -99,6 +99,11 @@
                               <Font name="Comic Sans MS" size="20.0" />
                            </font>
                         </Text>
+                        <Text fx:id="coVolverPC" layoutX="77.0" layoutY="751.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Volver" underline="true">
+                           <font>
+                              <Font name="Comic Sans MS" size="13.0" />
+                           </font>
+                        </Text>
                      </children>
                   </AnchorPane>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
@@ -124,7 +129,7 @@
                               <Font name="Comic Sans MS" size="20.0" />
                            </font>
                         </Text>
-                        <VBox fx:id="vBoxPuntuacionesRecetaChef" layoutX="71.0" layoutY="640.0" prefHeight="228.0" prefWidth="438.0" />
+                        <VBox fx:id="vBoxPuntuacionesRecetaChef" layoutX="90.0" layoutY="530.0" prefHeight="224.0" prefWidth="468.0" />
                      </children>
                   </AnchorPane>
                </items>

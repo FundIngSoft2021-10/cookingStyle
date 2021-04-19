@@ -166,6 +166,11 @@
                            </font>
                         </Text>
                         <Button fx:id="botonEnviarReceta" layoutX="663.0" layoutY="723.0" mnemonicParsing="false" style="-fx-background-color: #fcba03; -fx-background-radius: 50;" text="Enviar Receta" AnchorPane.bottomAnchor="35.94342353905097" AnchorPane.rightAnchor="47.03776140168972" />
+                        <Text fx:id="chVolverSR" layoutX="25.0" layoutY="741.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Volver" underline="true">
+                           <font>
+                              <Font name="Comic Sans MS" size="13.0" />
+                           </font>
+                        </Text>
                      </children></AnchorPane>
               </items>
             </SplitPane>

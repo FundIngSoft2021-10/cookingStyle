@@ -121,6 +121,11 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Text>
+                  <Text fx:id="coVolverInicio" layoutX="27.0" layoutY="736.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Volver" underline="true">
+                     <font>
+                        <Font name="Comic Sans MS" size="13.0" />
+                     </font>
+                  </Text>
                </children></AnchorPane>
          </left>
          <center>
