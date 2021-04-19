@@ -7,6 +7,7 @@ import entidades.modelo.Receta;
 public class DTOReceta {
     private Receta receta;
     private Chef autor;
+    private boolean encotrado;
 
     public DTOReceta() {
     }
@@ -30,5 +31,13 @@ public class DTOReceta {
 
     public void setAutor(Chef autor) {
         this.autor = autor;
+    }
+
+    public boolean isEncotrado() {
+        return encotrado;
+    }
+
+    public void setEncotrado(boolean encotrado) {
+        this.encotrado = encotrado;
     }
 }
