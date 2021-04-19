@@ -12,10 +12,8 @@ import java.sql.SQLException;
 public class ControladorCBDRecetasChef implements IControladorCBDRecetasChef {
     private ControladorBDConexion controladorBDConexion;
     private Connection conexion;
-    private IControladorCBDRecetasChef controlRecetasChef;
 
     public ControladorCBDRecetasChef() {
-        controlRecetasChef = new ControladorCBDRecetasChef();
         controladorBDConexion = new ControladorBDConexion();
         conexion = controladorBDConexion.conectarMySQL();
     }

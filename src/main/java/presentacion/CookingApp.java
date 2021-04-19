@@ -21,13 +21,6 @@ public class CookingApp extends Application {
         primaryStage.show();
     }
 
-    public static void main(String[] args) {
-        //launch(args);
-        ControladorPBDRecetasChef controladorPBDRecetasChef = new ControladorPBDRecetasChef();
-        ControladorRecetasChef controladorRecetasChef = new ControladorRecetasChef();
-
-            System.out.println(controladorRecetasChef.modificarDecripcion("Deliciosa ensalada oriental", BigInteger.valueOf(1021)).getReceta().getDescripcion());
-
-    }
+    public static void main(String[] args) { launch(args); }
 
 }

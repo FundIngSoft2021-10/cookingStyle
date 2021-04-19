@@ -1,6 +1,8 @@
 package logica_negocio.recetas;
 
+import acceso_datos.consultas_bd.ControladorCBDRecetas;
 import acceso_datos.consultas_bd.ControladorCBDRecetasChef;
+import acceso_datos.consultas_bd.IControladorCBDRecetas;
 import acceso_datos.consultas_bd.IControladorCBDRecetasChef;
 import acceso_datos.persistencia_bd.ControladorPBDRecetasChef;
 import acceso_datos.persistencia_bd.IControladorPBDRecetasChef;
@@ -21,13 +23,22 @@ public class ControladorRecetasChef implements IControladorRecetasChef {
     private IControladorPBDRecetasChef controlPBD;
     private IControladorUtilidad controlUtilidad;
     private IControladorCBDRecetasChef controlCBD;
+    private IControladorCBDRecetas controlCBDRecetas;
 
 
     public ControladorRecetasChef(Chef chef) {
         this.controlPBD = new ControladorPBDRecetasChef();
         this.controlCBD = new ControladorCBDRecetasChef();
         this.controlUtilidad = new ControladorUtilidad();
+        this.controlCBDRecetas = new ControladorCBDRecetas();
         this.chef = chef;
+    }
+
+    public ControladorRecetasChef(){
+        this.controlPBD = new ControladorPBDRecetasChef();
+        this.controlCBD = new ControladorCBDRecetasChef();
+        this.controlUtilidad = new ControladorUtilidad();
+        this.controlCBDRecetas = new ControladorCBDRecetas();
     }
 
     //DTO para mostrar mensaje.
@@ -169,5 +180,81 @@ public class ControladorRecetasChef implements IControladorRecetasChef {
         return false;
     }*/
 
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public DTOReceta modificarNombre(String nuevoNombre, BigInteger idReceta){
+        DTOReceta receta = new DTOReceta();
+        try {
+            boolean cambiado = this.controlPBD.modificarNombreReceta(nuevoNombre, idReceta);
+            Receta recetaRec = this.controlCBDRecetas.buscarRecetas(idReceta);
+            Chef chef = this.controlCBDRecetas.consultaRecetaXChef(idReceta);
+            receta.setReceta(recetaRec);
+            receta.setAutor(chef);
+            receta.setEncotrado(true);
+        } catch (SQLException sqlException) {
+            receta.setEncotrado(false);
+        }
+
+        return receta;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public DTOReceta modificarDecripcion(String nuevaDesc, BigInteger idReceta){
+        DTOReceta receta = new DTOReceta();
+        try {
+            receta.setEncotrado(this.controlPBD.modificarDescrReceta(nuevaDesc, idReceta));
+            Receta recetaRec = this.controlCBDRecetas.buscarRecetas(idReceta);
+            Chef chef = this.controlCBDRecetas.consultaRecetaXChef(idReceta);
+            receta.setReceta(recetaRec);
+            receta.setAutor(chef);
+        } catch (SQLException sqlException) {
+            receta.setEncotrado(false);
+        }
+
+        return receta;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public DTOReceta modificarLinkVideo(String nuevoLink, BigInteger idReceta){
+        DTOReceta receta = new DTOReceta();
+        try {
+            receta.setEncotrado(this.controlPBD.modificarLinkVideoReceta(nuevoLink, idReceta));
+            Receta recetaRec = this.controlCBDRecetas.buscarRecetas(idReceta);
+            Chef chef = this.controlCBDRecetas.consultaRecetaXChef(idReceta);
+            receta.setReceta(recetaRec);
+            receta.setAutor(chef);
+        } catch (SQLException sqlException) {
+            receta.setEncotrado(false);
+        }
+
+        return receta;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public DTOReceta modificarLinkImg(String nuevoLink, BigInteger idReceta){
+        DTOReceta receta = new DTOReceta();
+        try {
+            receta.setEncotrado(this.controlPBD.modificarLinkImgReceta(nuevoLink, idReceta));
+            Receta recetaRec = this.controlCBDRecetas.buscarRecetas(idReceta);
+            Chef chef = this.controlCBDRecetas.consultaRecetaXChef(idReceta);
+            receta.setReceta(recetaRec);
+            receta.setAutor(chef);
+        } catch (SQLException sqlException) {
+            receta.setEncotrado(false);
+        }
+
+        return receta;
+    }
 
 }

@@ -228,37 +228,39 @@ public class ControladorPBDRecetasChef implements IControladorPBDRecetasChef {
     }
 
     @Override
-    public boolean modificarReceta(Receta rec, String valorAModificar, String modificacion) throws SQLException{
+    public boolean modificarLinkVideoReceta(String nuevoLink, BigInteger idReceta) throws SQLException{
+        String updateReceta = "UPDATE receta SET linkvideo= ? WHERE receta.idreceta = ?";
 
-        int valorRet=-1;
-        if(valorAModificar=="linkvideo"){
-            String updateReceta = "UPDATE receta SET linkvideo="+modificacion+" WHERE receta.nombre = "+valorAModificar;
+        try(PreparedStatement stmt = conexion.prepareStatement(updateReceta)){
 
-            try(PreparedStatement stmt = conexion.prepareStatement(updateReceta)){
-                stmt.setString(1, modificacion);
-                valorRet= stmt.executeUpdate();
-            } catch (SQLException sqle){
-                throw sqle;
-            }
-        }
-        else if(valorAModificar=="linkimagen"){
-            String updateReceta = "UPDATE receta SET linkimagen="+modificacion+" WHERE receta.nombre = "+valorAModificar;
+            stmt.setString(1, nuevoLink);
+            BigDecimal idRec = new BigDecimal(idReceta);
+            stmt.setBigDecimal(2, idRec);
 
-            try(PreparedStatement stmt = conexion.prepareStatement(updateReceta)){
-                stmt.setString(1, modificacion);
-                valorRet= stmt.executeUpdate();
-            } catch (SQLException sqle){
-                throw sqle;
-            }
-        }
-        //si es 1 es que se modifico correctamente la fila que debia, de resto no deberia haber tantas filas modificadas
-        if(valorRet==1){
+            stmt.executeUpdate();
+
             return true;
+        } catch (SQLException sqle){
+            throw sqle;
         }
-        else {
-            return false;
-        }
+    }
 
+    @Override
+    public boolean modificarLinkImgReceta(String nuevoLink, BigInteger idReceta) throws SQLException{
+        String updateReceta = "UPDATE receta SET linkimagen= ? WHERE receta.idreceta = ?";
+
+        try(PreparedStatement stmt = conexion.prepareStatement(updateReceta)){
+
+            stmt.setString(1, nuevoLink);
+            BigDecimal idRec = new BigDecimal(idReceta);
+            stmt.setBigDecimal(2, idRec);
+
+            stmt.executeUpdate();
+
+            return true;
+        } catch (SQLException sqle){
+            throw sqle;
+        }
     }
 
     @Override
