@@ -326,7 +326,16 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker {
 
     @Override
     public DTOReceta buscarReceta(BigInteger idreceta) {
-        return buscarReceta(idreceta);
+        DTOReceta receta = new DTOReceta();
+        try {
+            Receta rec = this.controlCBD.buscarRecetas(idreceta);
+            Chef chef = this.controlCBD.consultaRecetaXChef(idreceta);
+            receta.setReceta(rec);
+            receta.setAutor(chef);
+        } catch (SQLException sqlException) {
+            receta = null;
+        }
+        return receta;
     }
 
     /**

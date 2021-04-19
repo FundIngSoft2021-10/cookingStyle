@@ -9,6 +9,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -28,6 +29,7 @@ import logica_negocio.recetas.ControladorRecetasCooker;
 import logica_negocio.recetas.IControladorRecetasCooker;
 import presentacion.IControladorPantalla;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -80,7 +82,6 @@ public class ControladorCoGUI007 implements IControladorPantalla {
         this.sesion = sesion;
         this.controladorRecCooker = new ControladorRecetasCooker((Cooker) sesion.getUsuario());
         this.textNombreUsuario.setText(sesion.getUsuario().getNombreUsuario());
-        System.out.println(this.sesion.getIdReceta());
         this.listViewIngredientes2.setVisible(false);
         cargarIngredientes();
         cargarMiniatura();
@@ -90,15 +91,15 @@ public class ControladorCoGUI007 implements IControladorPantalla {
 
         DTORecetaMiniatura miniatura = controladorRecCooker.miniaturaRecetas(this.sesion.getIdReceta());
 
-        this.textNombreR1.setText(miniatura.getNombreReceta());
         Image imagen;
         try {
             imagen = new Image(miniatura.getLinkImagen());
         } catch (Exception e) {
             imagen = new Image("https://img.icons8.com/pastel-glyph/2x/file-not-found.png");
         }
-        this.imgFotoReceta.setImage(imagen);
 
+        this.imgFotoReceta.setImage(imagen);
+        this.textNombreR1.setText(miniatura.getNombreReceta());
         this.btnChef.setText(miniatura.getAutor().getNombre());
 
     }
@@ -127,32 +128,84 @@ public class ControladorCoGUI007 implements IControladorPantalla {
                 return observable ;
             }
         }));
-
-
-
     }
 
+    @FXML
     public void clickChef(MouseEvent mouseEvent) {
+        //TODO: Cargar pantalla CoPerfilChef
+        /*try {
+            this.cargarPantalla((Event) mouseEvent, Pantalla.CO_GUI00X_PERFILCH, this.sesion, false);
+        } catch (IOException e){
+            e.printStackTrace();
+        }*/
     }
 
+    @FXML
     public void clickFavorito(MouseEvent mouseEvent) {
+        //TODO: Cargar pantalla Favoritos
+        /*try {
+            this.cargarPantalla((Event) mouseEvent, Pantalla.CO_GUI00X_FAVORITOS, this.sesion, false);
+        } catch (IOException e){
+            e.printStackTrace();
+        }*/
     }
 
+    @FXML
     public void clickReporte(MouseEvent mouseEvent) {
+        //TODO: Cargar pantalla Reporte
+        /*try {
+            this.cargarPantalla((Event) mouseEvent, Pantalla.CO_GUI00X_REPORTE, this.sesion, false);
+        } catch (IOException e){
+            e.printStackTrace();
+        }*/
     }
 
+    @FXML
     public void clickVolver(MouseEvent mouseEvent) {
+        try {
+            this.volverPantalla((Event) mouseEvent, this.sesion);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
+    @FXML
     public void clickComprar(MouseEvent mouseEvent) {
+        //TODO: Cargar pantalla Reporte
+        /*try {
+            this.cargarPantalla((Event) mouseEvent, Pantalla.CO_GUI00X_REPORTE, this.sesion, false);
+        } catch (IOException e){
+            e.printStackTrace();
+        }*/
     }
 
+    @FXML
     public void clickPerfil(MouseEvent mouseEvent) {
+        //TODO: Cargar pantalla PerfilCooker
+        /*try {
+            this.cargarPantalla((Event) mouseEvent, Pantalla.CO_GUI00X_PERFIL, this.sesion, false);
+        } catch (IOException e){
+            e.printStackTrace();
+        }*/
     }
 
+    @FXML
     public void clickMembresia(MouseEvent mouseEvent) {
+        //TODO: Cargar pantalla Membresia
+        /*try {
+            this.cargarPantalla((Event) mouseEvent, Pantalla.CO_GUI00X_MEMBRESIA, this.sesion, false);
+        } catch (IOException e){
+            e.printStackTrace();
+        }*/
     }
 
+    @FXML
     public void clickServicioCliente(MouseEvent mouseEvent) {
+        //TODO: Cargar pantalla ServicioCliente
+        /*try {
+            this.cargarPantalla((Event) mouseEvent, Pantalla.CO_GUI00X_SERVICIOCL, this.sesion, false);
+        } catch (IOException e){
+            e.printStackTrace();
+        }*/
     }
 }
