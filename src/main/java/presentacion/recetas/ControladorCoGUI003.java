@@ -105,6 +105,7 @@ public class ControladorCoGUI003 implements IControladorPantalla {
         // Desactivar todas las recetas
         this.desactivarRecetasFX();
 
+        this.btnBusquedasRecientes.setVisible(false);      // TODO: Botón búsquedas recientes
     }
 
     @Override

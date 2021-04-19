@@ -89,6 +89,8 @@ public class ControladorCoGUI004 implements IControladorPantalla {
 
         this.crearMiniaturasFX();
         this.desactivarMiniaturasFX();
+
+        this.btnBusquedasRecientes.setVisible(false);       // TODO: Botón búsquedas recientes
     }
 
     @Override
