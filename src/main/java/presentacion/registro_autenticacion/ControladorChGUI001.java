@@ -2,6 +2,7 @@ package presentacion.registro_autenticacion;
 
 import entidades.dto.DTOAutenticacion;
 import entidades.dto.DTOSesion;
+import entidades.dto.Pantalla;
 import entidades.modelo.TipoUsuario;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -62,7 +63,11 @@ public class ControladorChGUI001 implements IControladorPantalla {
             this.sesion.setTipoUsuario(TipoUsuario.CHEF);
             this.sesion.setUsuario(autenticacion.getUsuario());
 
-            // TODO: Cargar siguiente pantalla
+            try {
+                this.cargarPantalla((Event) actionEvent, Pantalla.CH_GUI008_PERFIL, this.sesion, false);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         } else {
             this.crearAlerta(Alert.AlertType.ERROR, autenticacion.getMensaje());
             return;
