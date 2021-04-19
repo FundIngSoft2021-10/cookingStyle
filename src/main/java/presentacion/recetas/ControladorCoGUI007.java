@@ -109,7 +109,8 @@ public class ControladorCoGUI007 implements IControladorPantalla {
         List<String> nombresIng = new ArrayList<>();
 
         for(LineaIngrediente ingrediente : ingredienteLista){
-            nombresIng.add(ingrediente.getIngrediente().getNombre());
+            String linea = ingrediente.getIngrediente().getNombre() + ", " + ingrediente.getCantidad() + " " + ingrediente.getMedida().abv();
+            nombresIng.add(linea);
         }
 
         ObservableList<String> nombres = FXCollections.observableArrayList(nombresIng);
