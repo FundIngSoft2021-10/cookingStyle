@@ -71,6 +71,8 @@ public enum Medida {
         }
     };
 
+    public abstract String abv();
+
     public String toStringPlural() {
         return this.toString() + "s";
     }
