@@ -2,6 +2,7 @@ package presentacion.registro_autenticacion;
 
 import entidades.dto.DTORegistro;
 import entidades.dto.DTOSesion;
+import entidades.dto.Pantalla;
 import entidades.modelo.TipoUsuario;
 import javafx.event.ActionEvent;
 import javafx.event.Event;

@@ -23,7 +23,7 @@ public class ControladorToGUI001 implements IControladorPantalla {
     @FXML
     public void clickPantalla(MouseEvent mouseEvent) {
         try {
-            this.cargarPantalla((Event) mouseEvent, Pantalla.TO_GUI002_INICIO, new DTOSesion());
+            this.cargarPantalla((Event) mouseEvent, Pantalla.TO_GUI002_INICIO, new DTOSesion(), false);
         } catch (IOException e) {
             e.printStackTrace();
         }
