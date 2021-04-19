@@ -10,6 +10,7 @@ import entidades.modelo.*;
 import java.math.BigInteger;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class ControladorRecetasCooker implements IControladorRecetasCooker {
@@ -264,24 +265,24 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker {
     }
 
     @Override
-    public List<DTORecetaMiniatura> buscarReceta(String busqueda){
+    public List<DTORecetaMiniatura> buscarReceta(String busqueda) {
         List<DTORecetaMiniatura> resultados = new ArrayList<>();
         boolean esta = false;
 
-        List<DTORecetaMiniatura> busquedaNombre= buscarRecetasNombre(busqueda);
-        if(busquedaNombre!=null){
+        List<DTORecetaMiniatura> busquedaNombre = buscarRecetasNombre(busqueda);
+        if (busquedaNombre != null) {
             resultados.addAll(busquedaNombre);
         }
 
         List<DTORecetaMiniatura> busquedaCategoria = buscarRecetasCategoria(busqueda);
-        if(busquedaCategoria!= null){
-            for(DTORecetaMiniatura miniaturaAdd  : busquedaCategoria){
-                for(DTORecetaMiniatura miniaturaCom : resultados){
-                    if(miniaturaCom.getIdReceta().equals(miniaturaAdd.getIdReceta())){
+        if (busquedaCategoria != null) {
+            for (DTORecetaMiniatura miniaturaAdd : busquedaCategoria) {
+                for (DTORecetaMiniatura miniaturaCom : resultados) {
+                    if (miniaturaCom.getIdReceta().equals(miniaturaAdd.getIdReceta())) {
                         esta = true;
                     }
                 }
-                if(!esta){
+                if (!esta) {
                     resultados.add(miniaturaAdd);
                 }
                 esta = false;
@@ -290,14 +291,14 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker {
 
 
         List<DTORecetaMiniatura> busquedaIngredientes = buscarRecetasIngrediente(busqueda);
-        if(busquedaIngredientes != null){
-            for(DTORecetaMiniatura miniaturaAdd  : busquedaIngredientes){
-                for(DTORecetaMiniatura miniaturaCom : resultados){
-                    if(miniaturaCom.getIdReceta().equals(miniaturaAdd.getIdReceta())){
+        if (busquedaIngredientes != null) {
+            for (DTORecetaMiniatura miniaturaAdd : busquedaIngredientes) {
+                for (DTORecetaMiniatura miniaturaCom : resultados) {
+                    if (miniaturaCom.getIdReceta().equals(miniaturaAdd.getIdReceta())) {
                         esta = true;
                     }
                 }
-                if(!esta){
+                if (!esta) {
                     resultados.add(miniaturaAdd);
                 }
                 esta = false;
@@ -306,25 +307,25 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker {
 
 
         List<DTORecetaMiniatura> busquedaChefs = buscarRecetasChef(busqueda);
-        if(busquedaChefs != null){
-            for(DTORecetaMiniatura miniaturaAdd  : busquedaChefs){
-                for(DTORecetaMiniatura miniaturaCom : resultados){
-                    if(miniaturaCom.getIdReceta().equals(miniaturaAdd.getIdReceta())){
+        if (busquedaChefs != null) {
+            for (DTORecetaMiniatura miniaturaAdd : busquedaChefs) {
+                for (DTORecetaMiniatura miniaturaCom : resultados) {
+                    if (miniaturaCom.getIdReceta().equals(miniaturaAdd.getIdReceta())) {
                         esta = true;
                     }
                 }
-                if(!esta){
+                if (!esta) {
                     resultados.add(miniaturaAdd);
                 }
                 esta = false;
             }
         }
 
-        return  resultados;
+        return resultados;
     }
 
     @Override
-    public DTOReceta buscarReceta(BigInteger idreceta){
+    public DTOReceta buscarReceta(BigInteger idreceta) {
         return buscarReceta(idreceta);
     }
 
@@ -351,6 +352,7 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker {
 
     /**
      * Convierte un DTOReceta en un DTORecetaMiniatura
+     *
      * @param receta la receta
      * @return la miniatura con la información
      */
@@ -361,6 +363,7 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker {
 
     /**
      * Convierte la lista de DTOReceta que recibe en una lista de DTORecetaMiniatura
+     *
      * @param recetas la lista de recetas
      * @return la miniatura con la informaación
      */

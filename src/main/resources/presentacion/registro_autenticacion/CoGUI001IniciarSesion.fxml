@@ -23,7 +23,7 @@
    <children>
       <BorderPane prefHeight="900.0" prefWidth="1600.0">
          <top>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="¡Empezemos juntos esta nueva experiencia al cocinar!" textAlignment="CENTER" wrappingWidth="1602.84814453125" BorderPane.alignment="CENTER">
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="¡Empecemos juntos esta nueva experiencia al cocinar!" textAlignment="CENTER" wrappingWidth="1602.84814453125" BorderPane.alignment="CENTER">
                <font>
                   <Font name="Comic Sans MS" size="39.0" />
                </font>
