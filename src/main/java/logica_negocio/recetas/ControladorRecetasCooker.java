@@ -257,16 +257,13 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker {
         try {
             recetasEncontradas = this.controlCBD.consultaIdsChef(nom_chef);
 
-            for(DTORecetaMiniatura miniatura : recetasEncontradas){
-                System.out.println(miniatura.getNombreReceta());
-            }
-
         } catch (SQLException sqle) {
             recetasEncontradas = null;
         }
         return recetasEncontradas;
     }
 
+    @Override
     public List<DTORecetaMiniatura> buscarReceta(String busqueda){
         List<DTORecetaMiniatura> resultados = new ArrayList<>();
         boolean esta = false;
@@ -324,6 +321,11 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker {
         }
 
         return  resultados;
+    }
+
+    @Override
+    public DTOReceta buscarReceta(BigInteger idreceta){
+        return buscarReceta(idreceta);
     }
 
     /**

@@ -3,8 +3,11 @@ package presentacion.recetas;
 import entidades.dto.DTOReceta;
 import entidades.dto.DTORecetaMiniatura;
 import entidades.dto.DTOSesion;
+import entidades.dto.Pantalla;
 import entidades.modelo.Cooker;
+import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -15,6 +18,8 @@ import logica_negocio.recetas.ControladorRecetasCooker;
 import logica_negocio.recetas.IControladorRecetasCooker;
 import presentacion.IControladorPantalla;
 
+import java.io.IOException;
+import java.math.BigInteger;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +33,7 @@ public class ControladorCoGUI004 implements IControladorPantalla {
     private int contadorRecetasPantalla;
     private List<DTORecetaMiniatura> miniaturas;
     private int contadorObservadas;
+    private int pagina;
 
     @FXML
     public ImageView imgFotoUsuario;
@@ -123,37 +129,127 @@ public class ControladorCoGUI004 implements IControladorPantalla {
         }
     }
 
+    private BigInteger enviarReceta(String nombreReceta){
+
+        BigInteger idReceta = null; 
+        for(DTORecetaMiniatura miniatura : this.miniaturas){
+            if(miniatura.getNombreReceta().equals(nombreReceta)){
+                idReceta = miniatura.getIdReceta();
+            }
+        }
+        return idReceta; 
+    }
+
     public void clickPerfil(MouseEvent mouseEvent) {
+        //TODO: Cargar pantalla PerfilCooker
+        /*try {
+            this.cargarPantalla((Event) mouseEvent, Pantalla.CO_GUI00X_PERFIL, this.sesion, false);
+        } catch (IOException e){
+            e.printStackTrace();
+        }*/
     }
 
     public void textMembresia(MouseEvent mouseEvent) {
+        //TODO: Cargar pantalla Membresia
+        /*try {
+            this.cargarPantalla((Event) mouseEvent, Pantalla.CO_GUI00X_MEMBRESIA, this.sesion, false);
+        } catch (IOException e){
+            e.printStackTrace();
+        }*/
     }
 
     public void clickServicioCliente(MouseEvent mouseEvent) {
+        //TODO: Cargar pantalla Membresia
+        /*try {
+            this.cargarPantalla((Event) mouseEvent, Pantalla.CO_GUI00X_SERVICIOCL, this.sesion, false);
+        } catch (IOException e){
+            e.printStackTrace();
+        }*/
     }
 
     public void clickBusquedasRecientes(MouseEvent mouseEvent) {
+        //TODO: Cargar pantalla Membresia
+        /*try {
+            this.cargarPantalla((Event) mouseEvent, Pantalla.CO_GUI00X_SERVICIOCL, this.sesion, false);
+        } catch (IOException e){
+            e.printStackTrace();
+        }*/
     }
 
     public void clickVolver(MouseEvent mouseEvent) {
+        try{
+            this.cargarPantalla((Event) mouseEvent, Pantalla.CO_GUI003_INICIO, this.sesion, false);
+        } catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
+
     public void clickR1(MouseEvent mouseEvent) {
+        String nombreReceta = String.valueOf(textNombreR1);
+        this.sesion.setIdReceta(enviarReceta(nombreReceta));
+
+        try {
+            this.cargarPantalla((Event) mouseEvent, Pantalla.CO_GUI006_VERRECETA, this.sesion, false);
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+
     }
 
     public void clickR2(MouseEvent mouseEvent) {
-    }
+        String nombreReceta = String.valueOf(textNombreR2);
+        this.sesion.setIdReceta(enviarReceta(nombreReceta));
 
-    public void clickR4(MouseEvent mouseEvent) {
+        try {
+            this.cargarPantalla((Event) mouseEvent, Pantalla.CO_GUI006_VERRECETA, this.sesion, false);
+        } catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
     public void clickR3(MouseEvent mouseEvent) {
+        String nombreReceta = String.valueOf(textNombreR3);
+        this.sesion.setIdReceta(enviarReceta(nombreReceta));
+
+        try {
+            this.cargarPantalla((Event) mouseEvent, Pantalla.CO_GUI006_VERRECETA, this.sesion, false);
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void clickR4(MouseEvent mouseEvent) {
+        String nombreReceta = String.valueOf(textNombreR4);
+        this.sesion.setIdReceta(enviarReceta(nombreReceta));
+
+        try {
+            this.cargarPantalla((Event) mouseEvent, Pantalla.CO_GUI006_VERRECETA, this.sesion, false);
+        } catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
     public void clickR5(MouseEvent mouseEvent) {
+        String nombreReceta = String.valueOf(textNombreR5);
+        this.sesion.setIdReceta(enviarReceta(nombreReceta));
+
+        try {
+            this.cargarPantalla((Event) mouseEvent, Pantalla.CO_GUI006_VERRECETA, this.sesion, false);
+        } catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
     public void clickR6(MouseEvent mouseEvent) {
+        String nombreReceta = String.valueOf(textNombreR6);
+        this.sesion.setIdReceta(enviarReceta(nombreReceta));
+
+        try {
+            this.cargarPantalla((Event) mouseEvent, Pantalla.CO_GUI006_VERRECETA, this.sesion, false);
+        } catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
     public void clickAntRecetas(MouseEvent mouseEvent) {
@@ -169,7 +265,6 @@ public class ControladorCoGUI004 implements IControladorPantalla {
         if(indice == 0){
             btnAntRecetas.setVisible(false);
         }
-        System.out.println("Indice: " + indice);
 
         if(contadorRecetasPantalla==0){
             btnAntRecetas.setVisible(false);
@@ -189,9 +284,7 @@ public class ControladorCoGUI004 implements IControladorPantalla {
 
 
         contadorRecetasPantalla = contadorRecetasPantalla - contadorObservadas;
-        System.out.println("Recetas conta: " + this.contadorRecetasPantalla);
         contadorObservadas = indiceGu;
-        System.out.println("Recetas obs: " + this.contadorObservadas);
 
     }
 
@@ -214,9 +307,7 @@ public class ControladorCoGUI004 implements IControladorPantalla {
                     this.miniaturasFX[i][j].getNombre().setText(infoReceta.getNombreReceta());
                     this.miniaturasFX[i][j].getImagen().setImage(image);
                     this.contadorRecetasPantalla++;
-                    //System.out.println("Recetas conta: " + this.contadorRecetasPantalla);
                     this.contadorObservadas++;
-                    //System.out.println("Recetas obser: " + this.contadorObservadas);
                 }
             }
         }
@@ -235,18 +326,21 @@ public class ControladorCoGUI004 implements IControladorPantalla {
             btnSigRetas.setVisible(true);
         }
 
+        if(this.miniaturas.size() != 0) {
 
-        for(int i = 0; i<this.miniaturasFX.length; i++){
-           for(int j=0; j<this.miniaturasFX[0].length; j++){
-                if(this.miniaturas.size() != contadorRecetasPantalla) {
-                    DTORecetaMiniatura infoReceta = this.miniaturas.get(this.contadorRecetasPantalla);
-                    Image image = new Image("https://i.pinimg.com/originals/1f/04/85/1f048500d47614a086ee689bcf024233.jpg");
-                    this.miniaturasFX[i][j].getNombre().setText(infoReceta.getNombreReceta());
-                    this.miniaturasFX[i][j].getImagen().setImage(image);
-                    this.contadorRecetasPantalla++;
-                    //System.out.println("Recetas conta: " + this.contadorRecetasPantalla);
+            for (int i = 0; i < this.miniaturasFX.length; i++) {
+                for (int j = 0; j < this.miniaturasFX[0].length; j++) {
+                    if (this.miniaturas.size() != contadorRecetasPantalla) {
+                        DTORecetaMiniatura infoReceta = this.miniaturas.get(this.contadorRecetasPantalla);
+                        Image image = new Image("https://i.pinimg.com/originals/1f/04/85/1f048500d47614a086ee689bcf024233.jpg");
+                        this.miniaturasFX[i][j].getNombre().setText(infoReceta.getNombreReceta());
+                        this.miniaturasFX[i][j].getImagen().setImage(image);
+                        this.contadorRecetasPantalla++;
+                    }
                 }
-           }
+            }
+        } else {
+            this.crearAlerta(Alert.AlertType.INFORMATION, "¡No hay coincidencias con la busqueda!");
         }
     }
 }

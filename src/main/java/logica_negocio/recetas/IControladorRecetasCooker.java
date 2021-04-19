@@ -108,4 +108,6 @@ public interface IControladorRecetasCooker {
      * @return DTOReceta con la receta y el autor de esta
      */
     public DTOReceta mostrarReceta(BigInteger idReceta);
+
+    public DTOReceta buscarReceta(BigInteger idreceta);
 }

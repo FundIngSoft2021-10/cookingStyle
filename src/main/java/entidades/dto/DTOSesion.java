@@ -2,12 +2,14 @@ package entidades.dto;
 
 import entidades.modelo.*;
 
+import java.math.BigInteger;
 import java.util.Stack;
 
 public class DTOSesion {
     private TipoUsuario tipoUsuario;
     private Usuario usuario;
     private Stack<Pantalla> historial;
+    private BigInteger idReceta;
 
     public DTOSesion(TipoUsuario tipoUsuario, Usuario usuario, Stack<Pantalla> historial) {
         this.tipoUsuario = tipoUsuario;
@@ -47,6 +49,14 @@ public class DTOSesion {
 
     public void setHistorial(Stack<Pantalla> historial) {
         this.historial = historial;
+    }
+
+    public BigInteger getIdReceta() {
+        return idReceta;
+    }
+
+    public void setIdReceta(BigInteger id) {
+        this.idReceta = id;
     }
 
     // Métodos
