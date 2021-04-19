@@ -1,7 +1,7 @@
 package acceso_datos.consultas_bd;
 
-import entidades.dto.DTOListaFavoritos;
 import entidades.dto.DTOReceta;
+import entidades.dto.DTORecetaMiniatura;
 import entidades.modelo.*;
 
 import java.math.BigInteger;
@@ -25,7 +25,7 @@ public interface IControladorCBDRecetasCooker{
     public List<DTOReceta> buscarRecetas () throws SQLException;
     public Receta buscarRecetas (BigInteger idreceta) throws SQLException;
     public List<DTOReceta> buscarRecetas (String nombre_receta) throws SQLException;
-    public List<DTOReceta> buscarRecetasCategoria (int id_categoria) throws SQLException;
+    public List<DTORecetaMiniatura> buscarRecetasCategoria (int id_categoria) throws SQLException;
     public List<DTOReceta> buscarRecetasIngrediente (int id_ingrediente) throws SQLException;
     public List<DTOReceta> buscarRecetasChef (BigInteger idchef) throws SQLException;
     public boolean recetaEnListaRecetas(int idLista, BigInteger idReceta, BigInteger idUsuario) throws SQLException;
@@ -33,4 +33,5 @@ public interface IControladorCBDRecetasCooker{
     public List<Receta> consultaRecetasListaFavoritos (BigInteger idUsuario, int idlista) throws SQLException;
     public Chef consultaRecetaXChef (BigInteger idReceta) throws  SQLException;
     public Categoria consultaCategoria(int idCategoria) throws SQLException;
+    public List<Categoria> consultarCategorias() throws SQLException;
 }
