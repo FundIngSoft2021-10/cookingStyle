@@ -1,10 +1,13 @@
 package logica_negocio.recetas;
 
+import acceso_datos.consultas_bd.ControladorCBDRecetasChef;
+import acceso_datos.consultas_bd.ControladorCBDRegAut;
+import acceso_datos.consultas_bd.IControladorCBDRecetasChef;
+import acceso_datos.consultas_bd.IControladorCBDRegAut;
+import acceso_datos.persistencia_bd.ControladorBDRecetasChef;
+import acceso_datos.persistencia_bd.IControladorBDRecetasChef;
 import entidades.dto.DTOReceta;
-import entidades.modelo.Categoria;
-import entidades.modelo.LineaIngrediente;
-import entidades.modelo.PasoReceta;
-import entidades.modelo.TipoVideo;
+import entidades.modelo.*;
 import javafx.scene.image.Image;
 import logica_negocio.utilidad.ControladorUtilidad;
 import logica_negocio.utilidad.IControladorUtilidad;
@@ -20,19 +23,48 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ControladorRecetasChef implements IControladorRecetasChef {
+    private Chef chef;
+    private IControladorBDRecetasChef controlPBD;
     private IControladorUtilidad controlUtilidad;
+    private IControladorCBDRecetasChef controlCBD;
 
-    public ControladorRecetasChef() {
+
+    public ControladorRecetasChef(Chef chef) {
+        this.controlPBD = new ControladorBDRecetasChef();
+        this.controlCBD = new ControladorCBDRecetasChef();
         this.controlUtilidad = new ControladorUtilidad();
+        this.chef = chef;
     }
 
     //DTO para mostrar mensaje.
     public DTOReceta subirReceta (String nombre, String descripcion, String link_video, TipoVideo tipovideo, String link_imagen, List<LineaIngrediente> ingredientes, List<Categoria> categorias, List<PasoReceta> pasosReceta){
-        BigInteger idBigInt = this.controlUtilidad.generarRandomBigInt(new BigInteger("1000000000000"), new BigInteger("10000000000000"));
-        BigDecimal idReceta = new BigDecimal(idBigInt);
+        //Generar IdReceta y comprobar que sea único
+        //Comprobar linkvideo: incluye, la existencia del URL y la concordancia con su tipo de video
+        //Combertir el linkvideo a player. o embed/ dependiendo su tipo de video.
+        //Comprobar la existencia del link_imagen. (Método que envió Alejo, buscar otra opción)
+        //Ingredientes: ¿se recibe una lista de la interfaz? ¿cómo valido estos datos? (Piense:D)
+        //Categorias:
+        //Pasos:
+        //Generar DTO:
+            //Instanciar la receta
+            //Igualar el chef
+            //Mensaje de éxito o fallo correspondiente.
+
 
     }
 
+    //Generar un IdReceta único
+    private BigInteger generarIdRecetaUnico() throws SQLException {
+        BigInteger idReceta;
+        boolean existe = true;
+
+        do {
+            idReceta = this.controlUtilidad.generarRandomBigInt(new BigInteger("1000000000000"), new BigInteger("10000000000000"));
+            existe = controlCBD.existeIdReceta(idReceta);
+        } while (existe);
+
+        return idReceta;
+    }
 
     //Validar que la URL de un link exista
     public boolean validarUrl (String url){

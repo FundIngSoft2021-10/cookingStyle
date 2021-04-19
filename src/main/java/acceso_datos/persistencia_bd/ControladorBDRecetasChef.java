@@ -152,8 +152,8 @@ public class ControladorBDRecetasChef implements IControladorBDRecetasChef {
             //cambiar a bigint el id usuario: ya
             //instanciar
             //setbigdecimal
-            BigInteger big=randBi(19);//genera el numero aleatorio con 19 cifras
-            BigDecimal bigdec = new BigDecimal(big);
+            // BigInteger big=randBi(19);//genera el numero aleatorio con 19 cifras
+            BigDecimal bigdec = new BigDecimal(rec.getIdReceta());
 
             BigDecimal user = new BigDecimal(idUsuario);
 
@@ -164,11 +164,11 @@ public class ControladorBDRecetasChef implements IControladorBDRecetasChef {
             stmt.setString(5, rec.getLinkImagen());
             stmt.setBigDecimal(6, user);
 
-            subirLineaIngrediente(rec.getLineasIngrediente(), big);//se manda a metodo de subir receta
+            subirLineaIngrediente(rec.getLineasIngrediente(), rec.getIdReceta());//se manda a metodo de subir receta
 
-            subirPasoreceta(rec.getPasosReceta(), big);// se manda a metodo de subir pasoreceta
+            subirPasoreceta(rec.getPasosReceta(), rec.getIdReceta());// se manda a metodo de subir pasoreceta
 
-            subirCategoria(rec.getCategorias(), big);
+            subirCategoria(rec.getCategorias(), rec.getIdReceta());
 
             //subirCalificacion(rec.getCalificaciones(), big);
 
