@@ -66,7 +66,7 @@ public interface IControladorRecetasCooker {
      * @param nom_ingrediente nombre del ingrediente
      * @return lista DTOReceta con las recetas que tienen ese ingrediente
      */
-    public List<DTOReceta> buscarRecetasIngrediente(String nom_ingrediente);
+    public List<DTORecetaMiniatura> buscarRecetasIngrediente(String nom_ingrediente);
 
     /**
      * Buscar Recetas Chef
@@ -74,7 +74,7 @@ public interface IControladorRecetasCooker {
      * @param nom_chef nombre del chef
      * @return lista DTOReceta con las recetas que están asociadas con el chef
      */
-    public List<DTOReceta> buscarRecetasChef(String nom_chef);
+    public List<DTORecetaMiniatura> buscarRecetasChef(String nom_chef);
 
     public List<DTORecetaMiniatura> buscarReceta(String busqueda);
 

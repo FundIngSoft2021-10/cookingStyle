@@ -30,20 +30,37 @@ public class ControladorCBDRecetasCooker implements IControladorCBDRecetasCooker
     }
 
     @Override
-    public List<Integer> consultaIdsIngrediente(String nom_ingrediente) throws SQLException {
-        String consultaIngrediente = "SELECT * FROM ingrediente WHERE UPPER(ingrediente.nombre) LIKE '%" + nom_ingrediente + "%';";
-        List<Integer> idsIngredientes = new ArrayList<>();
-        int idIngrediente;
+    public List<DTORecetaMiniatura> consultaIdsIngrediente(String nom_ingrediente) throws SQLException {
+        String consultaIngrediente =
+                "SELECT \n" +
+                    "receta.idreceta, receta.nombre, receta.linkImagen, \n" +
+                    "usuario.idusuario, usuario.nombreusuario, usuario.fechacreacion, \n" +
+                    "usuario.nombre, usuario.idtipousuario \n" +
+                "FROM \n" +
+                    "ingrediente , lineaingrediente , receta, usuario \n" +
+                "WHERE \n" +
+                    "usuario.idusuario = receta.chef_idusuario AND \n" +
+                    "receta.idreceta = lineaingrediente.idreceta AND \n" +
+                    "lineaingrediente.idingrediente = ingrediente.idingrediente AND \n" +
+                    "UPPER(ingrediente.nombre) LIKE '%" + nom_ingrediente + "%';";
+        List<DTORecetaMiniatura> recetasIngredientes = new ArrayList<>();
+
         try (PreparedStatement stmt = conexion.prepareStatement(consultaIngrediente)) {
+            //stmt.setString(1, nom_ingrediente);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                idIngrediente = rs.getInt("idingrediente");
-                idsIngredientes.add(idIngrediente);
+                BigInteger idReceta = rs.getBigDecimal(1).toBigInteger();
+                String nombreReceta = rs.getString(2);
+                String linkImage = rs.getString(3);
+
+                Chef autor = new Chef(rs.getBigDecimal(4).toBigInteger(), rs.getString(5), rs.getDate(6), rs.getString(7));
+
+                recetasIngredientes.add(new DTORecetaMiniatura(idReceta, nombreReceta, linkImage, autor));
             }
         } catch (SQLException sqle) {
             throw sqle;
         }
-        return idsIngredientes;
+        return recetasIngredientes;
     }
 
     @Override
@@ -75,9 +92,9 @@ public class ControladorCBDRecetasCooker implements IControladorCBDRecetasCooker
                 "usuario.idusuario = receta.chef_idusuario AND \n" +
                 "receta.idreceta = categoriaxreceta.idreceta AND \n" +
                 "categoriaxreceta.idcategoria = categoria.idcategoria AND \n"+
-                 "UPPER(categoria.nombre) LIKE '% ? %';";
+                 "UPPER(categoria.nombre) LIKE '%" + nom_categoria + "%';";
         try (PreparedStatement stmt = conexion.prepareStatement(consultaCategoria)) {
-            stmt.setString(1, "nom_categoria");
+            //stmt.setString(1, nom_categoria);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 BigInteger idReceta = rs.getBigDecimal(1).toBigInteger();
@@ -120,24 +137,34 @@ public class ControladorCBDRecetasCooker implements IControladorCBDRecetasCooker
     }
 
     @Override
-    public List<BigInteger> consultaIdsChef(String nombre) throws SQLException {
-        List<BigInteger> idsChefs = new ArrayList<>();
-        BigInteger idChef;
-        int tipoUsuario;
-        String consulta = "SELECT * FROM usuario WHERE UPPER(nombre) LIKE '%" + nombre + "%' OR UPPER(nombreusuario) LIKE '" + nombre + "';";
+    public List<DTORecetaMiniatura> consultaIdsChef(String nombre) throws SQLException {
+        List<DTORecetaMiniatura> recetasChefs = new ArrayList<>();
+        String consulta =
+                "SELECT DISTINCT \n" +
+                    "receta.idreceta, receta.nombre, receta.linkImagen, \n" +
+                    "usuario.idusuario, usuario.nombreusuario, usuario.fechacreacion, \n" +
+                    "usuario.nombre, usuario.idtipousuario \n" +
+                "FROM \n" +
+                    "chef, receta, usuario \n" +
+                "WHERE \n" +
+                    "usuario.idusuario = receta.chef_idusuario AND \n" +
+                    "UPPER(usuario.nombre) LIKE '%"+ nombre + "%';";
         try (PreparedStatement stmt = conexion.prepareStatement(consulta)) {
+            //stmt.setString(1, nombre);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                idChef = rs.getBigDecimal("idusuario").toBigInteger();
-                tipoUsuario = rs.getInt("idtipousuario");
-                if (tipoUsuario == 3) {
-                    idsChefs.add(idChef);
-                }
+                BigInteger idReceta = rs.getBigDecimal(1).toBigInteger();
+                String nombreReceta = rs.getString(2);
+                String linkImage = rs.getString(3);
+
+                Chef autor = new Chef(rs.getBigDecimal(4).toBigInteger(), rs.getString(5), rs.getDate(6), rs.getString(7));
+
+                recetasChefs.add(new DTORecetaMiniatura(idReceta, nombreReceta, linkImage, autor));
             }
         } catch (SQLException sqle) {
             throw sqle;
         }
-        return idsChefs;
+        return recetasChefs;
     }
 
     @Override
@@ -198,15 +225,16 @@ public class ControladorCBDRecetasCooker implements IControladorCBDRecetasCooker
     public List<DTORecetaMiniatura> buscarRecetas(String nombre_receta) throws SQLException {
         List<DTORecetaMiniatura> recetas = new ArrayList<>();
 
-        String consulta = "SELECT " +
-        "receta.idreceta, receta.nombre, receta.linkImagen," +
-                "usuario.idusuario, usuario.nombreusuario, usuario.fechacreacion,"+
-                "usuario.nombre, usuario.idtipousuario"+
-        "FROM"+
-                "receta, usuario"+
-        "WHERE"+
-        "receta.chef_idusuario = usuario.idusuario AND"+
-        "UPPER(receta.nombre) LIKE '%"+ nombre_receta + "%' ;";
+        String consulta =
+                "SELECT \n" +
+                    "receta.idreceta, receta.nombre, receta.linkImagen, \n" +
+                    "usuario.idusuario, usuario.nombreusuario, usuario.fechacreacion, \n"+
+                    "usuario.nombre, usuario.idtipousuario \n"+
+                "FROM \n"+
+                    "receta, usuario \n"+
+                "WHERE \n"+
+                    "receta.chef_idusuario = usuario.idusuario AND \n"+
+                    "UPPER(receta.nombre) LIKE '%"+ nombre_receta + "%' ;";
 
         try (PreparedStatement stmt = conexion.prepareStatement(consulta)) {
             ResultSet rs = stmt.executeQuery();

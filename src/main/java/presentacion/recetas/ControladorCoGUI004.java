@@ -224,25 +224,27 @@ public class ControladorCoGUI004 implements IControladorPantalla {
     public void clickBuscar(MouseEvent mouseEvent) {
 
         String busqueda = fieldBuscar.getText();
+        this.contadorObservadas = 0;
+        this.contadorRecetasPantalla = 0;
 
-        List<DTORecetaMiniatura> miniaturas = controladorRecCooker.buscarReceta(busqueda);
+        this.miniaturas = controladorRecCooker.buscarReceta(busqueda);
 
-        if(miniaturas.size() > 6){
+        if(this.miniaturas.size() > 6){
             btnSigRetas.setVisible(true);
         }
 
 
         for(int i = 0; i<this.miniaturasFX.length; i++){
            for(int j=0; j<this.miniaturasFX[0].length; j++){
-               if(this.miniaturas.size() > contadorRecetasPantalla) {
-                   DTORecetaMiniatura infoReceta = this.miniaturas.get(this.contadorRecetasPantalla);
-                   Image image = new Image("https://i.pinimg.com/originals/1f/04/85/1f048500d47614a086ee689bcf024233.jpg");
-                   System.out.println(infoReceta.getNombreReceta());
-                   this.miniaturasFX[i][j].getNombre().setText(infoReceta.getNombreReceta());
-                   this.miniaturasFX[i][j].getImagen().setImage(image);
-                   this.contadorRecetasPantalla++;
-                   System.out.println("Recetas conta: " + this.contadorRecetasPantalla);
-               }
+                if(this.miniaturas.size() != contadorRecetasPantalla) {
+                    DTORecetaMiniatura infoReceta = this.miniaturas.get(this.contadorRecetasPantalla);
+                    Image image = new Image("https://i.pinimg.com/originals/1f/04/85/1f048500d47614a086ee689bcf024233.jpg");
+                    System.out.println(infoReceta.getNombreReceta());
+                    this.miniaturasFX[i][j].getNombre().setText(infoReceta.getNombreReceta());
+                    this.miniaturasFX[i][j].getImagen().setImage(image);
+                    this.contadorRecetasPantalla++;
+                    System.out.println("Recetas conta: " + this.contadorRecetasPantalla);
+                }
            }
         }
     }

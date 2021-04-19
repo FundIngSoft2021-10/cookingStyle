@@ -234,17 +234,12 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker {
      * @inheritDoc
      */
     @Override
-    public List<DTOReceta> buscarRecetasIngrediente(String nom_ingrediente) {
-        List<DTOReceta> recetasEncontradas = new ArrayList<>();
-        List<DTOReceta> recetasEncontradasIngrediente;
-        List<Integer> idsingredientes;
+    public List<DTORecetaMiniatura> buscarRecetasIngrediente(String nom_ingrediente) {
+        List<DTORecetaMiniatura> recetasEncontradas = new ArrayList<>();
 
         try {
-            idsingredientes = this.controlCBD.consultaIdsIngrediente(nom_ingrediente);
-            for (Integer actual : idsingredientes) {
-                recetasEncontradasIngrediente = this.controlCBD.buscarRecetasIngrediente(actual);
-                recetasEncontradas.addAll(recetasEncontradasIngrediente);
-            }
+            recetasEncontradas = this.controlCBD.consultaIdsIngrediente(nom_ingrediente);
+
 
         } catch (SQLException sqle) {
             recetasEncontradas = null;
@@ -256,16 +251,14 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker {
      * @inheritDoc
      */
     @Override
-    public List<DTOReceta> buscarRecetasChef(String nom_chef) {
-        List<DTOReceta> recetasEncontradas = new ArrayList<>();
-        List<DTOReceta> recetasEncontradasChef;
-        List<BigInteger> idsChefs;
+    public List<DTORecetaMiniatura> buscarRecetasChef(String nom_chef) {
+        List<DTORecetaMiniatura> recetasEncontradas = new ArrayList<>();
 
         try {
-            idsChefs = this.controlCBD.consultaIdsChef(nom_chef);
-            for (BigInteger actual : idsChefs) {
-                recetasEncontradasChef = this.controlCBD.buscarRecetasChef(actual);
-                recetasEncontradas.addAll(recetasEncontradasChef);
+            recetasEncontradas = this.controlCBD.consultaIdsChef(nom_chef);
+
+            for(DTORecetaMiniatura miniatura : recetasEncontradas){
+                System.out.println(miniatura.getNombreReceta());
             }
 
         } catch (SQLException sqle) {
@@ -276,10 +269,59 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker {
 
     public List<DTORecetaMiniatura> buscarReceta(String busqueda){
         List<DTORecetaMiniatura> resultados = new ArrayList<>();
+        boolean esta = false;
+
         List<DTORecetaMiniatura> busquedaNombre= buscarRecetasNombre(busqueda);
-        resultados.addAll(busquedaNombre);
+        if(busquedaNombre!=null){
+            resultados.addAll(busquedaNombre);
+        }
+
         List<DTORecetaMiniatura> busquedaCategoria = buscarRecetasCategoria(busqueda);
-        resultados.addAll(busquedaCategoria);
+        if(busquedaCategoria!= null){
+            for(DTORecetaMiniatura miniaturaAdd  : busquedaCategoria){
+                for(DTORecetaMiniatura miniaturaCom : resultados){
+                    if(miniaturaCom.getIdReceta().equals(miniaturaAdd.getIdReceta())){
+                        esta = true;
+                    }
+                }
+                if(!esta){
+                    resultados.add(miniaturaAdd);
+                }
+                esta = false;
+            }
+        }
+
+
+        List<DTORecetaMiniatura> busquedaIngredientes = buscarRecetasIngrediente(busqueda);
+        if(busquedaIngredientes != null){
+            for(DTORecetaMiniatura miniaturaAdd  : busquedaIngredientes){
+                for(DTORecetaMiniatura miniaturaCom : resultados){
+                    if(miniaturaCom.getIdReceta().equals(miniaturaAdd.getIdReceta())){
+                        esta = true;
+                    }
+                }
+                if(!esta){
+                    resultados.add(miniaturaAdd);
+                }
+                esta = false;
+            }
+        }
+
+
+        List<DTORecetaMiniatura> busquedaChefs = buscarRecetasChef(busqueda);
+        if(busquedaChefs != null){
+            for(DTORecetaMiniatura miniaturaAdd  : busquedaChefs){
+                for(DTORecetaMiniatura miniaturaCom : resultados){
+                    if(miniaturaCom.getIdReceta().equals(miniaturaAdd.getIdReceta())){
+                        esta = true;
+                    }
+                }
+                if(!esta){
+                    resultados.add(miniaturaAdd);
+                }
+                esta = false;
+            }
+        }
 
         return  resultados;
     }
