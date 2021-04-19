@@ -23,7 +23,7 @@ public enum Pantalla {
     CH_GUI002_REGISTRAR("/presentacion/registro_autenticacion/ChGUI002Registrarse.fxml"),
     CH_GUI008_PERFIL("/presentacion/perfiles/ChGUI008Perfil.fxml"),
     CH_GUI009_SUBIRRECETA("/presentacion/recetas/ChGUI009SubirReceta.fxml"),
-    CH_GUI010_EDITARRECETA("/presentacion/recetas/ChGUI009EditarReceta.fxml"),
+    CH_GUI010_EDITARRECETA("/presentacion/recetas/ChGUI010EditarReceta.fxml"),
     CH_GUI011_VERAGENDA("/presentacion/perfiles/ChGUI011VerAgenda.fxml");
 
     public String fxml;
