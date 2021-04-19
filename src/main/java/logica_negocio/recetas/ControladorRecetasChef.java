@@ -1,22 +1,16 @@
 package logica_negocio.recetas;
 
 import acceso_datos.consultas_bd.ControladorCBDRecetasChef;
-import acceso_datos.consultas_bd.ControladorCBDRegAut;
 import acceso_datos.consultas_bd.IControladorCBDRecetasChef;
-import acceso_datos.consultas_bd.IControladorCBDRegAut;
-import acceso_datos.persistencia_bd.ControladorBDRecetasChef;
-import acceso_datos.persistencia_bd.IControladorBDRecetasChef;
+import acceso_datos.persistencia_bd.ControladorPBDRecetasChef;
+import acceso_datos.persistencia_bd.IControladorPBDRecetasChef;
 import entidades.dto.DTOReceta;
 import entidades.modelo.*;
-import javafx.scene.image.Image;
 import logica_negocio.utilidad.ControladorUtilidad;
 import logica_negocio.utilidad.IControladorUtilidad;
 
-import javax.net.ssl.HttpsURLConnection;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -24,13 +18,13 @@ import java.util.List;
 
 public class ControladorRecetasChef implements IControladorRecetasChef {
     private Chef chef;
-    private IControladorBDRecetasChef controlPBD;
+    private IControladorPBDRecetasChef controlPBD;
     private IControladorUtilidad controlUtilidad;
     private IControladorCBDRecetasChef controlCBD;
 
 
     public ControladorRecetasChef(Chef chef) {
-        this.controlPBD = new ControladorBDRecetasChef();
+        this.controlPBD = new ControladorPBDRecetasChef();
         this.controlCBD = new ControladorCBDRecetasChef();
         this.controlUtilidad = new ControladorUtilidad();
         this.chef = chef;

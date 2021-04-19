@@ -9,7 +9,7 @@ import java.math.BigInteger;
 import java.sql.SQLException;
 import java.util.List;
 
-public interface IControladorBDRecetasChef {
+public interface IControladorPBDRecetasChef {
     //public boolean subirIngrediente (Ingrediente ingrediente)throws SQLException;
     public boolean subirLineaIngrediente (List<LineaIngrediente> lineaIngrediente, BigInteger idReceta) throws SQLException;
     public boolean subirCategoria (List<Categoria> categorias, BigInteger idReceta) throws SQLException;

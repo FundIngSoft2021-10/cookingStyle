@@ -1,19 +1,16 @@
 package acceso_datos.persistencia_bd;
 
 import acceso_datos.conexion_bd.ControladorBDConexion;
-import entidades.dto.DTOIngrediente;
-import entidades.dto.DTOLineaIngrediente;
 import entidades.modelo.*;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class ControladorBDRecetasChef implements IControladorBDRecetasChef {
+public class ControladorPBDRecetasChef implements IControladorPBDRecetasChef {
     ControladorBDConexion controladorBDConexion = new ControladorBDConexion();
     Connection conexion = controladorBDConexion.conectarMySQL();
 /*
