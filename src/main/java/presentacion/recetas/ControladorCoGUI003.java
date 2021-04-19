@@ -1,12 +1,11 @@
 package presentacion.recetas;
 
-import entidades.dto.DTORecetasMiniaturaCategoria;
-import entidades.dto.DTOSesion;
-import entidades.modelo.Categoria;
-import entidades.modelo.Cooker;
+import entidades.dto.*;
+import entidades.modelo.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -22,10 +21,16 @@ import java.util.ResourceBundle;
 public class ControladorCoGUI003 implements IControladorPantalla {
     private DTOSesion sesion;
     private IControladorRecetasCooker controlRecetas;
-    List<Categoria> categorias;
-    List<DTORecetasMiniaturaCategoria> miniaturasCategoria;
+    private List<Categoria> categorias;
+    private List<DTORecetasMiniaturaCategoria> miniaturasCategorias;
 
+    private int cantFilas;      // Cantidad de filas (categorías) cargadas
+    private int cantCols;       // Cantidad de columnas (recetas por categoría) cargadas
+    private int posicionRecetas[];      // Posición de las recetas por cada categoría (0) - (1) - (...)
+    private int posicionCategorias;     // Posición de las categorías (1,2) - (3,4) - (...)
+    private Text[] nombresCategorias;   // Nombres de cada fila de categorías
     private FXRecetaMiniatura[][] miniaturasFX;
+    private DTORecetaMiniatura[][] miniaturas;
 
     @FXML
     public TextField fieldBuscar;
@@ -93,7 +98,7 @@ public class ControladorCoGUI003 implements IControladorPantalla {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Empaquetar el grid de categorias - recetas dentro de una matriz para fácil acceso
-        this.crearMiniaturasFX();
+        this.crearMiniaturas();
 
         // Desactivar todas las recetas
         this.desactivarRecetasFX();
@@ -107,16 +112,33 @@ public class ControladorCoGUI003 implements IControladorPantalla {
 
         // Obtener la información de la pantalla
         this.categorias = this.controlRecetas.buscarCategorias();
-        this.miniaturasCategoria = this.controlRecetas.buscarMiniaturasRecetasCategoria();
+        this.miniaturasCategorias = this.controlRecetas.buscarMiniaturasRecetasCategoria();
 
         // Cargar las categorías en la pantalla
         this.cargarCategorias();
 
+        // Cargar las miniaturas iniciales
+        this.cargarTodasMiniaturas();
+        this.determinarBotonesCategorias();
+
 
     }
 
-    private void crearMiniaturasFX() {
-        miniaturasFX = new FXRecetaMiniatura[2][3];
+    private void crearMiniaturas() {
+        this.cantFilas = 2;
+        this.cantCols = 3;
+
+        this.posicionRecetas = new int[cantFilas];
+        for (int i = 0; i < this.cantFilas; i++)
+            this.posicionRecetas[i] = 0;
+        this.posicionCategorias = 0;
+
+        nombresCategorias = new Text[2];
+        nombresCategorias[0] = textC1;
+        nombresCategorias[1] = textC2;
+
+        miniaturas = new DTORecetaMiniatura[this.cantFilas][this.cantCols];
+        miniaturasFX = new FXRecetaMiniatura[this.cantFilas][this.cantCols];
         this.llenarMiniaturasFX(0, 0, imgC1R1, textNombreC1R1);
         this.llenarMiniaturasFX(0, 1, imgC1R2, textNombreC1R2);
         this.llenarMiniaturasFX(0, 2, imgC1R3, textNombreC1R3);
@@ -131,12 +153,19 @@ public class ControladorCoGUI003 implements IControladorPantalla {
         miniaturasFX[i][j].setNombre(nombre);
     }
 
-    private void desactivarMiniaturasFX() {
-        for (int i = 0; i < miniaturasFX.length; i++) {
-            for (int j = 0; j < miniaturasFX[0].length; j++) {
-                miniaturasFX[i][j].getImagen().setImage(null);
-                miniaturasFX[i][j].getNombre().setText("");
-            }
+    private void desactivarMiniaturasCategoria(int filaCategoria) {
+        nombresCategorias[filaCategoria].setText("");
+        for (int j = 0; j < this.cantCols; j++) {
+            miniaturasFX[filaCategoria][j].getImagen().setImage(null);
+            miniaturasFX[filaCategoria][j].getImagen().setVisible(false);
+            miniaturasFX[filaCategoria][j].getNombre().setText("");
+            miniaturas[filaCategoria][j] = null;
+        }
+    }
+
+    private void desactivarMiniaturas() {
+        for (int i = 0; i < this.cantFilas; i++) {
+            this.desactivarMiniaturasCategoria(i);
         }
     }
 
@@ -150,10 +179,91 @@ public class ControladorCoGUI003 implements IControladorPantalla {
     }
 
     private void desactivarRecetasFX() {
-        this.textC1.setText("");
-        this.textC2.setText("");
         this.desactivarBotonesNavegacion();
-        this.desactivarMiniaturasFX();
+        this.desactivarMiniaturas();
+    }
+
+    private void cargarMiniatura(int i, int j, DTORecetaMiniatura miniatura) {
+        miniaturas[i][j] = miniatura;
+
+        Image imagen;
+        try {
+            imagen = new Image(miniatura.getLinkImagen());
+        } catch (Exception e) {
+            imagen = new Image("https://img.icons8.com/pastel-glyph/2x/file-not-found.png");
+        }
+
+        this.miniaturasFX[i][j].getImagen().setImage(imagen);
+        this.miniaturasFX[i][j].getImagen().setVisible(true);
+        this.miniaturasFX[i][j].getNombre().setText(miniatura.getNombreReceta());
+    }
+
+    private void cargarMiniaturasCategoria(int filaCategoria) {
+        this.desactivarMiniaturasCategoria(filaCategoria);
+
+        // TODO: Botones de tamaño variable, no fijos
+        if (filaCategoria == 0) {
+            btnAntC1.setVisible(false);
+            btnSigC1.setVisible(false);
+        } else if (filaCategoria == 1) {
+            btnAntC2.setVisible(false);
+            btnSigC2.setVisible(false);
+        }
+
+        // Determinar si la categoría - miniatura existe
+        if (this.posicionCategorias * this.cantFilas + filaCategoria < this.miniaturasCategorias.size()) {
+            DTORecetasMiniaturaCategoria miniaturaCategoria =
+                    this.miniaturasCategorias.get(this.posicionCategorias * this.cantFilas + filaCategoria);
+            this.nombresCategorias[filaCategoria].setText(miniaturaCategoria.getCategoria().getNombre());
+
+            for (int j = this.posicionRecetas[filaCategoria]; j < this.cantCols; j++) {
+                if (j < miniaturaCategoria.getRecetasCategoria().size()) {
+                    this.cargarMiniatura(filaCategoria, j, miniaturaCategoria.getRecetasCategoria().get(j));
+                }
+            }
+
+            // Determinar los botones de navegación de la categoría
+            // TODO: Botones de tamaño variable, no fijos
+            if (filaCategoria == 0) {
+                if (this.posicionRecetas[filaCategoria] * this.cantCols > 0) {
+                    this.btnAntC1.setVisible(true);
+                }
+
+                if (miniaturaCategoria.getRecetasCategoria().size()
+                        - this.posicionRecetas[filaCategoria] * this.cantCols > this.cantCols) {
+                    this.btnSigC1.setVisible(true);
+                }
+            } else if (filaCategoria == 1) {
+                if (this.posicionRecetas[filaCategoria] * this.cantCols > 0) {
+                    this.btnAntC2.setVisible(true);
+                }
+
+                if (miniaturaCategoria.getRecetasCategoria().size()
+                        - this.posicionRecetas[filaCategoria] * this.cantCols > this.cantCols) {
+                    this.btnSigC2.setVisible(true);
+                }
+            }
+        }
+    }
+
+    private void cargarTodasMiniaturas() {
+        for (int i = 0; i < this.cantFilas; i++) {
+            this.cargarMiniaturasCategoria(i);
+        }
+    }
+
+    private void determinarBotonesCategorias() {
+        if (this.posicionCategorias > 0) {
+            this.btnAntCategorias.setVisible(true);
+        } else {
+            this.btnAntCategorias.setVisible(false);
+        }
+
+        if (this.miniaturasCategorias.size() - this.posicionCategorias * this.cantFilas > this.cantFilas) {
+            this.btnSigCategorias.setVisible(true);
+        } else {
+            this.btnSigCategorias.setVisible(false);
+        }
     }
 
     private void cargarCategorias() {
@@ -178,40 +288,82 @@ public class ControladorCoGUI003 implements IControladorPantalla {
     public void clickVerMasCategorias(MouseEvent mouseEvent) {
     }
 
+    public void irReceta(MouseEvent mouseEvent, DTORecetaMiniatura miniatura) {
+
+    }
+
+    @FXML
     public void clickC1R1(MouseEvent mouseEvent) {
+        if (this.miniaturas[0][0] != null)
+            this.irReceta(mouseEvent, this.miniaturas[0][0]);
     }
 
+    @FXML
     public void clickC1R2(MouseEvent mouseEvent) {
+        if (this.miniaturas[0][1] != null)
+            this.irReceta(mouseEvent, this.miniaturas[0][1]);
     }
 
+    @FXML
     public void clickC2R1(MouseEvent mouseEvent) {
+        if (this.miniaturas[0][2] != null)
+            this.irReceta(mouseEvent, this.miniaturas[0][2]);
     }
 
+    @FXML
     public void clickC1R3(MouseEvent mouseEvent) {
+        if (this.miniaturas[1][0] != null)
+            this.irReceta(mouseEvent, this.miniaturas[1][0]);
     }
 
+    @FXML
     public void clickC2R2(MouseEvent mouseEvent) {
+        if (this.miniaturas[1][1] != null)
+            this.irReceta(mouseEvent, this.miniaturas[1][1]);
     }
 
+    @FXML
     public void clickC2R3(MouseEvent mouseEvent) {
+        if (this.miniaturas[1][2] != null)
+            this.irReceta(mouseEvent, this.miniaturas[1][2]);
     }
 
+    @FXML
     public void clickAntC1(MouseEvent mouseEvent) {
+        this.posicionRecetas[0] -= 1;
+        this.cargarMiniaturasCategoria(0);
     }
 
-    public void clickAntCategorias(MouseEvent mouseEvent) {
-    }
-
+    @FXML
     public void clickAntC2(MouseEvent mouseEvent) {
+        this.posicionRecetas[1] -= 1;
+        this.cargarMiniaturasCategoria(1);
     }
 
+    @FXML
     public void clickSigC1(MouseEvent mouseEvent) {
+        this.posicionRecetas[0] += 1;
+        this.cargarMiniaturasCategoria(0);
     }
 
-    public void clickSigCategorias(MouseEvent mouseEvent) {
-    }
-
+    @FXML
     public void clickSigC2(MouseEvent mouseEvent) {
+        this.posicionRecetas[1] += 1;
+        this.cargarMiniaturasCategoria(1);
+    }
+
+    @FXML
+    public void clickAntCategorias(MouseEvent mouseEvent) {
+        this.posicionCategorias -= 1;
+        this.determinarBotonesCategorias();
+        this.cargarTodasMiniaturas();
+    }
+
+    @FXML
+    public void clickSigCategorias(MouseEvent mouseEvent) {
+        this.posicionCategorias += 1;
+        this.determinarBotonesCategorias();
+        this.cargarTodasMiniaturas();
     }
 }
 
