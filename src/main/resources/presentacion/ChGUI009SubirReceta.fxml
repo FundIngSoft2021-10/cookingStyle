@@ -118,17 +118,22 @@
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                           </MenuButton>
+                                          <ImageView fx:id="botonAgregarIngrediente" layoutX="603.0" layoutY="13.0">
+                                             <image>
+                                                <Image url="@../img/Aniadir.png" />
+                                             </image>
+                                          </ImageView>
+                                          <ImageView fx:id="botonQuitarIngredienteSR" fitHeight="25.0" fitWidth="24.0" layoutX="648.0" layoutY="16.0">
+                                             <image>
+                                                <Image url="@../img/Quitar.png" />
+                                             </image>
+                                          </ImageView>
                                        </children>
                                     </AnchorPane>
                                  </children>
                               </VBox>
                            </content>
                         </ScrollPane>
-                        <ImageView fx:id="botonAgregarIngrediente" layoutX="674.0" layoutY="437.0">
-                           <image>
-                              <Image url="@../img/Aniadir.png" />
-                           </image>
-                        </ImageView>
                      </children>
                   </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
