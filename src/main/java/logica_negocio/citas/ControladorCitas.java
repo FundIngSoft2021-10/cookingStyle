@@ -1,54 +1,55 @@
 package logica_negocio.citas;
 
+import acceso_datos.consultas_bd.ControladorCBDCitas;
 import acceso_datos.consultas_bd.IControladorCBDCitas;
-import acceso_datos.consultas_bd.IControladorCBDRegAut;
+import acceso_datos.persistencia_bd.ControladorPBDCitas;
 import acceso_datos.persistencia_bd.IControladorPBDCitas;
-import entidades.dto.*;
-import entidades.modelo.*;
+import entidades.dto.DTOAgendaChef;
+import entidades.modelo.Bloque;
+import entidades.modelo.Calendario;
+import entidades.modelo.Chef;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ListIterator;
 
 public class ControladorCitas implements IControladorCitas {
-    private IControladorCBDCitas controlConsultaBD;
-    private IControladorPBDCitas controlPersistenciaBD;
+    private IControladorCBDCitas controlCBD;
+    private IControladorPBDCitas controlPBD;
+
+    public ControladorCitas() {
+        this.controlCBD = new ControladorCBDCitas();
+        this.controlPBD = new ControladorPBDCitas();
+    }
 
     @Override
-    public DTOAgendaChef crearAgendaChef(Chef chef, List<Dia> dias, List<Integer> horas){
-    ListIterator it =dias.listIterator();
-    ListIterator it2 =horas.listIterator();
-    List<Bloque> bloques = new ArrayList<>();
+    public DTOAgendaChef crearAgendaChef(Chef chef, List<Bloque> bloques) {
+        try {
+            this.controlPBD.crearAgendaChef(chef.getIdUsuario(), bloques);
+        } catch (SQLException e) {
+            return new DTOAgendaChef(false, "Error en la base de datos; " + e.getMessage(), null, null);
+        }
 
-    while (it.hasNext()){
-    Bloque bloque = new Bloque();
-    bloque.setDia((Dia) it.next());
-    bloque.setHora((int) it2.next());
-    bloques.add(bloque);
+        Calendario calendario = new Calendario(bloques);
+        return new DTOAgendaChef(true, "Agenda creada exitosamente", chef, calendario);
     }
-    try{
-        this.controlPersistenciaBD.crearAgendaChef(chef,bloques);
-    } catch(SQLException e){
-        return new DTOAgendaChef(false,"Error en la base de datos" + e.getMessage(),null,null);
-    }
-    Calendario calendario = new Calendario(bloques);
-    return new DTOAgendaChef(true, "Agenda creada exitosamente",chef,calendario);
-    }
+
     @Override
-    public DTOAgendaChef consultarDisponibilidadChef(Chef chef){
+    public DTOAgendaChef consultarAgendaChef(Chef chef) {
         List<Bloque> bloques = new ArrayList<>();
         Calendario calendario;
-        try{
-            calendario =this.controlConsultaBD.buscarCalendarioChef(chef);
-        } catch (SQLException e){
-            return new DTOAgendaChef(false, "Error en al base de datos"+ e.getMessage(),null,null);
-        }
-        return new DTOAgendaChef(true,"Agenda del chef",chef,calendario);
-    }
-    /*
-    //IMPORTANTE, NO BORRAR, CODIGO DE CREACIÓN DE LAS CITAS DEL CHEF
 
+        try {
+            calendario = this.controlCBD.buscarCalendarioChef(chef);
+        } catch (SQLException e) {
+            return new DTOAgendaChef(false, "Error en al base de datos; " + e.getMessage(), null, null);
+        }
+
+        return new DTOAgendaChef(true, "Agenda del chef", chef, calendario);
+    }
+
+    /*
+    TODO: Implementar crear las citas del chef
     DTOCitasChef crearCitasChef(Chef chef, List<Date>fechas, List<Bloque>bloques, List<Cooker>cookers){
         List<Cita> Citas = new ArrayList<>();
         ListIterator it =fechas.listIterator();
@@ -79,8 +80,7 @@ public class ControladorCitas implements IControladorCitas {
         return new DTOCitasChef(true,"la creación de la agenda fue exitosa",chef,Citas);
 
     }
-
- */
+    */
 }
 
 

@@ -15,74 +15,42 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ControladorCBDCitas implements IControladorCBDCitas {
-    ControladorBDConexion controladorBDConexion;
-    Connection conexion;
+    private ControladorBDConexion controladorBDConexion;
+    private Connection conexion;
 
     public ControladorCBDCitas() {
-        controladorBDConexion = new ControladorBDConexion();
-        conexion = controladorBDConexion.conectarMySQL();
+        this.controladorBDConexion = new ControladorBDConexion();
+        conexion = this.controladorBDConexion.conectarMySQL();
     }
+
     @Override
-    public Calendario buscarCalendarioChef(Chef chef) throws SQLException{
-        String consulta = "SELECT * FROM bloque where Chef_idUsuario = ?";
+    public Calendario buscarCalendarioChef(Chef chef) throws SQLException {
+        Calendario calendario = new Calendario();
+        String consulta =
+                "SELECT * FROM bloque WHERE Chef_idUsuario = ?";
 
-        try{
-            PreparedStatement stmt =conexion.prepareStatement(consulta);
-            stmt.setBigDecimal(1,new BigDecimal(chef.getIdUsuario()));
-            List<Bloque> bloques = new ArrayList<>();
+        try {
+            PreparedStatement stmt = conexion.prepareStatement(consulta);
+            stmt.setBigDecimal(1, new BigDecimal(chef.getIdUsuario()));
+
             ResultSet rs = stmt.executeQuery();
-            while(rs.next()){
+
+            List<Bloque> bloques = new ArrayList<>();
+            while (rs.next()) {
                 Bloque bloque = new Bloque();
-                int num =rs.getInt("dia");
-                Dia dia;
-                if (num == 1){
 
-                    dia=Dia.LUNES;
-                    bloque.setDia(dia);
-                }
-                if (num == 2){
-
-                    dia=Dia.MARTES;
-                    bloque.setDia(dia);
-                }
-                if (num == 3){
-
-                    dia=Dia.MIERCOLES;
-                    bloque.setDia(dia);
-                }
-                if (num == 4){
-
-                    dia=Dia.JUEVES;
-                    bloque.setDia(dia);
-                }
-                if (num == 5){
-
-                    dia=Dia.VIERNES;
-                    bloque.setDia(dia);
-                }
-                if (num == 6){
-
-                    dia=Dia.SABADO;
-                    bloque.setDia(dia);
-                }
-                if (num == 7) {
-
-                    dia = Dia.DOMINGO;
-                    bloque.setDia(dia);
-                }
+                bloque.setDia(Dia.valueOf(rs.getInt("dia")));
                 bloque.setHora(rs.getInt("hora"));
                 bloques.add(bloque);
             }
-            if(bloques.size()>=1){
-                return new Calendario(bloques);
-            }
+            calendario.setBloques(bloques);
 
-        }catch(SQLException sqle){
+        } catch (SQLException sqle) {
             throw sqle;
         }
-    return null;
-    }
 
+        return calendario;
+    }
 
 
 }

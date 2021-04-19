@@ -9,17 +9,16 @@ public class DTOCitasChef {
     private boolean estado;
     private String mensaje;
     private Chef chef;
-    private List<Cita> Citas;
+    private List<Cita> citas;
 
-    public DTOCitasChef(){
-
+    public DTOCitasChef() {
     }
 
     public DTOCitasChef(boolean estado, String mensaje, Chef chef, List<Cita> citas) {
         this.estado = estado;
         this.mensaje = mensaje;
         this.chef = chef;
-        Citas = citas;
+        this.citas = citas;
     }
 
     public boolean isEstado() {
@@ -39,11 +38,11 @@ public class DTOCitasChef {
     }
 
     public List<Cita> getCitas() {
-        return Citas;
+        return citas;
     }
 
     public void setCitas(List<Cita> citas) {
-        Citas = citas;
+        this.citas = citas;
     }
 
     public Chef getChef() {
