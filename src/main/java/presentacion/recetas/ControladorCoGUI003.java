@@ -110,6 +110,8 @@ public class ControladorCoGUI003 implements IControladorPantalla {
         this.miniaturasCategoria = this.controlRecetas.buscarMiniaturasRecetasCategoria();
 
         // Cargar las categorías en la pantalla
+        this.cargarCategorias();
+
 
     }
 
@@ -155,6 +157,7 @@ public class ControladorCoGUI003 implements IControladorPantalla {
     }
 
     private void cargarCategorias() {
+        // TODO: Cargar categorías en la pantalla
     }
 
     public void clickPerfil(MouseEvent mouseEvent) {
