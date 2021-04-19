@@ -3,6 +3,7 @@ package presentacion.recetas;
 import entidades.dto.DTOSesion;
 import entidades.modelo.Cooker;
 import javafx.fxml.FXML;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -63,18 +64,21 @@ public class ControladorCoGUI004 implements IControladorPantalla {
     public ImageView btnSigRetas;
     @FXML
     public Text textNombreR6;
+    @FXML
+    public TextField fieldBuscar;
+    @FXML
+    public ImageView btnBuscar;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        btnAntRecetas.setVisible(false);
+        btnSigRetas.setVisible(false);
     }
 
     @Override
     public void inicializar(DTOSesion sesion) {
         this.sesion = sesion;
         this.controladorRecCooker = new ControladorRecetasCooker((Cooker) sesion.getUsuario());
-
-
     }
 
     public void clickPerfil(MouseEvent mouseEvent) {
@@ -114,5 +118,8 @@ public class ControladorCoGUI004 implements IControladorPantalla {
     }
 
     public void clickSigRetas(MouseEvent mouseEvent) {
+    }
+
+    public void clickBuscar(MouseEvent mouseEvent) {
     }
 }

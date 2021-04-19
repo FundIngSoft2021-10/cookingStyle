@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.Cursor?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -20,7 +21,7 @@
          <top>
             <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="114.0" prefWidth="1600.0" style="-fx-background-color: #fcba03;" BorderPane.alignment="CENTER">
                <children>
-                  <ImageView fx:id="coLogoCookingBR" fitHeight="135.0" fitWidth="276.0" preserveRatio="true" AnchorPane.leftAnchor="40.0">
+                  <ImageView fx:id="coLogoCookingBR" fitHeight="118.0" fitWidth="212.0" preserveRatio="true" AnchorPane.leftAnchor="40.0">
                      <image>
                         <Image url="@../../img/CookingBlanco.png" />
                      </image>
@@ -76,6 +77,22 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Text>
+                  <TextField fx:id="fieldBuscar" layoutX="657.0" layoutY="39.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="36.0" prefWidth="286.0" promptText="Buscar..." style="-fx-background-color: white; -fx-background-radius: 100;">
+                     <cursor>
+                        <Cursor fx:constant="TEXT" />
+                     </cursor>
+                  </TextField>
+                  <ImageView fx:id="btnBuscar" layoutX="910.0" layoutY="41.0" onMouseClicked="#clickBuscar">
+                     <image>
+                        <Image url="@../../img/buscar.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <viewport>
+                        <Rectangle2D />
+                     </viewport>
+                  </ImageView>
                </children>
             </AnchorPane>
          </top>
