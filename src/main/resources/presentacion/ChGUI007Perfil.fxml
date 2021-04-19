@@ -94,7 +94,7 @@
                               <Font name="Comic Sans MS" size="19.0" />
                            </font>
                         </Text>
-                        <Text fx:id="linkModificarAgenda" fill="#ffb94a" layoutX="188.0" layoutY="819.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modificar Agenda" textAlignment="CENTER" underline="true" wrappingWidth="400.7549743652344">
+                        <Text fx:id="linkModificarAgenda" fill="#ffb94a" layoutX="153.0" layoutY="845.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modificar Agenda" textAlignment="CENTER" underline="true" wrappingWidth="280.3021545410156">
                            <font>
                               <Font name="Comic Sans MS" size="20.0" />
                            </font>
@@ -129,6 +129,11 @@
                               <Image url="@../img/CerrarSesion.png" />
                            </image>
                         </ImageView>
+                        <Text fx:id="linkVerAgenda" fill="#ffb94a" layoutX="396.0" layoutY="845.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ver Agenda" textAlignment="CENTER" underline="true" wrappingWidth="253.13235473632812">
+                           <font>
+                              <Font name="Comic Sans MS" size="20.0" />
+                           </font>
+                        </Text>
                      </children>
                   </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
