@@ -62,18 +62,36 @@ public class ControladorCBDRecetasCooker implements IControladorCBDRecetasCooker
     }
 
     @Override
-    public int consultaIdCategoria(String nom_categoria) throws SQLException {
-        int idCategoria = 0;
-        String consultaCategoria = "SELECT * FROM categoria WHERE UPPER(categoria.nombre) LIKE '%" + nom_categoria + "%';";
+    public List<DTORecetaMiniatura> consultaIdCategoria(String nom_categoria) throws SQLException {
+        List<DTORecetaMiniatura> recetasCategoria = new ArrayList<>();
+        String consultaCategoria =
+                "SELECT \n" +
+                "receta.idreceta, receta.nombre, receta.linkImagen, \n" +
+                "usuario.idusuario, usuario.nombreusuario, usuario.fechacreacion, \n"+
+                "usuario.nombre, usuario.idtipousuario \n" +
+                "FROM \n" +
+                "categoria, categoriaxreceta, receta, usuario \n" +
+                "WHERE \n" +
+                "usuario.idusuario = receta.chef_idusuario AND \n" +
+                "receta.idreceta = categoriaxreceta.idreceta AND \n" +
+                "categoriaxreceta.idcategoria = categoria.idcategoria AND \n"+
+                 "UPPER(categoria.nombre) LIKE '% ? %';";
         try (PreparedStatement stmt = conexion.prepareStatement(consultaCategoria)) {
+            stmt.setString(1, "nom_categoria");
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                idCategoria = rs.getInt("idcategoria");
+                BigInteger idReceta = rs.getBigDecimal(1).toBigInteger();
+                String nombreReceta = rs.getString(2);
+                String linkImage = rs.getString(3);
+
+                Chef autor = new Chef(rs.getBigDecimal(4).toBigInteger(), rs.getString(5), rs.getDate(6), rs.getString(7));
+
+                recetasCategoria.add(new DTORecetaMiniatura(idReceta, nombreReceta, linkImage, autor));
             }
         } catch (SQLException sqle) {
             throw sqle;
         }
-        return idCategoria;
+        return recetasCategoria;
     }
 
     @Override
@@ -177,46 +195,31 @@ public class ControladorCBDRecetasCooker implements IControladorCBDRecetasCooker
     }
 
     @Override
-    public List<DTOReceta> buscarRecetas(String nombre_receta) throws SQLException {
-        List<DTOReceta> recetas = new ArrayList<>();
-        String consulta = "SELECT * FROM receta WHERE UPPER(nombre) LIKE '%" + nombre_receta + "%';";
+    public List<DTORecetaMiniatura> buscarRecetas(String nombre_receta) throws SQLException {
+        List<DTORecetaMiniatura> recetas = new ArrayList<>();
+
+        String consulta = "SELECT " +
+        "receta.idreceta, receta.nombre, receta.linkImagen," +
+                "usuario.idusuario, usuario.nombreusuario, usuario.fechacreacion,"+
+                "usuario.nombre, usuario.idtipousuario"+
+        "FROM"+
+                "receta, usuario"+
+        "WHERE"+
+        "receta.chef_idusuario = usuario.idusuario AND"+
+        "UPPER(receta.nombre) LIKE '%"+ nombre_receta + "%' ;";
+
         try (PreparedStatement stmt = conexion.prepareStatement(consulta)) {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                BigInteger idReceta = rs.getBigDecimal("idReceta").toBigInteger();
-                BigInteger idChef = rs.getBigDecimal("chef_idusuario").toBigInteger();
-                String nombre = rs.getString("nombre");
-                String descripcion = rs.getString("descripcion");
-                String linkVideo = rs.getString("linkVideo");
-                boolean videoReceta;
-                if (linkVideo == null)
-                    videoReceta = false;
-                else
-                    videoReceta = true;
+                BigInteger idReceta = rs.getBigDecimal(1).toBigInteger();
+                String nombre = rs.getString(2);
+                String linkVideo = rs.getString(3);
 
-                String linkImagen = rs.getString("linkVideo");
-                boolean imagenReceta;
-                if (linkVideo == null)
-                    imagenReceta = false;
-                else
-                    imagenReceta = true;
+                Chef autor = new Chef(rs.getBigDecimal(4).toBigInteger(), rs.getString(5),
+                        rs.getDate(6), rs.getString(7));
 
-                List<LineaIngrediente> lineaIngredientes = consultaLineaIngrediente(idReceta);
+                recetas.add(new DTORecetaMiniatura(idReceta, nombre, linkVideo, autor));
 
-                List<PasoReceta> pasosReceta = consultaPasosReceta(idReceta);
-
-                List<Categoria> categorias = consultaCategorias(idReceta);
-
-                List<Calificacion> calificaciones = consultaCalificaciones(idReceta);
-
-                List<Reporte> reportes = consultaReportes(idReceta);
-
-                Chef chef = consultaChefReceta(idChef);
-
-                Receta resultado = new Receta(idReceta, nombre, descripcion, videoReceta, linkVideo, TipoVideo.VIMEO,
-                        imagenReceta, linkImagen, lineaIngredientes, pasosReceta, categorias, calificaciones, reportes);
-
-                recetas.add(new DTOReceta(resultado, chef));
             }
 
         } catch (SQLException sqle) {

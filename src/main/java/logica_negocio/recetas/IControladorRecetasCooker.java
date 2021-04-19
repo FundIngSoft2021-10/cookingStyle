@@ -50,7 +50,7 @@ public interface IControladorRecetasCooker {
      * @param nombre nombre de la receta
      * @return lista DTOReceta con todas las recetas que tienen el nombre recibido en el nombre de la receta
      */
-    public List<DTOReceta> buscarRecetasNombre(String nombre);
+    public List<DTORecetaMiniatura> buscarRecetasNombre(String nombre);
 
     /**
      * Buscar Recetas Categoria
@@ -58,7 +58,7 @@ public interface IControladorRecetasCooker {
      * @param categoria categoria que se está buscando
      * @return lista DTOReceta con las recetas que hacen parte de esa categoria
      */
-    public List<DTOReceta> buscarRecetasCategoria(String categoria);
+    public List<DTORecetaMiniatura> buscarRecetasCategoria(String categoria);
 
     /**
      * Buscar Recetas Ingrediente
@@ -75,6 +75,8 @@ public interface IControladorRecetasCooker {
      * @return lista DTOReceta con las recetas que están asociadas con el chef
      */
     public List<DTOReceta> buscarRecetasChef(String nom_chef);
+
+    public List<DTORecetaMiniatura> buscarReceta(String busqueda);
 
     /**
      * TODO: JavaDoc

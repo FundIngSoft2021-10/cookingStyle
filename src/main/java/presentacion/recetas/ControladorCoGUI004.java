@@ -225,13 +225,7 @@ public class ControladorCoGUI004 implements IControladorPantalla {
 
         String busqueda = fieldBuscar.getText();
 
-        List<DTOReceta> recetasEncontradas = controladorRecCooker.buscarReceta(busqueda);
-
-
-        for(DTOReceta receta : recetasEncontradas){
-            DTORecetaMiniatura min = controladorRecCooker.miniaturaRecetas(receta.getReceta().getIdReceta());
-            this.miniaturas.add(min);
-        }
+        List<DTORecetaMiniatura> miniaturas = controladorRecCooker.buscarReceta(busqueda);
 
         if(miniaturas.size() > 6){
             btnSigRetas.setVisible(true);

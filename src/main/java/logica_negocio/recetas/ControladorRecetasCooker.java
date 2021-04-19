@@ -203,8 +203,8 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker {
      * @inheritDoc
      */
     @Override
-    public List<DTOReceta> buscarRecetasNombre(String nombre) {
-        List<DTOReceta> recetasEncontradas;
+    public List<DTORecetaMiniatura> buscarRecetasNombre(String nombre) {
+        List<DTORecetaMiniatura> recetasEncontradas;
         try {
             recetasEncontradas = this.controlCBD.buscarRecetas(nombre);
 
@@ -218,12 +218,11 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker {
      * @inheritDoc
      */
     @Override
-    public List<DTOReceta> buscarRecetasCategoria(String categoria) {
-        List<DTOReceta> recetasEncontradas = new ArrayList<>();
-        int idcategoria;
+    public List<DTORecetaMiniatura> buscarRecetasCategoria(String categoria) {
+        List<DTORecetaMiniatura> recetasEncontradas;
+
         try {
-            idcategoria = this.controlCBD.consultaIdCategoria(categoria);
-            // recetasEncontradas = this.controlCBD.buscarRecetasCategoria(idcategoria);
+            recetasEncontradas = this.controlCBD.consultaIdCategoria(categoria);
 
         } catch (SQLException sqle) {
             recetasEncontradas = null;
@@ -273,6 +272,16 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker {
             recetasEncontradas = null;
         }
         return recetasEncontradas;
+    }
+
+    public List<DTORecetaMiniatura> buscarReceta(String busqueda){
+        List<DTORecetaMiniatura> resultados = new ArrayList<>();
+        List<DTORecetaMiniatura> busquedaNombre= buscarRecetasNombre(busqueda);
+        resultados.addAll(busquedaNombre);
+        List<DTORecetaMiniatura> busquedaCategoria = buscarRecetasCategoria(busqueda);
+        resultados.addAll(busquedaCategoria);
+
+        return  resultados;
     }
 
     /**

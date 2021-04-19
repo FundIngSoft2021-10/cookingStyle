@@ -15,7 +15,7 @@ public interface IControladorCBDRecetasCooker{
     public List<LineaIngrediente> consultaLineaIngrediente (BigInteger idReceta) throws SQLException;
     public List<PasoReceta> consultaPasosReceta (BigInteger idReceta) throws SQLException;
     public List<Categoria> consultaCategorias (BigInteger idReceta) throws SQLException;
-    public int consultaIdCategoria (String nom_categoria) throws SQLException;
+    public List<DTORecetaMiniatura> consultaIdCategoria (String nom_categoria) throws SQLException;
     public Cooker consultaCooker (BigInteger idCooker) throws SQLException;
     public Chef consultaChefReceta (BigInteger idChef) throws SQLException;
     public List<BigInteger> consultaIdsChef (String nombre) throws SQLException;
@@ -24,7 +24,7 @@ public interface IControladorCBDRecetasCooker{
     public List<Reporte> consultaReportes (BigInteger idReceta) throws SQLException;
     public List<DTOReceta> buscarRecetas () throws SQLException;
     public Receta buscarRecetas (BigInteger idreceta) throws SQLException;
-    public List<DTOReceta> buscarRecetas (String nombre_receta) throws SQLException;
+    public List<DTORecetaMiniatura> buscarRecetas (String nombre_receta) throws SQLException;
     public List<DTORecetaMiniatura> buscarRecetasCategoria (int id_categoria) throws SQLException;
     public List<DTOReceta> buscarRecetasIngrediente (int id_ingrediente) throws SQLException;
     public List<DTOReceta> buscarRecetasChef (BigInteger idchef) throws SQLException;
