@@ -104,7 +104,7 @@ public class ControladorPBDRecetasChef implements IControladorPBDRecetasChef {
 
         try(PreparedStatement stmt = conexion.prepareStatement(insertPasoReceta)){
             for(int i=0; i< pasoReceta.size(); i++){
-                stmt.setInt(1, pasoReceta.get(i).getNumero());
+                stmt.setInt(1, i+1);
                 BigDecimal bigdec= new BigDecimal(idReceta);
                 stmt.setString(2, pasoReceta.get(i).getLinkImagen());
                 stmt.setString(3, pasoReceta.get(i).getTexto());

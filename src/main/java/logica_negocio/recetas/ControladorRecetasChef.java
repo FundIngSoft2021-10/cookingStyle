@@ -136,6 +136,7 @@ public class ControladorRecetasChef implements IControladorRecetasChef {
         return new DTOReceta(receta,this.chef, "La receta fue agregada con exito. ");
     }
 
+
     //Generar un IdReceta único
     private BigInteger generarIdRecetaUnico() throws SQLException {
         BigInteger idReceta;
@@ -149,6 +150,7 @@ public class ControladorRecetasChef implements IControladorRecetasChef {
         return idReceta;
     }
 
+    @Override
     //Validar que la URL de un link exista
     public boolean validarUrl (String url){
         if (url.contains("https://www.")){
@@ -168,6 +170,7 @@ public class ControladorRecetasChef implements IControladorRecetasChef {
         return false;
     }
 
+    @Override
     //Validar que el link del video corresponda al tipo de video escogido.
     public boolean validarTipoVideo (String url, TipoVideo tipovideo){
         List<String> linksyoutube = new ArrayList<>();
@@ -195,6 +198,7 @@ public class ControladorRecetasChef implements IControladorRecetasChef {
         return false;
     }
 
+    @Override
     //Convertir link a embed o player
     public String convertirLink (String url, TipoVideo tipovideo){
         String urlVimeo = "player.";
@@ -217,6 +221,7 @@ public class ControladorRecetasChef implements IControladorRecetasChef {
         return url;
     }
 
+    @Override
     //Validar que la URL corresponda a una imagen
     public  boolean validarLinkImagen (String url){
         if ((url.contains(".png")) || (url.contains(".jpg")) || (url.contains(".jpeg"))){

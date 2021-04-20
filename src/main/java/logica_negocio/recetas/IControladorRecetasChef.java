@@ -14,6 +14,8 @@ public interface IControladorRecetasChef {
     public DTOReceta subirReceta (String nombre, String descripcion, String link_video, TipoVideo tipovideo, String link_imagen, List<LineaIngrediente> ingredientes, List<Categoria> categorias, List<PasoReceta> pasosReceta);
     public boolean validarUrl (String url);
     public boolean validarTipoVideo(String url, TipoVideo tipovideo);
+    public String convertirLink (String url, TipoVideo tipovideo);
+    public  boolean validarLinkImagen (String url);
 
     /**
      * Modifica el nombre de la receta
