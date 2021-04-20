@@ -14,10 +14,10 @@ import java.sql.SQLException;
 public class CookingApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("GUI001Principal.fxml"));
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 1600, 900));
-        primaryStage.setMaximized(true);
+        Parent root = FXMLLoader.load(getClass().getResource(Pantalla.TO_GUI001_PRINCIPAL.fxml));
+        primaryStage.setTitle("Cooking App");
+        primaryStage.setScene(new Scene(root));
+        primaryStage.setFullScreen(true);
         primaryStage.show();
     }
 

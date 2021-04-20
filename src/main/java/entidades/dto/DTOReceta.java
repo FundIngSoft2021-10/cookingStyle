@@ -1,14 +1,13 @@
 package entidades.dto;
 
-import entidades.modelo.Categoria;
 import entidades.modelo.Chef;
 import entidades.modelo.Receta;
 
 public class DTOReceta {
     private Receta receta;
     private Chef autor;
-    private boolean encotrado;
     private String mensaje;
+    private boolean encontrado;
 
     public DTOReceta() {
     }
@@ -40,12 +39,12 @@ public class DTOReceta {
         this.autor = autor;
     }
 
-    public boolean isEncotrado() {
-        return encotrado;
+    public boolean isEncontrado() {
+        return encontrado;
     }
 
-    public void setEncotrado(boolean encotrado) {
-        this.encotrado = encotrado;
+    public void setEncontrado(boolean encontrado) {
+        this.encontrado = encontrado;
     }
 
     public String getMensaje() {

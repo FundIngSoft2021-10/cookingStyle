@@ -2,6 +2,7 @@ package presentacion.registro_autenticacion;
 
 import entidades.dto.DTORegistro;
 import entidades.dto.DTOSesion;
+import entidades.dto.Pantalla;
 import entidades.modelo.TipoUsuario;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -9,13 +10,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import logica_negocio.registro_autenticacion.ControladorRegAut;
 import logica_negocio.registro_autenticacion.IControladorRegAut;
-import presentacion.ControladorPantalla;
+import presentacion.IControladorPantalla;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ControladorCoGUI002 implements ControladorPantalla {
+public class ControladorCoGUI002 implements IControladorPantalla {
     private DTOSesion sesion;
     private IControladorRegAut controlRegAut;
 
@@ -80,7 +81,11 @@ public class ControladorCoGUI002 implements ControladorPantalla {
             this.sesion.setTipoUsuario(TipoUsuario.COOKER);
             this.sesion.setUsuario(registro.getUsuario());
 
-            // TODO: Cargar siguiente pantalla
+            try {
+                this.cargarPantalla((Event) actionEvent, Pantalla.CO_GUI003_INICIO, this.sesion, false);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         } else {
             this.crearAlerta(Alert.AlertType.ERROR, registro.getMensaje());
             return;
