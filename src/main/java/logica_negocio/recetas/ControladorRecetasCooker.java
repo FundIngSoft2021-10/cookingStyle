@@ -10,7 +10,6 @@ import entidades.modelo.*;
 import java.math.BigInteger;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 public class ControladorRecetasCooker implements IControladorRecetasCooker {
@@ -461,7 +460,7 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker {
     }
 
     @Override
-    public List<LineaIngrediente> ingredientesxReceta(BigInteger idReceta){
+    public List<LineaIngrediente> ingredientesxReceta(BigInteger idReceta) {
         List<LineaIngrediente> ingredientes;
         try {
             ingredientes = this.controlCBD.consultaLineaIngrediente(idReceta);
@@ -470,6 +469,7 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker {
         }
         return ingredientes;
     }
+
     /**
      * @inheritDoc
      */

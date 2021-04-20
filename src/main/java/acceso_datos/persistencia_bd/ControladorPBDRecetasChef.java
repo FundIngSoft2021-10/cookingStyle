@@ -5,8 +5,9 @@ import entidades.modelo.*;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.sql.*;
-
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Random;
 
@@ -15,11 +16,11 @@ public class ControladorPBDRecetasChef implements IControladorPBDRecetasChef {
     Connection conexion = controladorBDConexion.conectarMySQL();
 
     @Override
-    public boolean subirReceta( Receta rec,  BigInteger idUsuario) throws SQLException {
+    public boolean subirReceta(Receta rec, BigInteger idUsuario) throws SQLException {
         //boolean resp=false;
-        String insertReceta = "INSERT INTO receta (idreceta, nombre, descripcion, linkVideo, linkimagen, chef_idusuario) VALUES (?, ?, ? , ?, ?, ?)";
+        String insertReceta = "INSERT INTO receta (idreceta, nombre, descripcion, linkVideo, linkimagen, chef_idusuario) VALUES (?, ?, ?, ?, ?, ?)";
 
-        try (PreparedStatement stmt = conexion.prepareStatement(insertReceta)){
+        try (PreparedStatement stmt = conexion.prepareStatement(insertReceta)) {
             //cambiar a bigint el id usuario: ya
             //instanciar
             //setbigdecimal
@@ -48,7 +49,7 @@ public class ControladorPBDRecetasChef implements IControladorPBDRecetasChef {
             //subirCalificacion(rec.getCalificaciones(), big);
 
             return true;
-        } catch (SQLException sqle){
+        } catch (SQLException sqle) {
             throw sqle;
         }
 
@@ -56,11 +57,10 @@ public class ControladorPBDRecetasChef implements IControladorPBDRecetasChef {
     }
 
     @Override
-    public boolean subirIngrediente (Ingrediente ingrediente)throws SQLException{
-
+    public boolean subirIngrediente(Ingrediente ingrediente) throws SQLException {
         String insertIngrediente = "INSERT INTO ingrediente VALUES (?, ?)";
 
-        try (PreparedStatement smtm =conexion.prepareStatement(insertIngrediente)){
+        try (PreparedStatement smtm = conexion.prepareStatement(insertIngrediente)) {
 
             smtm.setInt(1, ingrediente.getIdIngrediente());
             smtm.setString(2, ingrediente.getNombre());
@@ -68,7 +68,7 @@ public class ControladorPBDRecetasChef implements IControladorPBDRecetasChef {
             smtm.executeUpdate();
             return true;
 
-        }catch (SQLException sqle){
+        } catch (SQLException sqle) {
             throw sqle;
         }
 
@@ -78,9 +78,9 @@ public class ControladorPBDRecetasChef implements IControladorPBDRecetasChef {
     public boolean subirLineaIngrediente(List<LineaIngrediente> lineaIngrediente, BigInteger idReceta) throws SQLException {
         String insertLineaIngre = "INSERT INTO lineaingrediente (idreceta, idingrediente, cantidad, medida) VALUES (?, ?, ?, ?)";
 
-        try (PreparedStatement stmt = conexion.prepareStatement(insertLineaIngre)){
-            for(int i=0; i < lineaIngrediente.size(); i++){
-                BigDecimal bigdec= new BigDecimal(idReceta);
+        try (PreparedStatement stmt = conexion.prepareStatement(insertLineaIngre)) {
+            for (int i = 0; i < lineaIngrediente.size(); i++) {
+                BigDecimal bigdec = new BigDecimal(idReceta);
                 stmt.setBigDecimal(1, bigdec);
                 stmt.setInt(2, lineaIngrediente.get(i).getIngrediente().getIdIngrediente());
                 stmt.setFloat(3, lineaIngrediente.get(i).getCantidad());
@@ -90,20 +90,20 @@ public class ControladorPBDRecetasChef implements IControladorPBDRecetasChef {
             }
             return true;
 
-        }catch (SQLException sqle){
+        } catch (SQLException sqle) {
             throw sqle;
         }
 
     }
 
     @Override
-    public boolean subirPasoreceta(List<PasoReceta> pasoReceta, BigInteger idReceta) throws SQLException{
+    public boolean subirPasoreceta(List<PasoReceta> pasoReceta, BigInteger idReceta) throws SQLException {
         String insertPasoReceta = "INSERT INTO pasoreceta (idpasoreceta, linkimagen, texto, idreceta) VALUES (?, ?, ?, ?)";
 
-        try(PreparedStatement stmt = conexion.prepareStatement(insertPasoReceta)){
-            for(int i=0; i< pasoReceta.size(); i++){
-                stmt.setInt(1, i+1);
-                BigDecimal bigdec= new BigDecimal(idReceta);
+        try (PreparedStatement stmt = conexion.prepareStatement(insertPasoReceta)) {
+            for (int i = 0; i < pasoReceta.size(); i++) {
+                stmt.setInt(1, i + 1);
+                BigDecimal bigdec = new BigDecimal(idReceta);
                 stmt.setString(2, pasoReceta.get(i).getLinkImagen());
                 stmt.setString(3, pasoReceta.get(i).getTexto());
                 stmt.setBigDecimal(4, bigdec);
@@ -113,7 +113,7 @@ public class ControladorPBDRecetasChef implements IControladorPBDRecetasChef {
 
             }
             return true;
-        }catch (SQLException sqle){
+        } catch (SQLException sqle) {
             throw sqle;
         }
     }
@@ -122,9 +122,9 @@ public class ControladorPBDRecetasChef implements IControladorPBDRecetasChef {
     public boolean subirCategoria(List<Categoria> categorias, BigInteger idReceta) throws SQLException {
         String insertCategoria = "INSERT INTO categoriaxreceta VALUES (?, ?)";//no se hace el insert en categoria si no en categoriaxreceta
 
-        try(PreparedStatement stmt = conexion.prepareStatement(insertCategoria)){
-            for(int i=0; i<categorias.size();i++){
-                BigDecimal bigdec= new BigDecimal(idReceta);
+        try (PreparedStatement stmt = conexion.prepareStatement(insertCategoria)) {
+            for (int i = 0; i < categorias.size(); i++) {
+                BigDecimal bigdec = new BigDecimal(idReceta);
                 stmt.setBigDecimal(1, bigdec);
                 stmt.setInt(2, categorias.get(i).getIdCategoria());
 
@@ -132,7 +132,7 @@ public class ControladorPBDRecetasChef implements IControladorPBDRecetasChef {
 
             }
             return true;
-        }catch (SQLException sqle){
+        } catch (SQLException sqle) {
             throw sqle;
         }
     }
@@ -184,7 +184,7 @@ public class ControladorPBDRecetasChef implements IControladorPBDRecetasChef {
     public static BigInteger randBi(int digitosDecimales) {
         Random rand = new Random();
         StringBuilder s = new StringBuilder();
-        for( int i = 0; i < digitosDecimales; i++ ) {
+        for (int i = 0; i < digitosDecimales; i++) {
             int ir = i == 0 ? rand.nextInt(9) + 1 : rand.nextInt(10);
             s.append((char) ('0' + ir));
         }
@@ -192,10 +192,10 @@ public class ControladorPBDRecetasChef implements IControladorPBDRecetasChef {
     }
 
     @Override
-    public boolean modificarNombreReceta(String nuevoNombre, BigInteger idReceta) throws SQLException{
+    public boolean modificarNombreReceta(String nuevoNombre, BigInteger idReceta) throws SQLException {
         String updateReceta = "UPDATE receta SET nombre= ? WHERE receta.idreceta = ?";
 
-        try(PreparedStatement stmt = conexion.prepareStatement(updateReceta)){
+        try (PreparedStatement stmt = conexion.prepareStatement(updateReceta)) {
 
             stmt.setString(1, nuevoNombre);
             BigDecimal idRec = new BigDecimal(idReceta);
@@ -204,16 +204,16 @@ public class ControladorPBDRecetasChef implements IControladorPBDRecetasChef {
             stmt.executeUpdate();
 
             return true;
-        } catch (SQLException sqle){
+        } catch (SQLException sqle) {
             throw sqle;
         }
     }
 
     @Override
-    public boolean modificarDescrReceta(String nuevaDecrip, BigInteger idReceta) throws SQLException{
+    public boolean modificarDescrReceta(String nuevaDecrip, BigInteger idReceta) throws SQLException {
         String updateReceta = "UPDATE receta SET descripcion= ? WHERE receta.idreceta = ?";
 
-        try(PreparedStatement stmt = conexion.prepareStatement(updateReceta)){
+        try (PreparedStatement stmt = conexion.prepareStatement(updateReceta)) {
 
             stmt.setString(1, nuevaDecrip);
             BigDecimal idRec = new BigDecimal(idReceta);
@@ -222,16 +222,16 @@ public class ControladorPBDRecetasChef implements IControladorPBDRecetasChef {
             stmt.executeUpdate();
 
             return true;
-        } catch (SQLException sqle){
+        } catch (SQLException sqle) {
             throw sqle;
         }
     }
 
     @Override
-    public boolean modificarLinkVideoReceta(String nuevoLink, BigInteger idReceta) throws SQLException{
+    public boolean modificarLinkVideoReceta(String nuevoLink, BigInteger idReceta) throws SQLException {
         String updateReceta = "UPDATE receta SET linkvideo= ? WHERE receta.idreceta = ?";
 
-        try(PreparedStatement stmt = conexion.prepareStatement(updateReceta)){
+        try (PreparedStatement stmt = conexion.prepareStatement(updateReceta)) {
 
             stmt.setString(1, nuevoLink);
             BigDecimal idRec = new BigDecimal(idReceta);
@@ -240,16 +240,16 @@ public class ControladorPBDRecetasChef implements IControladorPBDRecetasChef {
             stmt.executeUpdate();
 
             return true;
-        } catch (SQLException sqle){
+        } catch (SQLException sqle) {
             throw sqle;
         }
     }
 
     @Override
-    public boolean modificarLinkImgReceta(String nuevoLink, BigInteger idReceta) throws SQLException{
+    public boolean modificarLinkImgReceta(String nuevoLink, BigInteger idReceta) throws SQLException {
         String updateReceta = "UPDATE receta SET linkimagen= ? WHERE receta.idreceta = ?";
 
-        try(PreparedStatement stmt = conexion.prepareStatement(updateReceta)){
+        try (PreparedStatement stmt = conexion.prepareStatement(updateReceta)) {
 
             stmt.setString(1, nuevoLink);
             BigDecimal idRec = new BigDecimal(idReceta);
@@ -258,25 +258,24 @@ public class ControladorPBDRecetasChef implements IControladorPBDRecetasChef {
             stmt.executeUpdate();
 
             return true;
-        } catch (SQLException sqle){
+        } catch (SQLException sqle) {
             throw sqle;
         }
     }
 
     @Override
-    public int eliminarReceta (BigInteger idUsuario) throws SQLException {
-        int valoresBorra=0;
-        String deleteReceta = "DELETE FROM receta WHERE receta.chef_idusuario = "+idUsuario;
+    public int eliminarReceta(BigInteger idUsuario) throws SQLException {
+        int valoresBorra = 0;
+        String deleteReceta = "DELETE FROM receta WHERE receta.chef_idusuario = " + idUsuario;
 
-        try(PreparedStatement stmt = conexion.prepareStatement(deleteReceta)){
-            valoresBorra=stmt.executeUpdate();
-        }catch (SQLException sqle){
+        try (PreparedStatement stmt = conexion.prepareStatement(deleteReceta)) {
+            valoresBorra = stmt.executeUpdate();
+        } catch (SQLException sqle) {
             throw sqle;
         }
 
         return valoresBorra;//va a devolver la cantidad de recetas eliminadas
     }
-
 
 
 }

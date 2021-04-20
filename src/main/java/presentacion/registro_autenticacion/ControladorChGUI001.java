@@ -63,8 +63,9 @@ public class ControladorChGUI001 implements IControladorPantalla {
             this.sesion.setTipoUsuario(TipoUsuario.CHEF);
             this.sesion.setUsuario(autenticacion.getUsuario());
 
+            // TODO: Cargar pantalla 08
             try {
-                this.cargarPantalla((Event) actionEvent, Pantalla.CH_GUI008_PERFIL, this.sesion, false);
+                this.cargarPantalla((Event) actionEvent, Pantalla.CH_GUI009_SUBIRRECETA, this.sesion, false);
             } catch (IOException e) {
                 e.printStackTrace();
             }

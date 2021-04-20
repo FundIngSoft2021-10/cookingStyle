@@ -40,7 +40,6 @@ public interface IControladorPantalla extends Initializable {
         // Cargar el archivo FXML
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource(pantalla.fxml));
-        System.out.println(loader.getLocation());
         Parent nuevaPantallaParent = loader.load();
 
         // Acceder al controlador de la nueva pantalla, e inicializarlo
