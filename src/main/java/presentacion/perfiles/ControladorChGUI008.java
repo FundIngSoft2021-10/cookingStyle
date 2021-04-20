@@ -207,6 +207,8 @@ public class ControladorChGUI008 implements IControladorPantalla {
 
     public void clickEditarReceta(MouseEvent mouseEvent) {
         try {
+            System.out.println(recetas.get(contadorRecetas).getReceta().getNombre());
+            this.sesion.setIdRecetaCargada(recetas.get(contadorRecetas).getReceta().getIdReceta());
             this.cargarPantalla((Event) mouseEvent, Pantalla.CH_GUI010_EDITARRECETA, this.sesion, false);
         } catch (IOException e) {
             e.printStackTrace();
