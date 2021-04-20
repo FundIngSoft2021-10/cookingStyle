@@ -165,9 +165,9 @@ public class ControladorChGUI008 implements IControladorPantalla {
 
         //Categorias
 
-        //List<String> categorias = this.controlChef.categoriasxChef(this.sesion.getUsuario().getIdUsuario());
+        List<String> categorias = this.controlChef.categoriasxChef(this.sesion.getUsuario().getIdUsuario());
         //CATEGORIAS PARA VER
-        List<String> categorias = this.controlChef.categoriasxChef(BigInteger.valueOf(12));
+        //List<String> categorias = this.controlChef.categoriasxChef(BigInteger.valueOf(12));
         if(categorias.size() != 0) {
             String texto = "";
             int conta = 0;
@@ -184,9 +184,9 @@ public class ControladorChGUI008 implements IControladorPantalla {
 
     private void cargarRecetas(){
 
-        //this.recetas.addAll(this.controlRecetas.recetasChef(this.sesion.getIdUsuarioCargado()));
+        this.recetas.addAll(this.controlRecetas.recetasChef(this.sesion.getUsuario().getIdUsuario()));
         //PRUEBA PARA VER
-        this.recetas.addAll(this.controlRecetas.recetasChef(BigInteger.valueOf(12)));
+        //this.recetas.addAll(this.controlRecetas.recetasChef(BigInteger.valueOf(12)));
     }
 
     public void clickServicioCliente(MouseEvent mouseEvent) {

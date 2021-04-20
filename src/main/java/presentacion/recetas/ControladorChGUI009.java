@@ -2,6 +2,7 @@ package presentacion.recetas;
 
 import entidades.dto.DTOExito;
 import entidades.dto.DTOReceta;
+import entidades.dto.Pantalla;
 import entidades.modelo.*;
 import entidades.dto.DTOSesion;
 import javafx.collections.ObservableList;
