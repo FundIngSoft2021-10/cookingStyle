@@ -20,7 +20,7 @@
               <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="898.0" prefWidth="769.0">
                      <children>
-                        <ImageView fitHeight="370.0" fitWidth="369.0" layoutX="204.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="imgChef" fitHeight="370.0" fitWidth="369.0" layoutX="204.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true" />
                         <Text fill="#fcba03" layoutX="349.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Perfil" textAlignment="CENTER">
                            <font>
                               <Font name="Comic Sans MS" size="30.0" />
@@ -32,12 +32,12 @@
                            </font>
                         </Text>
                         <HBox layoutX="198.0" layoutY="479.0" prefHeight="36.0" prefWidth="400.0" />
-                        <Text layoutX="262.0" layoutY="547.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Puntuación:" textAlignment="CENTER" wrappingWidth="139.9248046875">
+                        <Text fx:id="tagPuntuacion" layoutX="262.0" layoutY="547.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Puntuación:" textAlignment="CENTER" wrappingWidth="139.9248046875">
                            <font>
                               <Font name="Comic Sans MS" size="22.0" />
                            </font>
                         </Text>
-                        <Text fx:id="puntuacionChefPerfil" layoutX="395.0" layoutY="547.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Puntuación" textAlignment="CENTER" wrappingWidth="139.9248046875">
+                        <Text fx:id="textPuntuacion" layoutX="395.0" layoutY="547.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Puntuación" textAlignment="CENTER" wrappingWidth="139.9248046875">
                            <font>
                               <Font name="Comic Sans MS" size="22.0" />
                            </font>
@@ -57,13 +57,13 @@
                               <Font name="Comic Sans MS" size="19.0" />
                            </font>
                         </Text>
-                        <Text fill="#ffb94a" layoutX="201.0" layoutY="647.0" strokeType="OUTSIDE" strokeWidth="3.0" text="Biografía" textAlignment="CENTER" wrappingWidth="400.7549743652344">
+                        <Text fx:id="textTagBiografia" fill="#ffb94a" layoutX="201.0" layoutY="647.0" strokeType="OUTSIDE" strokeWidth="3.0" text="Biografía" textAlignment="CENTER" wrappingWidth="400.7549743652344">
                            <font>
                               <Font name="Comic Sans MS" size="20.0" />
                            </font>
                         </Text>
-                        <Line endX="100.0" layoutX="244.0" layoutY="639.0" startX="-165.58502197265625" stroke="#fcba03" strokeWidth="3.0" />
-                        <Line endX="100.0" layoutX="620.0" layoutY="638.0" startX="-165.58502197265625" stroke="#fcba03" strokeWidth="3.0" />
+                        <Line fx:id="line2" endX="100.0" layoutX="244.0" layoutY="639.0" startX="-165.58502197265625" stroke="#fcba03" strokeWidth="3.0" />
+                        <Line fx:id="line1" endX="100.0" layoutX="620.0" layoutY="638.0" startX="-165.58502197265625" stroke="#fcba03" strokeWidth="3.0" />
                         <Text fill="#ffb94a" layoutX="81.0" layoutY="682.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Edad:" wrappingWidth="98.264404296875">
                            <font>
                               <Font name="Comic Sans MS" size="20.0" />
