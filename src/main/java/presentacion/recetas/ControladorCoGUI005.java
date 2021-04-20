@@ -22,7 +22,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ControladorCoGUI006 implements IControladorPantalla {
+public class ControladorCoGUI005 implements IControladorPantalla {
     private DTOSesion sesion;
     private DTOReceta receta;
     private IControladorRecetasCooker controlRecetas;

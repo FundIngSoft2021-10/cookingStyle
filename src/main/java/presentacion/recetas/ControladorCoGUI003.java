@@ -308,7 +308,7 @@ public class ControladorCoGUI003 implements IControladorPantalla {
     public void irReceta(Event event, DTORecetaMiniatura miniatura) {
         this.sesion.setIdRecetaCargada(miniatura.getIdReceta());
         try {
-            this.cargarPantalla((Event) event, Pantalla.CO_GUI006_VERRECETA, this.sesion, false);
+            this.cargarPantalla((Event) event, Pantalla.CO_GUI005_VERRECETA, this.sesion, false);
         } catch (IOException e) {
             e.printStackTrace();
         }

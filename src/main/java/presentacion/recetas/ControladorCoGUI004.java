@@ -245,7 +245,7 @@ public class ControladorCoGUI004 implements IControladorPantalla {
         this.sesion.setIdRecetaCargada(idReceta);
 
         try {
-            this.cargarPantalla(event, Pantalla.CO_GUI006_VERRECETA, this.sesion, false);
+            this.cargarPantalla(event, Pantalla.CO_GUI005_VERRECETA, this.sesion, false);
         } catch (IOException e) {
             e.printStackTrace();
         }
