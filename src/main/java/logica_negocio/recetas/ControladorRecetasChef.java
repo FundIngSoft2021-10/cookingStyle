@@ -76,18 +76,12 @@ public class ControladorRecetasChef implements IControladorRecetasChef {
             }
         }
         //Comprobar link_imagen:
-            //Existencia del URL
-        existeUrl = validarUrl(link_imagen);
-        if (!existeUrl){
-            return new DTOReceta(null, null, "El url ingresado de la imagen, ¡No existe!");
-        } else {
             //Verificar que el link corresponda al de un formato de imagen
-            validarImagen = validarLinkImagen(link_imagen);
-            if (!validarImagen){
-                return new DTOReceta(null, null, "El link de la imagen, no corresponde a ningun formato de imagen. (.jpg, .jpge, .png)");
-            } else{
-                receta.setLinkImagen(link_imagen);
-            }
+        validarImagen = validarLinkImagen(link_imagen);
+        if (!validarImagen){
+            return new DTOReceta(null, null, "El link de la imagen, no corresponde a ningun formato de imagen. (.jpg, .jpge, .png)");
+        } else{
+            receta.setLinkImagen(link_imagen);
         }
         //Ingredientes:
         for (LineaIngrediente actual : ingredientes){
@@ -102,14 +96,9 @@ public class ControladorRecetasChef implements IControladorRecetasChef {
         for (PasoReceta actual: pasosReceta){
             //Si existe una imagen, verificar su link.
             if (actual.isTieneImagen()){
-                existeUrl = validarUrl(actual.getLinkImagen());
-                if(!existeUrl){
-                    return new DTOReceta(null, null, "El url de la imagen del paso " + actual.getNumero() + ", ¡No existe!");
-                } else {
-                    validarImagen = validarLinkImagen(actual.getLinkImagen());
-                    if (!validarImagen){
-                        return new DTOReceta(null, null, "El url de la imagen del paso " + actual.getNumero() + ", no corresponde al formato de imagen. ");
-                    }
+                validarImagen = validarLinkImagen(actual.getLinkImagen());
+                if (!validarImagen) {
+                    return new DTOReceta(null, null, "El url de la imagen del paso " + actual.getNumero() + ", no corresponde al formato de imagen. ");
                 }
             }
         }
@@ -119,8 +108,10 @@ public class ControladorRecetasChef implements IControladorRecetasChef {
             try {
                 Ingrediente ingrediente = this.controlCBD.consultaIngrediente(actual.getIngrediente().getNombre());
                 if (ingrediente.getIdIngrediente() == 0){
-                    ingrediente.setIdIngrediente(this.controlCBD.consultarIdIngrediente());
+                    actual.getIngrediente().setIdIngrediente(this.controlCBD.consultarIdIngrediente());
                     this.controlPBD.subirIngrediente(actual.getIngrediente());
+                } else {
+                    actual.getIngrediente().setIdIngrediente(ingrediente.getIdIngrediente());
                 }
             } catch (SQLException sqle){
                 return new DTOReceta(null, null, "Error en la base de Datos; " + sqle.getMessage());

@@ -20,8 +20,6 @@ public class ControladorPBDRecetasChef implements IControladorPBDRecetasChef {
         String insertReceta = "INSERT INTO receta (idreceta, nombre, descripcion, linkVideo, linkimagen, chef_idusuario) VALUES (?, ?, ? , ?, ?, ?)";
 
         try (PreparedStatement stmt = conexion.prepareStatement(insertReceta)){
-
-
             //cambiar a bigint el id usuario: ya
             //instanciar
             //setbigdecimal
@@ -37,6 +35,7 @@ public class ControladorPBDRecetasChef implements IControladorPBDRecetasChef {
             stmt.setString(5, rec.getLinkImagen());
             stmt.setBigDecimal(6, user);
 
+            stmt.executeUpdate();
 
             subirLineaIngrediente(rec.getLineasIngrediente(), rec.getIdReceta());//se manda a metodo de subir receta
 
@@ -48,7 +47,6 @@ public class ControladorPBDRecetasChef implements IControladorPBDRecetasChef {
 
             //subirCalificacion(rec.getCalificaciones(), big);
 
-            stmt.executeUpdate();
             return true;
         } catch (SQLException sqle){
             throw sqle;

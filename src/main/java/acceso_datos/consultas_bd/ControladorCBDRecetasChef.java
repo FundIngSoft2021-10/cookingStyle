@@ -1,14 +1,12 @@
 package acceso_datos.consultas_bd;
 
 import acceso_datos.conexion_bd.ControladorBDConexion;
+import entidades.modelo.Chef;
 import entidades.modelo.Ingrediente;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class ControladorCBDRecetasChef implements IControladorCBDRecetasChef {
     private ControladorBDConexion controladorBDConexion;
@@ -70,5 +68,7 @@ public class ControladorCBDRecetasChef implements IControladorCBDRecetasChef {
         }
         return idIngrediente + 1;
     }
+
+
 
 }
