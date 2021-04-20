@@ -189,12 +189,17 @@ public class ControladorRecetasChef implements IControladorRecetasChef {
         return false;
     }
 
+
     @Override
     //Convertir link a embed o player
     public String convertirLink (String url, TipoVideo tipovideo){
         String urlVimeo = "player.";
+        String urlYoutube = "https://youtube/embed/";
         if (tipovideo == TipoVideo.YOUTUBE){
-            url.replace("watch?v=","embed/");
+            String[] parts = url.split("=");
+            String part1 = parts[0];
+            String part2 = parts[1];
+            url = urlYoutube + part2;
             return url;
         } else if (tipovideo == TipoVideo.VIMEO){
             if ( url.contains("https://") ){
