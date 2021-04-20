@@ -340,7 +340,7 @@ public class ControladorCBDRecetasCooker implements IControladorCBDRecetasCooker
                 else
                     videoReceta = true;
 
-                String linkImagen = rs.getString("linkVideo");
+                String linkImagen = rs.getString("linkimagen");
                 boolean imagenReceta;
                 if (linkVideo == null)
                     imagenReceta = false;

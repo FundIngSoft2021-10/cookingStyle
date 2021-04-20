@@ -20,7 +20,7 @@
               <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="898.0" prefWidth="769.0">
                      <children>
-                        <ImageView fx:id="imgChef" fitHeight="370.0" fitWidth="369.0" layoutX="204.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="imgChef" fitHeight="350.0" fitWidth="369.0" layoutX="204.0" layoutY="98.0" pickOnBounds="true" preserveRatio="true" />
                         <Text fill="#fcba03" layoutX="349.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Perfil" textAlignment="CENTER">
                            <font>
                               <Font name="Comic Sans MS" size="30.0" />
@@ -42,7 +42,7 @@
                               <Font name="Comic Sans MS" size="22.0" />
                            </font>
                         </Text>
-                        <Text fx:id="seguidoresPerfilChef" fill="#ffb94a" layoutX="201.0" layoutY="578.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Seguidores" textAlignment="CENTER" wrappingWidth="400.7549743652344">
+                        <Text fx:id="tagSegidores" fill="#ffb94a" layoutX="201.0" layoutY="578.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Seguidores" textAlignment="CENTER" wrappingWidth="400.7549743652344">
                            <font>
                               <Font name="Comic Sans MS" size="20.0" />
                            </font>
@@ -64,7 +64,7 @@
                         </Text>
                         <Line fx:id="line2" endX="100.0" layoutX="244.0" layoutY="639.0" startX="-165.58502197265625" stroke="#fcba03" strokeWidth="3.0" />
                         <Line fx:id="line1" endX="100.0" layoutX="620.0" layoutY="638.0" startX="-165.58502197265625" stroke="#fcba03" strokeWidth="3.0" />
-                        <Text fill="#ffb94a" layoutX="81.0" layoutY="682.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Edad:" wrappingWidth="98.264404296875">
+                        <Text fx:id="tagEdad" fill="#ffb94a" layoutX="81.0" layoutY="682.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Edad:" wrappingWidth="98.264404296875">
                            <font>
                               <Font name="Comic Sans MS" size="20.0" />
                            </font>
@@ -74,7 +74,7 @@
                               <Font name="Comic Sans MS" size="19.0" />
                            </font>
                         </Text>
-                        <Text fill="#ffb94a" layoutX="81.0" layoutY="717.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Experiencia:" wrappingWidth="116.37759399414062">
+                        <Text fx:id="tagExperiencia" fill="#ffb94a" layoutX="81.0" layoutY="717.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Experiencia:" wrappingWidth="116.37759399414062">
                            <font>
                               <Font name="Comic Sans MS" size="20.0" />
                            </font>
@@ -84,7 +84,7 @@
                               <Font name="Comic Sans MS" size="19.0" />
                            </font>
                         </Text>
-                        <Text fill="#ffb94a" layoutX="81.0" layoutY="752.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Estudios:" wrappingWidth="98.264404296875">
+                        <Text fx:id="tagEstudios" fill="#ffb94a" layoutX="81.0" layoutY="752.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Estudios:" wrappingWidth="98.264404296875">
                            <font>
                               <Font name="Comic Sans MS" size="20.0" />
                            </font>
@@ -134,11 +134,6 @@
                               <Font name="Comic Sans MS" size="20.0" />
                            </font>
                         </Text>
-                        <Text fx:id="btnVolver" layoutX="36.0" layoutY="865.0" onMouseClicked="#clickVolver" strokeType="OUTSIDE" strokeWidth="0.0" text="Volver" underline="true">
-                           <font>
-                              <Font name="Comic Sans MS" size="13.0" />
-                           </font>
-                        </Text>
                      </children>
                   </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
@@ -148,18 +143,18 @@
                               <Font name="Comic Sans MS" size="30.0" />
                            </font>
                         </Text>
-                        <Button fx:id="btnAniadirReceta" layoutX="580.0" layoutY="33.0" mnemonicParsing="false" style="-fx-background-color: #ffb94a; -fx-background-radius: 10;" text="Añadir una Receta" textFill="WHITE">
+                        <Button fx:id="btnAniadirReceta" layoutX="580.0" layoutY="33.0" mnemonicParsing="false" onMouseClicked="#clickAniadirReceta" style="-fx-background-color: #ffb94a; -fx-background-radius: 10;" text="Añadir una Receta" textFill="WHITE">
                            <font>
                               <Font name="Comic Sans MS" size="13.0" />
                            </font>
                         </Button>
                         <ImageView fx:id="imgReceta" fitHeight="370.0" fitWidth="369.0" layoutX="216.0" layoutY="112.0" pickOnBounds="true" preserveRatio="true" />
-                        <ImageView fx:id="btnRecSig" layoutX="622.0" layoutY="272.0">
+                        <ImageView fx:id="btnRecSig" layoutX="622.0" layoutY="272.0" onMouseClicked="#clickSig">
                            <image>
                               <Image url="@../../img/siguienteReceta.png" />
                            </image>
                         </ImageView>
-                        <ImageView fx:id="btnRecAnt" layoutX="124.0" layoutY="272.0" rotate="180.0">
+                        <ImageView fx:id="btnRecAnt" layoutX="124.0" layoutY="272.0" onMouseClicked="#clickAnt" rotate="180.0">
                            <image>
                               <Image url="@../../img/siguienteReceta.png" />
                            </image>

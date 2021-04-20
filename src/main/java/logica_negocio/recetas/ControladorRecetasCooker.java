@@ -24,6 +24,11 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker {
         this.cooker = cooker;
     }
 
+    public ControladorRecetasCooker(){
+        this.controlCBD = new ControladorCBDRecetasCooker();
+        this.controlPBD = new ControladorPBDRecetasCooker();
+    }
+
     public Cooker getCooker() {
         return cooker;
     }
@@ -481,5 +486,16 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker {
             recetaMostrar.setEncontrado(false);
         }
         return recetaMostrar;
+    }
+
+    @Override
+    public List<DTOReceta> recetasChef(BigInteger idChef){
+        List<DTOReceta> recetas = new ArrayList<>();
+        try {
+            recetas.addAll(controlCBD.buscarRecetasChef(idChef));
+        } catch (SQLException sqle){
+            recetas = null;
+        }
+        return  recetas;
     }
 }

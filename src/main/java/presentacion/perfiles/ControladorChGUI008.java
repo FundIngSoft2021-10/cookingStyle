@@ -1,8 +1,11 @@
 package presentacion.perfiles;
 
+import entidades.dto.DTOReceta;
 import entidades.dto.DTOSesion;
+import entidades.dto.Pantalla;
 import entidades.modelo.Chef;
 import entidades.modelo.Cooker;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -13,9 +16,13 @@ import javafx.scene.text.Text;
 import logica_negocio.recetas.ControladorRecetasChef;
 import logica_negocio.recetas.ControladorRecetasCooker;
 import logica_negocio.recetas.IControladorRecetasChef;
+import logica_negocio.recetas.IControladorRecetasCooker;
 import presentacion.IControladorPantalla;
 
+import java.io.IOException;
+import java.math.BigInteger;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -23,6 +30,9 @@ public class ControladorChGUI008 implements IControladorPantalla {
 
     private DTOSesion sesion;
     private IControladorRecetasChef controlChef;
+    private IControladorRecetasCooker controlRecetas;
+    private int contadorRecetas;
+    private List<DTOReceta> recetas;
 
     @FXML
     public Text textNombreChef;
@@ -51,8 +61,6 @@ public class ControladorChGUI008 implements IControladorPantalla {
     @FXML
     public Text btnAgenda;
     @FXML
-    public Text btnVolver;
-    @FXML
     public Button btnAniadirReceta;
     @FXML
     public ImageView imgReceta;
@@ -76,6 +84,14 @@ public class ControladorChGUI008 implements IControladorPantalla {
     public Text textPuntuacion;
     @FXML
     public Text tagPuntuacion;
+    @FXML
+    public Text tagEdad;
+    @FXML
+    public Text tagExperiencia;
+    @FXML
+    public Text tagEstudios;
+    @FXML
+    public Text tagSegidores;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -86,8 +102,25 @@ public class ControladorChGUI008 implements IControladorPantalla {
     public void inicializar(DTOSesion sesion) {
         this.sesion = sesion;
         this.controlChef = new ControladorRecetasChef((Chef) this.sesion.getUsuario());
+        this.controlRecetas = new ControladorRecetasCooker();
+        this.contadorRecetas = 0;
+        this.recetas = new ArrayList<>();
         this.ocultar();
         this.cargarChef();
+        this.cargarRecetas();
+        this.btnRecAnt.setVisible(false);
+        if(this.recetas.size()==1){
+            this.btnRecSig.setVisible(false);
+        }
+        if(this.recetas.size()==0){
+            this.btnRecSig.setVisible(false);
+            Image imagen = new Image("https://i.pinimg.com/736x/3a/ab/e0/3aabe0e9a520b9ad90407a82f85adb42.jpg");
+            this.imgReceta.setImage(imagen);
+        }
+        if(this.recetas.size()!=0){
+            Image imagen = new Image(recetas.get(contadorRecetas).getReceta().getLinkImagen());
+            this.imgReceta.setImage(imagen);
+        }
 
     }
 
@@ -101,15 +134,21 @@ public class ControladorChGUI008 implements IControladorPantalla {
         this.btnEditarBiog.setVisible(false);
         this.line1.setVisible(false);
         this.line2.setVisible(false);
+        this.tagEdad.setVisible(false);
+        this.tagEstudios.setVisible(false);
+        this.tagExperiencia.setVisible(false);
 
         //Puntuacion
-        this.tagPuntuacion.setVisible(false);
-        this.textPuntuacion.setVisible(false);
+        this.tagPuntuacion.setVisible(true);
+        this.textPuntuacion.setVisible(true);
 
         //Editar
         this.btnEditarImg.setVisible(false);
         this.btnEditarNomChef.setVisible(false);
         this.btnEditarCat.setVisible(false);
+
+        //Segidores
+        this.tagSegidores.setVisible(false);
 
     }
 
@@ -123,35 +162,87 @@ public class ControladorChGUI008 implements IControladorPantalla {
 
         //Categorias
 
-        List<String> categorias = this.controlChef.categoriasxChef(this.sesion.getIdUsuarioCargado());
-        String texto = "";
-        int conta = 0;
-        for(String categoria : categorias){
-            if(conta != categorias.size()) {
-                texto += categoria + ", ";
-            } else {
-                texto += categoria;
+        List<String> categorias = this.controlChef.categoriasxChef(this.sesion.getUsuario().getIdUsuario());
+        //CATEGORIAS PARA VER
+        //List<String> categorias = this.controlChef.categoriasxChef(BigInteger.valueOf(12));
+        if(categorias.size() != 0) {
+            String texto = "";
+            int conta = 0;
+            for (String categoria : categorias) {
+                texto += categoria + "\n ";
             }
-            conta++;
+            this.textCategorias.setText(texto);
+        } else {
+            this.textCategorias.setText("Sin categorias");
         }
-        this.textCategorias.setText(texto);
+
+        this.textPuntuacion.setText("0.0");
+    }
+
+    private void cargarRecetas(){
+
+        this.recetas.addAll(this.controlRecetas.recetasChef(this.sesion.getIdUsuarioCargado()));
+        //PRUEBA PARA VER
+        //this.recetas.addAll(this.controlRecetas.recetasChef(BigInteger.valueOf(12)));
     }
 
     public void clickServicioCliente(MouseEvent mouseEvent) {
+        //TODO: Ir a servicio al cliente
     }
 
     public void clickEditarPerfil(MouseEvent mouseEvent) {
+        //TODO: editar perfil del chef
     }
 
     public void clickCerrar(MouseEvent mouseEvent) {
-    }
-
-    public void clickVolver(MouseEvent mouseEvent) {
+        try {
+            this.cargarPantalla((Event) mouseEvent, Pantalla.TO_GUI002_INICIO, this.sesion, false);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void clickEditarReceta(MouseEvent mouseEvent) {
+        try {
+            this.cargarPantalla((Event) mouseEvent, Pantalla.CH_GUI010_EDITARRECETA, this.sesion, false);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void clickEliminarReceta(MouseEvent mouseEvent) {
+        //todo: eliminar receta
+    }
+
+    public void clickAniadirReceta(MouseEvent mouseEvent) {
+        try {
+            this.cargarPantalla((Event) mouseEvent, Pantalla.CH_GUI009_SUBIRRECETA, this.sesion, false);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void clickSig(MouseEvent mouseEvent) {
+        this.contadorRecetas++;
+        if(this.contadorRecetas == this.recetas.size()-1 ){
+            this.btnRecSig.setVisible(false);
+        }
+        this.btnRecAnt.setVisible(true);
+        if(this.contadorRecetas-1 != this.recetas.size() ) {
+            Image imagen = new Image(recetas.get(contadorRecetas).getReceta().getLinkImagen());
+            this.imgReceta.setImage(imagen);
+        }
+
+
+    }
+
+    public void clickAnt(MouseEvent mouseEvent) {
+        --this.contadorRecetas;
+        this.btnRecSig.setVisible(true);
+        if(this.contadorRecetas == 0){
+            this.btnRecAnt.setVisible(false);
+        }
+        Image imagen = new Image(recetas.get(contadorRecetas).getReceta().getLinkImagen());
+        this.imgReceta.setImage(imagen);
     }
 }
