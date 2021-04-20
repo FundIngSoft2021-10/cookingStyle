@@ -42,6 +42,8 @@ public class ControladorCoGUI005 implements IControladorPantalla {
     @FXML
     public TextArea textAreaDescripcion;
     @FXML
+    public Button btnVerPasos;
+    @FXML
     public Button btnVerIng;
     @FXML
     public WebView webVideo;
@@ -56,9 +58,10 @@ public class ControladorCoGUI005 implements IControladorPantalla {
     @FXML
     public Text textServicioCliente;
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        this.textAreaDescripcion.setWrapText(true);
+        this.textAreaDescripcion.setEditable(false);
     }
 
     @Override
@@ -121,6 +124,14 @@ public class ControladorCoGUI005 implements IControladorPantalla {
         this.webVideo.getEngine().loadContent("");
         try {
             this.volverPantalla((Event) mouseEvent, this.sesion);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void clickVerPasos(ActionEvent actionEvent) {
+        try {
+            this.cargarPantalla((Event) actionEvent, Pantalla.CO_GUI006_RECETAPASOS, this.sesion, false);
         } catch (IOException e) {
             e.printStackTrace();
         }

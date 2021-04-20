@@ -74,6 +74,7 @@
                            <children>
                               <WebView fx:id="webVideo" prefHeight="416.0" prefWidth="835.0" />
                            </children></StackPane>
+                        <Button fx:id="btnVerPasos" layoutX="741.0" layoutY="726.0" mnemonicParsing="false" onAction="#clickVerPasos" style="-fx-background-color: #fcba03; -fx-background-radius: 50;" text="Ver Pasos" textFill="WHITE" />
                      </children>
                   </AnchorPane>
               </items>
