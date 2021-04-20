@@ -192,6 +192,7 @@ public class ControladorCoGUI003 implements IControladorPantalla {
 
         Image imagen;
         try {
+            System.out.println(miniatura.getLinkImagen());
             imagen = new Image(miniatura.getLinkImagen());
         } catch (Exception e) {
             imagen = new Image("https://img.icons8.com/pastel-glyph/2x/file-not-found.png");
@@ -305,7 +306,7 @@ public class ControladorCoGUI003 implements IControladorPantalla {
     }
 
     public void irReceta(Event event, DTORecetaMiniatura miniatura) {
-        this.sesion.setIdReceta(miniatura.getIdReceta());
+        this.sesion.setIdRecetaCargada(miniatura.getIdReceta());
         try {
             this.cargarPantalla((Event) event, Pantalla.CO_GUI006_VERRECETA, this.sesion, false);
         } catch (IOException e) {

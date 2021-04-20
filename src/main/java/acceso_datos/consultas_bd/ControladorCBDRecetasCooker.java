@@ -16,17 +16,17 @@ import java.util.List;
 public class ControladorCBDRecetasCooker implements IControladorCBDRecetasCooker {
     private ControladorBDConexion controladorBDConexion;
     private Connection conexion;
-    private IControladorCBDRecetas controlRecetas;
+    private IControladorCBDRecetas controlCBDRecetas;
 
     public ControladorCBDRecetasCooker() {
-        controlRecetas = new ControladorCBDRecetas();
+        controlCBDRecetas = new ControladorCBDRecetas();
         controladorBDConexion = new ControladorBDConexion();
         conexion = controladorBDConexion.conectarMySQL();
     }
 
     @Override
     public Ingrediente consultaIngrediente(int idIngrediente) throws SQLException {
-        return this.controlRecetas.consultaIngrediente(idIngrediente);
+        return this.controlCBDRecetas.consultaIngrediente(idIngrediente);
     }
 
     @Override
@@ -65,17 +65,17 @@ public class ControladorCBDRecetasCooker implements IControladorCBDRecetasCooker
 
     @Override
     public List<LineaIngrediente> consultaLineaIngrediente(BigInteger idReceta) throws SQLException {
-        return this.controlRecetas.consultaLineaIngrediente(idReceta);
+        return this.controlCBDRecetas.consultaLineaIngrediente(idReceta);
     }
 
     @Override
     public List<PasoReceta> consultaPasosReceta(BigInteger idReceta) throws SQLException {
-        return this.controlRecetas.consultaPasosReceta(idReceta);
+        return this.controlCBDRecetas.consultaPasosReceta(idReceta);
     }
 
     @Override
     public List<Categoria> consultaCategorias(BigInteger idReceta) throws SQLException {
-        return this.controlRecetas.consultaCategorias(idReceta);
+        return this.controlCBDRecetas.consultaCategorias(idReceta);
     }
 
     @Override
@@ -113,27 +113,27 @@ public class ControladorCBDRecetasCooker implements IControladorCBDRecetasCooker
 
     @Override
     public Cooker consultaCooker(BigInteger idCooker) throws SQLException {
-        return this.controlRecetas.consultaCooker(idCooker);
+        return this.controlCBDRecetas.consultaCooker(idCooker);
     }
 
     @Override
     public List<Calificacion> consultaCalificaciones(BigInteger idReceta) throws SQLException {
-        return this.controlRecetas.consultaCalificaciones(idReceta);
+        return this.controlCBDRecetas.consultaCalificaciones(idReceta);
     }
 
     @Override
     public MotivoReporte consultaMotivoReporte(int idMotivo) throws SQLException {
-        return this.controlRecetas.consultaMotivoReporte(idMotivo);
+        return this.controlCBDRecetas.consultaMotivoReporte(idMotivo);
     }
 
     @Override
     public List<Reporte> consultaReportes(BigInteger idReceta) throws SQLException {
-        return this.controlRecetas.consultaReportes(idReceta);
+        return this.controlCBDRecetas.consultaReportes(idReceta);
     }
 
     @Override
     public Chef consultaChefReceta(BigInteger idChef) throws SQLException {
-        return this.controlRecetas.consultaChefReceta(idChef);
+        return this.controlCBDRecetas.consultaChefReceta(idChef);
     }
 
     @Override
@@ -218,7 +218,7 @@ public class ControladorCBDRecetasCooker implements IControladorCBDRecetasCooker
 
     @Override
     public Receta buscarRecetas(BigInteger idreceta) throws SQLException {
-        return this.controlRecetas.buscarRecetas(idreceta);
+        return this.controlCBDRecetas.buscarRecetas(idreceta);
     }
 
     @Override
@@ -442,7 +442,7 @@ public class ControladorCBDRecetasCooker implements IControladorCBDRecetasCooker
 
     @Override
     public Chef consultaRecetaXChef(BigInteger idReceta) throws SQLException {
-        return this.controlRecetas.consultaRecetaXChef(idReceta);
+        return this.controlCBDRecetas.consultaRecetaXChef(idReceta);
     }
 
     @Override

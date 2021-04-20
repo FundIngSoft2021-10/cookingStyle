@@ -12,8 +12,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
+import javafx.scene.web.WebView;
 import logica_negocio.recetas.ControladorRecetasCooker;
 import logica_negocio.recetas.IControladorRecetasCooker;
 import presentacion.IControladorPantalla;
@@ -44,7 +44,7 @@ public class ControladorCoGUI006 implements IControladorPantalla {
     @FXML
     public Button btnVerIng;
     @FXML
-    public StackPane paneVideo;
+    public WebView webVideo;
     @FXML
     public ImageView imgFotoUsuario;
     @FXML
@@ -70,9 +70,11 @@ public class ControladorCoGUI006 implements IControladorPantalla {
         this.textNombreUsuario.setText(this.sesion.getUsuario().getNombreUsuario());
 
         // Cargar la información de la receta
-        this.receta = this.controlRecetas.buscarReceta(this.sesion.getIdReceta());
+        this.receta = this.controlRecetas.buscarReceta(this.sesion.getIdRecetaCargada());
+        this.sesion.setRecetaCargada(this.receta);
 
         // Colocar la información de la receta en la pantalla
+        this.cargarReceta();
     }
 
     private void cargarReceta() {
@@ -87,15 +89,19 @@ public class ControladorCoGUI006 implements IControladorPantalla {
             imagen = new Image("https://img.icons8.com/pastel-glyph/2x/file-not-found.png");
         }
         this.imgReceta.setImage(imagen);
+        this.imgReceta.setVisible(true);
 
         // Video
-        
+        try {
+            this.webVideo.getEngine().load(this.receta.getReceta().getLinkVideo());
+        } catch (Exception e) {
+        }
 
         this.cargarChef();
     }
 
     private void cargarChef() {
-        this.textNombreChef.setText(this.receta.getAutor().getNombreUsuario());
+        this.textNombreChef.setText(this.receta.getAutor().getNombre());
 
     }
 
@@ -112,6 +118,7 @@ public class ControladorCoGUI006 implements IControladorPantalla {
     }
 
     public void clickVolver(MouseEvent mouseEvent) {
+        this.webVideo.getEngine().loadContent("");
         try {
             this.volverPantalla((Event) mouseEvent, this.sesion);
         } catch (IOException e) {

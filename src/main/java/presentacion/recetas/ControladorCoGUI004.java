@@ -242,7 +242,7 @@ public class ControladorCoGUI004 implements IControladorPantalla {
     }
 
     public void irReceta(Event event, BigInteger idReceta) {
-        this.sesion.setIdReceta(idReceta);
+        this.sesion.setIdRecetaCargada(idReceta);
 
         try {
             this.cargarPantalla(event, Pantalla.CO_GUI006_VERRECETA, this.sesion, false);

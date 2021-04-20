@@ -11,7 +11,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
@@ -19,10 +18,7 @@ import javafx.scene.control.cell.CheckBoxListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 import logica_negocio.recetas.ControladorRecetasCooker;
@@ -36,9 +32,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class ControladorCoGUI007 implements IControladorPantalla {
-
     private DTOSesion sesion;
-    private IControladorRecetasCooker controladorRecCooker;
+    private IControladorRecetasCooker controlRecetas;
 
     @FXML
     public ImageView imgFotoReceta;
@@ -80,35 +75,34 @@ public class ControladorCoGUI007 implements IControladorPantalla {
     @Override
     public void inicializar(DTOSesion sesion) {
         this.sesion = sesion;
-        this.controladorRecCooker = new ControladorRecetasCooker((Cooker) sesion.getUsuario());
+        // this.controlRecetas = new ControladorRecetasCooker((Cooker) sesion.getUsuario());
+
         this.textNombreUsuario.setText(sesion.getUsuario().getNombreUsuario());
         this.listViewIngredientes2.setVisible(false);
-        cargarIngredientes();
-        cargarMiniatura();
+        this.cargarIngredientes();
+        this.cargarReceta();
     }
 
-    private void cargarMiniatura(){
-
-        DTORecetaMiniatura miniatura = controladorRecCooker.miniaturaRecetas(this.sesion.getIdReceta());
-
+    private void cargarReceta() {
         Image imagen;
         try {
-            imagen = new Image(miniatura.getLinkImagen());
+            imagen = new Image(this.sesion.getRecetaCargada().getReceta().getLinkImagen());
         } catch (Exception e) {
             imagen = new Image("https://img.icons8.com/pastel-glyph/2x/file-not-found.png");
         }
 
         this.imgFotoReceta.setImage(imagen);
-        this.textNombreR1.setText(miniatura.getNombreReceta());
-        this.btnChef.setText(miniatura.getAutor().getNombre());
-
+        this.imgFotoReceta.setVisible(true);
+        this.textNombreR1.setText(this.sesion.getRecetaCargada().getReceta().getNombre());
+        this.btnChef.setText(this.sesion.getRecetaCargada().getAutor().getNombre());
     }
 
-    private void cargarIngredientes(){
-        List<LineaIngrediente> ingredienteLista = controladorRecCooker.ingredientesxReceta(this.sesion.getIdReceta());
+    private void cargarIngredientes() {
+        List<LineaIngrediente> ingredienteLista = this.sesion.getRecetaCargada().getReceta().getLineasIngrediente();
+        // List<LineaIngrediente> ingredienteLista = controlRecetas.ingredientesxReceta(this.sesion.getIdRecetaCargada());
         List<String> nombresIng = new ArrayList<>();
 
-        for(LineaIngrediente ingrediente : ingredienteLista){
+        for (LineaIngrediente ingrediente : ingredienteLista) {
             String linea = ingrediente.getIngrediente().getNombre() + ", " + ingrediente.getCantidad() + " " + ingrediente.getMedida().abv();
             nombresIng.add(linea);
         }
@@ -124,9 +118,9 @@ public class ControladorCoGUI007 implements IControladorPantalla {
             public ObservableValue<Boolean> call(String item) {
                 BooleanProperty observable = new SimpleBooleanProperty();
                 observable.addListener((obs, wasSelected, isNowSelected) ->
-                        System.out.println("Check box for "+item+" changed from "+wasSelected+" to "+isNowSelected)
+                        System.out.println("Check box for " + item + " changed from " + wasSelected + " to " + isNowSelected)
                 );
-                return observable ;
+                return observable;
             }
         }));
     }

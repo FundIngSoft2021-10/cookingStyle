@@ -1,6 +1,7 @@
 module cooking {
     requires javafx.controls;
     requires javafx.fxml;
+    requires javafx.web;
     requires java.sql;
 
     opens presentacion to javafx.fxml;

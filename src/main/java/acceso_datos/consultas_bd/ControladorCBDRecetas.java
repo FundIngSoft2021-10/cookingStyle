@@ -8,7 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ControladorCBDRecetas implements IControladorCBDRecetas{
+public class ControladorCBDRecetas implements IControladorCBDRecetas {
 
     private ControladorBDConexion controladorBDConexion;
     private Connection conexion;
@@ -19,8 +19,8 @@ public class ControladorCBDRecetas implements IControladorCBDRecetas{
     }
 
     @Override
-    public Ingrediente consultaIngrediente (int idIngrediente) throws SQLException {
-        String consultaIngrediente = "SELECT * FROM ingrediente WHERE ingrediente.idingrediente = "+idIngrediente+";";
+    public Ingrediente consultaIngrediente(int idIngrediente) throws SQLException {
+        String consultaIngrediente = "SELECT * FROM ingrediente WHERE ingrediente.idingrediente = " + idIngrediente + ";";
         String nombreIngrediente = null;
         try (PreparedStatement stmt = conexion.prepareStatement(consultaIngrediente)) {
             ResultSet rs = stmt.executeQuery();
@@ -34,9 +34,9 @@ public class ControladorCBDRecetas implements IControladorCBDRecetas{
     }
 
     @Override
-    public List<LineaIngrediente> consultaLineaIngrediente (BigInteger idReceta) throws SQLException{
+    public List<LineaIngrediente> consultaLineaIngrediente(BigInteger idReceta) throws SQLException {
         List<LineaIngrediente> lineaIngredientes = new ArrayList<>();
-        String consultaLineaIngredientes = "SELECT * FROM lineaingrediente WHERE lineaingrediente.idReceta = "+idReceta+";";
+        String consultaLineaIngredientes = "SELECT * FROM lineaingrediente WHERE lineaingrediente.idReceta = " + idReceta + ";";
 
         try (PreparedStatement stmt = conexion.prepareStatement(consultaLineaIngredientes)) {
             ResultSet rs = stmt.executeQuery();
@@ -44,7 +44,7 @@ public class ControladorCBDRecetas implements IControladorCBDRecetas{
                 int idIngrediente = rs.getInt("idingrediente");
                 float cantidad = rs.getFloat("cantidad");
                 String medida = rs.getString("medida");
-                Ingrediente ingrediente= consultaIngrediente(idIngrediente);
+                Ingrediente ingrediente = consultaIngrediente(idIngrediente);
                 LineaIngrediente resultado = null;
                 switch (medida) {
                     case "MILIGRAMO":
@@ -81,9 +81,9 @@ public class ControladorCBDRecetas implements IControladorCBDRecetas{
     }
 
     @Override
-    public List<PasoReceta> consultaPasosReceta (BigInteger idReceta) throws SQLException{
+    public List<PasoReceta> consultaPasosReceta(BigInteger idReceta) throws SQLException {
         List<PasoReceta> pasosReceta = new ArrayList<>();
-        String consultaPasos = "SELECT * FROM pasoreceta, receta WHERE pasoreceta.idReceta ="+idReceta+" and receta.idreceta="+idReceta+";";
+        String consultaPasos = "SELECT * FROM pasoreceta, receta WHERE pasoreceta.idReceta =" + idReceta + " and receta.idreceta=" + idReceta + ";";
 
         try (PreparedStatement stmt = conexion.prepareStatement(consultaPasos)) {
             ResultSet rs = stmt.executeQuery();
@@ -96,7 +96,7 @@ public class ControladorCBDRecetas implements IControladorCBDRecetas{
                     tieneImagen = false;
                 else
                     tieneImagen = true;
-                PasoReceta resultado = new PasoReceta(numero,texto,tieneImagen);
+                PasoReceta resultado = new PasoReceta(numero, texto, tieneImagen);
                 pasosReceta.add(resultado);
             }
 
@@ -107,17 +107,17 @@ public class ControladorCBDRecetas implements IControladorCBDRecetas{
     }
 
     @Override
-    public List<Categoria> consultaCategorias (BigInteger idReceta) throws SQLException{
+    public List<Categoria> consultaCategorias(BigInteger idReceta) throws SQLException {
         List<Categoria> categorias = new ArrayList<>();
-        String consultaCategoriasxRecetas = "SELECT * FROM categoriaxreceta WHERE categoriaxreceta.idReceta="+idReceta+";";
+        String consultaCategoriasxRecetas = "SELECT * FROM categoriaxreceta WHERE categoriaxreceta.idReceta=" + idReceta + ";";
 
         try (PreparedStatement stmt = conexion.prepareStatement(consultaCategoriasxRecetas)) {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 int idCategoria = rs.getInt("idcategoria");
-                String consultaCategorias = "SELECT * FROM categoria WHERE categoria.idcategoria = "+idCategoria+";";
+                String consultaCategorias = "SELECT * FROM categoria WHERE categoria.idcategoria = " + idCategoria + ";";
 
-                String nombre=null, descripcion=null;
+                String nombre = null, descripcion = null;
                 try (PreparedStatement stmt1 = conexion.prepareStatement(consultaCategorias)) {
                     ResultSet rs1 = stmt1.executeQuery();
                     while (rs1.next()) {
@@ -138,10 +138,10 @@ public class ControladorCBDRecetas implements IControladorCBDRecetas{
     }
 
     @Override
-    public Cooker consultaCooker (BigInteger idCooker) throws SQLException{
-        String nombreUsuario=null, nombre=null;
-        Date fecha=null;
-        String consultaCookers = "SELECT * FROM usuario WHERE usuario.idusuario = "+idCooker+";";
+    public Cooker consultaCooker(BigInteger idCooker) throws SQLException {
+        String nombreUsuario = null, nombre = null;
+        Date fecha = null;
+        String consultaCookers = "SELECT * FROM usuario WHERE usuario.idusuario = " + idCooker + ";";
 
         try (PreparedStatement stmt = conexion.prepareStatement(consultaCookers)) {
             ResultSet rs = stmt.executeQuery();
@@ -157,9 +157,9 @@ public class ControladorCBDRecetas implements IControladorCBDRecetas{
     }
 
     @Override
-    public List<Calificacion> consultaCalificaciones (BigInteger idReceta) throws SQLException{
+    public List<Calificacion> consultaCalificaciones(BigInteger idReceta) throws SQLException {
         List<Calificacion> calificaciones = new ArrayList<>();
-        String consultaCalificacion = "SELECT * FROM calificacion WHERE calificacion.idReceta="+idReceta+";";
+        String consultaCalificacion = "SELECT * FROM calificacion WHERE calificacion.idReceta=" + idReceta + ";";
 
         try (PreparedStatement stmt = conexion.prepareStatement(consultaCalificacion)) {
             ResultSet rs = stmt.executeQuery();
@@ -168,7 +168,7 @@ public class ControladorCBDRecetas implements IControladorCBDRecetas{
                 BigInteger idCooker = rs.getBigDecimal("cooker_idusuario").toBigInteger();
                 int valor = rs.getInt("valor");
                 Cooker cooker = consultaCooker(idCooker);
-                Calificacion resultado = new Calificacion(valor,cooker);
+                Calificacion resultado = new Calificacion(valor, cooker);
                 calificaciones.add(resultado);
             }
 
@@ -179,9 +179,9 @@ public class ControladorCBDRecetas implements IControladorCBDRecetas{
     }
 
     @Override
-    public MotivoReporte consultaMotivoReporte (int idMotivo) throws SQLException{
-        String nombre=null, descripcion=null;
-        String consultaMotivo = "SELECT * FROM motivo WHERE motivo.idmotivo = "+idMotivo+";";
+    public MotivoReporte consultaMotivoReporte(int idMotivo) throws SQLException {
+        String nombre = null, descripcion = null;
+        String consultaMotivo = "SELECT * FROM motivo WHERE motivo.idmotivo = " + idMotivo + ";";
 
         try (PreparedStatement stmt = conexion.prepareStatement(consultaMotivo)) {
             ResultSet rs = stmt.executeQuery();
@@ -196,9 +196,9 @@ public class ControladorCBDRecetas implements IControladorCBDRecetas{
     }
 
     @Override
-    public List<Reporte> consultaReportes (BigInteger idReceta) throws SQLException{
+    public List<Reporte> consultaReportes(BigInteger idReceta) throws SQLException {
         List<Reporte> reportes = new ArrayList<>();
-        String consultaReporte = "SELECT * FROM reporte WHERE reporte.idReceta="+idReceta+";";
+        String consultaReporte = "SELECT * FROM reporte WHERE reporte.idReceta=" + idReceta + ";";
         try (PreparedStatement stmt = conexion.prepareStatement(consultaReporte)) {
             ResultSet rs = stmt.executeQuery();
 
@@ -222,14 +222,14 @@ public class ControladorCBDRecetas implements IControladorCBDRecetas{
     }
 
     @Override
-    public Receta buscarRecetas (BigInteger idreceta) throws SQLException{
+    public Receta buscarRecetas(BigInteger idreceta) throws SQLException {
         Receta receta = new Receta();
         //String consulta = "SELECT * FROM receta WHERE UPPER(nombre) LIKE '%"+nombre+"%';";
         String consulta = "SELECT * FROM receta WHERE receta.idreceta = " + idreceta + ";";
         try (PreparedStatement stmt = conexion.prepareStatement(consulta)) {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                BigInteger idReceta =  rs.getBigDecimal("idReceta").toBigInteger();
+                BigInteger idReceta = rs.getBigDecimal("idReceta").toBigInteger();
                 String nombre = rs.getString("nombre");
                 String descripcion = rs.getString("descripcion");
                 String linkVideo = rs.getString("linkVideo");
@@ -239,21 +239,17 @@ public class ControladorCBDRecetas implements IControladorCBDRecetas{
                 else
                     videoReceta = true;
 
-                String linkImagen = rs.getString("linkVideo");
+                String linkImagen = rs.getString("linkImagen");
                 boolean imagenReceta;
-                if (linkVideo == null)
+                if (linkImagen == null)
                     imagenReceta = false;
                 else
                     imagenReceta = true;
 
                 List<LineaIngrediente> lineaIngredientes = consultaLineaIngrediente(idReceta);
-
                 List<PasoReceta> pasosReceta = consultaPasosReceta(idReceta);
-
                 List<Categoria> categorias = consultaCategorias(idReceta);
-
                 List<Calificacion> calificaciones = consultaCalificaciones(idReceta);
-
                 List<Reporte> reportes = consultaReportes(idReceta);
 
                 receta = new Receta(idReceta, nombre, descripcion, videoReceta, linkVideo, TipoVideo.VIMEO,
@@ -268,10 +264,10 @@ public class ControladorCBDRecetas implements IControladorCBDRecetas{
     }
 
     @Override
-    public Chef consultaChefReceta (BigInteger idChef) throws SQLException{
-        String nombreUsuario=null, nombre=null;
-        Date fecha=null;
-        String consultaChefs = "SELECT * FROM usuario WHERE usuario.idusuario = "+idChef+";";
+    public Chef consultaChefReceta(BigInteger idChef) throws SQLException {
+        String nombreUsuario = null, nombre = null;
+        Date fecha = null;
+        String consultaChefs = "SELECT * FROM usuario WHERE usuario.idusuario = " + idChef + ";";
 
         try (PreparedStatement stmt = conexion.prepareStatement(consultaChefs)) {
             ResultSet rs = stmt.executeQuery();
@@ -288,19 +284,19 @@ public class ControladorCBDRecetas implements IControladorCBDRecetas{
 
     @Override
     public Chef consultaRecetaXChef(BigInteger idReceta) throws SQLException {
-        Chef chef = new Chef ();
+        Chef chef = new Chef();
 
         String consulta = "SELECT * FROM receta WHERE idReceta = " + idReceta + ";";
 
-        try (PreparedStatement stmt = conexion.prepareStatement(consulta)){
+        try (PreparedStatement stmt = conexion.prepareStatement(consulta)) {
             ResultSet rs = stmt.executeQuery();
-            while (rs.next()){
+            while (rs.next()) {
                 BigInteger idChef = rs.getBigDecimal("chef_idusuario").toBigInteger();
                 chef = consultaChefReceta(idChef);
             }
-            return  chef;
+            return chef;
 
-        } catch (SQLException sqle){
+        } catch (SQLException sqle) {
             throw sqle;
         }
     }

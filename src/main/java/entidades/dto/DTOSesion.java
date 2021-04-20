@@ -10,7 +10,9 @@ public class DTOSesion {
     private Usuario usuario;
     private Stack<Pantalla> historial;
     private String busqueda;
-    private BigInteger idReceta;
+    private BigInteger idRecetaCargada;
+    private BigInteger idUsuarioCargado;
+    private DTOReceta recetaCargada;
 
     public DTOSesion(TipoUsuario tipoUsuario, Usuario usuario, Stack<Pantalla> historial) {
         this.tipoUsuario = tipoUsuario;
@@ -60,12 +62,28 @@ public class DTOSesion {
         this.busqueda = busqueda;
     }
 
-    public BigInteger getIdReceta() {
-        return idReceta;
+    public BigInteger getIdRecetaCargada() {
+        return idRecetaCargada;
     }
 
-    public void setIdReceta(BigInteger id) {
-        this.idReceta = id;
+    public void setIdRecetaCargada(BigInteger id) {
+        this.idRecetaCargada = id;
+    }
+
+    public BigInteger getIdUsuarioCargado() {
+        return idUsuarioCargado;
+    }
+
+    public void setIdUsuarioCargado(BigInteger idUsuarioCargado) {
+        this.idUsuarioCargado = idUsuarioCargado;
+    }
+
+    public DTOReceta getRecetaCargada() {
+        return recetaCargada;
+    }
+
+    public void setRecetaCargada(DTOReceta recetaCargada) {
+        this.recetaCargada = recetaCargada;
     }
 
     // Métodos
