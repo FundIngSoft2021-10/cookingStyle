@@ -18,7 +18,7 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 
-public interface ControladorPantalla extends Initializable {
+public interface IControladorPantalla extends Initializable {
     /**
      * Inicializa y desempaqueta los datos de la sesión en el controlador
      * @param sesion los datos de la sesión
@@ -30,9 +30,10 @@ public interface ControladorPantalla extends Initializable {
      * @param event el evento de la acción que proporcionó el llamado a cambio de pantalla
      * @param pantalla el enum {@link Pantalla} correspondiente a la nueva pantalla
      * @param sesion los datos de la sesión
+     * @param transicion
      * @throws IOException arroja {@link java.io.IOException} si no se encuentra la pantalla
      */
-    public default void cargarPantalla(Event event, Pantalla pantalla, DTOSesion sesion) throws IOException {
+    public default void cargarPantalla(Event event, Pantalla pantalla, DTOSesion sesion, boolean transicion) throws IOException {
         // Agregar la pantalla al historial de la sesión actual
         sesion.agregarPantalla(pantalla);
 
@@ -43,22 +44,18 @@ public interface ControladorPantalla extends Initializable {
         Parent nuevaPantallaParent = loader.load();
 
         // Acceder al controlador de la nueva pantalla, e inicializarlo
-        ControladorPantalla controladorPantalla = loader.getController();
-        controladorPantalla.inicializar(sesion);
+        IControladorPantalla IControladorPantalla = loader.getController();
+        IControladorPantalla.inicializar(sesion);
 
         // Obtener la información del Stage
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-        // Crear una scene para la nueva pantalla
-        Scene nuevaPantallaScene = new Scene(nuevaPantallaParent);
-
-        // Transicionar desde la pantalla actual hacia la nueva pantalla
-        transicion(event, nuevaPantallaParent, nuevaPantallaScene);
-
-        // Sin efecto de transición:
-        // Mostrar la scene de la nueva pantalla
-        //stage.setScene(nuevaPantallaScene);
-        //stage.show();
+        if (transicion) {
+            // Transicionar desde la pantalla actual hacia la nueva pantalla
+            this.transicionar(event, nuevaPantallaParent);
+        } else {
+            stage.getScene().setRoot(nuevaPantallaParent);
+        }
     }
 
     /**
@@ -66,7 +63,7 @@ public interface ControladorPantalla extends Initializable {
      * @param event el evento que proporcionó el llamado a cambio de pantalla
      * @param nuevaPantallaParent el root de la nueva pantalla
      */
-    private void transicion(Event event, Parent nuevaPantallaParent, Scene nuevaEscena) {
+    private void transicionar(Event event, Parent nuevaPantallaParent) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
         Scene escenaActual = ((Node) event.getSource()).getScene();
@@ -101,8 +98,7 @@ public interface ControladorPantalla extends Initializable {
             // Remover el pane de transición de root
             root1.getChildren().setAll(children);
             // Mostrar la nueva escena
-            stage.setScene(nuevaEscena);
-
+            stage.setScene(new Scene(nuevaPantallaParent));
         });
         timeline.play();
     }
@@ -115,7 +111,7 @@ public interface ControladorPantalla extends Initializable {
      */
     public default void volverPantalla(Event event, DTOSesion sesion) throws IOException {
         Pantalla pantallaAnterior = sesion.volverPantalla();
-        this.cargarPantalla(event, pantallaAnterior, sesion);
+        this.cargarPantalla(event, pantallaAnterior, sesion, false);
     }
 
     /**

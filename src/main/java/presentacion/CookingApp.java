@@ -11,9 +11,10 @@ import javafx.stage.Stage;
 public class CookingApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("registro_autenticacion/" + Pantalla.TO_GUI001_PRINCIPAL.fxml));
+        Parent root = FXMLLoader.load(getClass().getResource(Pantalla.TO_GUI001_PRINCIPAL.fxml));
         primaryStage.setTitle("Cooking App");
         primaryStage.setScene(new Scene(root));
+        primaryStage.setFullScreen(true);
         primaryStage.show();
     }
 
