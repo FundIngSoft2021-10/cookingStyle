@@ -1,5 +1,6 @@
 package presentacion.recetas;
 
+import entidades.dto.DTOExito;
 import entidades.dto.DTORecetaMiniatura;
 import entidades.dto.DTOSesion;
 import entidades.modelo.Cooker;
@@ -11,6 +12,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
@@ -75,7 +77,7 @@ public class ControladorCoGUI007 implements IControladorPantalla {
     @Override
     public void inicializar(DTOSesion sesion) {
         this.sesion = sesion;
-        // this.controlRecetas = new ControladorRecetasCooker((Cooker) sesion.getUsuario());
+        this.controlRecetas = new ControladorRecetasCooker((Cooker) sesion.getUsuario());
 
         this.textNombreUsuario.setText(sesion.getUsuario().getNombreUsuario());
         this.listViewIngredientes2.setVisible(false);
@@ -137,12 +139,8 @@ public class ControladorCoGUI007 implements IControladorPantalla {
 
     @FXML
     public void clickFavorito(MouseEvent mouseEvent) {
-        //TODO: Cargar pantalla Favoritos
-        /*try {
-            this.cargarPantalla((Event) mouseEvent, Pantalla.CO_GUI00X_FAVORITOS, this.sesion, false);
-        } catch (IOException e){
-            e.printStackTrace();
-        }*/
+        DTOExito exito = this.controlRecetas.agregarRecetaListaFavoritos(this.sesion.getRecetaCargada().getReceta().getIdReceta());
+        this.crearAlerta(Alert.AlertType.INFORMATION, exito.getMensaje());
     }
 
     @FXML

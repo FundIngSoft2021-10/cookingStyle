@@ -112,4 +112,5 @@ public interface IControladorRecetasCooker {
 
     public DTOReceta buscarReceta(BigInteger idreceta);
     public List<LineaIngrediente> ingredientesxReceta(BigInteger idReceta);
+    public DTOExito agregarRecetaListaFavoritos(BigInteger idreceta);
 }

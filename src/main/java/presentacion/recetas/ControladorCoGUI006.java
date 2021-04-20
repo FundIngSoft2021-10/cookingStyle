@@ -3,31 +3,34 @@ package presentacion.recetas;
 import entidades.dto.DTOExito;
 import entidades.dto.DTOReceta;
 import entidades.dto.DTOSesion;
-import entidades.dto.Pantalla;
 import entidades.modelo.Cooker;
-import javafx.event.ActionEvent;
+import entidades.modelo.LineaIngrediente;
+import entidades.modelo.PasoReceta;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.scene.web.WebView;
 import logica_negocio.recetas.ControladorRecetasCooker;
-import logica_negocio.recetas.IControladorRecetasCooker;
+import org.w3c.dom.ls.LSInput;
 import presentacion.IControladorPantalla;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
-public class ControladorCoGUI005 implements IControladorPantalla {
+public class ControladorCoGUI006 implements IControladorPantalla {
     private DTOSesion sesion;
     private DTOReceta receta;
-    private IControladorRecetasCooker controlRecetas;
+    private ControladorRecetasCooker controlRecetas;
 
     @FXML
     public ImageView imgReceta;
@@ -36,19 +39,15 @@ public class ControladorCoGUI005 implements IControladorPantalla {
     @FXML
     public Text textNombreChef;
     @FXML
+    public ImageView fotoChefIngredientes;
+    @FXML
     public ImageView btnFavorito;
     @FXML
     public ImageView btnReportar;
     @FXML
     public Text btnVolver;
     @FXML
-    public TextArea textAreaDescripcion;
-    @FXML
-    public Button btnVerPasos;
-    @FXML
-    public Button btnVerIng;
-    @FXML
-    public WebView webVideo;
+    public VBox vBoxPasosReceta;
     @FXML
     public ImageView imgFotoUsuario;
     @FXML
@@ -62,21 +61,16 @@ public class ControladorCoGUI005 implements IControladorPantalla {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.textAreaDescripcion.setWrapText(true);
-        this.textAreaDescripcion.setEditable(false);
     }
 
     @Override
     public void inicializar(DTOSesion sesion) {
         this.sesion = sesion;
+        this.receta = this.sesion.getRecetaCargada();
         this.controlRecetas = new ControladorRecetasCooker((Cooker) this.sesion.getUsuario());
 
         // Cargar el perfil
         this.textNombreUsuario.setText(this.sesion.getUsuario().getNombreUsuario());
-
-        // Cargar la información de la receta
-        this.receta = this.controlRecetas.buscarReceta(this.sesion.getIdRecetaCargada());
-        this.sesion.setRecetaCargada(this.receta);
 
         // Colocar la información de la receta en la pantalla
         this.cargarReceta();
@@ -84,7 +78,6 @@ public class ControladorCoGUI005 implements IControladorPantalla {
 
     private void cargarReceta() {
         this.textNombreReceta.setText(this.receta.getReceta().getNombre());
-        this.textAreaDescripcion.setText(this.receta.getReceta().getDescripcion());
 
         // Imagen
         Image imagen;
@@ -96,17 +89,29 @@ public class ControladorCoGUI005 implements IControladorPantalla {
         this.imgReceta.setImage(imagen);
         this.imgReceta.setVisible(true);
 
-        // Video
-        try {
-            this.webVideo.getEngine().load(this.receta.getReceta().getLinkVideo());
-        } catch (Exception e) {
-        }
-
         this.cargarChef();
+        this.cargarPasos();
     }
 
     private void cargarChef() {
         this.textNombreChef.setText(this.receta.getAutor().getNombre());
+    }
+
+    private void cargarPasos() {
+        List<PasoReceta> pasos = this.sesion.getRecetaCargada().getReceta().getPasosReceta();
+        List<String> stringPasos = new ArrayList<>();
+        int contadorPaso = 1;
+
+        for(PasoReceta paso : pasos){
+            String linea = " " + contadorPaso + ". " + paso.getTexto() + "  ";
+            stringPasos.add(linea);
+            contadorPaso++;
+        }
+
+        ObservableList<String> listaPasos = FXCollections.observableArrayList(stringPasos);
+        ListView<String> lista = new ListView<>(listaPasos);
+
+        this.vBoxPasosReceta.getChildren().addAll(lista);
 
     }
 
@@ -115,10 +120,8 @@ public class ControladorCoGUI005 implements IControladorPantalla {
     }
 
     public void clickFavorito(MouseEvent mouseEvent) {
-
         DTOExito exito = this.controlRecetas.agregarRecetaListaFavoritos(this.receta.getReceta().getIdReceta());
         this.crearAlerta(Alert.AlertType.INFORMATION, exito.getMensaje());
-
     }
 
     public void clickReportar(MouseEvent mouseEvent) {
@@ -126,25 +129,8 @@ public class ControladorCoGUI005 implements IControladorPantalla {
     }
 
     public void clickVolver(MouseEvent mouseEvent) {
-        this.webVideo.getEngine().loadContent("");
         try {
             this.volverPantalla((Event) mouseEvent, this.sesion);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void clickVerPasos(ActionEvent actionEvent) {
-        try {
-            this.cargarPantalla((Event) actionEvent, Pantalla.CO_GUI006_RECETAPASOS, this.sesion, false);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void clickVerIng(ActionEvent actionEvent) {
-        try {
-            this.cargarPantalla((Event) actionEvent, Pantalla.CO_GUI007_RECETAING, this.sesion, false);
         } catch (IOException e) {
             e.printStackTrace();
         }
