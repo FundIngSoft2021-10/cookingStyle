@@ -303,4 +303,14 @@ public class ControladorRecetasChef implements IControladorRecetasChef {
         return receta;
     }
 
+    @Override
+    public List<String> categoriasxChef(BigInteger idChef) {
+        List<String> categorias = new ArrayList<>();
+        try {
+            categorias.addAll(controlCBD.categoriasXChef(idChef));
+        } catch (SQLException sqle){
+            categorias = null;
+        }
+        return categorias;
+    }
 }

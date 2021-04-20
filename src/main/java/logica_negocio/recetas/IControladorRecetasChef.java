@@ -48,4 +48,6 @@ public interface IControladorRecetasChef {
      * @return DTOReceta con la receta actualizada
      */
     public DTOReceta modificarLinkImg(String nuevoLink, BigInteger idReceta);
+
+    public List<String> categoriasxChef (BigInteger idChef);
 }

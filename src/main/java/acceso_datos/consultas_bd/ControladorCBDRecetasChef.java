@@ -7,6 +7,8 @@ import entidades.modelo.Ingrediente;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ControladorCBDRecetasChef implements IControladorCBDRecetasChef {
     private ControladorBDConexion controladorBDConexion;
@@ -67,6 +69,28 @@ public class ControladorCBDRecetasChef implements IControladorCBDRecetasChef {
             throw sqle;
         }
         return idIngrediente + 1;
+    }
+
+    @Override
+    public List<String> categoriasXChef(BigInteger idChef) throws SQLException{
+        String consulta =
+                "SELECT categoria.nombre, receta.chef_idusuario \n" +
+                "FROM receta, categoriaxreceta, categoria \n" +
+                "WHERE categoriaxreceta.idreceta = receta.idreceta AND categoriaxreceta.idcategoria = categoria.idcategoria AND receta.chef_idusuario = ?\n" +
+                "GROUP BY categoria.nombre;";
+        List<String> categorias = new ArrayList<>();
+        try (PreparedStatement stmt = conexion.prepareStatement(consulta)) {
+            BigDecimal id = new BigDecimal(idChef);
+            stmt.setBigDecimal(1, id);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                String categoria = rs.getString("categoria.nombre");
+                categorias.add(categoria);
+            }
+        } catch (SQLException sqle) {
+            categorias = null;
+        }
+        return  categorias;
     }
 
 

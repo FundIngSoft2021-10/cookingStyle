@@ -1,6 +1,7 @@
 package presentacion.perfiles;
 
 import entidades.dto.DTOSesion;
+import entidades.modelo.Chef;
 import entidades.modelo.Cooker;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -9,15 +10,19 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
+import logica_negocio.recetas.ControladorRecetasChef;
 import logica_negocio.recetas.ControladorRecetasCooker;
+import logica_negocio.recetas.IControladorRecetasChef;
 import presentacion.IControladorPantalla;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class ControladorChGUI008 implements IControladorPantalla {
 
     private DTOSesion sesion;
+    private IControladorRecetasChef controlChef;
 
     @FXML
     public Text textNombreChef;
@@ -80,6 +85,7 @@ public class ControladorChGUI008 implements IControladorPantalla {
     @Override
     public void inicializar(DTOSesion sesion) {
         this.sesion = sesion;
+        this.controlChef = new ControladorRecetasChef((Chef) this.sesion.getUsuario());
         this.ocultar();
         this.cargarChef();
 
@@ -93,6 +99,8 @@ public class ControladorChGUI008 implements IControladorPantalla {
         this.textExperiencia.setVisible(false);
         this.textTagBiografia.setVisible(false);
         this.btnEditarBiog.setVisible(false);
+        this.line1.setVisible(false);
+        this.line2.setVisible(false);
 
         //Puntuacion
         this.tagPuntuacion.setVisible(false);
@@ -106,11 +114,27 @@ public class ControladorChGUI008 implements IControladorPantalla {
     }
 
     private void cargarChef(){
+        //Nombre
         this.textNombreChef.setText(this.sesion.getUsuario().getNombreUsuario());
-        System.out.println("Nom: " + this.sesion.getUsuario().getNombreUsuario());
+
+        //Imagen
         Image imagen = new Image("https://www.utreradigital.com/web/wp-content/uploads/2019/11/maria-juez.jpg");
         this.imgChef.setImage(imagen);
 
+        //Categorias
+
+        List<String> categorias = this.controlChef.categoriasxChef(this.sesion.getIdUsuarioCargado());
+        String texto = "";
+        int conta = 0;
+        for(String categoria : categorias){
+            if(conta != categorias.size()) {
+                texto += categoria + ", ";
+            } else {
+                texto += categoria;
+            }
+            conta++;
+        }
+        this.textCategorias.setText(texto);
     }
 
     public void clickServicioCliente(MouseEvent mouseEvent) {
