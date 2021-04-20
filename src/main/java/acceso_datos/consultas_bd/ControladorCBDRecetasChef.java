@@ -1,6 +1,7 @@
 package acceso_datos.consultas_bd;
 
 import acceso_datos.conexion_bd.ControladorBDConexion;
+import entidades.modelo.Ingrediente;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -41,22 +42,33 @@ public class ControladorCBDRecetasChef implements IControladorCBDRecetasChef {
     }
 
     @Override
-    public boolean existeIngrediente (int idIngrediente) throws  SQLException{
-        String consultaIngrediente = "SELECT * FROM ingrediente WHERE idingrediente = ?";
-        try (PreparedStatement smtm =conexion.prepareStatement(consultaIngrediente)){
-            PreparedStatement stmt = conexion.prepareStatement(consultaIngrediente);
-            stmt.setInt(1, idIngrediente);
+    public Ingrediente consultaIngrediente (String nombreIngrediente) throws SQLException {
+        String consultaIngrediente = "SELECT * FROM ingrediente WHERE nombre = ?";
+        int idIngrediente = 0;
+        try (PreparedStatement stmt = conexion.prepareStatement(consultaIngrediente)) {
+            stmt.setString(1, nombreIngrediente);
             ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                if (rs.getInt(1) == 0) {
-                    return false;
-                } else {
-                    return true;
-                }
+            while (rs.next()) {
+                idIngrediente = rs.getInt("idingrediente");
+            }
+        } catch (SQLException sqle) {
+            throw sqle;
+        }
+        return new Ingrediente(idIngrediente, nombreIngrediente);
+    }
+    @Override
+    public int consultarIdIngrediente () throws SQLException{
+        String consultaIngredientes = "SELECT * FROM ingrediente";
+        int idIngrediente = -1;
+        try(PreparedStatement stmt = conexion.prepareStatement(consultaIngredientes)){
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                idIngrediente = rs.getInt("idingrediente");
             }
         } catch (SQLException sqle){
             throw sqle;
         }
-        return false;
+        return idIngrediente + 1;
     }
+
 }

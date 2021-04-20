@@ -114,11 +114,13 @@ public class ControladorRecetasChef implements IControladorRecetasChef {
             }
         }
         receta.setPasosReceta(pasosReceta);
-        //Verificar existencia de los Ingredientes (los que no estén deben ser agregados)
+        //Agregar ingredientes nuevos
         for (LineaIngrediente actual : ingredientes){
             try {
-                if (!this.controlCBD.existeIngrediente(actual.getIngrediente().getIdIngrediente())){
-                   this.controlPBD.subirIngrediente(actual.getIngrediente());
+                Ingrediente ingrediente = this.controlCBD.consultaIngrediente(actual.getIngrediente().getNombre());
+                if (ingrediente.getIdIngrediente() == 0){
+                    ingrediente.setIdIngrediente(this.controlCBD.consultarIdIngrediente());
+                    this.controlPBD.subirIngrediente(actual.getIngrediente());
                 }
             } catch (SQLException sqle){
                 return new DTOReceta(null, null, "Error en la base de Datos; " + sqle.getMessage());
