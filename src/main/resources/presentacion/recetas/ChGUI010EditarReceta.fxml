@@ -16,7 +16,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.recetas.ControladorChGUI010">
    <children>
       <BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0">
          <center>
@@ -29,7 +29,7 @@
                               <Font name="Comic Sans MS" size="16.0" />
                            </font>
                         </Text>
-                        <TextField fx:id="linkImagenRecetaMR" layoutX="299.0" layoutY="48.0" opacity="0.51" prefHeight="25.0" prefWidth="442.0" style="-fx-background-color: #fad161; -fx-background-radius: 50;">
+                        <TextField fx:id="fieldLinkImg" layoutX="299.0" layoutY="48.0" opacity="0.51" prefHeight="25.0" prefWidth="442.0" style="-fx-background-color: #fad161; -fx-background-radius: 50;">
                            <cursor>
                               <Cursor fx:constant="TEXT" />
                            </cursor>
@@ -39,7 +39,7 @@
                               <Font name="Comic Sans MS" size="16.0" />
                            </font>
                         </Text>
-                        <TextField fx:id="nombreRecetaMR" layoutX="300.0" layoutY="85.0" opacity="0.51" prefHeight="25.0" prefWidth="441.0" style="-fx-background-color: #fad161; -fx-background-radius: 50;">
+                        <TextField fx:id="fieldNombreRec" layoutX="300.0" layoutY="85.0" opacity="0.51" prefHeight="25.0" prefWidth="441.0" style="-fx-background-color: #fad161; -fx-background-radius: 50;">
                            <cursor>
                               <Cursor fx:constant="TEXT" />
                            </cursor>
@@ -49,18 +49,18 @@
                               <Font name="Comic Sans MS" size="16.0" />
                            </font>
                         </Text>
-                        <TextArea fx:id="descripcionRecetaMR" layoutX="298.0" layoutY="143.0" prefHeight="181.0" prefWidth="446.0" style="-fx-background-color: #fad161;" />
+                        <TextArea fx:id="fieldDescripcion" layoutX="298.0" layoutY="143.0" prefHeight="181.0" prefWidth="446.0" style="-fx-background-color: #fad161;" />
                         <Text fill="#fcba03" layoutX="47.0" layoutY="370.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Link del video de su receta: ">
                            <font>
                               <Font name="Comic Sans MS" size="16.0" />
                            </font>
                         </Text>
-                        <TextField fx:id="linkVideoRecetaMR" layoutX="299.0" layoutY="350.0" opacity="0.51" prefHeight="25.0" prefWidth="324.0" style="-fx-background-color: #fad161; -fx-background-radius: 50;">
+                        <TextField fx:id="fieldLinkVideo" layoutX="299.0" layoutY="350.0" opacity="0.51" prefHeight="25.0" prefWidth="324.0" style="-fx-background-color: #fad161; -fx-background-radius: 50;">
                            <cursor>
                               <Cursor fx:constant="TEXT" />
                            </cursor>
                         </TextField>
-                        <MenuButton fx:id="menuPlataformasMR" layoutX="644.0" layoutY="351.0" mnemonicParsing="false" style="-fx-background-color: #fad161; -fx-background-radius: 100;" text="Plataforma">
+                        <MenuButton fx:id="menuPlataformas" layoutX="644.0" layoutY="351.0" mnemonicParsing="false" onMouseClicked="#clickPlataforma" style="-fx-background-color: #fad161; -fx-background-radius: 100;" text="Plataforma">
                           <items>
                             <MenuItem mnemonicParsing="false" text="Vimeo" />
                             <MenuItem mnemonicParsing="false" text="Youtube" />
@@ -180,8 +180,8 @@
                               <Font name="Comic Sans MS" size="16.0" />
                            </font>
                         </Text>
-                        <Button fx:id="botonModificarReceta" layoutX="663.0" layoutY="723.0" mnemonicParsing="false" style="-fx-background-color: #fcba03; -fx-background-radius: 50;" text="Modificar Receta" AnchorPane.bottomAnchor="35.94342353905097" AnchorPane.rightAnchor="47.03776140168972" />
-                        <Text fx:id="chVolverER" layoutX="46.0" layoutY="740.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Volver" underline="true">
+                        <Button fx:id="btnModificar" layoutX="663.0" layoutY="723.0" mnemonicParsing="false" onMouseClicked="#clickModificar" style="-fx-background-color: #fcba03; -fx-background-radius: 50;" text="Modificar Receta" AnchorPane.bottomAnchor="35.94342353905097" AnchorPane.rightAnchor="47.03776140168972" />
+                        <Text fx:id="btnVolver" layoutX="46.0" layoutY="740.0" onMouseClicked="#clickVolver" strokeType="OUTSIDE" strokeWidth="0.0" text="Volver" underline="true">
                            <font>
                               <Font name="Comic Sans MS" size="13.0" />
                            </font>
