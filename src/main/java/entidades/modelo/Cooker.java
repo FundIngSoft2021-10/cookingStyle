@@ -21,12 +21,9 @@ public class Cooker extends Usuario {
         this.listasFavoritos = new ArrayList<>();
     }
 
-    public Cooker(BigInteger bigInteger, String s, Date date, String sa, List<ListaFavoritos> listaFavoritos) {
-        this.citas = new ArrayList<>();
-        this.listasFavoritos = new ArrayList<>();
-    }
-
     public Cooker() {
+        this.listasFavoritos = new ArrayList<>();
+        this.citas = new ArrayList<>();
     }
 
     public List<ListaFavoritos> getListasFavoritos() {
