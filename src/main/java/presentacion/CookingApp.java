@@ -1,21 +1,17 @@
 package presentacion;
 
-import acceso_datos.persistencia_bd.ControladorPBDRecetasChef;
+import entidades.dto.Pantalla;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import logica_negocio.recetas.ControladorRecetasChef;
-
-import java.math.BigInteger;
-import java.sql.SQLException;
 
 public class CookingApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource(Pantalla.TO_GUI001_PRINCIPAL.fxml));
-        primaryStage.setTitle("Cooking App");
+        primaryStage.setTitle("Cooking: Cocina a tu Estilo");
         primaryStage.setScene(new Scene(root));
         primaryStage.setFullScreen(true);
         primaryStage.show();
