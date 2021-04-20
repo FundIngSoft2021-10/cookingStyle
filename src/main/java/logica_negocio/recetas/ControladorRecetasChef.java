@@ -238,9 +238,9 @@ public class ControladorRecetasChef implements IControladorRecetasChef {
             Chef chef = this.controlCBDRecetas.consultaRecetaXChef(idReceta);
             receta.setReceta(recetaRec);
             receta.setAutor(chef);
-            receta.setEncotrado(true);
+            receta.setEncontrado(true);
         } catch (SQLException sqlException) {
-            receta.setEncotrado(false);
+            receta.setEncontrado(false);
         }
 
         return receta;
@@ -253,13 +253,13 @@ public class ControladorRecetasChef implements IControladorRecetasChef {
     public DTOReceta modificarDecripcion(String nuevaDesc, BigInteger idReceta){
         DTOReceta receta = new DTOReceta();
         try {
-            receta.setEncotrado(this.controlPBD.modificarDescrReceta(nuevaDesc, idReceta));
+            receta.setEncontrado(this.controlPBD.modificarDescrReceta(nuevaDesc, idReceta));
             Receta recetaRec = this.controlCBDRecetas.buscarRecetas(idReceta);
             Chef chef = this.controlCBDRecetas.consultaRecetaXChef(idReceta);
             receta.setReceta(recetaRec);
             receta.setAutor(chef);
         } catch (SQLException sqlException) {
-            receta.setEncotrado(false);
+            receta.setEncontrado(false);
         }
 
         return receta;
@@ -272,13 +272,13 @@ public class ControladorRecetasChef implements IControladorRecetasChef {
     public DTOReceta modificarLinkVideo(String nuevoLink, BigInteger idReceta){
         DTOReceta receta = new DTOReceta();
         try {
-            receta.setEncotrado(this.controlPBD.modificarLinkVideoReceta(nuevoLink, idReceta));
+            receta.setEncontrado(this.controlPBD.modificarLinkVideoReceta(nuevoLink, idReceta));
             Receta recetaRec = this.controlCBDRecetas.buscarRecetas(idReceta);
             Chef chef = this.controlCBDRecetas.consultaRecetaXChef(idReceta);
             receta.setReceta(recetaRec);
             receta.setAutor(chef);
         } catch (SQLException sqlException) {
-            receta.setEncotrado(false);
+            receta.setEncontrado(false);
         }
 
         return receta;
@@ -291,13 +291,13 @@ public class ControladorRecetasChef implements IControladorRecetasChef {
     public DTOReceta modificarLinkImg(String nuevoLink, BigInteger idReceta){
         DTOReceta receta = new DTOReceta();
         try {
-            receta.setEncotrado(this.controlPBD.modificarLinkImgReceta(nuevoLink, idReceta));
+            receta.setEncontrado(this.controlPBD.modificarLinkImgReceta(nuevoLink, idReceta));
             Receta recetaRec = this.controlCBDRecetas.buscarRecetas(idReceta);
             Chef chef = this.controlCBDRecetas.consultaRecetaXChef(idReceta);
             receta.setReceta(recetaRec);
             receta.setAutor(chef);
         } catch (SQLException sqlException) {
-            receta.setEncotrado(false);
+            receta.setEncontrado(false);
         }
 
         return receta;
