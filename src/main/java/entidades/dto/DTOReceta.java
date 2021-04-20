@@ -6,6 +6,7 @@ import entidades.modelo.Receta;
 public class DTOReceta {
     private Receta receta;
     private Chef autor;
+    private String mensaje;
     private boolean encontrado;
 
     public DTOReceta() {
@@ -14,6 +15,12 @@ public class DTOReceta {
     public DTOReceta(Receta receta, Chef autor) {
         this.receta = receta;
         this.autor = autor;
+    }
+
+    public DTOReceta(Receta receta, Chef autor, String mensaje) {
+        this.receta = receta;
+        this.autor = autor;
+        this.mensaje = mensaje;
     }
 
     public Receta getReceta() {
@@ -38,5 +45,13 @@ public class DTOReceta {
 
     public void setEncontrado(boolean encontrado) {
         this.encontrado = encontrado;
+    }
+
+    public String getMensaje() {
+        return mensaje;
+    }
+
+    public void setMensaje(String mensaje) {
+        this.mensaje = mensaje;
     }
 }
