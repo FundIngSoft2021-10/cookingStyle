@@ -154,6 +154,16 @@
                                                 <Cursor fx:constant="TEXT" />
                                              </cursor>
                                           </TextField>
+                                          <ImageView fx:id="botonAgregarPaso" layoutX="638.0" layoutY="11.0">
+                                             <image>
+                                                <Image url="@../img/Aniadir.png" />
+                                             </image>
+                                          </ImageView>
+                                          <ImageView fx:id="botonQuitarPaso" fitHeight="25.0" fitWidth="24.0" layoutX="683.0" layoutY="14.0">
+                                             <image>
+                                                <Image url="@../img/Quitar.png" />
+                                             </image>
+                                          </ImageView>
                                        </children>
                                     </AnchorPane>
                                  </children>
