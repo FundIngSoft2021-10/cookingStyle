@@ -13,9 +13,53 @@ import java.util.Random;
 public class ControladorPBDRecetasChef implements IControladorPBDRecetasChef {
     ControladorBDConexion controladorBDConexion = new ControladorBDConexion();
     Connection conexion = controladorBDConexion.conectarMySQL();
-/*
+
+    @Override
+    public boolean subirReceta( Receta rec,  BigInteger idUsuario) throws SQLException {
+        //boolean resp=false;
+        String insertReceta = "INSERT INTO receta (idreceta, nombre, descripcion, linkVideo, linkimagen, chef_idusuario) VALUES (?, ?, ? , ?, ?, ?)";
+
+        try (PreparedStatement stmt = conexion.prepareStatement(insertReceta)){
+
+
+            //cambiar a bigint el id usuario: ya
+            //instanciar
+            //setbigdecimal
+            // BigInteger big=randBi(19);//genera el numero aleatorio con 19 cifras
+            BigDecimal bigdec = new BigDecimal(rec.getIdReceta());
+
+            BigDecimal user = new BigDecimal(idUsuario);
+
+            stmt.setBigDecimal(1, bigdec);//id receta
+            stmt.setString(2, rec.getNombre());
+            stmt.setString(3, rec.getDescripcion());
+            stmt.setString(4, rec.getLinkVideo());
+            stmt.setString(5, rec.getLinkImagen());
+            stmt.setBigDecimal(6, user);
+
+
+            subirLineaIngrediente(rec.getLineasIngrediente(), rec.getIdReceta());//se manda a metodo de subir receta
+
+            subirPasoreceta(rec.getPasosReceta(), rec.getIdReceta());// se manda a metodo de subir pasoreceta
+
+            subirCategoria(rec.getCategorias(), rec.getIdReceta());
+
+            //subirCalificacion(rec.getCalificaciones(), big);
+
+            //subirCalificacion(rec.getCalificaciones(), big);
+
+            stmt.executeUpdate();
+            return true;
+        } catch (SQLException sqle){
+            throw sqle;
+        }
+
+        //return false;
+    }
+
     @Override
     public boolean subirIngrediente (Ingrediente ingrediente)throws SQLException{
+
         String insertIngrediente = "INSERT INTO ingrediente VALUES (?, ?)";
 
         try (PreparedStatement smtm =conexion.prepareStatement(insertIngrediente)){
@@ -30,7 +74,7 @@ public class ControladorPBDRecetasChef implements IControladorPBDRecetasChef {
             throw sqle;
         }
 
-    }*/
+    }
 
     @Override
     public boolean subirLineaIngrediente(List<LineaIngrediente> lineaIngrediente, BigInteger idReceta) throws SQLException {
@@ -138,48 +182,6 @@ public class ControladorPBDRecetasChef implements IControladorPBDRecetasChef {
         }
     }
     */
-    @Override
-    public boolean subirReceta( Receta rec,  BigInteger idUsuario) throws SQLException {
-        //boolean resp=false;
-        String insertReceta = "INSERT INTO receta (idreceta, nombre, descripcion, linkVideo, linkimagen, chef_idusuario) VALUES (?, ?, ? , ?, ?, ?)";
-
-        try (PreparedStatement stmt = conexion.prepareStatement(insertReceta)){
-
-
-            //cambiar a bigint el id usuario: ya
-            //instanciar
-            //setbigdecimal
-            // BigInteger big=randBi(19);//genera el numero aleatorio con 19 cifras
-            BigDecimal bigdec = new BigDecimal(rec.getIdReceta());
-
-            BigDecimal user = new BigDecimal(idUsuario);
-
-            stmt.setBigDecimal(1, bigdec);//id receta
-            stmt.setString(2, rec.getNombre());
-            stmt.setString(3, rec.getDescripcion());
-            stmt.setString(4, rec.getLinkVideo());
-            stmt.setString(5, rec.getLinkImagen());
-            stmt.setBigDecimal(6, user);
-
-            subirLineaIngrediente(rec.getLineasIngrediente(), rec.getIdReceta());//se manda a metodo de subir receta
-
-            subirPasoreceta(rec.getPasosReceta(), rec.getIdReceta());// se manda a metodo de subir pasoreceta
-
-            subirCategoria(rec.getCategorias(), rec.getIdReceta());
-
-            //subirCalificacion(rec.getCalificaciones(), big);
-
-            //subirCalificacion(rec.getCalificaciones(), big);
-
-            stmt.executeUpdate();
-            return true;
-        } catch (SQLException sqle){
-            throw sqle;
-        }
-
-        //return false;
-    }
-
     /*metodo para hallar numero aleatorio*/
     public static BigInteger randBi(int digitosDecimales) {
         Random rand = new Random();

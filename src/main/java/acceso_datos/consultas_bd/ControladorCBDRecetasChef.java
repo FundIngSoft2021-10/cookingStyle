@@ -39,4 +39,24 @@ public class ControladorCBDRecetasChef implements IControladorCBDRecetasChef {
 
         return false;
     }
+
+    @Override
+    public boolean existeIngrediente (int idIngrediente) throws  SQLException{
+        String consultaIngrediente = "SELECT * FROM ingrediente WHERE idingrediente = ?";
+        try (PreparedStatement smtm =conexion.prepareStatement(consultaIngrediente)){
+            PreparedStatement stmt = conexion.prepareStatement(consultaIngrediente);
+            stmt.setInt(1, idIngrediente);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                if (rs.getInt(1) == 0) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        } catch (SQLException sqle){
+            throw sqle;
+        }
+        return false;
+    }
 }

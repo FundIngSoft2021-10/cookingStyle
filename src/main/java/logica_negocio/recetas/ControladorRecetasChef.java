@@ -8,11 +8,13 @@ import acceso_datos.persistencia_bd.ControladorPBDRecetasChef;
 import acceso_datos.persistencia_bd.IControladorPBDRecetasChef;
 import entidades.dto.DTOReceta;
 import entidades.modelo.*;
+import javafx.scene.image.Image;
 import logica_negocio.utilidad.ControladorUtilidad;
 import logica_negocio.utilidad.IControladorUtilidad;
 
 import java.io.IOException;
 import java.math.BigInteger;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -41,12 +43,12 @@ public class ControladorRecetasChef implements IControladorRecetasChef {
         this.controlCBDRecetas = new ControladorCBDRecetas();
     }
 
-    //DTO para mostrar mensaje.
+    @Override
     public DTOReceta subirReceta (String nombre, String descripcion, String link_video, TipoVideo tipovideo, String link_imagen, List<LineaIngrediente> ingredientes, List<Categoria> categorias, List<PasoReceta> pasosReceta) {
-        DTOReceta recetaLista = new DTOReceta();
         Receta receta = new Receta();
         boolean existeUrl = true;
         boolean validarTipo = true;
+        boolean validarImagen = true;
         String link_videoFinal;
         receta.setNombre(nombre);
         receta.setDescripcion(descripcion);
@@ -73,16 +75,63 @@ public class ControladorRecetasChef implements IControladorRecetasChef {
                 receta.setLinkVideo(link_videoFinal);
             }
         }
-        //Comprobar la existencia del link_imagen. (Método que envió Alejo, buscar otra opción)
-        //Ingredientes: ¿se recibe una lista de la interfaz? ¿cómo valido estos datos? (Piense:D)
+        //Comprobar link_imagen:
+            //Existencia del URL
+        existeUrl = validarUrl(link_imagen);
+        if (!existeUrl){
+            return new DTOReceta(null, null, "El url ingresado de la imagen, ¡No existe!");
+        } else {
+            //Verificar que el link corresponda al de un formato de imagen
+            validarImagen = validarLinkImagen(link_imagen);
+            if (!validarImagen){
+                return new DTOReceta(null, null, "El link de la imagen, no corresponde a ningun formato de imagen. (.jpg, .jpge, .png)");
+            } else{
+                receta.setLinkImagen(link_imagen);
+            }
+        }
+        //Ingredientes:
+        for (LineaIngrediente actual : ingredientes){
+            if (actual.getCantidad() <= 0){
+                return new DTOReceta(null, null, "No es posible asignar una cantidad menor a 0 en un ingrediente. ");
+            }
+        }
+        receta.setLineasIngrediente(ingredientes);
         //Categorias:
+        receta.setCategorias(categorias);
         //Pasos:
+        for (PasoReceta actual: pasosReceta){
+            //Si existe una imagen, verificar su link.
+            if (actual.isTieneImagen()){
+                existeUrl = validarUrl(actual.getLinkImagen());
+                if(!existeUrl){
+                    return new DTOReceta(null, null, "El url de la imagen del paso " + actual.getNumero() + ", ¡No existe!");
+                } else {
+                    validarImagen = validarLinkImagen(actual.getLinkImagen());
+                    if (!validarImagen){
+                        return new DTOReceta(null, null, "El url de la imagen del paso " + actual.getNumero() + ", no corresponde al formato de imagen. ");
+                    }
+                }
+            }
+        }
+        receta.setPasosReceta(pasosReceta);
+        //Verificar existencia de los Ingredientes (los que no estén deben ser agregados)
+        for (LineaIngrediente actual : ingredientes){
+            try {
+                if (!this.controlCBD.existeIngrediente(actual.getIngrediente().getIdIngrediente())){
+                   this.controlPBD.subirIngrediente(actual.getIngrediente());
+                }
+            } catch (SQLException sqle){
+                return new DTOReceta(null, null, "Error en la base de Datos; " + sqle.getMessage());
+            }
+        }
+        //Enviar información para insertarla en la Base de Datos
+        try{
+            this.controlPBD.subirReceta(receta, this.chef.getIdUsuario());
+        } catch (SQLException sqle){
+            return new DTOReceta(null, null, "Error en la base de Datos; " + sqle.getMessage());
+        }
         //Generar DTO:
-            //Instanciar la receta
-            //Igualar el chef
-            //Mensaje de éxito o fallo correspondiente.
-
-        return recetaLista;
+        return new DTOReceta(receta,this.chef, "La receta fue agregada con exito. ");
     }
 
     //Generar un IdReceta único
@@ -166,19 +215,13 @@ public class ControladorRecetasChef implements IControladorRecetasChef {
         return url;
     }
 
-    //NO SIRVE
-    /*public  boolean validarImagen (String url){
-        String url1 = "https://fbcdn-dragon-a.akamaihd.net/hphotos-ak-xft1/t39.1997-6/p200x200/851575_126362190881911_254357215_n.png";
-        boolean exitoUrl;
-        exitoUrl = validarUrl(url);
-        if (exitoUrl) {
-            Image image = ImageIO.read(url);
-            if (image != null) {
-                return true;
-            }
+    //Validar que la URL corresponda a una imagen
+    public  boolean validarLinkImagen (String url){
+        if ((url.contains(".png")) || (url.contains(".jpg")) || (url.contains(".jpeg"))){
+            return true;
         }
         return false;
-    }*/
+    }
 
     /**
      * @inheritDoc
