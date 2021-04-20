@@ -3,6 +3,7 @@ package presentacion.recetas;
 import entidades.dto.DTOExito;
 import entidades.dto.DTOReceta;
 import entidades.dto.DTOSesion;
+import entidades.dto.Pantalla;
 import entidades.modelo.Cooker;
 import entidades.modelo.LineaIngrediente;
 import entidades.modelo.PasoReceta;
@@ -116,7 +117,11 @@ public class ControladorCoGUI006 implements IControladorPantalla {
     }
 
     public void clickNombreChef(MouseEvent mouseEvent) {
-        // TODO: Ir perfil chef
+        try {
+            this.cargarPantalla((Event) mouseEvent, Pantalla.CO_GUI010_PERFILCHEF, this.sesion, false);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void clickFavorito(MouseEvent mouseEvent) {

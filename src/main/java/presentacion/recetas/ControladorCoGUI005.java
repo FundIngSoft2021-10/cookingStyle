@@ -111,7 +111,11 @@ public class ControladorCoGUI005 implements IControladorPantalla {
     }
 
     public void clickNombreChef(MouseEvent mouseEvent) {
-        // TODO: Ir perfil chef
+        try {
+            this.cargarPantalla((Event) mouseEvent, Pantalla.CO_GUI010_PERFILCHEF, this.sesion, false);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void clickFavorito(MouseEvent mouseEvent) {

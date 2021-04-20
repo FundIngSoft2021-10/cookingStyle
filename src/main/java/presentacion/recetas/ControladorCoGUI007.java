@@ -3,6 +3,7 @@ package presentacion.recetas;
 import entidades.dto.DTOExito;
 import entidades.dto.DTORecetaMiniatura;
 import entidades.dto.DTOSesion;
+import entidades.dto.Pantalla;
 import entidades.modelo.Cooker;
 import entidades.modelo.LineaIngrediente;
 import javafx.beans.property.BooleanProperty;
@@ -129,12 +130,11 @@ public class ControladorCoGUI007 implements IControladorPantalla {
 
     @FXML
     public void clickChef(MouseEvent mouseEvent) {
-        //TODO: Cargar pantalla CoPerfilChef
-        /*try {
-            this.cargarPantalla((Event) mouseEvent, Pantalla.CO_GUI00X_PERFILCH, this.sesion, false);
-        } catch (IOException e){
+        try {
+            this.cargarPantalla((Event) mouseEvent, Pantalla.CO_GUI010_PERFILCHEF, this.sesion, false);
+        } catch (IOException e) {
             e.printStackTrace();
-        }*/
+        }
     }
 
     @FXML

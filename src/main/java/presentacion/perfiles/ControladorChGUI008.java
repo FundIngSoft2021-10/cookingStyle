@@ -92,6 +92,8 @@ public class ControladorChGUI008 implements IControladorPantalla {
     public Text tagEstudios;
     @FXML
     public Text tagSegidores;
+    @FXML
+    public Text textNombreRec;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -120,6 +122,7 @@ public class ControladorChGUI008 implements IControladorPantalla {
         if(this.recetas.size()!=0){
             Image imagen = new Image(recetas.get(contadorRecetas).getReceta().getLinkImagen());
             this.imgReceta.setImage(imagen);
+            this.textNombreRec.setText(recetas.get(contadorRecetas).getReceta().getNombre());
         }
 
     }
@@ -162,9 +165,9 @@ public class ControladorChGUI008 implements IControladorPantalla {
 
         //Categorias
 
-        List<String> categorias = this.controlChef.categoriasxChef(this.sesion.getUsuario().getIdUsuario());
+        //List<String> categorias = this.controlChef.categoriasxChef(this.sesion.getUsuario().getIdUsuario());
         //CATEGORIAS PARA VER
-        //List<String> categorias = this.controlChef.categoriasxChef(BigInteger.valueOf(12));
+        List<String> categorias = this.controlChef.categoriasxChef(BigInteger.valueOf(12));
         if(categorias.size() != 0) {
             String texto = "";
             int conta = 0;
@@ -181,9 +184,9 @@ public class ControladorChGUI008 implements IControladorPantalla {
 
     private void cargarRecetas(){
 
-        this.recetas.addAll(this.controlRecetas.recetasChef(this.sesion.getIdUsuarioCargado()));
+        //this.recetas.addAll(this.controlRecetas.recetasChef(this.sesion.getIdUsuarioCargado()));
         //PRUEBA PARA VER
-        //this.recetas.addAll(this.controlRecetas.recetasChef(BigInteger.valueOf(12)));
+        this.recetas.addAll(this.controlRecetas.recetasChef(BigInteger.valueOf(12)));
     }
 
     public void clickServicioCliente(MouseEvent mouseEvent) {
@@ -231,9 +234,8 @@ public class ControladorChGUI008 implements IControladorPantalla {
         if(this.contadorRecetas-1 != this.recetas.size() ) {
             Image imagen = new Image(recetas.get(contadorRecetas).getReceta().getLinkImagen());
             this.imgReceta.setImage(imagen);
+            this.textNombreRec.setText(recetas.get(contadorRecetas).getReceta().getNombre());
         }
-
-
     }
 
     public void clickAnt(MouseEvent mouseEvent) {
@@ -244,5 +246,10 @@ public class ControladorChGUI008 implements IControladorPantalla {
         }
         Image imagen = new Image(recetas.get(contadorRecetas).getReceta().getLinkImagen());
         this.imgReceta.setImage(imagen);
+        this.textNombreRec.setText(recetas.get(contadorRecetas).getReceta().getNombre());
+    }
+
+    public void clickReceta(MouseEvent mouseEvent) {
+        //TODO: Ver recetapara chef
     }
 }
