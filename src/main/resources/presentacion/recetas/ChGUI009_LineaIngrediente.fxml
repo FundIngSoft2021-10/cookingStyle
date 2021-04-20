@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="57.0" prefWidth="725.0" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <TextField layoutX="5.0" layoutY="16.0" opacity="0.51" prefHeight="25.0" prefWidth="299.0"
+                   promptText="Nombre Ingrediente" style="-fx-background-color: #fad161; -fx-background-radius: 50;">
+            <cursor>
+                <Cursor fx:constant="TEXT"/>
+            </cursor>
+        </TextField>
+        <TextField layoutX="320.0" layoutY="16.0" opacity="0.51" prefHeight="25.0" prefWidth="118.0"
+                   promptText="Cantidad" style="-fx-background-color: #fad161; -fx-background-radius: 50;">
+            <cursor>
+                <Cursor fx:constant="TEXT"/>
+            </cursor>
+        </TextField>
+        <ComboBox layoutX="460.0" layoutY="14.0" prefHeight="30.0" prefWidth="106.0" promptText="Medida"
+                  style="-fx-background-color: #fad161; -fx-background-radius: 50;"/>
+    </children>
+</AnchorPane>

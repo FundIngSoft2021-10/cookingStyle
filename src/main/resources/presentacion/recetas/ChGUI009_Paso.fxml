@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.layout.AnchorPane?>
+<AnchorPane prefHeight="57.0" prefWidth="725.0" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <TextField layoutX="5.0" layoutY="16.0" opacity="0.51" prefHeight="25.0" prefWidth="426.0"
+                   promptText="Descripción del paso" style="-fx-background-color: #fad161; -fx-background-radius: 50;">
+            <cursor>
+                <Cursor fx:constant="TEXT"/>
+            </cursor>
+        </TextField>
+        <TextField layoutX="442.0" layoutY="16.0" opacity="0.51" prefHeight="25.0" prefWidth="158.0" promptText="Link"
+                   style="-fx-background-color: #fad161; -fx-background-radius: 50;">
+            <cursor>
+                <Cursor fx:constant="TEXT"/>
+            </cursor>
+        </TextField>
+    </children>
+</AnchorPane>
