@@ -298,6 +298,11 @@ public class ControladorCoGUI003 implements IControladorPantalla {
     }
 
     public void clickServicioCliente(MouseEvent mouseEvent) {
+        try {
+            this.irServicioCliente((Event) mouseEvent, this.sesion);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void clickBusquedasRecientes(MouseEvent mouseEvent) {

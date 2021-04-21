@@ -113,6 +113,10 @@ public interface IControladorPantalla extends Initializable {
         this.cargarPantalla(event, pantallaAnterior, sesion, false);
     }
 
+    public default void irServicioCliente(Event event, DTOSesion sesion) throws IOException {
+        this.cargarPantalla(event, Pantalla.TO_GUI003_SERVICIOCLIENTE, sesion, false);
+    }
+
     /**
      * Crea una venta de diálogo con la información suministrada
      * @param tipo el tipo de ventana de diálogo. Ver también {@link javafx.scene.control.Alert.AlertType tipos de Alerta}

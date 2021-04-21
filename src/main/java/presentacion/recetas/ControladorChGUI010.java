@@ -184,7 +184,11 @@ public class ControladorChGUI010 implements IControladorPantalla {
 
     @FXML
     public void clickServicioCliente(MouseEvent mouseEvent) {
-        // TODO: Servicio al Cliente
+        try {
+            this.irServicioCliente((Event) mouseEvent, this.sesion);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML

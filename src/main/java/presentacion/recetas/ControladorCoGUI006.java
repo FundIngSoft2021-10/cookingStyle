@@ -150,6 +150,10 @@ public class ControladorCoGUI006 implements IControladorPantalla {
     }
 
     public void clickServicioCliente(MouseEvent mouseEvent) {
-        // TODO: Servicio al cliente
+        try {
+            this.irServicioCliente((Event) mouseEvent, this.sesion);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

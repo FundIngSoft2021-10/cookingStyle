@@ -8,5 +8,6 @@ module cooking {
     opens presentacion.registro_autenticacion to javafx.fxml;
     opens presentacion.recetas to javafx.fxml;
     opens presentacion.perfiles to javafx.fxml;
+    opens presentacion.comunicacion to javafx.fxml;
     exports presentacion;
 }

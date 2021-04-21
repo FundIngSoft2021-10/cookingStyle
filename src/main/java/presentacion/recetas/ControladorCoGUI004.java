@@ -214,12 +214,11 @@ public class ControladorCoGUI004 implements IControladorPantalla {
 
     @FXML
     public void clickServicioCliente(MouseEvent mouseEvent) {
-        //TODO: Cargar pantalla Servicio al cliente
-        /*try {
-            this.cargarPantalla((Event) mouseEvent, Pantalla.CO_GUI00X_SERVICIOCL, this.sesion, false);
-        } catch (IOException e){
+        try {
+            this.irServicioCliente((Event) mouseEvent, this.sesion);
+        } catch (IOException e) {
             e.printStackTrace();
-        }*/
+        }
     }
 
     @FXML
