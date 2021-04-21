@@ -160,7 +160,6 @@ public class ControladorCoGUI003 implements IControladorPantalla {
     private void desactivarMiniaturasCategoria(int filaCategoria) {
         nombresCategorias[filaCategoria].setText("");
         for (int j = 0; j < this.cantCols; j++) {
-            miniaturasFX[filaCategoria][j].getImagen().setImage(null);
             miniaturasFX[filaCategoria][j].getImagen().setVisible(false);
             miniaturasFX[filaCategoria][j].getNombre().setText("");
             miniaturas[filaCategoria][j] = null;
@@ -200,6 +199,7 @@ public class ControladorCoGUI003 implements IControladorPantalla {
         this.miniaturasFX[i][j].getImagen().setImage(imagen);
         this.miniaturasFX[i][j].getImagen().setVisible(true);
         this.miniaturasFX[i][j].getNombre().setText(miniatura.getNombreReceta());
+        this.miniaturasFX[i][j].getNombre().setVisible(true);
     }
 
     private void cargarMiniaturasCategoria(int filaCategoria) {
@@ -218,11 +218,13 @@ public class ControladorCoGUI003 implements IControladorPantalla {
         if (this.posicionCategorias * this.cantFilas + filaCategoria < this.miniaturasCategorias.size()) {
             DTORecetasMiniaturaCategoria miniaturaCategoria =
                     this.miniaturasCategorias.get(this.posicionCategorias * this.cantFilas + filaCategoria);
+
             this.nombresCategorias[filaCategoria].setText(miniaturaCategoria.getCategoria().getNombre());
 
-            for (int j = this.posicionRecetas[filaCategoria]; j < this.cantCols; j++) {
+            for (int j = this.posicionRecetas[filaCategoria] * this.cantCols;
+                 j < this.posicionRecetas[filaCategoria] * this.cantCols + this.cantCols; j++) {
                 if (j < miniaturaCategoria.getRecetasCategoria().size()) {
-                    this.cargarMiniatura(filaCategoria, j, miniaturaCategoria.getRecetasCategoria().get(j));
+                    this.cargarMiniatura(filaCategoria, j % 3, miniaturaCategoria.getRecetasCategoria().get(j));
                 }
             }
 
@@ -376,6 +378,11 @@ public class ControladorCoGUI003 implements IControladorPantalla {
     @FXML
     public void clickAntCategorias(MouseEvent mouseEvent) {
         this.posicionCategorias -= 1;
+
+        for (int i = 0; i < this.cantFilas; i++) {
+            this.posicionRecetas[i] = 0;
+        }
+
         this.determinarBotonesCategorias();
         this.cargarTodasMiniaturas();
     }
@@ -383,6 +390,11 @@ public class ControladorCoGUI003 implements IControladorPantalla {
     @FXML
     public void clickSigCategorias(MouseEvent mouseEvent) {
         this.posicionCategorias += 1;
+
+        for (int i = 0; i < this.cantFilas; i++) {
+            this.posicionRecetas[i] = 0;
+        }
+
         this.determinarBotonesCategorias();
         this.cargarTodasMiniaturas();
     }

@@ -102,6 +102,7 @@ public class ControladorCoGUI007 implements IControladorPantalla {
 
     private void cargarIngredientes() {
         List<LineaIngrediente> ingredienteLista = this.sesion.getRecetaCargada().getReceta().getLineasIngrediente();
+
         // List<LineaIngrediente> ingredienteLista = controlRecetas.ingredientesxReceta(this.sesion.getIdRecetaCargada());
         List<String> nombresIng = new ArrayList<>();
 

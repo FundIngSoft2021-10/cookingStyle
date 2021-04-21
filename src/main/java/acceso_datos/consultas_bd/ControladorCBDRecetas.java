@@ -3,6 +3,7 @@ package acceso_datos.consultas_bd;
 import acceso_datos.conexion_bd.ControladorBDConexion;
 import entidades.modelo.*;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.*;
 import java.util.ArrayList;
@@ -36,14 +37,16 @@ public class ControladorCBDRecetas implements IControladorCBDRecetas {
     @Override
     public List<LineaIngrediente> consultaLineaIngrediente(BigInteger idReceta) throws SQLException {
         List<LineaIngrediente> lineaIngredientes = new ArrayList<>();
-        String consultaLineaIngredientes = "SELECT * FROM lineaingrediente WHERE lineaingrediente.idReceta = " + idReceta + ";";
+        String consultaLineaIngredientes = "SELECT * FROM lineaingrediente WHERE lineaingrediente.idReceta = ?";
 
         try (PreparedStatement stmt = conexion.prepareStatement(consultaLineaIngredientes)) {
+            stmt.setBigDecimal(1, new BigDecimal(idReceta));
+
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 int idIngrediente = rs.getInt("idingrediente");
                 float cantidad = rs.getFloat("cantidad");
-                String medida = rs.getString("medida");
+                String medida = (rs.getString("medida")).toUpperCase();
                 Ingrediente ingrediente = consultaIngrediente(idIngrediente);
                 LineaIngrediente resultado = null;
                 switch (medida) {
@@ -252,7 +255,7 @@ public class ControladorCBDRecetas implements IControladorCBDRecetas {
                 List<Calificacion> calificaciones = consultaCalificaciones(idReceta);
                 List<Reporte> reportes = consultaReportes(idReceta);
 
-                receta = new Receta(idReceta, nombre, descripcion, videoReceta, linkVideo, TipoVideo.VIMEO,
+                receta = new Receta(idReceta, nombre, descripcion, videoReceta, linkVideo, TipoVideo.YOUTUBE,
                         imagenReceta, linkImagen, lineaIngredientes, pasosReceta, categorias, calificaciones, reportes);
 
             }
