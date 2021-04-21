@@ -26,7 +26,6 @@ public class ControladorRecetasChef implements IControladorRecetasChef {
     private IControladorCBDRecetasChef controlCBD;
     private IControladorCBDRecetas controlCBDRecetas;
 
-
     public ControladorRecetasChef(Chef chef) {
         this.controlPBD = new ControladorPBDRecetasChef();
         this.controlCBD = new ControladorCBDRecetasChef();
@@ -211,7 +210,7 @@ public class ControladorRecetasChef implements IControladorRecetasChef {
     //Convertir link a embed o player
     public String convertirLink(String url, TipoVideo tipovideo) {
         String urlVimeo = "player.";
-        String urlYoutube = "https://youtube/embed/";
+        String urlYoutube = "https://www.youtube.com/embed/";
         if (tipovideo == TipoVideo.YOUTUBE) {
             String[] parts = url.split("=");
             String part1 = parts[0];
@@ -325,9 +324,25 @@ public class ControladorRecetasChef implements IControladorRecetasChef {
         List<String> categorias = new ArrayList<>();
         try {
             categorias.addAll(controlCBD.categoriasXChef(idChef));
-        } catch (SQLException sqle){
+        } catch (SQLException sqle) {
             categorias = null;
         }
         return categorias;
+    }
+
+    @Override
+    public DTOReceta buscarReceta(BigInteger idreceta) {
+        DTOReceta receta = new DTOReceta();
+
+        try {
+            Receta rec = this.controlCBDRecetas.buscarRecetas(idreceta);
+            Chef chef = this.controlCBDRecetas.consultaRecetaXChef(idreceta);
+            receta.setReceta(rec);
+            receta.setAutor(chef);
+        } catch (SQLException sqlException) {
+            receta = null;
+        }
+
+        return receta;
     }
 }

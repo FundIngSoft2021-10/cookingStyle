@@ -51,4 +51,6 @@ public interface IControladorRecetasChef {
     public DTOReceta modificarLinkImg(String nuevoLink, BigInteger idReceta);
 
     public List<String> categoriasxChef (BigInteger idChef);
+
+    public DTOReceta buscarReceta(BigInteger idreceta);
 }

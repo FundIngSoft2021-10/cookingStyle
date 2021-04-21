@@ -14,9 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ControladorCBDRecetasCooker implements IControladorCBDRecetasCooker {
+    private IControladorCBDRecetas controlCBDRecetas;
     private ControladorBDConexion controladorBDConexion;
     private Connection conexion;
-    private IControladorCBDRecetas controlCBDRecetas;
+
 
     public ControladorCBDRecetasCooker() {
         controlCBDRecetas = new ControladorCBDRecetas();

@@ -3,23 +3,31 @@ package acceso_datos.consultas_bd;
 import acceso_datos.conexion_bd.ControladorBDConexion;
 import entidades.modelo.Categoria;
 import entidades.modelo.Ingrediente;
+import entidades.modelo.Receta;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.List;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ControladorCBDRecetasChef implements IControladorCBDRecetasChef {
+    private IControladorCBDRecetas controlCBDRecetas;
     private ControladorBDConexion controladorBDConexion;
     private Connection conexion;
 
     public ControladorCBDRecetasChef() {
+        controlCBDRecetas = new ControladorCBDRecetas();
         controladorBDConexion = new ControladorBDConexion();
         conexion = controladorBDConexion.conectarMySQL();
+    }
+
+    @Override
+    public Receta buscarRecetas(BigInteger idreceta) throws SQLException {
+        return this.controlCBDRecetas.buscarRecetas(idreceta);
     }
 
     @Override
@@ -80,12 +88,12 @@ public class ControladorCBDRecetasChef implements IControladorCBDRecetasChef {
     }
 
     @Override
-    public List<String> categoriasXChef(BigInteger idChef) throws SQLException{
+    public List<String> categoriasXChef(BigInteger idChef) throws SQLException {
         String consulta =
                 "SELECT categoria.nombre, receta.chef_idusuario \n" +
-                "FROM receta, categoriaxreceta, categoria \n" +
-                "WHERE categoriaxreceta.idreceta = receta.idreceta AND categoriaxreceta.idcategoria = categoria.idcategoria AND receta.chef_idusuario = ?\n" +
-                "GROUP BY categoria.nombre;";
+                        "FROM receta, categoriaxreceta, categoria \n" +
+                        "WHERE categoriaxreceta.idreceta = receta.idreceta AND categoriaxreceta.idcategoria = categoria.idcategoria AND receta.chef_idusuario = ?\n" +
+                        "GROUP BY categoria.nombre;";
         List<String> categorias = new ArrayList<>();
         try (PreparedStatement stmt = conexion.prepareStatement(consulta)) {
             BigDecimal id = new BigDecimal(idChef);
@@ -98,7 +106,7 @@ public class ControladorCBDRecetasChef implements IControladorCBDRecetasChef {
         } catch (SQLException sqle) {
             categorias = null;
         }
-        return  categorias;
+        return categorias;
     }
 
     @Override

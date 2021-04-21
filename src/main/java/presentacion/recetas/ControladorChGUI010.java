@@ -1,6 +1,6 @@
 package presentacion.recetas;
 
-import entidades.dto.DTOExito;
+import entidades.dto.DTOReceta;
 import entidades.dto.DTOSesion;
 import entidades.modelo.*;
 import javafx.collections.ObservableList;
@@ -21,8 +21,6 @@ import presentacion.IControladorPantalla;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class ControladorChGUI010 implements IControladorPantalla {
@@ -54,7 +52,7 @@ public class ControladorChGUI010 implements IControladorPantalla {
     @FXML
     public VBox vboxPasos;
     @FXML
-    public Button btnEnviarReceta;
+    public Button btnEditarReceta;
     @FXML
     public Text btnVolver;
     @FXML
@@ -73,9 +71,6 @@ public class ControladorChGUI010 implements IControladorPantalla {
         this.textAreaDescripcion.setWrapText(true);
 
         this.comboPlataforma.getItems().setAll(TipoVideo.values());
-
-        this.crearLineaIngrediente();
-        this.crearPaso();
     }
 
     @Override
@@ -83,12 +78,15 @@ public class ControladorChGUI010 implements IControladorPantalla {
         this.sesion = sesion;
         this.controlRecetas = new ControladorRecetasChef((Chef) this.sesion.getUsuario());
 
-        this.comboCategorias.getItems().setAll(this.controlRecetas.consultarCategorias());
-
+        // Cargar el perfil
         this.textNombreUsuario.setText(this.sesion.getUsuario().getNombreUsuario());
 
-        this.cantIngredientes = 1;
-        this.cantPasos = 1;
+        // Cargar el combobox de categorías
+        this.comboCategorias.getItems().setAll(this.controlRecetas.consultarCategorias());
+
+        // Cargar la información de la receta
+        this.sesion.setRecetaCargada(this.controlRecetas.buscarReceta(this.sesion.getIdRecetaCargada()));
+        this.cargarReceta();
     }
 
     private void crearLineaIngrediente() {
@@ -134,6 +132,49 @@ public class ControladorChGUI010 implements IControladorPantalla {
     private void eliminarPaso(int pos) {
         if (pos >= 0)
             this.vboxPasos.getChildren().remove(pos);
+    }
+
+    private void cargarReceta() {
+        this.fieldNombreReceta.setText(this.sesion.getRecetaCargada().getReceta().getNombre());
+        this.fieldLinkImagen.setText(this.sesion.getRecetaCargada().getReceta().getLinkImagen());
+        this.fieldLinkVideo.setText(this.sesion.getRecetaCargada().getReceta().getLinkVideo());
+        this.textAreaDescripcion.setText(this.sesion.getRecetaCargada().getReceta().getDescripcion());
+
+        Categoria categoria = null;
+        if (this.sesion.getRecetaCargada().getReceta().getCategorias().size() > 0)
+            categoria = this.sesion.getRecetaCargada().getReceta().getCategorias().get(0);
+        if (categoria != null)
+            this.comboCategorias.setValue(categoria);
+
+        TipoVideo tipoVideo = this.sesion.getRecetaCargada().getReceta().getTipoVideo();
+        if (tipoVideo != null)
+            this.comboPlataforma.setValue(tipoVideo);
+
+        // Ingredientes
+        for (LineaIngrediente lineaIngrediente : this.sesion.getRecetaCargada().getReceta().getLineasIngrediente()) {
+            this.crearLineaIngrediente();
+
+            AnchorPane paneLinea = (AnchorPane) this.vboxLineaIngrediente.getChildren().get(this.cantIngredientes);
+            ObservableList<Node> datosLinea = paneLinea.getChildren();
+            ((TextField) datosLinea.get(0)).setText(lineaIngrediente.getIngrediente().getNombre());
+            ((TextField) datosLinea.get(1)).setText(String.valueOf(lineaIngrediente.getCantidad()));
+            ((ComboBox) datosLinea.get(2)).setValue(lineaIngrediente.getMedida());
+
+            this.cantIngredientes++;
+        }
+
+        // Pasos
+        for (PasoReceta paso : this.sesion.getRecetaCargada().getReceta().getPasosReceta()) {
+            this.crearPaso();
+
+            AnchorPane panePaso = (AnchorPane) this.vboxPasos.getChildren().get(this.cantPasos);
+            ObservableList<Node> datosPaso = panePaso.getChildren();
+            ((TextField) datosPaso.get(0)).setText(paso.getTexto());
+            if (paso.isTieneImagen())
+                ((TextField) datosPaso.get(1)).setText(String.valueOf(paso.getLinkImagen()));
+
+            this.cantPasos++;
+        }
     }
 
     @FXML
@@ -192,99 +233,38 @@ public class ControladorChGUI010 implements IControladorPantalla {
     }
 
     @FXML
-    public void clickEnviarReceta(ActionEvent actionEvent) {
+    public void clickEditarReceta(ActionEvent actionEvent) {
         String nombreReceta = this.fieldNombreReceta.getText();
         String descripcion = this.textAreaDescripcion.getText();
-        String linkImagen = this.fieldLinkImagen.getText();
         String linkVideo = this.fieldLinkVideo.getText();
-        TipoVideo tipoVideo = (TipoVideo) this.comboPlataforma.getValue();
+        String linkImagen = this.fieldLinkImagen.getText();
+        DTOReceta recetaMod = new DTOReceta();
 
-        List<LineaIngrediente> lineasIngredientes = new ArrayList<>();
-        List<Categoria> categorias = new ArrayList<>();
-        List<PasoReceta> pasos = new ArrayList<>();
-
-        if (nombreReceta.isEmpty() || descripcion.isEmpty() || linkImagen.isEmpty()
-                || linkVideo.isEmpty() || tipoVideo == null || this.cantIngredientes == 0
-                || this.cantPasos == 0) {
-            this.crearAlerta(Alert.AlertType.ERROR, "Todos los campos son obligatorios");
-            return;
+        if (!this.sesion.getRecetaCargada().getReceta().getNombre().equals(nombreReceta)) {
+            recetaMod = this.controlRecetas.modificarNombre(nombreReceta, this.sesion.getRecetaCargada().getReceta().getIdReceta());
         }
 
-        if (this.comboCategorias.getValue() != null)
-            categorias.add((Categoria) this.comboCategorias.getValue());
-
-        for (int i = 0; i < cantIngredientes; i++) {
-            AnchorPane linea = (AnchorPane) this.vboxLineaIngrediente.getChildren().get(i);
-            ObservableList<Node> datosLinea = linea.getChildren();
-
-            String nombreIngrediente = ((TextField) datosLinea.get(0)).getText();
-            if (nombreIngrediente.isEmpty()) {
-                this.crearAlerta(Alert.AlertType.ERROR, "Error en el nombre del ingrediente " +
-                        String.valueOf(i + 1));
-                return;
-            }
-
-            float cantidad = 0;
-            try {
-                cantidad = Float.parseFloat(((TextField) datosLinea.get(1)).getText());
-            } catch (Exception e) {
-                this.crearAlerta(Alert.AlertType.ERROR, "Error en la cantidad del ingrediente " +
-                        String.valueOf(i + 1));
-                return;
-            }
-
-            if (cantidad < 0) {
-                this.crearAlerta(Alert.AlertType.ERROR, "Error en la cantidad del ingrediente " +
-                        String.valueOf(i + 1));
-                return;
-            }
-
-            Medida medida = (Medida) ((ComboBox) datosLinea.get(2)).getValue();
-            if (medida == null) {
-                this.crearAlerta(Alert.AlertType.ERROR, "Error en la medida del ingrediente " +
-                        String.valueOf(i + 1));
-                return;
-            }
-
-            LineaIngrediente lineaIngrediente = new LineaIngrediente(new Ingrediente(0, nombreIngrediente),
-                    cantidad, medida);
-
-            lineasIngredientes.add(lineaIngrediente);
+        if (!this.sesion.getRecetaCargada().getReceta().getDescripcion().equals(descripcion)) {
+            recetaMod = this.controlRecetas.modificarNombre(descripcion, this.sesion.getRecetaCargada().getReceta().getIdReceta());
         }
 
-        for (int i = 0; i < cantPasos; i++) {
-            AnchorPane paso = (AnchorPane) this.vboxPasos.getChildren().get(i);
-            ObservableList<Node> datosPaso = paso.getChildren();
-
-            String texto = ((TextField) datosPaso.get(0)).getText();
-            if (texto.isEmpty()) {
-                this.crearAlerta(Alert.AlertType.ERROR, "Error en el texto del paso " +
-                        String.valueOf(i + 1)
-                );
-                return;
-            }
-
-            String linkImagenPaso = ((TextField) datosPaso.get(1)).getText();
-            boolean tieneImagenPaso = !linkImagenPaso.isEmpty();
-
-            PasoReceta pasoReceta = new PasoReceta(i + 1, texto, tieneImagenPaso);
-            if (pasoReceta.isTieneImagen())
-                pasoReceta.setLinkImagen(linkImagenPaso);
-
-            pasos.add(pasoReceta);
+        if (!this.sesion.getRecetaCargada().getReceta().getLinkImagen().equals(linkImagen)) {
+            recetaMod = this.controlRecetas.modificarNombre(linkImagen, this.sesion.getRecetaCargada().getReceta().getIdReceta());
         }
 
-        DTOExito exito = this.controlRecetas.subirReceta(nombreReceta, descripcion, linkVideo, tipoVideo, linkImagen,
-                lineasIngredientes, categorias, pasos);
-        if (exito.isEstado()) {
-            this.crearAlerta(Alert.AlertType.INFORMATION, exito.getMensaje());
+        if (!this.sesion.getRecetaCargada().getReceta().getLinkVideo().equals(nombreReceta)) {
+            recetaMod = this.controlRecetas.modificarNombre(linkVideo, this.sesion.getRecetaCargada().getReceta().getIdReceta());
+        }
+
+        if (recetaMod.isEncontrado()) {
+            this.crearAlerta(Alert.AlertType.INFORMATION, "La receta ha sifo modificada");
             try {
                 this.volverPantalla((Event) actionEvent, this.sesion);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         } else {
-            this.crearAlerta(Alert.AlertType.ERROR, exito.getMensaje());
+            this.crearAlerta(Alert.AlertType.ERROR, "No se pudo modificar la receta");
         }
     }
 }

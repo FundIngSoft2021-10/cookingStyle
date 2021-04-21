@@ -27,7 +27,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class ControladorChGUI008 implements IControladorPantalla {
-
     private DTOSesion sesion;
     private IControladorRecetasChef controlChef;
     private IControladorRecetasCooker controlRecetas;
@@ -189,14 +188,17 @@ public class ControladorChGUI008 implements IControladorPantalla {
         //this.recetas.addAll(this.controlRecetas.recetasChef(BigInteger.valueOf(12)));
     }
 
+    @FXML
     public void clickServicioCliente(MouseEvent mouseEvent) {
         //TODO: Ir a servicio al cliente
     }
 
+    @FXML
     public void clickEditarPerfil(MouseEvent mouseEvent) {
         //TODO: editar perfil del chef
     }
 
+    @FXML
     public void clickCerrar(MouseEvent mouseEvent) {
         try {
             this.cargarPantalla((Event) mouseEvent, Pantalla.TO_GUI002_INICIO, this.sesion, false);
@@ -205,20 +207,23 @@ public class ControladorChGUI008 implements IControladorPantalla {
         }
     }
 
+    @FXML
     public void clickEditarReceta(MouseEvent mouseEvent) {
         try {
             System.out.println(recetas.get(contadorRecetas).getReceta().getNombre());
             this.sesion.setIdRecetaCargada(recetas.get(contadorRecetas).getReceta().getIdReceta());
             this.cargarPantalla((Event) mouseEvent, Pantalla.CH_GUI010_EDITARRECETA, this.sesion, false);
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    @FXML
     public void clickEliminarReceta(MouseEvent mouseEvent) {
         //todo: eliminar receta
     }
 
+    @FXML
     public void clickAniadirReceta(MouseEvent mouseEvent) {
         try {
             this.cargarPantalla((Event) mouseEvent, Pantalla.CH_GUI009_SUBIRRECETA, this.sesion, false);
@@ -227,6 +232,7 @@ public class ControladorChGUI008 implements IControladorPantalla {
         }
     }
 
+    @FXML
     public void clickSig(MouseEvent mouseEvent) {
         this.contadorRecetas++;
         if(this.contadorRecetas == this.recetas.size()-1 ){
@@ -240,6 +246,7 @@ public class ControladorChGUI008 implements IControladorPantalla {
         }
     }
 
+    @FXML
     public void clickAnt(MouseEvent mouseEvent) {
         --this.contadorRecetas;
         this.btnRecSig.setVisible(true);
@@ -251,7 +258,8 @@ public class ControladorChGUI008 implements IControladorPantalla {
         this.textNombreRec.setText(recetas.get(contadorRecetas).getReceta().getNombre());
     }
 
+    @FXML
     public void clickReceta(MouseEvent mouseEvent) {
-        //TODO: Ver recetapara chef
+        //TODO: Ver receta para chef
     }
 }
