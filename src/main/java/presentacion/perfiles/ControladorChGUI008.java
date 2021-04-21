@@ -266,4 +266,13 @@ public class ControladorChGUI008 implements IControladorPantalla {
     public void clickReceta(MouseEvent mouseEvent) {
         //TODO: Ver receta para chef
     }
+
+    @FXML
+    public void clickVerAgenda(MouseEvent mouseEvent) {
+        try {
+            this.cargarPantalla((Event) mouseEvent, Pantalla.CH_GUI011_VERAGENDA, this.sesion, false);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

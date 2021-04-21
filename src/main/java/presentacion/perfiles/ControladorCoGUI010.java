@@ -178,7 +178,12 @@ public class ControladorCoGUI010 implements IControladorPantalla {
     }
 
     public void clickAgenda(MouseEvent mouseEvent) {
-        //TODO: ir a agenda del chef
+        this.sesion.setIdUsuarioCargado(this.sesion.getRecetaCargada().getAutor().getIdUsuario());
+        try {
+            this.cargarPantalla((Event) mouseEvent, Pantalla.CO_GUI011_AGENDACHEF, this.sesion, false);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void clickVolver(MouseEvent mouseEvent) {
