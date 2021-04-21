@@ -249,19 +249,19 @@ public class ControladorChGUI010 implements IControladorPantalla {
         }
 
         if (!this.sesion.getRecetaCargada().getReceta().getDescripcion().equals(descripcion)) {
-            recetaMod = this.controlRecetas.modificarNombre(descripcion, this.sesion.getRecetaCargada().getReceta().getIdReceta());
+            recetaMod = this.controlRecetas.modificarDecripcion(descripcion, this.sesion.getRecetaCargada().getReceta().getIdReceta());
         }
 
         if (!this.sesion.getRecetaCargada().getReceta().getLinkImagen().equals(linkImagen)) {
-            recetaMod = this.controlRecetas.modificarNombre(linkImagen, this.sesion.getRecetaCargada().getReceta().getIdReceta());
+            recetaMod = this.controlRecetas.modificarLinkImg(linkImagen, this.sesion.getRecetaCargada().getReceta().getIdReceta());
         }
 
         if (!this.sesion.getRecetaCargada().getReceta().getLinkVideo().equals(nombreReceta)) {
-            recetaMod = this.controlRecetas.modificarNombre(linkVideo, this.sesion.getRecetaCargada().getReceta().getIdReceta());
+            recetaMod = this.controlRecetas.modificarLinkVideo(linkVideo, this.sesion.getRecetaCargada().getReceta().getIdReceta());
         }
 
         if (recetaMod.isEncontrado()) {
-            this.crearAlerta(Alert.AlertType.INFORMATION, "La receta ha sifo modificada");
+            this.crearAlerta(Alert.AlertType.INFORMATION, "La receta ha sido modificada");
             try {
                 this.volverPantalla((Event) actionEvent, this.sesion);
             } catch (IOException e) {
