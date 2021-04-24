@@ -14,9 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ControladorCBDRecetasCooker implements IControladorCBDRecetasCooker {
+    private IControladorCBDRecetas controlCBDRecetas;
     private ControladorBDConexion controladorBDConexion;
     private Connection conexion;
-    private IControladorCBDRecetas controlCBDRecetas;
+
 
     public ControladorCBDRecetasCooker() {
         controlCBDRecetas = new ControladorCBDRecetas();
@@ -340,7 +341,7 @@ public class ControladorCBDRecetasCooker implements IControladorCBDRecetasCooker
                 else
                     videoReceta = true;
 
-                String linkImagen = rs.getString("linkVideo");
+                String linkImagen = rs.getString("linkimagen");
                 boolean imagenReceta;
                 if (linkVideo == null)
                     imagenReceta = false;

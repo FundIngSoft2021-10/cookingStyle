@@ -33,6 +33,9 @@ public class ControladorPBDRegAut implements IControladorPBDRegAut {
 
             this.crearCredenciales(usuario.getIdUsuario(), usuario.getCredenciales());
             this.crearUsuarioRol(tipoUsuario, usuario.getIdUsuario());
+
+            if (tipoUsuario == TipoUsuario.COOKER)
+                this.crearListaDefault(usuario.getIdUsuario(), ((Cooker) usuario).getListasFavoritos().get(0));
         } catch (SQLException sqle) {
             throw sqle;
         }
@@ -65,6 +68,22 @@ public class ControladorPBDRegAut implements IControladorPBDRegAut {
             stmt.executeUpdate();
         } catch (SQLException sqle) {
             throw sqle;
+        }
+    }
+
+    private void crearListaDefault(BigInteger idUsuario, ListaFavoritos lista) throws SQLException {
+        String insercion = "INSERT INTO listafavoritos (idlista, cooker_idusuario, nombre, descripcion) VALUES (?, ?, ?, ?)";
+
+        try {
+            PreparedStatement stmt = conexion.prepareStatement(insercion);
+            stmt.setInt(1, lista.getIdListaFavoritos());
+            stmt.setBigDecimal(2, new BigDecimal(idUsuario));
+            stmt.setString(3, lista.getNombre());
+            stmt.setString(4, lista.getDescripicion());
+
+            stmt.executeUpdate();
+        } catch (SQLException sqle) {
+            throw  sqle;
         }
     }
 }

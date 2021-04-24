@@ -40,7 +40,6 @@ public interface IControladorPantalla extends Initializable {
         // Cargar el archivo FXML
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource(pantalla.fxml));
-        System.out.println(loader.getLocation());
         Parent nuevaPantallaParent = loader.load();
 
         // Acceder al controlador de la nueva pantalla, e inicializarlo
@@ -112,6 +111,10 @@ public interface IControladorPantalla extends Initializable {
     public default void volverPantalla(Event event, DTOSesion sesion) throws IOException {
         Pantalla pantallaAnterior = sesion.volverPantalla();
         this.cargarPantalla(event, pantallaAnterior, sesion, false);
+    }
+
+    public default void irServicioCliente(Event event, DTOSesion sesion) throws IOException {
+        this.cargarPantalla(event, Pantalla.TO_GUI003_SERVICIOCLIENTE, sesion, false);
     }
 
     /**

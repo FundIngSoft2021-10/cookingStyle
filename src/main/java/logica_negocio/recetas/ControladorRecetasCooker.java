@@ -10,7 +10,6 @@ import entidades.modelo.*;
 import java.math.BigInteger;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 public class ControladorRecetasCooker implements IControladorRecetasCooker {
@@ -22,6 +21,11 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker {
         this.controlCBD = new ControladorCBDRecetasCooker();
         this.controlPBD = new ControladorPBDRecetasCooker();
         this.cooker = cooker;
+    }
+
+    public ControladorRecetasCooker(){
+        this.controlCBD = new ControladorCBDRecetasCooker();
+        this.controlPBD = new ControladorPBDRecetasCooker();
     }
 
     public Cooker getCooker() {
@@ -123,6 +127,33 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker {
         return listaEnviar;
     }
 
+    @Override
+    public DTOExito agregarRecetaListaFavoritos(BigInteger idreceta) {
+
+        DTOExito exito = new DTOExito();
+        boolean agregado = false;
+        try {
+
+            //Agrega la receta a la lista general
+            if (!this.controlCBD.recetaEnListaRecetas(1, idreceta, this.cooker.getIdUsuario())) {
+                agregado = this.controlPBD.insertarRecetaListaFavoritos(idreceta, 1, this.cooker.getIdUsuario());
+            }
+
+            exito.setEstado(agregado);
+
+            if (agregado) {
+                exito.setMensaje("¡La receta ha sido agregada a la lista con éxito!");
+            } else {
+                exito.setMensaje("¡La receta ya está en la lista!");
+            }
+
+        } catch (SQLException sqle) {
+            exito.setEstado(false);
+            exito.setMensaje("Error en la base de datos " + sqle.getMessage());
+        }
+        return exito;
+    }
+
     /**
      * @inheritDoc
      */
@@ -145,9 +176,9 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker {
             exito.setEstado(agregado);
 
             if (agregado) {
-                exito.setMensaje("¡La receta ha sido agregada a la lsita con éxito!");
+                exito.setMensaje("¡La receta ha sido agregada a la lista con éxito!");
             } else {
-                exito.setMensaje("La receta ya está en la lista");
+                exito.setMensaje("¡La receta ya está en la lista!");
             }
 
         } catch (SQLException sqle) {
@@ -429,7 +460,7 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker {
     }
 
     @Override
-    public List<LineaIngrediente> ingredientesxReceta(BigInteger idReceta){
+    public List<LineaIngrediente> ingredientesxReceta(BigInteger idReceta) {
         List<LineaIngrediente> ingredientes;
         try {
             ingredientes = this.controlCBD.consultaLineaIngrediente(idReceta);
@@ -438,6 +469,7 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker {
         }
         return ingredientes;
     }
+
     /**
      * @inheritDoc
      */
@@ -454,5 +486,16 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker {
             recetaMostrar.setEncontrado(false);
         }
         return recetaMostrar;
+    }
+
+    @Override
+    public List<DTOReceta> recetasChef(BigInteger idChef){
+        List<DTOReceta> recetas = new ArrayList<>();
+        try {
+            recetas.addAll(controlCBD.buscarRecetasChef(idChef));
+        } catch (SQLException sqle){
+            recetas = null;
+        }
+        return  recetas;
     }
 }

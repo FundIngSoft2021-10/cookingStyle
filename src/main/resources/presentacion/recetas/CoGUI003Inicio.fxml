@@ -128,6 +128,11 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Text>
+                  <ImageView fx:id="btnCerrarSesion" fitHeight="28.0" fitWidth="30.0" layoutX="11.0" layoutY="18.0" onMouseClicked="#clickCerrar">
+                     <image>
+                        <Image url="@../../img/CerrarSesion.png" />
+                     </image>
+                  </ImageView>
                </children></AnchorPane>
          </left>
          <center>
