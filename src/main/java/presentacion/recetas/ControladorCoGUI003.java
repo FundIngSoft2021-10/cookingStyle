@@ -403,5 +403,14 @@ public class ControladorCoGUI003 implements IControladorPantalla {
         this.determinarBotonesCategorias();
         this.cargarTodasMiniaturas();
     }
+
+    @FXML
+    public void clickCerrar(MouseEvent mouseEvent) {
+        try {
+            this.cargarPantalla((Event) mouseEvent, Pantalla.TO_GUI002_INICIO, this.sesion, false);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
 
