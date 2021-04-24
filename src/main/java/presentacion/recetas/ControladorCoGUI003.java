@@ -333,13 +333,13 @@ public class ControladorCoGUI003 implements IControladorPantalla {
     }
 
     @FXML
-    public void clickC2R1(MouseEvent mouseEvent) {
+    public void clickC1R3(MouseEvent mouseEvent) {
         if (this.miniaturas[0][2] != null)
             this.irReceta((Event) mouseEvent, this.miniaturas[0][2]);
     }
 
     @FXML
-    public void clickC1R3(MouseEvent mouseEvent) {
+    public void clickC2R1(MouseEvent mouseEvent) {
         if (this.miniaturas[1][0] != null)
             this.irReceta((Event) mouseEvent, this.miniaturas[1][0]);
     }
