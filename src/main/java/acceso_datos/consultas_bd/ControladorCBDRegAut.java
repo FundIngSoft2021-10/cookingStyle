@@ -125,7 +125,7 @@ public class ControladorCBDRegAut implements IControladorCBDRegAut {
                 } else if (rs.getInt("idTipoUsuario") == 2) {
                     usuario = new Cooker(idUsuario, rs.getString("nombreUsuario"),
                             rs.getDate("fechaCreacion"), rs.getString("nombre"));
-                } else if (rs.getInt("idTipoUsuario") == 2) {
+                } else if (rs.getInt("idTipoUsuario") == 3) {
                     usuario = new Chef(idUsuario, rs.getString("nombreUsuario"),
                             rs.getDate("fechaCreacion"), rs.getString("nombre"));
                 }
