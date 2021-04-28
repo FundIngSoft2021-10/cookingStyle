@@ -12,12 +12,15 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class ControladorPBDRecetasCooker implements IControladorPBDRecetasCooker{
-    ControladorBDConexion controladorBDConexion;
     Connection conexion;
 
     public ControladorPBDRecetasCooker() {
-        controladorBDConexion = new ControladorBDConexion();
-        conexion = controladorBDConexion.conectarMySQL();
+        ControladorBDConexion controladorBDConexion = new ControladorBDConexion();
+        this.conexion = controladorBDConexion.conectarMySQL();
+    }
+
+    public ControladorPBDRecetasCooker(Connection conexion) {
+        this.conexion = conexion;
     }
 
     //Lista Favoritos

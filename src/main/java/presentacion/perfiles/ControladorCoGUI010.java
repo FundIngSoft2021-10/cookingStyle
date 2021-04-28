@@ -12,6 +12,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
+import logica_negocio.citas.ControladorCitas;
 import logica_negocio.recetas.ControladorRecetasChef;
 import logica_negocio.recetas.ControladorRecetasCooker;
 import logica_negocio.recetas.IControladorRecetasChef;
@@ -25,7 +26,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class ControladorCoGUI010 implements IControladorPantalla {
-
     private DTOSesion sesion;
     private IControladorRecetasChef controlChef;
     private IControladorRecetasCooker controlRecetas;
@@ -89,14 +89,13 @@ public class ControladorCoGUI010 implements IControladorPantalla {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
     }
 
     @Override
     public void inicializar(DTOSesion sesion) {
         this.sesion = sesion;
-        this.controlChef = new ControladorRecetasChef(this.sesion.getRecetaCargada().getAutor());
-        this.controlRecetas = new ControladorRecetasCooker((Cooker) this.sesion.getUsuario());
+        this.controlChef = new ControladorRecetasChef(this.sesion.getRecetaCargada().getAutor(), this.sesion.getConexion());
+        this.controlRecetas = new ControladorRecetasCooker((Cooker) this.sesion.getUsuario(), this.sesion.getConexion());
         this.contadorRecetas = 0;
         this.recetas = new ArrayList<>();
         this.ocultar();

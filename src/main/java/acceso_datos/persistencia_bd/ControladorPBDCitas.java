@@ -12,12 +12,15 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class ControladorPBDCitas implements IControladorPBDCitas{
-    private ControladorBDConexion controladorBDConexion;
     private Connection conexion;
 
     public ControladorPBDCitas() {
-        this.controladorBDConexion = new ControladorBDConexion();
-        conexion = this.controladorBDConexion.conectarMySQL();
+        ControladorBDConexion controladorBDConexion = new ControladorBDConexion();
+        this.conexion = controladorBDConexion.conectarMySQL();
+    }
+
+    public ControladorPBDCitas(Connection conexion) {
+        this.conexion = conexion;
     }
 
     @Override

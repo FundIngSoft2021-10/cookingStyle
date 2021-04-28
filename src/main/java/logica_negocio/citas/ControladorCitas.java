@@ -9,17 +9,22 @@ import entidades.modelo.Bloque;
 import entidades.modelo.Calendario;
 import entidades.modelo.Chef;
 
+import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ControladorCitas implements IControladorCitas {
-    private IControladorCBDCitas controlCBD;
-    private IControladorPBDCitas controlPBD;
+    private final IControladorCBDCitas controlCBD;
+    private final IControladorPBDCitas controlPBD;
 
     public ControladorCitas() {
         this.controlCBD = new ControladorCBDCitas();
         this.controlPBD = new ControladorPBDCitas();
+    }
+
+    public ControladorCitas(Connection conexion) {
+        this.controlCBD = new ControladorCBDCitas(conexion);
+        this.controlPBD = new ControladorPBDCitas(conexion);
     }
 
     @Override
@@ -36,7 +41,6 @@ public class ControladorCitas implements IControladorCitas {
 
     @Override
     public DTOAgendaChef consultarAgendaChef(Chef chef) {
-        List<Bloque> bloques = new ArrayList<>();
         Calendario calendario;
 
         try {

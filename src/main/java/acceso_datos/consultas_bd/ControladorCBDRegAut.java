@@ -9,12 +9,15 @@ import java.math.BigInteger;
 import java.sql.*;
 
 public class ControladorCBDRegAut implements IControladorCBDRegAut {
-    ControladorBDConexion controladorBDConexion;
     Connection conexion;
 
     public ControladorCBDRegAut() {
-        controladorBDConexion = new ControladorBDConexion();
-        conexion = controladorBDConexion.conectarMySQL();
+        ControladorBDConexion controladorBDConexion = new ControladorBDConexion();
+        this.conexion = controladorBDConexion.conectarMySQL();
+    }
+
+    public ControladorCBDRegAut(Connection conexion) {
+        this.conexion = conexion;
     }
 
     @Override

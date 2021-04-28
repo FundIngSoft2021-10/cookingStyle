@@ -69,7 +69,7 @@ public class ControladorCoGUI005 implements IControladorPantalla {
     @Override
     public void inicializar(DTOSesion sesion) {
         this.sesion = sesion;
-        this.controlRecetas = new ControladorRecetasCooker((Cooker) this.sesion.getUsuario());
+        this.controlRecetas = new ControladorRecetasCooker((Cooker) this.sesion.getUsuario(), this.sesion.getConexion());
 
         // Cargar el perfil
         this.textNombreUsuario.setText(this.sesion.getUsuario().getNombreUsuario());

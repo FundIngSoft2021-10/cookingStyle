@@ -8,14 +8,15 @@ import entidades.dto.*;
 import entidades.modelo.*;
 
 import java.math.BigInteger;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ControladorRecetasCooker implements IControladorRecetasCooker {
     private Cooker cooker;
-    private IControladorCBDRecetasCooker controlCBD;
-    private IControladorPBDRecetasCooker controlPBD;
+    private final IControladorCBDRecetasCooker controlCBD;
+    private final IControladorPBDRecetasCooker controlPBD;
 
     public ControladorRecetasCooker(Cooker cooker) {
         this.controlCBD = new ControladorCBDRecetasCooker();
@@ -23,9 +24,21 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker {
         this.cooker = cooker;
     }
 
-    public ControladorRecetasCooker(){
+    public ControladorRecetasCooker() {
         this.controlCBD = new ControladorCBDRecetasCooker();
         this.controlPBD = new ControladorPBDRecetasCooker();
+        this.cooker = cooker;
+    }
+
+    public ControladorRecetasCooker(Cooker cooker, Connection conexion) {
+        this.controlCBD = new ControladorCBDRecetasCooker(conexion);
+        this.controlPBD = new ControladorPBDRecetasCooker(conexion);
+        this.cooker = cooker;
+    }
+
+    public ControladorRecetasCooker(Connection conexion) {
+        this.controlCBD = new ControladorCBDRecetasCooker(conexion);
+        this.controlPBD = new ControladorPBDRecetasCooker(conexion);
     }
 
     public Cooker getCooker() {
@@ -43,8 +56,8 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker {
      */
     @Override
     public DTOListaFavoritos crearListaFavoritos(String nombreLista, String descripcion, BigInteger id_receta) {
-
         DTOListaFavoritos listaEnviar = null;
+
         try {
 
             //Se obtiene el tamaño de la lista de listaFavoritos
@@ -93,30 +106,18 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker {
      */
     @Override
     public DTOListaFavoritos crearListaFavoritos(String nombreLista, String descripcion) {
-
         DTOListaFavoritos listaEnviar = null;
+
         try {
-
-            //Se obtiene el tamaño de la lista de listaFavoritos
             int tamArreglo = this.cooker.getListasFavoritos().size();
-
-            //Se crea el id de la nueva lista
             int id = this.cooker.getListasFavoritos().get(tamArreglo - 1).getIdListaFavoritos() + 1;
 
-            //Se añade la receta a una lista de recetas
             List<Receta> listaReceta = new ArrayList<>();
-
-            //Se crea la lista de recetas
             ListaFavoritos listaFavoritos = new ListaFavoritos(id, nombreLista, descripcion, listaReceta);
-
-
-            //Se crea un DTO de lista favoritos para enviar a la base de datos
             listaEnviar = new DTOListaFavoritos(this.cooker, listaFavoritos);
 
-            //Se recibe un booleano que indica si se agregó con exito la nueva lista a la base de datos
             boolean exito = this.controlPBD.crearListaFavoritos(listaEnviar);
 
-            //Mensaje de creación
             if (exito) {
                 listaEnviar.setMensaje("¡Lista creada con éxito!");
             }
@@ -129,9 +130,9 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker {
 
     @Override
     public DTOExito agregarRecetaListaFavoritos(BigInteger idreceta) {
-
         DTOExito exito = new DTOExito();
         boolean agregado = false;
+
         try {
 
             //Agrega la receta a la lista general
@@ -159,9 +160,9 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker {
      */
     @Override
     public DTOExito agregarRecetaListaFavoritos(BigInteger idreceta, int idLista) {
-
         DTOExito exito = new DTOExito();
         boolean agregado = false;
+
         try {
             //Agrega la receta a la lista
             if (!this.controlCBD.recetaEnListaRecetas(idLista, idreceta, this.cooker.getIdUsuario())) {
@@ -320,7 +321,6 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker {
             }
         }
 
-
         List<DTORecetaMiniatura> busquedaIngredientes = buscarRecetasIngrediente(busqueda);
         if (busquedaIngredientes != null) {
             for (DTORecetaMiniatura miniaturaAdd : busquedaIngredientes) {
@@ -335,7 +335,6 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker {
                 esta = false;
             }
         }
-
 
         List<DTORecetaMiniatura> busquedaChefs = buscarRecetasChef(busqueda);
         if (busquedaChefs != null) {
@@ -489,13 +488,13 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker {
     }
 
     @Override
-    public List<DTOReceta> recetasChef(BigInteger idChef){
+    public List<DTOReceta> recetasChef(BigInteger idChef) {
         List<DTOReceta> recetas = new ArrayList<>();
         try {
             recetas.addAll(controlCBD.buscarRecetasChef(idChef));
-        } catch (SQLException sqle){
+        } catch (SQLException sqle) {
             recetas = null;
         }
-        return  recetas;
+        return recetas;
     }
 }

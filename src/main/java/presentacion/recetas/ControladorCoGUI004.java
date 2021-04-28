@@ -96,8 +96,8 @@ public class ControladorCoGUI004 implements IControladorPantalla {
     @Override
     public void inicializar(DTOSesion sesion) {
         this.sesion = sesion;
+        this.controlRecetas = new ControladorRecetasCooker((Cooker) sesion.getUsuario(), this.sesion.getConexion());
 
-        this.controlRecetas = new ControladorRecetasCooker((Cooker) sesion.getUsuario());
         this.contadorRecetasPantalla = 0;
         this.contadorObservadas = 0;
 

@@ -7,6 +7,6 @@ import entidades.modelo.Chef;
 import java.util.List;
 
 public interface IControladorCitas {
-    public DTOAgendaChef crearAgendaChef(Chef chef, List<Bloque> bloques);
-    public DTOAgendaChef consultarAgendaChef(Chef chef);
+    DTOAgendaChef crearAgendaChef(Chef chef, List<Bloque> bloques);
+    DTOAgendaChef consultarAgendaChef(Chef chef);
 }

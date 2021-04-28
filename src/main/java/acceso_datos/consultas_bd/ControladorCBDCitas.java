@@ -15,12 +15,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ControladorCBDCitas implements IControladorCBDCitas {
-    private ControladorBDConexion controladorBDConexion;
     private Connection conexion;
 
     public ControladorCBDCitas() {
-        this.controladorBDConexion = new ControladorBDConexion();
-        conexion = this.controladorBDConexion.conectarMySQL();
+        ControladorBDConexion controladorBDConexion = new ControladorBDConexion();
+        this.conexion = controladorBDConexion.conectarMySQL();
+    }
+
+    public ControladorCBDCitas(Connection conexion) {
+        this.conexion = conexion;
     }
 
     @Override

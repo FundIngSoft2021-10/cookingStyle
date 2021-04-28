@@ -84,7 +84,7 @@ public class ControladorChGUI009 implements IControladorPantalla {
     @Override
     public void inicializar(DTOSesion sesion) {
         this.sesion = sesion;
-        this.controlRecetas = new ControladorRecetasChef((Chef) this.sesion.getUsuario());
+        this.controlRecetas = new ControladorRecetasChef((Chef) this.sesion.getUsuario(), this.sesion.getConexion());
 
         this.comboCategorias.getItems().setAll(this.controlRecetas.consultarCategorias());
 

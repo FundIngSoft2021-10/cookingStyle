@@ -78,7 +78,7 @@ public class ControladorCoGUI007 implements IControladorPantalla {
     @Override
     public void inicializar(DTOSesion sesion) {
         this.sesion = sesion;
-        this.controlRecetas = new ControladorRecetasCooker((Cooker) sesion.getUsuario());
+        this.controlRecetas = new ControladorRecetasCooker((Cooker) sesion.getUsuario(), this.sesion.getConexion());
 
         this.textNombreUsuario.setText(sesion.getUsuario().getNombreUsuario());
         this.listViewIngredientes2.setVisible(false);

@@ -10,13 +10,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ControladorCBDRecetas implements IControladorCBDRecetas {
-
-    private ControladorBDConexion controladorBDConexion;
     private Connection conexion;
 
     public ControladorCBDRecetas() {
-        controladorBDConexion = new ControladorBDConexion();
-        conexion = controladorBDConexion.conectarMySQL();
+        ControladorBDConexion controladorBDConexion = new ControladorBDConexion();
+        this.conexion = controladorBDConexion.conectarMySQL();
+    }
+
+    public ControladorCBDRecetas(Connection conexion) {
+        this.conexion = conexion;
     }
 
     @Override

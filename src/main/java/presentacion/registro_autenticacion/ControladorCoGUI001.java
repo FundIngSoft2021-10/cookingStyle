@@ -40,7 +40,7 @@ public class ControladorCoGUI001 implements IControladorPantalla {
     @Override
     public void inicializar(DTOSesion sesion) {
         this.sesion = sesion;
-        this.controlRegAut = new ControladorRegAut();
+        this.controlRegAut = new ControladorRegAut(this.sesion.getConexion());
     }
 
     @FXML

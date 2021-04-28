@@ -50,7 +50,7 @@ public class ControladorCoGUI011 implements IControladorPantalla {
     @Override
     public void inicializar(DTOSesion sesion) {
         this.sesion = sesion;
-        this.controlCitas = new ControladorCitas();
+        this.controlCitas = new ControladorCitas(this.sesion.getConexion());
 
         Chef chef = new Chef();
         chef.setIdUsuario(this.sesion.getIdUsuarioCargado());

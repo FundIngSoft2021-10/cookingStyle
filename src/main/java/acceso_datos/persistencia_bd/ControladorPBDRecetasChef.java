@@ -12,8 +12,16 @@ import java.util.List;
 import java.util.Random;
 
 public class ControladorPBDRecetasChef implements IControladorPBDRecetasChef {
-    ControladorBDConexion controladorBDConexion = new ControladorBDConexion();
-    Connection conexion = controladorBDConexion.conectarMySQL();
+    Connection conexion;
+
+    public ControladorPBDRecetasChef() {
+        ControladorBDConexion controladorBDConexion = new ControladorBDConexion();
+        this.conexion = controladorBDConexion.conectarMySQL();
+    }
+
+    public ControladorPBDRecetasChef(Connection conexion) {
+        this.conexion = conexion;
+    }
 
     @Override
     public boolean subirReceta(Receta rec, BigInteger idUsuario) throws SQLException {

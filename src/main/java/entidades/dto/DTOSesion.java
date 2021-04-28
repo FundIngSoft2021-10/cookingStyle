@@ -3,6 +3,7 @@ package entidades.dto;
 import entidades.modelo.*;
 
 import java.math.BigInteger;
+import java.sql.Connection;
 import java.util.Stack;
 
 public class DTOSesion {
@@ -13,21 +14,15 @@ public class DTOSesion {
     private BigInteger idRecetaCargada;
     private BigInteger idUsuarioCargado;
     private DTOReceta recetaCargada;
-
-    public DTOSesion(TipoUsuario tipoUsuario, Usuario usuario, Stack<Pantalla> historial) {
-        this.tipoUsuario = tipoUsuario;
-        this.usuario = usuario;
-        this.historial = historial;
-    }
-
-    public DTOSesion(TipoUsuario tipoUsuario, Usuario usuario) {
-        this.tipoUsuario = tipoUsuario;
-        this.usuario = usuario;
-        this.historial = new Stack<>();
-    }
+    private Connection conexion;
 
     public DTOSesion() {
         this.historial = new Stack<>();
+    }
+
+    public DTOSesion(Connection conexion) {
+        this.historial = new Stack<>();
+        this.conexion = conexion;
     }
 
     public TipoUsuario getTipoUsuario() {
@@ -84,6 +79,14 @@ public class DTOSesion {
 
     public void setRecetaCargada(DTOReceta recetaCargada) {
         this.recetaCargada = recetaCargada;
+    }
+
+    public Connection getConexion() {
+        return conexion;
+    }
+
+    public void setConexion(Connection conexion) {
+        this.conexion = conexion;
     }
 
     // Métodos

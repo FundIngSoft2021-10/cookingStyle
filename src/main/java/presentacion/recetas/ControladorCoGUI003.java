@@ -26,8 +26,8 @@ public class ControladorCoGUI003 implements IControladorPantalla {
     private List<Categoria> categorias;
     private List<DTORecetasMiniaturaCategoria> miniaturasCategorias;
 
-    private int cantFilas;      // Cantidad de filas (categorías) cargadas
-    private int cantCols;       // Cantidad de columnas (recetas por categoría) cargadas
+    private int cantFilas;              // Cantidad de filas (categorías) cargadas
+    private int cantCols;               // Cantidad de columnas (recetas por categoría) cargadas
     private int posicionRecetas[];      // Posición de las recetas por cada categoría (0) - (1) - (...)
     private int posicionCategorias;     // Posición de las categorías (1,2) - (3,4) - (...)
     private Text[] nombresCategorias;   // Nombres de cada fila de categorías
@@ -111,7 +111,7 @@ public class ControladorCoGUI003 implements IControladorPantalla {
     @Override
     public void inicializar(DTOSesion sesion) {
         this.sesion = sesion;
-        this.controlRecetas = new ControladorRecetasCooker((Cooker) this.sesion.getUsuario());
+        this.controlRecetas = new ControladorRecetasCooker((Cooker) this.sesion.getUsuario(), this.sesion.getConexion());
 
         // Cargar el perfil
         this.textNombreUsuario.setText(this.sesion.getUsuario().getNombreUsuario());

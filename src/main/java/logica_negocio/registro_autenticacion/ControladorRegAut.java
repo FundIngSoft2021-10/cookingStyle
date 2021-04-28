@@ -6,17 +6,24 @@ import entidades.dto.*;
 import entidades.modelo.*;
 
 import java.security.NoSuchAlgorithmException;
+import java.sql.Connection;
 import java.sql.SQLException;
 
 public class ControladorRegAut implements IControladorRegAut {
-    private IControladorSeguridad controlSeguridad;
-    private IControladorCBDRegAut controlConsultaBD;
-    private IControladorPBDRegAut controlPersistenciaBD;
+    private final IControladorSeguridad controlSeguridad;
+    private final IControladorCBDRegAut controlConsultaBD;
+    private final IControladorPBDRegAut controlPersistenciaBD;
 
     public ControladorRegAut() {
         this.controlSeguridad = new ControladorSeguridad();
         this.controlConsultaBD = new ControladorCBDRegAut();
         this.controlPersistenciaBD = new ControladorPBDRegAut();
+    }
+
+    public ControladorRegAut(Connection conexion) {
+        this.controlSeguridad = new ControladorSeguridad();
+        this.controlConsultaBD = new ControladorCBDRegAut(conexion);
+        this.controlPersistenciaBD = new ControladorPBDRegAut(conexion);
     }
 
     /**
@@ -64,7 +71,7 @@ public class ControladorRegAut implements IControladorRegAut {
         // Generar el usuario
         CredencialesUsuario credenciales = new CredencialesUsuario(correo, salt, hash);
         FactoryUsuario factory = new FactoryUsuario(tipoUsuario);
-        Usuario usuario = null;
+        Usuario usuario;
         try {
             usuario = factory.crearUsuario(nombreUsuario, nombre);
         } catch (SQLException e) {

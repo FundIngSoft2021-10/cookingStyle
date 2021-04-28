@@ -38,8 +38,8 @@ public class ControladorChGUI011 implements IControladorPantalla {
 
     @Override
     public void inicializar(DTOSesion sesion) {
-        this.controlCitas = new ControladorCitas();
         this.sesion = sesion;
+        this.controlCitas = new ControladorCitas(this.sesion.getConexion());
 
         this.agenda = this.controlCitas.consultarAgendaChef((Chef) this.sesion.getUsuario());
         if (!this.agenda.isEstado())

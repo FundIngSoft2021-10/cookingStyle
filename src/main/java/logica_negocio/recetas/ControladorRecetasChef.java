@@ -1,44 +1,54 @@
 package logica_negocio.recetas;
 
-import acceso_datos.consultas_bd.ControladorCBDRecetas;
-import acceso_datos.consultas_bd.ControladorCBDRecetasChef;
-import acceso_datos.consultas_bd.IControladorCBDRecetas;
-import acceso_datos.consultas_bd.IControladorCBDRecetasChef;
-import acceso_datos.persistencia_bd.ControladorPBDRecetasChef;
-import acceso_datos.persistencia_bd.IControladorPBDRecetasChef;
-import entidades.dto.DTOExito;
-import entidades.dto.DTOReceta;
+import acceso_datos.consultas_bd.*;
+import acceso_datos.persistencia_bd.*;
+import entidades.dto.*;
 import entidades.modelo.*;
-import logica_negocio.utilidad.ControladorUtilidad;
-import logica_negocio.utilidad.IControladorUtilidad;
+import logica_negocio.utilidad.*;
 
 import java.io.IOException;
 import java.math.BigInteger;
 import java.net.URL;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ControladorRecetasChef implements IControladorRecetasChef {
     private Chef chef;
-    private IControladorPBDRecetasChef controlPBD;
-    private IControladorUtilidad controlUtilidad;
-    private IControladorCBDRecetasChef controlCBD;
-    private IControladorCBDRecetas controlCBDRecetas;
+    private final IControladorCBDRecetas controlCBDRecetas;
+    private final IControladorPBDRecetasChef controlPBD;
+    private final IControladorCBDRecetasChef controlCBD;
+    private final IControladorUtilidad controlUtilidad;
 
     public ControladorRecetasChef(Chef chef) {
+        this.controlCBDRecetas = new ControladorCBDRecetas();
         this.controlPBD = new ControladorPBDRecetasChef();
         this.controlCBD = new ControladorCBDRecetasChef();
         this.controlUtilidad = new ControladorUtilidad();
-        this.controlCBDRecetas = new ControladorCBDRecetas();
         this.chef = chef;
     }
 
     public ControladorRecetasChef() {
+        this.controlCBDRecetas = new ControladorCBDRecetas();
         this.controlPBD = new ControladorPBDRecetasChef();
         this.controlCBD = new ControladorCBDRecetasChef();
         this.controlUtilidad = new ControladorUtilidad();
-        this.controlCBDRecetas = new ControladorCBDRecetas();
+    }
+
+    public ControladorRecetasChef(Chef chef, Connection conexion) {
+        this.controlCBDRecetas = new ControladorCBDRecetas(conexion);
+        this.controlPBD = new ControladorPBDRecetasChef(conexion);
+        this.controlCBD = new ControladorCBDRecetasChef(conexion);
+        this.controlUtilidad = new ControladorUtilidad();
+        this.chef = chef;
+    }
+
+    public ControladorRecetasChef(Connection conexion) {
+        this.controlCBDRecetas = new ControladorCBDRecetas(conexion);
+        this.controlPBD = new ControladorPBDRecetasChef(conexion);
+        this.controlCBD = new ControladorCBDRecetasChef(conexion);
+        this.controlUtilidad = new ControladorUtilidad();
     }
 
     public List<Categoria> consultarCategorias() {
@@ -161,19 +171,13 @@ public class ControladorRecetasChef implements IControladorRecetasChef {
     @Override
     //Validar que la URL de un link exista
     public boolean validarUrl(String url) {
-        if (url.contains("https://www.")) {
-            try {
-                (new URL(url)).openStream().close();
-                return true;
-            } catch (IOException e) {
-            }
-        } else {
+        if (!url.contains("https://www.")) {
             url = "https://www." + url;
-            try {
-                (new URL(url)).openStream().close();
-                return true;
-            } catch (IOException e) {
-            }
+        }
+        try {
+            (new URL(url)).openStream().close();
+            return true;
+        } catch (IOException e) {
         }
         return false;
     }
@@ -216,7 +220,6 @@ public class ControladorRecetasChef implements IControladorRecetasChef {
             String part1 = parts[0];
             String part2 = parts[1];
             url = urlYoutube + part2;
-            return url;
         } else if (tipovideo == TipoVideo.VIMEO) {
             if (url.contains("https://")) {
                 String[] parts = url.split("v");
@@ -224,10 +227,8 @@ public class ControladorRecetasChef implements IControladorRecetasChef {
                 String part2 = parts[1]; // imeo.com/...
                 part2 = "v" + part2;
                 url = part1 + urlVimeo + part2;
-                return url;
             } else {
                 url = urlVimeo + url;
-                return url;
             }
         }
         return url;

@@ -5,7 +5,6 @@ import entidades.dto.DTOReceta;
 import entidades.dto.DTOSesion;
 import entidades.dto.Pantalla;
 import entidades.modelo.Cooker;
-import entidades.modelo.LineaIngrediente;
 import entidades.modelo.PasoReceta;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,7 +18,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import logica_negocio.recetas.ControladorRecetasCooker;
-import org.w3c.dom.ls.LSInput;
 import presentacion.IControladorPantalla;
 
 import java.io.IOException;
@@ -68,7 +66,7 @@ public class ControladorCoGUI006 implements IControladorPantalla {
     public void inicializar(DTOSesion sesion) {
         this.sesion = sesion;
         this.receta = this.sesion.getRecetaCargada();
-        this.controlRecetas = new ControladorRecetasCooker((Cooker) this.sesion.getUsuario());
+        this.controlRecetas = new ControladorRecetasCooker((Cooker) this.sesion.getUsuario(), this.sesion.getConexion());
 
         // Cargar el perfil
         this.textNombreUsuario.setText(this.sesion.getUsuario().getNombreUsuario());
@@ -103,7 +101,7 @@ public class ControladorCoGUI006 implements IControladorPantalla {
         List<String> stringPasos = new ArrayList<>();
         int contadorPaso = 1;
 
-        for(PasoReceta paso : pasos){
+        for (PasoReceta paso : pasos) {
             String linea = " " + contadorPaso + ". " + paso.getTexto() + "  ";
             stringPasos.add(linea);
             contadorPaso++;
