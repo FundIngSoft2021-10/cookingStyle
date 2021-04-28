@@ -21,21 +21,6 @@ public class ControladorRecetasChef implements IControladorRecetasChef {
     private final IControladorCBDRecetasChef controlCBD;
     private final IControladorUtilidad controlUtilidad;
 
-    public ControladorRecetasChef(Chef chef) {
-        this.controlCBDRecetas = new ControladorCBDRecetas();
-        this.controlPBD = new ControladorPBDRecetasChef();
-        this.controlCBD = new ControladorCBDRecetasChef();
-        this.controlUtilidad = new ControladorUtilidad();
-        this.chef = chef;
-    }
-
-    public ControladorRecetasChef() {
-        this.controlCBDRecetas = new ControladorCBDRecetas();
-        this.controlPBD = new ControladorPBDRecetasChef();
-        this.controlCBD = new ControladorCBDRecetasChef();
-        this.controlUtilidad = new ControladorUtilidad();
-    }
-
     public ControladorRecetasChef(Chef chef, Connection conexion) {
         this.controlCBDRecetas = new ControladorCBDRecetas(conexion);
         this.controlPBD = new ControladorPBDRecetasChef(conexion);

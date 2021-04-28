@@ -17,11 +17,6 @@ public class ControladorCitas implements IControladorCitas {
     private final IControladorCBDCitas controlCBD;
     private final IControladorPBDCitas controlPBD;
 
-    public ControladorCitas() {
-        this.controlCBD = new ControladorCBDCitas();
-        this.controlPBD = new ControladorPBDCitas();
-    }
-
     public ControladorCitas(Connection conexion) {
         this.controlCBD = new ControladorCBDCitas(conexion);
         this.controlPBD = new ControladorPBDCitas(conexion);

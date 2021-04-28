@@ -5,15 +5,18 @@ import entidades.modelo.*;
 import logica_negocio.utilidad.*;
 
 import java.math.BigInteger;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 
 public class FactoryUsuario {
     private TipoUsuario tipo;
+    private Connection conexion;
 
-    public FactoryUsuario(TipoUsuario tipo) {
+    public FactoryUsuario(TipoUsuario tipo, Connection conexion) {
         this.tipo = tipo;
+        this.conexion = conexion;
     }
 
     /**
@@ -55,7 +58,7 @@ public class FactoryUsuario {
      */
     private BigInteger generarIdUsuarioUnico() throws SQLException {
         IControladorUtilidad utilidad = new ControladorUtilidad();
-        IControladorCBDRegAut controlBD = new ControladorCBDRegAut();
+        IControladorCBDRegAut controlBD = new ControladorCBDRegAut(this.conexion);
         BigInteger idUsuario;
         boolean existe = true;
 

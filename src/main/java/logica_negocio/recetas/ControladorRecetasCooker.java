@@ -18,18 +18,6 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker {
     private final IControladorCBDRecetasCooker controlCBD;
     private final IControladorPBDRecetasCooker controlPBD;
 
-    public ControladorRecetasCooker(Cooker cooker) {
-        this.controlCBD = new ControladorCBDRecetasCooker();
-        this.controlPBD = new ControladorPBDRecetasCooker();
-        this.cooker = cooker;
-    }
-
-    public ControladorRecetasCooker() {
-        this.controlCBD = new ControladorCBDRecetasCooker();
-        this.controlPBD = new ControladorPBDRecetasCooker();
-        this.cooker = cooker;
-    }
-
     public ControladorRecetasCooker(Cooker cooker, Connection conexion) {
         this.controlCBD = new ControladorCBDRecetasCooker(conexion);
         this.controlPBD = new ControladorPBDRecetasCooker(conexion);

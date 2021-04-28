@@ -17,11 +17,6 @@ import java.util.List;
 public class ControladorCBDCitas implements IControladorCBDCitas {
     private Connection conexion;
 
-    public ControladorCBDCitas() {
-        ControladorBDConexion controladorBDConexion = new ControladorBDConexion();
-        this.conexion = controladorBDConexion.conectarMySQL();
-    }
-
     public ControladorCBDCitas(Connection conexion) {
         this.conexion = conexion;
     }

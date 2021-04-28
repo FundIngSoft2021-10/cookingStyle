@@ -9,12 +9,7 @@ import java.sql.*;
 import java.util.Locale;
 
 public class ControladorPBDRegAut implements IControladorPBDRegAut {
-    Connection conexion;
-
-    public ControladorPBDRegAut() {
-        ControladorBDConexion controladorBDConexion = new ControladorBDConexion();
-        this.conexion = controladorBDConexion.conectarMySQL();
-    }
+    private Connection conexion;
 
     public ControladorPBDRegAut(Connection conexion) {
         this.conexion = conexion;

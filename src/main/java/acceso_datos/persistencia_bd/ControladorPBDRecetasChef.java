@@ -12,12 +12,7 @@ import java.util.List;
 import java.util.Random;
 
 public class ControladorPBDRecetasChef implements IControladorPBDRecetasChef {
-    Connection conexion;
-
-    public ControladorPBDRecetasChef() {
-        ControladorBDConexion controladorBDConexion = new ControladorBDConexion();
-        this.conexion = controladorBDConexion.conectarMySQL();
-    }
+    private Connection conexion;
 
     public ControladorPBDRecetasChef(Connection conexion) {
         this.conexion = conexion;

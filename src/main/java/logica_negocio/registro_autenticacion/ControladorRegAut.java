@@ -13,17 +13,13 @@ public class ControladorRegAut implements IControladorRegAut {
     private final IControladorSeguridad controlSeguridad;
     private final IControladorCBDRegAut controlConsultaBD;
     private final IControladorPBDRegAut controlPersistenciaBD;
-
-    public ControladorRegAut() {
-        this.controlSeguridad = new ControladorSeguridad();
-        this.controlConsultaBD = new ControladorCBDRegAut();
-        this.controlPersistenciaBD = new ControladorPBDRegAut();
-    }
+    private Connection conexion;
 
     public ControladorRegAut(Connection conexion) {
         this.controlSeguridad = new ControladorSeguridad();
         this.controlConsultaBD = new ControladorCBDRegAut(conexion);
         this.controlPersistenciaBD = new ControladorPBDRegAut(conexion);
+        this.conexion = conexion;
     }
 
     /**
@@ -70,7 +66,7 @@ public class ControladorRegAut implements IControladorRegAut {
 
         // Generar el usuario
         CredencialesUsuario credenciales = new CredencialesUsuario(correo, salt, hash);
-        FactoryUsuario factory = new FactoryUsuario(tipoUsuario);
+        FactoryUsuario factory = new FactoryUsuario(tipoUsuario, this.conexion);
         Usuario usuario;
         try {
             usuario = factory.crearUsuario(nombreUsuario, nombre);

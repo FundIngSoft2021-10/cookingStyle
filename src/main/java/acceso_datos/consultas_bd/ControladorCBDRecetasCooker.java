@@ -17,12 +17,6 @@ public class ControladorCBDRecetasCooker implements IControladorCBDRecetasCooker
     private IControladorCBDRecetas controlCBDRecetas;
     private Connection conexion;
 
-    public ControladorCBDRecetasCooker() {
-        ControladorBDConexion controladorBDConexion = new ControladorBDConexion();
-        this.conexion = controladorBDConexion.conectarMySQL();
-        this.controlCBDRecetas = new ControladorCBDRecetas(this.conexion);
-    }
-
     public ControladorCBDRecetasCooker(Connection conexion) {
         this.conexion = conexion;
         this.controlCBDRecetas = new ControladorCBDRecetas(this.conexion);

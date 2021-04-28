@@ -12,11 +12,6 @@ import java.util.List;
 public class ControladorCBDRecetas implements IControladorCBDRecetas {
     private Connection conexion;
 
-    public ControladorCBDRecetas() {
-        ControladorBDConexion controladorBDConexion = new ControladorBDConexion();
-        this.conexion = controladorBDConexion.conectarMySQL();
-    }
-
     public ControladorCBDRecetas(Connection conexion) {
         this.conexion = conexion;
     }
