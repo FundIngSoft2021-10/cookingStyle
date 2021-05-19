@@ -10,7 +10,4 @@ public interface IControladorPBDRegAut {
 
     public void crearCredenciales(BigInteger idUsuario, CredencialesUsuario credenciales) throws SQLException;
 
-    public void eliminarPerfil(BigInteger idUsuario) throws SQLException;
-
-    public void modificarPerfil(BigInteger idUsuario, String valorAModificar, String modificacion) throws SQLException;
 }
