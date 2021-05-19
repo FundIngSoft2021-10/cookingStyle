@@ -20,9 +20,10 @@ public class ControladorPBDPerfiles implements IControladorPBDPerfiles{
 
     @Override
     public void eliminarPerfil(BigInteger idUsuario) throws SQLException {
-        String eliminar = "DELETE FROM usuario WHERE usuario.idusuario="+idUsuario;
+        String eliminar = "DELETE FROM usuario WHERE usuario.idusuario= ?";
         try{
             PreparedStatement stmt = conexion.prepareStatement(eliminar);
+            stmt.setBigDecimal(1, new BigDecimal(idUsuario));
             stmt.executeUpdate();
 
         }catch (SQLException sqle) {
