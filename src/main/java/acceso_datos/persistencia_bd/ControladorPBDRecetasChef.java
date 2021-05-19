@@ -263,8 +263,10 @@ public class ControladorPBDRecetasChef implements IControladorPBDRecetasChef {
         }
     }
 
+
+
     @Override
-    public int eliminarReceta(BigInteger idUsuario) throws SQLException {
+    public int eliminarRecetas(BigInteger idUsuario) throws SQLException {
         int valoresBorra = 0;
         String deleteReceta = "DELETE FROM receta WHERE receta.chef_idusuario = " + idUsuario;
 
@@ -277,5 +279,40 @@ public class ControladorPBDRecetasChef implements IControladorPBDRecetasChef {
         return valoresBorra;//va a devolver la cantidad de recetas eliminadas
     }
 
+    @Override
+    public boolean calificarReceta(BigInteger idReceta, BigInteger idUsuario, int calificacion) throws SQLException {
+        String calificar="INSERT INTO calificacion (cooker_idusuario, idreceta, valor) VALUES ("+idUsuario+","+idReceta+","+calificacion+");";
+        try (PreparedStatement stmt = conexion.prepareStatement(calificar)) {
+            stmt.executeUpdate();
+            return true;//si se hizo la insercion
+        }catch (SQLException sqle) {
+            throw sqle;
+        }
 
+    }
+
+    @Override
+    public boolean eliminarCalificacion(BigInteger idReceta, BigInteger idUsuario) throws SQLException {
+        String eliminacion="DELETE FROM calificacion WHERE calificacion.cooker_idusuario = "+idUsuario+"AND calificacion.idreceta="+idReceta;
+        try (PreparedStatement stmt = conexion.prepareStatement(eliminacion)) {
+            stmt.executeUpdate();
+            return true;//si se elimino
+        }catch (SQLException sqle) {
+            throw sqle;
+        }
+    }
+
+    @Override
+    public boolean eliminarReceta(BigInteger idReceta) throws SQLException {
+        String eliminar= "DELETE FROM receta WHERE receta.idreceta="+idReceta;
+
+        try{
+            PreparedStatement stmt= conexion.prepareStatement(eliminar);
+            stmt.executeUpdate();
+            return true;//si se elimino
+        }catch (SQLException sqle) {
+            throw sqle;
+        }
+
+    }
 }
