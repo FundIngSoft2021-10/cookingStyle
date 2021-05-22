@@ -14,6 +14,7 @@ public class ControladorPerfiles implements IControladorPerfiles{
         this.controlPBD = new ControladorPBDPerfiles();
     }
 
+    @Override
     public DTOPerfil modificarPerfil(Usuario usuario, String valorAModificar, String modificacion ){
         try{
             this.controlPBD.modificarPerfil(usuario.getIdUsuario(),valorAModificar,modificacion);
