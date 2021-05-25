@@ -498,4 +498,20 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker {
         }
         return  recetas;
     }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public List<Chef> buscarChef(String nombre) {
+        List<Chef> chefsEncontrados;
+        try {
+            chefsEncontrados = this.controlCBD.buscarChef(nombre);
+        } catch (SQLException sqle) {
+            chefsEncontrados = null;
+        }
+        return chefsEncontrados;
+    }
+
+
 }

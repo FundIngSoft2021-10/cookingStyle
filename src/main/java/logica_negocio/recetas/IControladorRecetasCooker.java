@@ -2,6 +2,7 @@ package logica_negocio.recetas;
 
 import entidades.dto.*;
 import entidades.modelo.Categoria;
+import entidades.modelo.Chef;
 import entidades.modelo.LineaIngrediente;
 
 import java.math.BigInteger;
@@ -114,4 +115,12 @@ public interface IControladorRecetasCooker {
     public List<LineaIngrediente> ingredientesxReceta(BigInteger idReceta);
     public DTOExito agregarRecetaListaFavoritos(BigInteger idreceta);
     public List<DTOReceta> recetasChef(BigInteger idChef);
+
+    /**
+     * Busca el chef que se quiere encontrar
+     *
+     * @param nombre nombre del chef que se está buscando
+     * @return lista Chef de los chefs encontrados
+     */
+    public List<Chef> buscarChef(String nombre);
 }
