@@ -10,6 +10,12 @@ import entidades.modelo.Usuario;
 
 public interface IControladorPerfiles {
 
+    /**
+     * Eliminar una cuenta
+     * @param idusuario identificador del usuario a eliminar
+     * @return DTOExito afirmando la eliminación de la cuenta
+     * @throws SQLException
+     */
     public DTOExito eliminarPerfil(BigInteger idusuario) throws SQLException;
 
     public DTOPerfil modificarPerfil(Usuario usuario, String valorAModificar, String modificacion );

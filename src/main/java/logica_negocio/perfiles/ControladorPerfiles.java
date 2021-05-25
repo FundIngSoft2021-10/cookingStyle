@@ -18,6 +18,9 @@ public class ControladorPerfiles implements IControladorPerfiles{
         this.controlPBD = new ControladorPBDPerfiles();
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public DTOExito eliminarPerfil(BigInteger idusuario) throws SQLException {
 
