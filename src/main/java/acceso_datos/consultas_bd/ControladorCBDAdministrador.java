@@ -22,6 +22,7 @@ public class ControladorCBDAdministrador implements IControladorCBDAdministrador
         conexion = this.controladorBDConexion.conectarMySQL();
     }
 
+    @Override
     public List<Reporte> revisarReportes() throws SQLException {
         List<Reporte> reportes = new ArrayList<>();
         String consulta = "SELECT usuario.idusuario, usuario.nombreusuario, usuario.fechacreacion, usuario.nombre, motivo.idmotivo, motivo.nombre, motivo.descripcion, reporte.fecha FROM (reporte left outer join usuario on (cooker_idusuario = idusuario)) left outer join motivo on (reporte.idmotivo = motivo.idmotivo);";
