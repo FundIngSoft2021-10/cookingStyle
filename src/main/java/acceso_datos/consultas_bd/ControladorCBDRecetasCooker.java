@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ControladorCBDRecetasCooker implements IControladorCBDRecetasCooker {
@@ -487,4 +488,41 @@ public class ControladorCBDRecetasCooker implements IControladorCBDRecetasCooker
 
         return categorias;
     }
+
+    public List<Chef> buscarChef(String nombre) throws SQLException {
+        String nombreUsuario = null;
+        BigInteger idChef = new BigInteger(String.valueOf(0));
+        Date fecha = null;
+        List<Chef> chefs = new ArrayList<>();
+        String consulta = "SELECT * FROM usuario WHERE UPPER(nombre) LIKE '%" + nombre + "%' OR " +
+                "           WHERE UPPER(nombreusuario) LIKE '%" + nombre + "%';";
+
+        try (PreparedStatement stmt = conexion.prepareStatement(consulta)) {
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                chefs.add(new Chef(rs.getBigDecimal("idusuario").toBigInteger(),
+                        rs.getString("nombreusuario"), rs.getDate("fechacreacion"),
+                        rs.getString("nombre")));
+            }
+        } catch (SQLException sqle) {
+            throw sqle;
+        }
+        return chefs;
+    }
+
+    public String linkDomicilio (int idDomicilio) throws SQLException {
+        String linkDom = null;
+        String consulta = "SELECT link FROM domicilios WHERE iddomicilio =" + idDomicilio;
+        try (PreparedStatement stmt = conexion.prepareStatement(consulta)) {
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                linkDom = rs.getString("link");
+            }
+        } catch (SQLException sqle) {
+            throw sqle;
+        }
+        return linkDom;
+    }
+
+
 }
