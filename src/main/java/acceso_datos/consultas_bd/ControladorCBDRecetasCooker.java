@@ -487,4 +487,17 @@ public class ControladorCBDRecetasCooker implements IControladorCBDRecetasCooker
 
         return categorias;
     }
+
+    @Override
+    public boolean calificarChef (BigInteger idChef, BigInteger idCooker, int calificacion) throws SQLException {
+        String calificar="INSERT INTO califChef (cooker_idusuario, chef_idusuario, valor) ) VALUES ("+idCooker+","+idChef+","+calificacion+");";
+        try (PreparedStatement stmt = conexion.prepareStatement(calificar)) {
+            stmt.executeUpdate();
+            return true;
+        }catch (SQLException sqle) {
+            throw sqle;
+        }
+    }
+
+
 }

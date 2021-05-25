@@ -34,4 +34,5 @@ public interface IControladorCBDRecetasCooker {
     public Chef consultaRecetaXChef (BigInteger idReceta) throws  SQLException;
     public Categoria consultaCategoria(int idCategoria) throws SQLException;
     public List<Categoria> consultarCategorias() throws SQLException;
+    public boolean calificarChef (BigInteger idChef, BigInteger idCooker, int calificacion) throws SQLException;
 }
