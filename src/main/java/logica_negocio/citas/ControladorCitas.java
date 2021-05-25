@@ -5,9 +5,8 @@ import acceso_datos.consultas_bd.IControladorCBDCitas;
 import acceso_datos.persistencia_bd.ControladorPBDCitas;
 import acceso_datos.persistencia_bd.IControladorPBDCitas;
 import entidades.dto.DTOAgendaChef;
-import entidades.modelo.Bloque;
-import entidades.modelo.Calendario;
-import entidades.modelo.Chef;
+import entidades.dto.DTOCorreo;
+import entidades.modelo.*;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -46,6 +45,22 @@ public class ControladorCitas implements IControladorCitas {
         }
 
         return new DTOAgendaChef(true, "Agenda del chef", chef, calendario);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public DTOCorreo correoUsuario(Usuario usuario){
+        String correo;
+
+        try {
+            correo = this.controlCBD.getCorreo(usuario.getIdUsuario());
+        } catch (SQLException e) {
+            return new DTOCorreo(false, "Error en la base de datos; " + e.getMessage(), null);
+        }
+
+        return new DTOCorreo(true, "Correo del usuario", correo);
     }
 
     /*
