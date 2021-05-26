@@ -36,7 +36,8 @@ public class ControladorCBDAdministrador implements IControladorCBDAdministrador
                 MotivoReporte mr = new MotivoReporte(rs.getInt("motivo.idmotivo"),
                         rs.getString("motivo.nombre"), rs.getString("motivo.descripcion"));
                 Date fecha = rs.getDate("reporte.fechacreacion");
-                reportes.add(new Reporte(c, mr, fecha, true)); //No sé si lo de true o qué poner ahí
+                boolean resuelto = rs.getBoolean("reporte.resuelto");
+                reportes.add(new Reporte(c, mr, fecha, resuelto));
             }
         } catch (SQLException sqle) {
             throw sqle;
