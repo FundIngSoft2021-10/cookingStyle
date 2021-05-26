@@ -17,7 +17,8 @@ public interface IControladorPBDRecetasChef {
     public boolean subirPasoreceta (List<PasoReceta> pasoReceta, BigInteger idReceta)throws SQLException;
     //public boolean subirCalificacion (List<Calificacion> calificaciones, BigInteger idReceta) throws SQLException;
     //public boolean subirReporte (List<Reporte> reportes, BigInteger idReceta) throws SQLException;
-    public int eliminarReceta (BigInteger idUsuario) throws SQLException;
+    public int eliminarRecetas (BigInteger idUsuario) throws SQLException;
+    public boolean eliminarReceta(BigInteger idReceta) throws SQLException
     public boolean modificarNombreReceta(String nuevoNombre, BigInteger idReceta) throws SQLException;
     public boolean modificarDescrReceta(String nuevaDecrip, BigInteger idReceta) throws SQLException;
     public boolean modificarLinkVideoReceta(String nuevoLink, BigInteger idReceta) throws SQLException;

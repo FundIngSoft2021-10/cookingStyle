@@ -264,7 +264,7 @@ public class ControladorPBDRecetasChef implements IControladorPBDRecetasChef {
     }
 
     @Override
-    public int eliminarReceta(BigInteger idUsuario) throws SQLException {
+    public int eliminarRecetas(BigInteger idUsuario) throws SQLException {
         int valoresBorra = 0;
         String deleteReceta = "DELETE FROM receta WHERE receta.chef_idusuario = " + idUsuario;
 
@@ -276,6 +276,18 @@ public class ControladorPBDRecetasChef implements IControladorPBDRecetasChef {
 
         return valoresBorra;//va a devolver la cantidad de recetas eliminadas
     }
+    @Override
+    public boolean eliminarReceta(BigInteger idReceta) throws SQLException {
+        String eliminar= "DELETE FROM receta WHERE receta.idreceta="+idReceta;
 
+        try{
+            PreparedStatement stmt= conexion.prepareStatement(eliminar);
+            stmt.executeUpdate();
+            return true;//si se elimino
+        }catch (SQLException sqle) {
+            throw sqle;
+        }
+
+    }
 
 }
