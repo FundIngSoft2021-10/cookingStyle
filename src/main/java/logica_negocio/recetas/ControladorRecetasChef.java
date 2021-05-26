@@ -354,8 +354,12 @@ public class ControladorRecetasChef implements IControladorRecetasChef {
             receta.setEncontrado(true);
             receta.setReceta(rec);
             receta.setAutor(this.controlCBDRecetas.consultaRecetaXChef(idreceta));
-            this.controlPBD.eliminarReceta(idreceta);
-            receta.setMensaje("la receta ha sido eliminada exitosamente");
+            if(this.controlPBD.eliminarReceta(idreceta)){
+                receta.setMensaje("la receta ha sido eliminada exitosamente");
+            }
+            else{
+                receta.setMensaje("la receta no se pudo eliminar");
+            }
         }catch (SQLException sqlException){
             receta.setMensaje("fallo en la base de datos");
             receta.setReceta(null);
@@ -363,5 +367,6 @@ public class ControladorRecetasChef implements IControladorRecetasChef {
             receta.setEncontrado(false);
         }
         return receta;
+
     }
 }
