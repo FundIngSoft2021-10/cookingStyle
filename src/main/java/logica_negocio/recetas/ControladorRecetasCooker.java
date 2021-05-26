@@ -515,7 +515,6 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker {
     /**
      * @inheritDoc
      */
-    /*
     @Override
     public DTOExito calificarReceta(Receta receta, int calificacion){
         try {
@@ -524,6 +523,6 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker {
             return new DTOExito(false, "Error en la base de datos; " + e.getMessage());
         }
         return new DTOExito(true, "La calificación fue añadida con éxito");
-    }*/
+    }
 
 }

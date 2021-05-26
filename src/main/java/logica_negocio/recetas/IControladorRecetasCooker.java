@@ -131,5 +131,5 @@ public interface IControladorRecetasCooker {
      * @param calificacion entero de calificación
      * @return DTOExito con confirmación de la acción
      */
-    //public DTOExito calificarReceta(Receta receta, int calificacion);
+    public DTOExito calificarReceta(Receta receta, int calificacion);
 }
