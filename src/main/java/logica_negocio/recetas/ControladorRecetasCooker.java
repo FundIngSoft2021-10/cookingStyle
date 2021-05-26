@@ -498,4 +498,17 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker {
         }
         return  recetas;
     }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public DTOExito calificarChef(Chef chef, int calificacion){
+        try {
+            this.controlPBD.calificarChef(chef.getIdUsuario(), this.cooker.getIdUsuario(), calificacion);
+        } catch (SQLException e) {
+            return new DTOExito(false, "Error en la base de datos; " + e.getMessage());
+        }
+        return new DTOExito(true, "La calificación fue añadida con éxito");
+    }
 }

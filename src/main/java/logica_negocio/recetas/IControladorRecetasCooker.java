@@ -2,6 +2,7 @@ package logica_negocio.recetas;
 
 import entidades.dto.*;
 import entidades.modelo.Categoria;
+import entidades.modelo.Chef;
 import entidades.modelo.LineaIngrediente;
 
 import java.math.BigInteger;
@@ -114,4 +115,12 @@ public interface IControladorRecetasCooker {
     public List<LineaIngrediente> ingredientesxReceta(BigInteger idReceta);
     public DTOExito agregarRecetaListaFavoritos(BigInteger idreceta);
     public List<DTOReceta> recetasChef(BigInteger idChef);
+
+    /**
+     * Calificar chef
+     * @param chef chef a calificar
+     * @param calificacion entero de calificación
+     * @return DToExito con confirmación de la acción
+     */
+    public DTOExito calificarChef(Chef chef, int calificacion);
 }
