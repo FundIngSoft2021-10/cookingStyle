@@ -524,5 +524,20 @@ public class ControladorCBDRecetasCooker implements IControladorCBDRecetasCooker
         return linkDom;
     }
 
+    @Override
+    public int cantidadReportes () throws SQLException{
+        int cantidad = 0;
+        String consulta = "SELECT COUNT(*) as c FROM reporte;";
+        try (PreparedStatement stmt = conexion.prepareStatement(consulta)) {
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                cantidad = rs.getInt("c");
+            }
+        } catch (SQLException sqle) {
+            throw sqle;
+        }
+        return cantidad;
+    }
+
 
 }

@@ -36,4 +36,5 @@ public interface IControladorCBDRecetasCooker {
     public List<Categoria> consultarCategorias() throws SQLException;
     public List<Chef> buscarChef(String nombre) throws SQLException;
     public String linkDomicilio (int idDomicilio) throws SQLException;
+    public int cantidadReportes () throws SQLException;
 }

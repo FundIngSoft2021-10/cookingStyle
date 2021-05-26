@@ -3,6 +3,8 @@ package logica_negocio.recetas;
 import entidades.dto.*;
 import entidades.modelo.Categoria;
 import entidades.modelo.LineaIngrediente;
+import entidades.modelo.Receta;
+import entidades.modelo.Reporte;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -114,4 +116,12 @@ public interface IControladorRecetasCooker {
     public List<LineaIngrediente> ingredientesxReceta(BigInteger idReceta);
     public DTOExito agregarRecetaListaFavoritos(BigInteger idreceta);
     public List<DTOReceta> recetasChef(BigInteger idChef);
+
+    /**
+     * Relaciona un reporte a una receta
+     * @param receta receta reportada
+     * @param reporte información del reporte
+     * @return DTOExito confirmando la acción
+     */
+    public DTOExito reportarReceta(Receta receta, Reporte reporte);
 }

@@ -498,4 +498,18 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker {
         }
         return  recetas;
     }
+
+    /**
+     * @inheritDoc
+     */
+    public DTOExito reportarReceta(Receta receta, Reporte reporte){
+
+        try {
+            int idReporte = controlCBD.cantidadReportes();
+
+        } catch (SQLException e) {
+            return new DTOExito(false, "Error en la base de datos; " + e.getMessage());
+        }
+        return null;
+    }
 }
