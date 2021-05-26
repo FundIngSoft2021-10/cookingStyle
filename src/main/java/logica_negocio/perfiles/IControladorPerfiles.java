@@ -16,7 +16,7 @@ public interface IControladorPerfiles {
      * @return DTOExito afirmando la eliminación de la cuenta
      * @throws SQLException
      */
-    public DTOExito eliminarPerfil(BigInteger idusuario) throws SQLException;
+    public DTOExito eliminarPerfil(BigInteger idusuario);
 
     public DTOPerfil modificarPerfil(Usuario usuario, String valorAModificar, String modificacion );
 }

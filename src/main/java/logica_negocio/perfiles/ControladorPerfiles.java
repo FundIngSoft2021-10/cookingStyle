@@ -22,14 +22,13 @@ public class ControladorPerfiles implements IControladorPerfiles{
      * @inheritDoc
      */
     @Override
-    public DTOExito eliminarPerfil(BigInteger idusuario) throws SQLException {
+    public DTOExito eliminarPerfil(BigInteger idusuario){
 
         try{
             controlPBD.eliminarPerfil(idusuario);
-            DTOExito mensaje = new DTOExito(true, "¡Se ha eliminado su cuenta!");
-            return mensaje;
+            return new DTOExito(true, "¡Se ha eliminado su cuenta!");
         } catch (SQLException sqlException) {
-            throw sqlException;
+            return new DTOExito(false, "Error en la base de datos; " + sqlException.getMessage());
         }
     }
     @Override
