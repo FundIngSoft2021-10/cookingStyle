@@ -4,6 +4,7 @@ import entidades.dto.*;
 import entidades.modelo.Categoria;
 import entidades.modelo.Chef;
 import entidades.modelo.LineaIngrediente;
+import entidades.modelo.Receta;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -120,7 +121,15 @@ public interface IControladorRecetasCooker {
      * Calificar chef
      * @param chef chef a calificar
      * @param calificacion entero de calificación
-     * @return DToExito con confirmación de la acción
+     * @return DTOExito con confirmación de la acción
      */
     public DTOExito calificarChef(Chef chef, int calificacion);
+
+    /**
+     * Calificar receta
+     * @param receta receta a calificar
+     * @param calificacion entero de calificación
+     * @return DTOExito con confirmación de la acción
+     */
+    //public DTOExito calificarReceta(Receta receta, int calificacion);
 }

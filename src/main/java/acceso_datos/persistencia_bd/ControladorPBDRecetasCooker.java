@@ -91,11 +91,8 @@ public class ControladorPBDRecetasCooker implements IControladorPBDRecetasCooker
 
     @Override
     public boolean calificarChef (BigInteger idChef, BigInteger idCooker, int calificacion) throws SQLException {
-        String calificar="INSERT INTO califChef (cooker_idusuario, chef_idusuario, valor) ) VALUES (?, ?,?);";
+        String calificar="INSERT INTO califChef (cooker_idusuario, chef_idusuario, valor) VALUES ("+idCooker+","+idChef+","+calificacion+");";
         try (PreparedStatement stmt = conexion.prepareStatement(calificar)) {
-            stmt.setBigDecimal(1, new BigDecimal(idCooker));
-            stmt.setBigDecimal(2, new BigDecimal(idChef));
-            stmt.setInt(3, calificacion);
             stmt.executeUpdate();
             return true;
         }catch (SQLException sqle) {
