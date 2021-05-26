@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0">
+         <center>
+            <AnchorPane BorderPane.alignment="CENTER">
+               <children>
+                  <ImageView fitHeight="788.0" fitWidth="1602.0" layoutX="2.0" layoutY="-2.0">
+                     <image>
+                        <Image url="@../img/fondo3.png" />
+                     </image>
+                  </ImageView>
+                  <SplitPane dividerPositions="0.3920679746200951" prefHeight="783.0" prefWidth="1600.0" style="-fx-background-color: transparent;">
+                     <items>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                           <children>
+                              <ImageView fx:id="fotoRecetaReporte" fitHeight="292.0" fitWidth="479.0" layoutX="59.0" layoutY="66.0" pickOnBounds="true" preserveRatio="true" />
+                              <Text fx:id="nombreRecetaReporte" layoutX="135.0" layoutY="391.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre Receta" textAlignment="CENTER" wrappingWidth="327.7441101074219">
+                                 <font>
+                                    <Font name="Comic Sans MS" size="23.0" />
+                                 </font>
+                              </Text>
+                              <Text fx:id="nombreChefRecetaReporte" fill="#ff9f54" layoutX="132.0" layoutY="434.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre del Chef" underline="true" wrappingWidth="352.19281005859375">
+                                 <font>
+                                    <Font name="Comic Sans MS" size="20.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Text>
+                              <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="63.0" layoutY="426.0" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fx:id="iconoFavoritoReporte" fitHeight="53.0" fitWidth="57.0" layoutX="237.0" layoutY="466.0">
+                                 <image>
+                                    <Image url="@../img/Favorita.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fx:id="iconoReporteReporte" fitHeight="53.0" fitWidth="57.0" layoutX="302.0" layoutY="466.0">
+                                 <image>
+                                    <Image url="@../img/reportar.png" />
+                                 </image>
+                              </ImageView>
+                              <Text fill="#ff9f54" layoutX="126.0" layoutY="550.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Puntuaciones" textAlignment="CENTER" wrappingWidth="352.19281005859375">
+                                 <font>
+                                    <Font name="Comic Sans MS" size="23.0" />
+                                 </font>
+                              </Text>
+                              <Text fx:id="volverVRReporte" layoutX="42.0" layoutY="765.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Volver" underline="true">
+                                 <font>
+                                    <Font name="Comic Sans MS" size="14.0" />
+                                 </font>
+                              </Text>
+                              <ScrollPane fx:id="scrollPuntacionReceta" layoutX="34.0" layoutY="569.0" prefHeight="176.0" prefWidth="533.0">
+                                 <content>
+                                    <AnchorPane fx:id="panePuntuacionesRecetaReporte" minHeight="0.0" minWidth="0.0" prefHeight="175.0" prefWidth="517.0" />
+                                 </content>
+                              </ScrollPane>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="160.0" prefWidth="100.0">
+                           <children>
+                              <Text fill="#7f7f7f" layoutX="150.0" layoutY="404.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Duración">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="#7f7f7f" layoutX="423.0" layoutY="404.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fecha de Publicación">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="#7f7f7f" layoutX="786.0" layoutY="404.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vistas">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Text>
+                              <Text fx:id="duracionVideoReporte" layoutX="99.0" layoutY="426.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Duración" textAlignment="CENTER" wrappingWidth="165.10572052001953">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Text>
+                              <Text fx:id="fechaPublicacionVideoReporte" layoutX="389.0" layoutY="429.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fecha de Publicación" textAlignment="CENTER" wrappingWidth="215.82263946533203">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Text>
+                              <Text fx:id="vistasVideoReporte" layoutX="708.0" layoutY="426.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vistas" textAlignment="CENTER" wrappingWidth="196.80371856689453">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="#ff9f54" layoutX="60.0" layoutY="482.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Descripción" wrappingWidth="352.19281005859375">
+                                 <font>
+                                    <Font name="Comic Sans MS" size="26.0" />
+                                 </font>
+                              </Text>
+                              <TextArea fx:id="descripcionVideoReporte" layoutX="60.0" layoutY="511.0" prefHeight="200.0" prefWidth="787.0" />
+                              <Button fx:id="botonEliminarRecetaReporte" layoutX="846.0" layoutY="726.0" mnemonicParsing="false" style="-fx-background-color: #ff7383; -fx-background-radius: 50;" text="Eliminar Receta" textFill="WHITE">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                              <ImageView fx:id="iconoVerPasosReporte" layoutX="884.0" layoutY="547.0">
+                                 <image>
+                                    <Image url="@../img/pasos.png" />
+                                 </image>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </ImageView>
+                              <Text fx:id="textoVerPasosReporte" fill="#fcba03" layoutX="887.0" layoutY="633.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ver pasos">
+                                 <font>
+                                    <Font name="Comic Sans MS" size="13.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </AnchorPane>
+                     </items>
+                  </SplitPane>
+               </children>
+            </AnchorPane>
+         </center>
+         <top>
+            <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="114.0" prefWidth="1600.0" style="-fx-background-color: #fcba03;" BorderPane.alignment="CENTER">
+               <children>
+                  <ImageView fx:id="chLogoCookingER" fitHeight="113.0" fitWidth="252.0" layoutX="664.0" layoutY="-6.0" AnchorPane.leftAnchor="664.0">
+                     <image>
+                        <Image url="@../img/CookingBlanco.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+         </top>
+      </BorderPane>
+   </children>
+</VBox>
