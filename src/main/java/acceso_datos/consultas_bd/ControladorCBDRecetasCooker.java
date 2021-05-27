@@ -488,7 +488,7 @@ public class ControladorCBDRecetasCooker implements IControladorCBDRecetasCooker
         return categorias;
     }
 
-    @Override
+    /*@Override
     public float promCalifChef (BigInteger idUsuario) throws SQLException {
         float promedio = 0;
         String consulta = "SELECT AVG(valor) AS prom FROM califChef;";
@@ -516,7 +516,37 @@ public class ControladorCBDRecetasCooker implements IControladorCBDRecetasCooker
             throw sqle;
         }
         return promedio;
+    }*/
+
+    @Override
+    public List<Integer> listaCalificacionReceta(BigInteger idReceta) throws SQLException{
+        List<Integer> calificaciones = new ArrayList<>();
+        String consulta = "SELECT calificacion.valor as valor FROM calificacion WHERE calificacion.idreceta = " + idReceta + ";";
+
+        try (PreparedStatement stmt = conexion.prepareStatement(consulta)){
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                calificaciones.add(rs.getInt("valor"));
+            }
+        } catch (SQLException sqle) {
+            throw sqle;
+        }
+        return calificaciones;
     }
 
+    public List<Integer> listaCalificacionChef(BigInteger idChef) throws SQLException{
+        List<Integer> calificaciones = new ArrayList<>();
+        String consulta = "SELECT califChef.valor as valor FROM califChef WHERE califChef.chef_idusuario = " + idChef + ";";
+
+        try (PreparedStatement stmt = conexion.prepareStatement(consulta)){
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                calificaciones.add(rs.getInt("valor"));
+            }
+        } catch (SQLException sqle) {
+            throw sqle;
+        }
+        return calificaciones;
+    }
 
 }

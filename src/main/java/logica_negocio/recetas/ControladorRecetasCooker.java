@@ -525,4 +525,41 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker {
         return new DTOExito(true, "La calificación fue añadida con éxito");
     }
 
+    @Override
+    public DTOCalificacion promedioCalificacionReceta (Receta receta){
+
+        try {
+            List<Integer> calificaciones = this.controlCBD.listaCalificacionReceta(receta.getIdReceta());
+            int promedio = 0;
+            for(Integer valor: calificaciones){
+                promedio +=  valor;
+            }
+
+            promedio = promedio/calificaciones.size();
+
+            return new DTOCalificacion(promedio, true, "Promedio calculado");
+
+        } catch (SQLException e) {
+            return new DTOCalificacion(0, false, "Error en la base de datos; " + e.getMessage());
+        }
+    }
+
+    @Override
+    public DTOCalificacion promedioCalificacionChef (Chef chef){
+
+        try {
+            List<Integer> calificaciones = this.controlCBD.listaCalificacionChef(chef.getIdUsuario());
+            int promedio = 0;
+            for(Integer valor: calificaciones){
+                promedio +=  valor;
+            }
+
+            promedio = promedio/calificaciones.size();
+
+            return new DTOCalificacion(promedio, true, "Promedio calculado");
+
+        } catch (SQLException e) {
+            return new DTOCalificacion(0, false, "Error en la base de datos; " + e.getMessage());
+        }
+    }
 }

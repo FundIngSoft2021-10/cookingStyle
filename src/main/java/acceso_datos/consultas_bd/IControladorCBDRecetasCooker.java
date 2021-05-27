@@ -34,6 +34,9 @@ public interface IControladorCBDRecetasCooker {
     public Chef consultaRecetaXChef (BigInteger idReceta) throws  SQLException;
     public Categoria consultaCategoria(int idCategoria) throws SQLException;
     public List<Categoria> consultarCategorias() throws SQLException;
-    public float promCalifChef (BigInteger idUsuario) throws SQLException;
-    public float promCalifRec (BigInteger idUsuario) throws SQLException;
+    /*public float promCalifChef (BigInteger idUsuario) throws SQLException;
+    public float promCalifRec (BigInteger idUsuario) throws SQLException;*/
+    public List<Integer> listaCalificacionReceta(BigInteger idReceta) throws SQLException;
+    public List<Integer> listaCalificacionChef(BigInteger idChef) throws SQLException;
+
 }

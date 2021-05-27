@@ -132,4 +132,18 @@ public interface IControladorRecetasCooker {
      * @return DTOExito con confirmación de la acción
      */
     public DTOExito calificarReceta(Receta receta, int calificacion);
+
+    /**
+     * Promedio de calificaciones de receta
+     * @param receta receta a promediar
+     * @return DTOCalificación con la información solicitada
+     */
+    public DTOCalificacion promedioCalificacionReceta (Receta receta);
+
+    /**
+     * Promedio de calificaciones de chef
+     * @param chef chef a promediar
+     * @return DTOCalificación con la información solicitada
+     */
+    public DTOCalificacion promedioCalificacionChef (Chef chef);
 }
