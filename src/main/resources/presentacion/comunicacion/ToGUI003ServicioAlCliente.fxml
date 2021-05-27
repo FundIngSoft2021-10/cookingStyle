@@ -44,7 +44,7 @@
                                         <Image url="@../../img/ServicioAlCliente.png" />
                                     </image>
                                 </ImageView>
-                        <TextArea editable="false" layoutX="66.0" layoutY="120.0" prefHeight="142.0" prefWidth="660.0" text="¿Tienes dudas? ¿Preguntas? ¿Solo deseas hablar con alguien? &#10;¡Pues no te preocupes! Tenemos un canal habilitado 24/7 mediante correo para que nos cuentes cómo podemos asesorarte&#10;&#10;Cocina a tu estilo. Cocina feliz. Cocina con Cooking&#10;" wrapText="true">
+                        <TextArea fx:id="textAreaSC" editable="false" layoutX="66.0" layoutY="120.0" prefHeight="142.0" prefWidth="660.0" text="¿Tienes dudas? ¿Preguntas? ¿Solo deseas hablar con alguien? &#10;¡Pues no te preocupes! Tenemos un canal habilitado 24/7 mediante correo para que nos cuentes cómo podemos asesorarte&#10;&#10;Cocina a tu estilo. Cocina feliz. Cocina con Cooking&#10;" wrapText="true">
                            <font>
                               <Font name="Comic Sans MS" size="18.0" />
                            </font>
