@@ -19,6 +19,12 @@ public class DTORecetaMiniatura {
         this.autor = autor;
     }
 
+    public DTORecetaMiniatura(BigInteger idReceta, String nombreReceta, String linkImagen) {
+        this.idReceta = idReceta;
+        this.nombreReceta = nombreReceta;
+        this.linkImagen = linkImagen;
+    }
+
     public DTORecetaMiniatura() {
     }
 

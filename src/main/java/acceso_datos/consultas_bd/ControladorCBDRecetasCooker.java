@@ -540,5 +540,25 @@ public class ControladorCBDRecetasCooker implements IControladorCBDRecetasCooker
         return ids;
     }
 
+    @Override
+    public List<DTORecetaMiniatura> idsListaFavoritos(BigInteger idUsuario) throws SQLException{
+        List<DTORecetaMiniatura> miniaturas = new ArrayList<>();
+        String consulta = "SELECT DISTINCT recetaxlista.idreceta as idReceta, receta.nombre as nombre, receta.linkimagen as link\n" +
+                          "FROM recetaxlista, listafavoritos, receta\n" +
+                          "WHERE listafavoritos.cooker_idusuario = " + idUsuario +" and listafavoritos.idlista = recetaxlista.idlista and receta.idreceta = recetaxlista.idreceta;";
+        try (PreparedStatement stmt = conexion.prepareStatement(consulta)) {
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                BigInteger idReceta = rs.getBigDecimal("idReceta").toBigInteger();
+                String nombre = rs.getString("nombre");
+                String link = rs.getString("link");
 
+                DTORecetaMiniatura miniatura = new DTORecetaMiniatura(idReceta, nombre, link);
+                miniaturas.add(miniatura);
+            }
+        } catch (SQLException sqle) {
+            throw sqle;
+        }
+        return miniaturas;
+    }
 }

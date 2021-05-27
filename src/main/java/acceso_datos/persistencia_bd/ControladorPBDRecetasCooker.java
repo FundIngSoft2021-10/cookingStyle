@@ -94,7 +94,7 @@ public class ControladorPBDRecetasCooker implements IControladorPBDRecetasCooker
         java.util.Date nowDate = new java.util.Date();
         java.sql.Date sqlDate = new java.sql.Date(nowDate.getTime());
 
-        String reporte="INSERT INTO reporte (idreporte, idreceta, cooker_idusuario, idmotivo, reporte.fecha) VALUES ("+idReporte+","+idreceta+","+idusuario+","+idMotivo+", '"+ sqlDate +"');";
+        String reporte="INSERT INTO reporte (idreporte, idreceta, cooker_idusuario, idmotivo, reporte.fecha, resuelto) VALUES ("+idReporte+","+idreceta+","+idusuario+","+idMotivo+", '"+ sqlDate +"', false);";
 
         try{
             PreparedStatement stmt = conexion.prepareStatement(reporte);

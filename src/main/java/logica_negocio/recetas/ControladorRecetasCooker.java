@@ -526,4 +526,14 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker {
         }
         return new DTOExito(exito, "La receta se reportó");
     }
+
+    @Override
+    public List<DTORecetaMiniatura> recetasListaFavoritos(){
+
+        try {
+            return this.controlCBD.idsListaFavoritos(this.cooker.getIdUsuario());
+        } catch (SQLException e) {
+            return null;
+        }
+    }
 }

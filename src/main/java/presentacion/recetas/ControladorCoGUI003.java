@@ -104,7 +104,7 @@ public class ControladorCoGUI003 implements IControladorPantalla {
 
         // Desactivar todas las recetas
         this.desactivarRecetasFX();
-
+        this.textMembresia.setVisible(false);
         this.btnBusquedasRecientes.setVisible(false);      // TODO: Botón búsquedas recientes
     }
 
@@ -277,6 +277,11 @@ public class ControladorCoGUI003 implements IControladorPantalla {
     }
 
     public void clickPerfil(MouseEvent mouseEvent) {
+        try {
+            this.cargarPantalla((Event) mouseEvent, Pantalla.CO_GUI013_PERFIL, this.sesion, false);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML

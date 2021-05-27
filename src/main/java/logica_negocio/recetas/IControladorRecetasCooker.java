@@ -124,4 +124,5 @@ public interface IControladorRecetasCooker {
      * @return DTOExito confirmando la acción
      */
     public DTOExito reportarReceta(Receta receta, Reporte reporte);
+    public List<DTORecetaMiniatura> recetasListaFavoritos();
 }
