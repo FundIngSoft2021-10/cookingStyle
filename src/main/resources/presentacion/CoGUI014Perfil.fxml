@@ -134,7 +134,7 @@
                                  <content>
                                     <VBox fx:id="vBoxPuntuacionesRecetaCo" prefHeight="225.0" prefWidth="630.0">
                                        <children>
-                                          <Rating disable="true" nodeOrientation="LEFT_TO_RIGHT" prefHeight="30.0" prefWidth="178.0" updateOnHover="true" />
+                                          <Rating disable="true" nodeOrientation="LEFT_TO_RIGHT" prefHeight="30.0" prefWidth="178.0" updateOnHover="true" viewOrder="1.0" />
                                        </children>
                                     </VBox>
                                  </content>
