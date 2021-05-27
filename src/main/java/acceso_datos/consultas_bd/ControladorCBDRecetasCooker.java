@@ -495,7 +495,7 @@ public class ControladorCBDRecetasCooker implements IControladorCBDRecetasCooker
         Date fecha = null;
         List<Chef> chefs = new ArrayList<>();
         String consulta = "SELECT * FROM usuario WHERE UPPER(nombre) LIKE '%" + nombre + "%' OR " +
-                "           WHERE UPPER(nombreusuario) LIKE '%" + nombre + "%';";
+                "            UPPER(nombreusuario) LIKE '%" + nombre + "%';";
 
         try (PreparedStatement stmt = conexion.prepareStatement(consulta)) {
             ResultSet rs = stmt.executeQuery();
