@@ -7,14 +7,13 @@ import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import java.util.Objects;
 
 public class CookingApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("ChGUI014Perfil.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("ChGUI007Perfil.fxml"));
         primaryStage.setTitle("Cooking App");
-        primaryStage.initStyle(StageStyle.TRANSPARENT);
+        primaryStage.initStyle(StageStyle.DECORATED);
         Scene scene = new Scene(root);
         scene.setFill(Color.TRANSPARENT);
         primaryStage.setScene(scene);
