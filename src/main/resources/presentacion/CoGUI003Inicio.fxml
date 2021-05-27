@@ -155,7 +155,7 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </ImageView>
-                              <Text fx:id="nombreReceta1" layoutX="154.0" layoutY="310.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre receta" textAlignment="CENTER">
+                              <Text fx:id="nombreReceta1" layoutX="154.0" layoutY="310.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre receta" textAlignment="CENTER" AnchorPane.bottomAnchor="67.26427528433004" AnchorPane.leftAnchor="153.66678438767184" AnchorPane.rightAnchor="154.25775499571398" AnchorPane.topAnchor="287.75460541651483">
                                  <font>
                                     <Font name="Comic Sans MS" size="20.0" />
                                  </font>
@@ -177,7 +177,7 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </ImageView>
-                              <Text fx:id="nombreReceta2" layoutX="154.0" layoutY="310.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre receta" textAlignment="CENTER">
+                              <Text fx:id="nombreReceta2" layoutX="154.0" layoutY="310.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre receta" textAlignment="CENTER" AnchorPane.bottomAnchor="67.4686542428152" AnchorPane.leftAnchor="153.66678438767184" AnchorPane.rightAnchor="154.59097060804214" AnchorPane.topAnchor="287.75460541651483">
                                  <font>
                                     <Font name="Comic Sans MS" size="20.0" />
                                  </font>
@@ -194,7 +194,7 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </ImageView>
-                              <Text fx:id="nombreReceta4" layoutX="154.0" layoutY="310.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre receta" textAlignment="CENTER">
+                              <Text fx:id="nombreReceta4" layoutX="154.0" layoutY="310.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre receta" textAlignment="CENTER" AnchorPane.bottomAnchor="67.4686542428152" AnchorPane.leftAnchor="153.66678438767184" AnchorPane.rightAnchor="154.59097060804214" AnchorPane.topAnchor="287.75460541651483">
                                  <font>
                                     <Font name="Comic Sans MS" size="20.0" />
                                  </font>
@@ -216,7 +216,7 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </ImageView>
-                              <Text fx:id="nombreReceta3" layoutX="154.0" layoutY="310.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre receta" textAlignment="CENTER">
+                              <Text fx:id="nombreReceta3" layoutX="154.0" layoutY="310.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre receta" textAlignment="CENTER" AnchorPane.bottomAnchor="67.4686542428152" AnchorPane.leftAnchor="153.66678438767184" AnchorPane.rightAnchor="154.59097060804214" AnchorPane.topAnchor="287.75460541651483">
                                  <font>
                                     <Font name="Comic Sans MS" size="20.0" />
                                  </font>
@@ -241,7 +241,7 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </ImageView>
-                              <Text fx:id="nombreReceta5" layoutX="154.0" layoutY="310.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre receta" textAlignment="CENTER">
+                              <Text fx:id="nombreReceta5" layoutX="154.0" layoutY="310.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre receta" textAlignment="CENTER" AnchorPane.bottomAnchor="67.26427528433004" AnchorPane.leftAnchor="153.66678438767184" AnchorPane.rightAnchor="154.25775499571398" AnchorPane.topAnchor="287.75460541651483">
                                  <font>
                                     <Font name="Comic Sans MS" size="20.0" />
                                  </font>
@@ -266,7 +266,7 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </ImageView>
-                              <Text fx:id="nombreReceta6" layoutX="154.0" layoutY="310.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre receta" textAlignment="CENTER">
+                              <Text fx:id="nombreReceta6" layoutX="154.0" layoutY="310.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre receta" textAlignment="CENTER" AnchorPane.bottomAnchor="67.26427528433004" AnchorPane.leftAnchor="153.66678438767184" AnchorPane.rightAnchor="157.88039663551854" AnchorPane.topAnchor="287.958984375">
                                  <font>
                                     <Font name="Comic Sans MS" size="20.0" />
                                  </font>

@@ -113,26 +113,6 @@
                                     <Image url="@../img/ServicioAlCliente.png" />
                                  </image>
                               </ImageView>
-                              <ImageView fx:id="iconoEditarFotoPerfilChef" layoutX="545.0" layoutY="233.0">
-                                 <image>
-                                    <Image url="@../img/editar.png" />
-                                 </image>
-                              </ImageView>
-                              <ImageView fx:id="iconoEditarNombreChef" layoutX="411.0" layoutY="449.0">
-                                 <image>
-                                    <Image url="@../img/editar.png" />
-                                 </image>
-                              </ImageView>
-                              <ImageView fx:id="iconoEditarCategoriasChef" layoutX="249.0" layoutY="587.0">
-                                 <image>
-                                    <Image url="@../img/editar.png" />
-                                 </image>
-                              </ImageView>
-                              <ImageView fx:id="IconoEditarBiografíaChef" layoutX="665.0" layoutY="610.0">
-                                 <image>
-                                    <Image url="@../img/editar.png" />
-                                 </image>
-                              </ImageView>
                               <ImageView fx:id="iconoCerrarSesion" fitHeight="28.0" fitWidth="30.0" layoutX="40.0" layoutY="28.0">
                                  <image>
                                     <Image url="@../img/CerrarSesion.png" />
