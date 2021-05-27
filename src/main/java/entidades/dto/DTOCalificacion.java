@@ -1,21 +1,21 @@
 package entidades.dto;
 
 public class DTOCalificacion {
-    private int valor;
+    private float valor;
     private boolean estado;
     private String mensaje;
 
-    public DTOCalificacion(int valor, boolean estado, String mensaje) {
+    public DTOCalificacion(float valor, boolean estado, String mensaje) {
         this.valor = valor;
         this.estado = estado;
         this.mensaje = mensaje;
     }
 
-    public int getValor() {
+    public float getValor() {
         return valor;
     }
 
-    public void setValor(int valor) {
+    public void setValor(float valor) {
         this.valor = valor;
     }
 

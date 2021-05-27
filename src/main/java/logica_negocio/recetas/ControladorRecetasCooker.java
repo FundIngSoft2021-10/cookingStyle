@@ -530,7 +530,7 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker {
 
         try {
             List<Integer> calificaciones = this.controlCBD.listaCalificacionReceta(receta.getIdReceta());
-            int promedio = 0;
+            float promedio = 0;
             for(Integer valor: calificaciones){
                 promedio +=  valor;
             }
@@ -549,7 +549,7 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker {
 
         try {
             List<Integer> calificaciones = this.controlCBD.listaCalificacionChef(chef.getIdUsuario());
-            int promedio = 0;
+            float promedio = 0;
             for(Integer valor: calificaciones){
                 promedio +=  valor;
             }
