@@ -25,7 +25,7 @@ public class ControladorCBDAdministrador implements IControladorCBDAdministrador
     @Override
     public List<Reporte> revisarReportes() throws SQLException {
         List<Reporte> reportes = new ArrayList<>();
-        String consulta = "SELECT usuario.idusuario, usuario.nombreusuario, usuario.fechacreacion, usuario.nombre, motivo.idmotivo, motivo.nombre, motivo.descripcion, reporte.fecha FROM (reporte left outer join usuario on (cooker_idusuario = idusuario)) left outer join motivo on (reporte.idmotivo = motivo.idmotivo);";
+        String consulta = "SELECT usuario.idusuario, usuario.nombreusuario, usuario.fechacreacion, usuario.nombre, motivo.idmotivo, motivo.nombre, motivo.descripcion, reporte.fecha, reporte.resuelto FROM (reporte left outer join usuario on (cooker_idusuario = idusuario)) left outer join motivo on (reporte.idmotivo = motivo.idmotivo);";
 
         try (PreparedStatement stmt = conexion.prepareStatement(consulta)) {
             ResultSet rs = stmt.executeQuery();
@@ -35,7 +35,7 @@ public class ControladorCBDAdministrador implements IControladorCBDAdministrador
                         rs.getString("usuario.nombre"));
                 MotivoReporte mr = new MotivoReporte(rs.getInt("motivo.idmotivo"),
                         rs.getString("motivo.nombre"), rs.getString("motivo.descripcion"));
-                Date fecha = rs.getDate("reporte.fechacreacion");
+                Date fecha = rs.getDate("reporte.fecha");
                 boolean resuelto = rs.getBoolean("reporte.resuelto");
                 reportes.add(new Reporte(c, mr, fecha, resuelto));
             }

@@ -11,8 +11,8 @@ public interface IControladorAdministrador {
     public DTOReceta eliminarVideoInapropiado(BigInteger idreceta);
 
     /**
-     *
-     * @return
+     * Revisar Reportes
+     * @return el total de reportes en el sistema
      */
     public List<Reporte> revisarReportes ();
 }
