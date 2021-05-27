@@ -513,5 +513,18 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker {
         return chefsEncontrados;
     }
 
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public String linkVerAppDomicilio(int idApp){
+        String link;
+        try {
+            link = controlCBD.linkDomicilio(idApp);
+        } catch (SQLException throwables) {
+            link = null;
+        }
+        return link;
+    }
 
 }

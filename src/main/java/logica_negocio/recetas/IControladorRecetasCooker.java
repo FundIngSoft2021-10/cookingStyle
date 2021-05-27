@@ -123,4 +123,11 @@ public interface IControladorRecetasCooker {
      * @return lista Chef de los chefs encontrados
      */
     public List<Chef> buscarChef(String nombre);
+
+    /**
+     * Ver la aplicación de domicilio
+     * @param idApp número de identificación de la aplicación
+     * @return El link de la aplicación de domicilio
+     */
+    public String linkVerAppDomicilio(int idApp);
 }
