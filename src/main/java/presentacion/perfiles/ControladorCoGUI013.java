@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class ControladoCoGUI013 implements IControladorPantalla {
+public class ControladorCoGUI013 implements IControladorPantalla {
 
     private DTOSesion sesion;
     private IControladorPerfiles controlPerfiles;
@@ -175,7 +175,7 @@ public class ControladoCoGUI013 implements IControladorPantalla {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Eliminar Perfil");
         alert.setHeaderText(null);
-        alert.setContentText("¿Seguro quiere elimnar su perfil?");
+        alert.setContentText("¿Seguro quiere eliminar su perfil?");
         ButtonType buttonTypeAceptar = new ButtonType("Aceptar");
         ButtonType buttonTypeCancel = new ButtonType("Cancelar");
         alert.getButtonTypes().setAll(buttonTypeAceptar, buttonTypeCancel);

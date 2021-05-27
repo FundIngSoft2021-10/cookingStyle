@@ -1,5 +1,6 @@
 package presentacion.perfiles;
 
+import entidades.dto.DTOExito;
 import entidades.dto.DTOReceta;
 import entidades.dto.DTOSesion;
 import entidades.dto.Pantalla;
@@ -7,12 +8,16 @@ import entidades.modelo.Chef;
 import entidades.modelo.Cooker;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
+import logica_negocio.perfiles.ControladorPerfiles;
+import logica_negocio.perfiles.IControladorPerfiles;
 import logica_negocio.recetas.ControladorRecetasChef;
 import logica_negocio.recetas.ControladorRecetasCooker;
 import logica_negocio.recetas.IControladorRecetasChef;
@@ -24,15 +29,20 @@ import java.math.BigInteger;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class ControladorChGUI008 implements IControladorPantalla {
+
     private DTOSesion sesion;
     private IControladorRecetasChef controlChef;
     private IControladorRecetasCooker controlRecetas;
+    private IControladorPerfiles controlPerfiles;
     private int contadorRecetas;
     private List<DTOReceta> recetas;
 
+    @FXML
+    public ImageView btnEliminarPerfil;
     @FXML
     public Text textNombreChef;
     @FXML
@@ -104,11 +114,13 @@ public class ControladorChGUI008 implements IControladorPantalla {
         this.sesion = sesion;
         this.controlChef = new ControladorRecetasChef((Chef) this.sesion.getUsuario());
         this.controlRecetas = new ControladorRecetasCooker();
+        this.controlPerfiles = new ControladorPerfiles();
         this.contadorRecetas = 0;
         this.recetas = new ArrayList<>();
         this.ocultar();
         this.cargarChef();
         this.cargarRecetas();
+        this.btnEliminarPerfil.setVisible(true);
         this.btnRecAnt.setVisible(false);
         if(this.recetas.size()==1){
             this.btnRecSig.setVisible(false);
@@ -274,5 +286,33 @@ public class ControladorChGUI008 implements IControladorPantalla {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    public void clickEliminarPerfil(MouseEvent mouseEvent) {
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Eliminar Perfil");
+        alert.setHeaderText(null);
+        alert.setContentText("¿Seguro quiere eliminar su perfil?");
+        ButtonType buttonTypeAceptar = new ButtonType("Aceptar");
+        ButtonType buttonTypeCancel = new ButtonType("Cancelar");
+        alert.getButtonTypes().setAll(buttonTypeAceptar, buttonTypeCancel);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == buttonTypeAceptar){
+            DTOExito exito = this.controlPerfiles.eliminarPerfil(this.sesion.getUsuario().getIdUsuario());
+            this.crearAlerta(Alert.AlertType.INFORMATION, exito.getMensaje());
+
+            try {
+                this.cargarPantalla((Event) mouseEvent, Pantalla.TO_GUI002_INICIO, this.sesion, false);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        } else if (result.get() == buttonTypeCancel){
+            return;
+        }
+
     }
 }
