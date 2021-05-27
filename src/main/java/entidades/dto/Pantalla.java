@@ -18,6 +18,7 @@ public enum Pantalla {
     CO_GUI009_REDIRIGIRING("/presentacion/recetas/CoGUI009RedirigirCompraIngredientes.fxml"),
     CO_GUI010_PERFILCHEF("/presentacion/perfiles/CoGUI010PerfilChef.fxml"),
     CO_GUI011_AGENDACHEF("/presentacion/perfiles/CoGUI011VerAgendaChef.fxml"),
+    CO_GUI012_CONTACTARCHEF("/presentacion/comunicacion/CoGUI012ContactarChef.fxml"),
     CO_GUI013_PERFIL("/presentacion/perfiles/CoGUI013Perfil.fxml"),
 
     // Pantallas del usuario Chef

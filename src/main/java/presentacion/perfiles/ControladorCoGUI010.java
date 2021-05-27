@@ -7,6 +7,7 @@ import entidades.modelo.Chef;
 import entidades.modelo.Cooker;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -32,6 +33,8 @@ public class ControladorCoGUI010 implements IControladorPantalla {
     private int contadorRecetas;
     private List<DTOReceta> recetas;
 
+    @FXML
+    public Button btnContactar;
     @FXML
     public Text textServicioCl;
     @FXML
@@ -238,6 +241,15 @@ public class ControladorCoGUI010 implements IControladorPantalla {
     public void clickServicioCliente(MouseEvent mouseEvent) {
         try {
             this.irServicioCliente((Event) mouseEvent, this.sesion);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void clickContactar(MouseEvent mouseEvent) {
+        try {
+            this.sesion.setIdRecetaCargada(recetas.get(contadorRecetas).getReceta().getIdReceta());
+            this.cargarPantalla((Event) mouseEvent, Pantalla.CO_GUI012_CONTACTARCHEF, this.sesion, false);
         } catch (IOException e) {
             e.printStackTrace();
         }
