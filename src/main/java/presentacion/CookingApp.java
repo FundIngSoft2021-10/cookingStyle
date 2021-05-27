@@ -16,6 +16,7 @@ public class CookingApp extends Application {
         Parent root = FXMLLoader.load(getClass().getResource(Pantalla.TO_GUI001_PRINCIPAL.fxml));
         primaryStage.setTitle("Cooking: Cocina a tu Estilo");
         Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("/css/application.css").toExternalForm());
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {    // Fullscreen mediante F11, en cualquier pantalla
             @Override
             public void handle(KeyEvent e) {

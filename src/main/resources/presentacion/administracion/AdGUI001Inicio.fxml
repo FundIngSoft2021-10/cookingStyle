@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0">
+         <center>
+            <AnchorPane BorderPane.alignment="CENTER">
+               <children>
+                  <ImageView fitHeight="788.0" fitWidth="1602.0" layoutX="2.0" layoutY="-2.0">
+                     <image>
+                        <Image url="@../../img/fondo3.png" />
+                     </image>
+                  </ImageView>
+                  <SplitPane dividerPositions="0.5" prefHeight="783.0" prefWidth="1600.0" style="-fx-background-color: transparent;">
+                     <items>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="784.0" prefWidth="747.0">
+                           <children>
+                              <ImageView fitHeight="313.0" fitWidth="304.0" layoutX="238.0" layoutY="160.0">
+                                 <image>
+                                    <Image url="@../../img/reportes.png" />
+                                 </image>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </ImageView>
+                              <Text fill="#fcba03" layoutX="236.0" layoutY="520.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ver Reportes">
+                                 <font>
+                                    <Font name="Comic Sans MS" size="51.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Text>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                           <children>
+                              <Text fill="#fcba03" layoutX="29.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Usuarios">
+                                 <font>
+                                    <Font name="Comic Sans MS" size="51.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Text>
+                           </children>
+                        </AnchorPane>
+                     </items>
+                  </SplitPane>
+               </children>
+            </AnchorPane>
+         </center>
+         <top>
+            <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="114.0" prefWidth="1600.0" style="-fx-background-color: #fcba03;" BorderPane.alignment="CENTER">
+               <children>
+                  <ImageView fx:id="chLogoCookingER" fitHeight="113.0" fitWidth="252.0" layoutX="664.0" layoutY="-6.0" AnchorPane.leftAnchor="664.0">
+                     <image>
+                        <Image url="@../../img/CookingBlanco.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+         </top>
+      </BorderPane>
+   </children>
+</VBox>

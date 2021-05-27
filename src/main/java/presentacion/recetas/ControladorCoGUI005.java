@@ -8,12 +8,12 @@ import entidades.modelo.Cooker;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
+import javafx.geometry.Insets;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.scene.web.WebView;
 import logica_negocio.recetas.ControladorRecetasCooker;
@@ -22,6 +22,7 @@ import presentacion.IControladorPantalla;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class ControladorCoGUI005 implements IControladorPantalla {
@@ -125,8 +126,35 @@ public class ControladorCoGUI005 implements IControladorPantalla {
 
     }
 
+    @FXML
     public void clickReportar(MouseEvent mouseEvent) {
-        // TODO: Reportar
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Reportar una receta");
+        alert.setHeaderText(null);
+        alert.setContentText("Seleccione el motivo del reporte");
+
+        ButtonType buttonTypeOne = new ButtonType("Lenguaje ofensivo");
+        ButtonType buttonTypeTwo = new ButtonType("Video inapropiado");
+        ButtonType buttonTypeThree = new ButtonType("Discriminación");
+        ButtonType buttonTypeFour = new ButtonType("Violencia");
+        ButtonType buttonTypeFive = new ButtonType("Video inexistente");
+        ButtonType buttonTypeSix = new ButtonType("Errores ortográficos");
+        ButtonType buttonTypeCancel = new ButtonType("Cancelar", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+        alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeThree, buttonTypeFour, buttonTypeFive, buttonTypeSix, buttonTypeCancel);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == buttonTypeOne){
+            // ... user chose "One"
+            this.crearAlerta(Alert.AlertType.INFORMATION, "Receta reportada satisfactoriamente");
+        } else if (result.get() == buttonTypeTwo) {
+            // ... user chose "Two"
+        } else if (result.get() == buttonTypeThree) {
+            // ... user chose "Three"
+        } else {
+            // ... user chose CANCEL or closed the dialog
+            return;
+        }
     }
 
     public void clickVolver(MouseEvent mouseEvent) {
