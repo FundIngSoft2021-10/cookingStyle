@@ -488,36 +488,6 @@ public class ControladorCBDRecetasCooker implements IControladorCBDRecetasCooker
         return categorias;
     }
 
-    /*@Override
-    public float promCalifChef (BigInteger idUsuario) throws SQLException {
-        float promedio = 0;
-        String consulta = "SELECT AVG(valor) AS prom FROM califChef;";
-        try (PreparedStatement stmt = conexion.prepareStatement(consulta)) {
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                promedio = rs.getFloat("prom");
-            }
-        } catch (SQLException sqle) {
-            throw sqle;
-        }
-        return promedio;
-    }
-
-    @Override
-    public float promCalifRec (BigInteger idUsuario) throws SQLException {
-        float promedio = 0;
-        String consulta = "SELECT AVG(valor) AS prom FROM calificacion;";
-        try (PreparedStatement stmt = conexion.prepareStatement(consulta)) {
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                promedio = rs.getFloat("prom");
-            }
-        } catch (SQLException sqle) {
-            throw sqle;
-        }
-        return promedio;
-    }*/
-
     @Override
     public List<Integer> listaCalificacionReceta(BigInteger idReceta) throws SQLException{
         List<Integer> calificaciones = new ArrayList<>();
