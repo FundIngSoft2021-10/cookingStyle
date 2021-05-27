@@ -26,12 +26,6 @@
             <artifactId>controlsfx</artifactId>
             <version>11.1.0</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-controls -->
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-controls</artifactId>
-            <version>16</version>
-        </dependency>
     </dependencies>
     <build>
         <plugins>
