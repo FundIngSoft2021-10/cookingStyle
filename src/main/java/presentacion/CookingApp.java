@@ -1,7 +1,6 @@
 package presentacion;
 
 import entidades.dto.Pantalla;
-import entidades.modelo.Chef;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -10,9 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-import logica_negocio.recetas.ControladorRecetasCooker;
 
-import java.util.List;
 
 public class CookingApp extends Application {
     @Override
