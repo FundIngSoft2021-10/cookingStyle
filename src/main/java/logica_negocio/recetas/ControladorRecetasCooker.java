@@ -499,17 +499,32 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker {
         return  recetas;
     }
 
+    private int mayor(List<Integer> ids){
+        int mayor = 0;
+
+        for(Integer in : ids){
+            if(in > mayor){
+                mayor = in;
+            }
+        }
+        return mayor;
+    }
+
     /**
      * @inheritDoc
      */
     public DTOExito reportarReceta(Receta receta, Reporte reporte){
 
+        boolean exito;
         try {
-            int idReporte = controlCBD.cantidadReportes();
+            List<Integer> ids = controlCBD.listarReportes();
+            int idReporte = mayor(ids) + 1;
+
+            exito = controlPBD.reportarReceta(receta.getIdReceta(), cooker.getIdUsuario(), reporte.getMotivo().getIdMotivo(), idReporte);
 
         } catch (SQLException e) {
             return new DTOExito(false, "Error en la base de datos; " + e.getMessage());
         }
-        return null;
+        return new DTOExito(exito, "La receta se reportó");
     }
 }

@@ -525,18 +525,19 @@ public class ControladorCBDRecetasCooker implements IControladorCBDRecetasCooker
     }
 
     @Override
-    public int cantidadReportes () throws SQLException{
-        int cantidad = 0;
-        String consulta = "SELECT COUNT(*) as c FROM reporte;";
+    public List<Integer> listarReportes() throws SQLException {
+        List<Integer> ids = new ArrayList<>();
+        String consulta = "SELECT reporte.idreporte as id FROM reporte;";
+
         try (PreparedStatement stmt = conexion.prepareStatement(consulta)) {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                cantidad = rs.getInt("c");
+                ids.add(rs.getInt("id"));
             }
         } catch (SQLException sqle) {
             throw sqle;
         }
-        return cantidad;
+        return ids;
     }
 
 
