@@ -91,13 +91,14 @@ public class ControladorPBDRecetasCooker implements IControladorPBDRecetasCooker
 
     @Override
     public boolean reportarReceta(BigInteger idreceta, BigInteger idusuario, int idMotivo, int idReporte) throws SQLException {
-        String reporte="INSERT INTO reporte (idreporte, idreceta, cooker_idusuario, idmotivo, fecha) VALUES ("+idReporte+","+idreceta+","+idusuario+","+idMotivo+", ?);";
+        java.util.Date nowDate = new java.util.Date();
+        java.sql.Date sqlDate = new java.sql.Date(nowDate.getTime());
+
+        String reporte="INSERT INTO reporte (idreporte, idreceta, cooker_idusuario, idmotivo, reporte.fecha) VALUES ("+idReporte+","+idreceta+","+idusuario+","+idMotivo+", '"+ sqlDate +"');";
 
         try{
             PreparedStatement stmt = conexion.prepareStatement(reporte);
-            java.util.Date nowDate = new java.util.Date();
-            java.sql.Date sqlDate = new java.sql.Date(nowDate.getTime());
-            stmt.setDate(1, sqlDate);
+            stmt.executeUpdate(reporte);
             return true;
         }catch (SQLException sqle) {
             throw sqle;

@@ -519,7 +519,6 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker {
         try {
             List<Integer> ids = controlCBD.listarReportes();
             int idReporte = mayor(ids) + 1;
-
             exito = controlPBD.reportarReceta(receta.getIdReceta(), cooker.getIdUsuario(), reporte.getMotivo().getIdMotivo(), idReporte);
 
         } catch (SQLException e) {

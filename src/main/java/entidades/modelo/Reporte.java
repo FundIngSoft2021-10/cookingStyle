@@ -15,6 +15,12 @@ public class Reporte {
         this.resuelto = resuelto;
     }
 
+    public Reporte(Cooker usuario, MotivoReporte motivo, boolean resuelto) {
+        this.usuario = usuario;
+        this.motivo = motivo;
+        this.resuelto = resuelto;
+    }
+
     public Reporte() {
     }
 
