@@ -2,23 +2,29 @@ package logica_negocio.recetas;
 
 import acceso_datos.consultas_bd.ControladorCBDAdministrador;
 import acceso_datos.consultas_bd.ControladorCBDRecetas;
+import acceso_datos.consultas_bd.IControladorCBDAdministrador;
 import acceso_datos.consultas_bd.IControladorCBDRecetas;
 import acceso_datos.persistencia_bd.ControladorPBDRecetasChef;
 import acceso_datos.persistencia_bd.IControladorPBDRecetasChef;
 import entidades.dto.DTOReceta;
 import entidades.modelo.Receta;
+import entidades.modelo.Reporte;
 
 import java.math.BigInteger;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class ControladorAdministrador implements IControladorAdministrador {
     private IControladorCBDRecetas controlCBDRecetas;
     private IControladorPBDRecetasChef controlPersistenciaBD;
+    private IControladorCBDAdministrador controlCBDAdministrador;
 
     public ControladorAdministrador() {
         this.controlCBDRecetas = new ControladorCBDRecetas();
         this.controlPersistenciaBD = new ControladorPBDRecetasChef();
+        this.controlCBDAdministrador = new ControladorCBDAdministrador();
     }
     @Override
     public DTOReceta eliminarVideoInapropiado(BigInteger idreceta){
@@ -43,5 +49,16 @@ public class ControladorAdministrador implements IControladorAdministrador {
         }
         return receta;
 
+    }
+
+    @Override
+    public List<Reporte> revisarReportes (){
+        List<Reporte> reportesEncontrados;
+        try {
+            reportesEncontrados = controlCBDAdministrador.revisarReportes();
+        } catch (SQLException e) {
+            reportesEncontrados = null;
+        }
+        return  reportesEncontrados;
     }
 }
