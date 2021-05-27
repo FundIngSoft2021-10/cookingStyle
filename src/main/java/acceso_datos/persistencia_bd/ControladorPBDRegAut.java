@@ -88,5 +88,4 @@ public class ControladorPBDRegAut implements IControladorPBDRegAut {
             throw  sqle;
         }
     }
-
 }
