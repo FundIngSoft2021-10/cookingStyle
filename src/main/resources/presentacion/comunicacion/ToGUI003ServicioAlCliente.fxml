@@ -39,7 +39,7 @@
                                         <Cursor fx:constant="HAND" />
                                     </cursor>
                                 </Text>
-                                <ImageView fx:id="btnCorreo" fitHeight="144.0" fitWidth="183.0" layoutX="304.0" layoutY="514.0" onKeyPressed="#clickCorreo" preserveRatio="true">
+                                <ImageView fx:id="btnCorreo" fitHeight="144.0" fitWidth="183.0" layoutX="304.0" layoutY="514.0" onMouseClicked="#clickCorreo" preserveRatio="true">
                                     <image>
                                         <Image url="@../../img/ServicioAlCliente.png" />
                                     </image>
