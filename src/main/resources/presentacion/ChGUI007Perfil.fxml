@@ -207,7 +207,7 @@
                                        <children>
                                           <AnchorPane fx:id="panelPuntuaciónRecetaPerfilChef" prefHeight="43.0" prefWidth="518.0">
                                              <children>
-                                                <Rating layoutX="135.0" layoutY="4.0" />
+                                                <Rating layoutX="135.0" layoutY="4.0" partialRating="true" rating="0.0" updateOnHover="true" />
                                                 <Text fill="#ffb94a" layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Usuario" wrappingWidth="115.05676651000977">
                                                    <font>
                                                       <Font name="Comic Sans MS" size="11.773585319519043" />
