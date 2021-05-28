@@ -128,6 +128,9 @@ public class ControladorCoGUI010 implements IControladorPantalla {
             this.textNombreRec.setText(recetas.get(contadorRecetas).getReceta().getNombre());
         }
 
+        this.calificacionPromedio();
+
+        this.calificacionExistente();
     }
 
     //ELIMINAR DESPUÉS
@@ -153,8 +156,19 @@ public class ControladorCoGUI010 implements IControladorPantalla {
         //Membresia
         this.textMembresia.setVisible(false);
 
-        this.calificacionPromedio();
+    }
 
+    private void calificacionExistente(){
+        int valor = this.controlRecetas.calificacionChefXCooker(this.sesion.getRecetaCargada().getAutor().getIdUsuario());
+
+        if(valor!=0){
+            this.rating.setRating((double) valor);
+            this.btnCalificar.setVisible(false);
+            this.btnEliminar.setVisible(true);
+        } else {
+            this.btnCalificar.setVisible(true);
+            this.btnEliminar.setVisible(false);
+        }
     }
 
     private void calificacionPromedio(){
@@ -274,9 +288,15 @@ public class ControladorCoGUI010 implements IControladorPantalla {
 
         if(valor>0){
             this.controlRecetas.calificarChef(this.sesion.getRecetaCargada().getAutor(), valor);
+            this.btnEliminar.setVisible(true);
+            this.btnCalificar.setVisible(false);
         }
     }
 
     public void clickEliminar(MouseEvent mouseEvent) {
+        this.btnCalificar.setVisible(true);
+        this.btnEliminar.setVisible(false);
+        this.rating.setRating(0.0);
+        this.controlRecetas.eliminarCalificacionChef(this.sesion.getRecetaCargada().getAutor());
     }
 }

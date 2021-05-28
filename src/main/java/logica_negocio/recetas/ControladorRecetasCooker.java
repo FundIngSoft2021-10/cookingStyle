@@ -573,6 +573,16 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker {
         return new DTOExito(true, "La calificación fue eliminada con éxito");
     }
 
+    @Override
+    public DTOExito eliminarCalificacionChef(Chef chef){
+        try {
+            this.controlPBD.eliminarCalificacionChef(chef.getIdUsuario(), this.cooker.getIdUsuario());
+        } catch (SQLException e) {
+            return new DTOExito(false, "Error en la base de datos; " + e.getMessage());
+        }
+        return new DTOExito(true, "La calificación fue eliminada con éxito");
+    }
+
     private int mayor(List<Integer> ids){
         int mayor = 0;
 
@@ -616,6 +626,17 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker {
         int valor = 0;
         try {
             valor = this.controlCBD.calificacionRecetaXCooker(this.cooker.getIdUsuario(), idReceta);
+            return valor;
+        } catch (SQLException e) {
+            return 0;
+        }
+    }
+
+    @Override
+    public int calificacionChefXCooker(BigInteger idChef) {
+        int valor = 0;
+        try {
+            valor = this.controlCBD.calificacionChefXCooker(this.cooker.getIdUsuario(), idChef);
             return valor;
         } catch (SQLException e) {
             return 0;

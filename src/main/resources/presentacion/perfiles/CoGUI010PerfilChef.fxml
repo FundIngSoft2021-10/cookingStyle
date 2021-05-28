@@ -117,7 +117,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button fx:id="btnEliminar" disable="true" layoutX="655.0" layoutY="447.0" mnemonicParsing="false" onMouseClicked="#clickEliminar" prefHeight="25.0" prefWidth="134.0" style="-fx-background-color: #ff9470; -fx-background-radius: 50;" text="Eliminar Calificación" textFill="#100f0f">
+                        <Button fx:id="btnEliminar" layoutX="655.0" layoutY="447.0" mnemonicParsing="false" onMouseClicked="#clickEliminar" prefHeight="25.0" prefWidth="134.0" style="-fx-background-color: #ff9470; -fx-background-radius: 50;" text="Eliminar Calificación" textFill="#100f0f">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>

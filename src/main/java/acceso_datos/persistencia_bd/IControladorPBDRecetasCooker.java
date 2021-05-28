@@ -13,4 +13,5 @@ public interface IControladorPBDRecetasCooker {
     public boolean calificarReceta(BigInteger idReceta, BigInteger idUsuario, int calificacion) throws SQLException;
     public boolean eliminarCalificacion(BigInteger idReceta, BigInteger idUsuario) throws SQLException;
     public boolean reportarReceta(BigInteger idreceta, BigInteger idusuario, int idMotivo, int idReporte) throws SQLException;
+    public boolean eliminarCalificacionChef(BigInteger idChef, BigInteger idUsuario) throws SQLException;
 }

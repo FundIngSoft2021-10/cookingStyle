@@ -92,6 +92,8 @@ public class ControladorCoGUI005 implements IControladorPantalla {
         // Colocar la información de la receta en la pantalla
         this.cargarReceta();
 
+        this.textMembresia.setVisible(false);
+
         this.calificacionPromedio();
         this.calificacionExistente();
 
@@ -285,7 +287,6 @@ public class ControladorCoGUI005 implements IControladorPantalla {
     }
 
     public void clickEliminar(MouseEvent mouseEvent) {
-        System.out.println("Entro");
         this.btnCalificar.setVisible(true);
         this.btnEliminar.setVisible(false);
         this.raiting.setRating(0.0);

@@ -609,4 +609,20 @@ public class ControladorCBDRecetasCooker implements IControladorCBDRecetasCooker
         return valor;
     }
 
+    @Override
+    public int calificacionChefXCooker(BigInteger idCooker, BigInteger idChef) throws SQLException{
+        int valor = 0;
+        String consulta = "SELECT califChef.valor FROM califChef WHERE califChef.cooker_idusuario = " + idCooker + " and califChef.chef_idusuario = " + idChef + ";";
+
+        try (PreparedStatement stmt = conexion.prepareStatement(consulta)){
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                valor = rs.getInt("calificacion.valor");
+            }
+        } catch (SQLException sqle) {
+            throw sqle;
+        }
+        return valor;
+    }
+
 }
