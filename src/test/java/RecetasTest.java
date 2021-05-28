@@ -6,6 +6,7 @@ import entidades.modelo.*;
 import logica_negocio.recetas.ControladorRecetasChef;
 import logica_negocio.recetas.ControladorRecetasCooker;
 import logica_negocio.perfiles.ControladorPerfiles;
+import logica_negocio.recetas.IControladorRecetasChef;
 import logica_negocio.registro_autenticacion.ControladorRegAut;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -30,11 +31,18 @@ public class RecetasTest {
         controlChef = new ControladorRecetasChef();
         perfiles = new ControladorPerfiles();
         registro = new ControladorRegAut();
-        registro.registrarUsuario(TipoUsuario.CHEF, "dmarroyo@gmail.com", "RosaNives", "DmArroyo", "Damaris");
-        DTOAutenticacion usuario = registro.autenticarUsuario(TipoUsuario.CHEF, "dmarroyo@gmail.com", "RosaNives");
-        Chef elChef= new Chef(usuario.getUsuario().getIdUsuario(), usuario.getUsuario().getNombreUsuario(),usuario.getUsuario().getFechaCreacion(),usuario.getUsuario().getNombre());
-        controlChef = new ControladorRecetasChef(elChef);
+    }
 
+    @Test
+    public void subirRecetaTest(){
+        List<LineaIngrediente> ingredientes = new ArrayList<>();
+        List<Categoria> categorias = new ArrayList<>();
+        List<PasoReceta> pasosReceta = new ArrayList<>();
+        DTOAutenticacion usuario = registro.autenticarUsuario(TipoUsuario.CHEF, "testchef", "123");
+        IControladorRecetasChef controlAux = new ControladorRecetasChef((Chef) usuario.getUsuario());
+
+        DTOExito exito = controlAux.subirReceta("Hamburguesa", "Deliciosa hamburguesa extravagante.", "https://www.youtube.com/watch?v=e9X3r5bxWzQ", TipoVideo.YOUTUBE, "https://i.blogs.es/6b1775/hamburguesa_rec/450_1000.jpg", ingredientes, categorias, pasosReceta );
+        assertTrue(exito.isEstado());
     }
 
     @Test
@@ -87,6 +95,10 @@ public class RecetasTest {
 
     @Test
     public void eliminarRecetaTest(){
+
+        DTOAutenticacion usuario = registro.autenticarUsuario(TipoUsuario.CHEF, "testchef", "123");
+        IControladorRecetasChef controlAux = new ControladorRecetasChef((Chef) usuario.getUsuario());
+
         List<LineaIngrediente> ingredients = new ArrayList<>();
         List<Categoria> categorias = new ArrayList<>();
         List<PasoReceta> pasosreceta = new ArrayList<>();
@@ -96,9 +108,9 @@ public class RecetasTest {
         Receta laReceta = new Receta(bigI,"Pizza de prueba","La magnifica descripcion de una receta de pizza de prueba",true,"https://www.youtube.com/watch?v=eovGDyel9d8",TipoVideo.YOUTUBE,true,"https://images-gmi-pmc.edge-generalmills.com/e1c318a2-f4c3-4854-8b54-a087015c47a9.jpg",ingredients,pasosreceta,categorias,calificaciones, reportes);
 
         //crear receta
-        controlChef.subirReceta(laReceta.getNombre(),laReceta.getDescripcion(),laReceta.getLinkVideo(),laReceta.getTipoVideo(),laReceta.getLinkImagen(),laReceta.getLineasIngrediente(),laReceta.getCategorias(),laReceta.getPasosReceta());
+        controlAux.subirReceta(laReceta.getNombre(),laReceta.getDescripcion(),laReceta.getLinkVideo(),laReceta.getTipoVideo(),laReceta.getLinkImagen(),laReceta.getLineasIngrediente(),laReceta.getCategorias(),laReceta.getPasosReceta());
 
-        DTOReceta recetaa = controlChef.eliminarReceta(laReceta.getIdReceta());
+        DTOReceta recetaa = controlAux.eliminarReceta(laReceta.getIdReceta());
 
         assertNotNull(recetaa);
     }
