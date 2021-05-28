@@ -165,12 +165,11 @@ public class ControladorCoGUI007 implements IControladorPantalla {
 
     @FXML
     public void clickComprar(MouseEvent mouseEvent) {
-        //TODO: Cargar pantalla Reporte
-        /*try {
-            this.cargarPantalla((Event) mouseEvent, Pantalla.CO_GUI00X_REPORTE, this.sesion, false);
+        try {
+            this.cargarPantalla((Event) mouseEvent, Pantalla.CO_GUI008_COMPRARING, this.sesion, false);
         } catch (IOException e){
             e.printStackTrace();
-        }*/
+        }
     }
 
     @FXML
