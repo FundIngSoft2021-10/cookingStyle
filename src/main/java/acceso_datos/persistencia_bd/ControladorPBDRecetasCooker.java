@@ -90,6 +90,40 @@ public class ControladorPBDRecetasCooker implements IControladorPBDRecetasCooker
     }
 
     @Override
+    public boolean calificarChef (BigInteger idChef, BigInteger idCooker, int calificacion) throws SQLException {
+        String calificar="INSERT INTO califChef (cooker_idusuario, chef_idusuario, valor) VALUES ("+idCooker+","+idChef+","+calificacion+");";
+        try (PreparedStatement stmt = conexion.prepareStatement(calificar)) {
+            stmt.executeUpdate();
+            return true;
+        }catch (SQLException sqle) {
+            throw sqle;
+        }
+    }
+
+    @Override
+    public boolean calificarReceta(BigInteger idReceta, BigInteger idUsuario, int calificacion) throws SQLException {
+        String calificar="INSERT INTO calificacion (cooker_idusuario, idreceta, valor) VALUES ("+idUsuario+","+idReceta+","+calificacion+");";
+        try (PreparedStatement stmt = conexion.prepareStatement(calificar)) {
+            stmt.executeUpdate();
+            return true;
+        }catch (SQLException sqle) {
+            throw sqle;
+        }
+
+    }
+
+    @Override
+    public boolean eliminarCalificacion(BigInteger idReceta, BigInteger idUsuario) throws SQLException {
+        String eliminacion="DELETE FROM calificacion WHERE calificacion.cooker_idusuario = "+idUsuario+"AND calificacion.idreceta="+idReceta;
+        try (PreparedStatement stmt = conexion.prepareStatement(eliminacion)) {
+            stmt.executeUpdate();
+            return true;//si se elimino
+        }catch (SQLException sqle) {
+            throw sqle;
+        }
+    }
+
+    @Override
     public boolean reportarReceta(BigInteger idreceta, BigInteger idusuario, int idMotivo, int idReporte) throws SQLException {
         String reporte="INSERT INTO reporte (idreporte, idreceta, cooker_idusuario, idmotivo, fecha) VALUES ("+idReporte+","+idreceta+","+idusuario+","+idMotivo+", ?);";
 
