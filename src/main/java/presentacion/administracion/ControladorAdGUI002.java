@@ -1,6 +1,8 @@
 package presentacion.administracion;
 
 import entidades.dto.DTOSesion;
+import entidades.dto.Pantalla;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -10,6 +12,7 @@ import logica_negocio.recetas.IControladorAdministrador;
 import logica_negocio.registro_autenticacion.ControladorRegAut;
 import presentacion.IControladorPantalla;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -35,5 +38,10 @@ public class ControladorAdGUI002 implements IControladorPantalla {
     }
 
     public void clickReportes(MouseEvent mouseEvent) {
+        try {
+            this.cargarPantalla((Event) mouseEvent, Pantalla.AD_GUI003_VERREPORTES, this.sesion, false);
+        } catch (IOException e){
+            e.printStackTrace();
+        }
     }
 }

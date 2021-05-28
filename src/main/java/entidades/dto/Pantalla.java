@@ -31,7 +31,11 @@ public enum Pantalla {
 
     //Pantallas del usuario Admin
     AD_GUI001_INICIARSESION("/presentacion/administracion/AdGUI001IniciarSesion.fxml"),
-    AD_GUI002_INICIO("/presentacion/administracion/AdGUI002Inicio.fxml");
+    AD_GUI002_INICIO("/presentacion/administracion/AdGUI002Inicio.fxml"),
+    AD_GUI003_VERREPORTES("/presentacion/administracion/AdGUI003VerReportes.fxml"),
+    AD_GUI004_VERRECETA("/presentacion/administracion/AdGUI004VerReceta.fxml"),
+    AD_GUI004_VERPASOSRECETA("/presentacion/administracion/AdGUI005VerPasosReceta.fxml"),
+    AD_GUI005_VERINGRECETA("/presentacion/administracion/AdGUI006RecetaIngredientes.fxml");
 
     public String fxml;
 

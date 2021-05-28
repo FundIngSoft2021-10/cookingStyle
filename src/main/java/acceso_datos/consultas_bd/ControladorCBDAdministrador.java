@@ -5,6 +5,7 @@ import entidades.modelo.Cooker;
 import entidades.modelo.MotivoReporte;
 import entidades.modelo.Reporte;
 
+import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,7 +26,7 @@ public class ControladorCBDAdministrador implements IControladorCBDAdministrador
     @Override
     public List<Reporte> revisarReportes() throws SQLException {
         List<Reporte> reportes = new ArrayList<>();
-        String consulta = "SELECT usuario.idusuario, usuario.nombreusuario, usuario.fechacreacion, usuario.nombre, motivo.idmotivo, motivo.nombre, motivo.descripcion, reporte.fecha, reporte.resuelto FROM (reporte left outer join usuario on (cooker_idusuario = idusuario)) left outer join motivo on (reporte.idmotivo = motivo.idmotivo);";
+        String consulta = "SELECT usuario.idusuario, usuario.nombreusuario, usuario.fechacreacion, usuario.nombre, motivo.idmotivo, motivo.nombre, motivo.descripcion, reporte.fecha, reporte.resuelto, reporte.idreceta FROM (reporte left outer join usuario on (cooker_idusuario = idusuario)) left outer join motivo on (reporte.idmotivo = motivo.idmotivo);";
 
         try (PreparedStatement stmt = conexion.prepareStatement(consulta)) {
             ResultSet rs = stmt.executeQuery();
@@ -36,8 +37,9 @@ public class ControladorCBDAdministrador implements IControladorCBDAdministrador
                 MotivoReporte mr = new MotivoReporte(rs.getInt("motivo.idmotivo"),
                         rs.getString("motivo.nombre"), rs.getString("motivo.descripcion"));
                 Date fecha = rs.getDate("reporte.fecha");
+                BigInteger id = rs.getBigDecimal("reporte.idreceta").toBigInteger();
                 boolean resuelto = rs.getBoolean("reporte.resuelto");
-                reportes.add(new Reporte(c, mr, fecha, resuelto));
+                reportes.add(new Reporte(c, mr, fecha, resuelto, id));
             }
         } catch (SQLException sqle) {
             throw sqle;

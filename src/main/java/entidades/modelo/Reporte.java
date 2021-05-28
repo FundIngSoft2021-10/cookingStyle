@@ -1,5 +1,6 @@
 package entidades.modelo;
 
+import java.math.BigInteger;
 import java.util.Date;
 
 public class Reporte {
@@ -7,18 +8,21 @@ public class Reporte {
     private MotivoReporte motivo;
     private Date fecha;
     private boolean resuelto;
+    private BigInteger idReceta;
 
-    public Reporte(Cooker usuario, MotivoReporte motivo, Date fecha, boolean resuelto) {
+    public Reporte(Cooker usuario, MotivoReporte motivo, Date fecha, boolean resuelto, BigInteger idReceta) {
         this.usuario = usuario;
         this.motivo = motivo;
         this.fecha = fecha;
         this.resuelto = resuelto;
+        this.idReceta = idReceta;
     }
 
-    public Reporte(Cooker usuario, MotivoReporte motivo, boolean resuelto) {
+    public Reporte(Cooker usuario, MotivoReporte motivo, boolean resuelto, BigInteger idReceta) {
         this.usuario = usuario;
         this.motivo = motivo;
         this.resuelto = resuelto;
+        this.idReceta = idReceta;
     }
 
     public Reporte() {
@@ -54,5 +58,13 @@ public class Reporte {
 
     public void setResuelto(boolean resuelto) {
         this.resuelto = resuelto;
+    }
+
+    public BigInteger getIdReceta() {
+        return idReceta;
+    }
+
+    public void setIdReceta(BigInteger idReceta) {
+        this.idReceta = idReceta;
     }
 }
