@@ -40,4 +40,5 @@ public interface IControladorCBDRecetasCooker {
     public String linkDomicilio (int idDomicilio) throws SQLException;
     public List<Integer> listarReportes() throws SQLException;
     public List<DTORecetaMiniatura> idsListaFavoritos(BigInteger idUsuario) throws SQLException;
+    public int calificacionRecetaXCooker(BigInteger idCooker, BigInteger idReceta) throws SQLException;
 }

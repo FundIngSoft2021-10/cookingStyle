@@ -1,5 +1,6 @@
 package presentacion.perfiles;
 
+import entidades.dto.DTOCalificacion;
 import entidades.dto.DTOReceta;
 import entidades.dto.DTOSesion;
 import entidades.dto.Pantalla;
@@ -17,6 +18,7 @@ import logica_negocio.recetas.ControladorRecetasChef;
 import logica_negocio.recetas.ControladorRecetasCooker;
 import logica_negocio.recetas.IControladorRecetasChef;
 import logica_negocio.recetas.IControladorRecetasCooker;
+import org.controlsfx.control.Rating;
 import presentacion.IControladorPantalla;
 
 import java.io.IOException;
@@ -34,6 +36,12 @@ public class ControladorCoGUI010 implements IControladorPantalla {
     private List<DTOReceta> recetas;
 
     @FXML
+    public Rating rating;
+    @FXML
+    public Button btnCalificar;
+    @FXML
+    public Button btnEliminar;
+    @FXML
     public Button btnContactar;
     @FXML
     public Text textServicioCl;
@@ -44,7 +52,7 @@ public class ControladorCoGUI010 implements IControladorPantalla {
     @FXML
     public Text tagPuntuacion;
     @FXML
-    public Text textPuntuacion;
+    public Text textPromedio;
     @FXML
     public Text textSeguidores;
     @FXML
@@ -77,8 +85,6 @@ public class ControladorCoGUI010 implements IControladorPantalla {
     public ImageView btnAnt;
     @FXML
     public ImageView btnSig;
-    @FXML
-    public Text TagPuntuaciones;
     @FXML
     public ImageView imgPerfil;
     @FXML
@@ -139,7 +145,7 @@ public class ControladorCoGUI010 implements IControladorPantalla {
 
         //Puntuacion
         this.tagPuntuacion.setVisible(true);
-        this.textPuntuacion.setVisible(true);
+        this.textPromedio.setVisible(true);
 
         //Segidores
         this.textSeguidores.setVisible(false);
@@ -147,6 +153,13 @@ public class ControladorCoGUI010 implements IControladorPantalla {
         //Membresia
         this.textMembresia.setVisible(false);
 
+        this.calificacionPromedio();
+
+    }
+
+    private void calificacionPromedio(){
+        DTOCalificacion calificacion = this.controlRecetas.promedioCalificacionChef(this.sesion.getRecetaCargada().getAutor());
+        this.textPromedio.setText(Float.toString(calificacion.getValor()));
     }
 
     private void cargarChef(){
@@ -172,8 +185,6 @@ public class ControladorCoGUI010 implements IControladorPantalla {
         } else {
             this.textCategoria.setText("Sin categorias");
         }
-
-        this.textPuntuacion.setText("0.0");
     }
 
     private void cargarRecetas(){
@@ -256,5 +267,16 @@ public class ControladorCoGUI010 implements IControladorPantalla {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void clickCalificar(MouseEvent mouseEvent) {
+        int valor = (int) this.rating.getRating();
+
+        if(valor>0){
+            this.controlRecetas.calificarChef(this.sesion.getRecetaCargada().getAutor(), valor);
+        }
+    }
+
+    public void clickEliminar(MouseEvent mouseEvent) {
     }
 }

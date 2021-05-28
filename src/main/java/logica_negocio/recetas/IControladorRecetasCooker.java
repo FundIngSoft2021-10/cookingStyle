@@ -162,4 +162,5 @@ public interface IControladorRecetasCooker {
      */
     public DTOExito reportarReceta(Receta receta, Reporte reporte);
     public List<DTORecetaMiniatura> recetasListaFavoritos();
+    public int calificacionRecetaXCooker(BigInteger idReceta);
 }

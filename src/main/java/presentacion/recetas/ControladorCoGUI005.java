@@ -1,9 +1,6 @@
 package presentacion.recetas;
 
-import entidades.dto.DTOExito;
-import entidades.dto.DTOReceta;
-import entidades.dto.DTOSesion;
-import entidades.dto.Pantalla;
+import entidades.dto.*;
 import entidades.modelo.*;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -18,6 +15,7 @@ import javafx.scene.text.Text;
 import javafx.scene.web.WebView;
 import logica_negocio.recetas.ControladorRecetasCooker;
 import logica_negocio.recetas.IControladorRecetasCooker;
+import org.controlsfx.control.Rating;
 import presentacion.IControladorPantalla;
 
 import java.io.IOException;
@@ -26,10 +24,22 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class ControladorCoGUI005 implements IControladorPantalla {
+
+
     private DTOSesion sesion;
     private DTOReceta receta;
     private IControladorRecetasCooker controlRecetas;
 
+    @FXML
+    public Rating raiting;
+    @FXML
+    public Button btnCalificar;
+    @FXML
+    public Button btnEliminar;
+    @FXML
+    public ImageView imgEstrella;
+    @FXML
+    public Text textPromedio;
     @FXML
     public ImageView imgReceta;
     @FXML
@@ -81,6 +91,15 @@ public class ControladorCoGUI005 implements IControladorPantalla {
 
         // Colocar la información de la receta en la pantalla
         this.cargarReceta();
+
+        this.calificacionPromedio();
+        this.calificacionExistente();
+
+    }
+
+    private void calificacionPromedio(){
+        DTOCalificacion calificacion = this.controlRecetas.promedioCalificacionReceta(this.sesion.getRecetaCargada().getReceta());
+        this.textPromedio.setText(Float.toString(calificacion.getValor()));
     }
 
     private void cargarReceta() {
@@ -109,6 +128,19 @@ public class ControladorCoGUI005 implements IControladorPantalla {
     private void cargarChef() {
         this.textNombreChef.setText(this.receta.getAutor().getNombre());
 
+    }
+
+    private void calificacionExistente(){
+        int valor = this.controlRecetas.calificacionRecetaXCooker(this.sesion.getRecetaCargada().getReceta().getIdReceta());
+
+        if(valor!=0){
+            this.raiting.setRating((double) valor);
+            this.btnCalificar.setVisible(false);
+            this.btnEliminar.setVisible(true);
+        } else {
+            this.btnCalificar.setVisible(true);
+            this.btnEliminar.setVisible(false);
+        }
     }
 
     public void clickNombreChef(MouseEvent mouseEvent) {
@@ -238,5 +270,25 @@ public class ControladorCoGUI005 implements IControladorPantalla {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void clickCalificar(MouseEvent mouseEvent) {
+
+        int valor = (int) this.raiting.getRating();
+
+        if(valor>0){
+            this.controlRecetas.calificarReceta(this.sesion.getRecetaCargada().getReceta(), valor);
+            this.btnCalificar.setVisible(false);
+            this.btnEliminar.setVisible(true);
+        }
+
+    }
+
+    public void clickEliminar(MouseEvent mouseEvent) {
+        System.out.println("Entro");
+        this.btnCalificar.setVisible(true);
+        this.btnEliminar.setVisible(false);
+        this.raiting.setRating(0.0);
+        this.controlRecetas.eliminarCalificacion(this.sesion.getRecetaCargada().getReceta());
     }
 }

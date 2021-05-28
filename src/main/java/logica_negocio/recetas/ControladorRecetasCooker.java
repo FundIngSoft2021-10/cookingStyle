@@ -610,4 +610,15 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker {
             return null;
         }
     }
+
+    @Override
+    public int calificacionRecetaXCooker(BigInteger idReceta) {
+        int valor = 0;
+        try {
+            valor = this.controlCBD.calificacionRecetaXCooker(this.cooker.getIdUsuario(), idReceta);
+            return valor;
+        } catch (SQLException e) {
+            return 0;
+        }
+    }
 }
