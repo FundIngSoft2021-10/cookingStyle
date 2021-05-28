@@ -1,4 +1,5 @@
 import entidades.dto.DTOExito;
+import entidades.dto.DTOReceta;
 import entidades.modelo.Cooker;
 import logica_negocio.recetas.ControladorRecetasChef;
 import logica_negocio.recetas.ControladorRecetasCooker;
@@ -45,4 +46,29 @@ public class RecetasTest {
         DTOExito exito = controlCooker.agregarRecetaListaFavoritos(BigInteger.valueOf(1011),ids);
         assertTrue(exito.isEstado());
     }
+
+    @Test
+    public void modificarNombreRecetaTest(){
+        DTOReceta receta = controlChef.modificarNombre("Lasagna de pollo", BigInteger.valueOf(1001));
+        assertTrue(receta.isEncontrado());
+    }
+
+    @Test
+    public void modificarDescripcionRecetaTest(){
+        DTOReceta receta = controlChef.modificarDecripcion("Deliciosa receta extranjera para tus antojos fit.", BigInteger.valueOf(1003));
+        assertTrue(receta.isEncontrado());
+    }
+
+    @Test
+    public void modificarLinkVideoRecetaTest(){
+        DTOReceta receta = controlChef.modificarLinkVideo("https://www.youtube.com/embed/_B9CiqKJYR8", BigInteger.valueOf(1000));
+        assertTrue(receta.isEncontrado());
+    }
+
+    @Test
+    public void modificarLinkImagenRecetaTest() {
+        DTOReceta receta = controlChef.modificarLinkImg("https://img-global.cpcdn.com/recipes/95ff8997e90fe28e/751x532cq70/churrasco-tipo-cubano-foto-principal.jpg", BigInteger.valueOf(1004));
+        assertTrue(receta.isEncontrado());
+    }
+
 }
