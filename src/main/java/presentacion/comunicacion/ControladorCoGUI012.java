@@ -1,7 +1,9 @@
 package presentacion.comunicacion;
 
+import entidades.dto.DTOCorreo;
 import entidades.dto.DTOSesion;
 import entidades.dto.Pantalla;
+import javafx.application.HostServices;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -11,6 +13,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import logica_negocio.citas.ControladorCitas;
+import logica_negocio.citas.IControladorCitas;
 import logica_negocio.recetas.ControladorRecetasChef;
 import logica_negocio.recetas.IControladorRecetasChef;
 import presentacion.IControladorPantalla;
@@ -24,6 +29,7 @@ public class ControladorCoGUI012 implements IControladorPantalla  {
 
     private DTOSesion sesion;
     private IControladorRecetasChef controlChef;
+    private IControladorCitas controlCitas;
 
     @FXML
     public Text textServicioCliente;
@@ -80,12 +86,13 @@ public class ControladorCoGUI012 implements IControladorPantalla  {
     public void inicializar(DTOSesion sesion) {
         this.sesion = sesion;
         this.controlChef = new ControladorRecetasChef(this.sesion.getRecetaCargada().getAutor());
+        this.controlCitas = new ControladorCitas();
         this.ocultar();
         this.cargarChef();
 
         this.textNomUsuario.setText(this.sesion.getUsuario().getNombreUsuario());
 
-
+        this.cargarCorreo();
     }
 
     private void ocultar(){
@@ -128,6 +135,12 @@ public class ControladorCoGUI012 implements IControladorPantalla  {
     }
 
     private void cargarCorreo(){
+        DTOCorreo correo = this.controlCitas.correoUsuario(this.sesion.getUsuario());
+        if(correo.isEstado()){
+            this.linkCorreoChef.setText(correo.getCorreo());
+        } else {
+            this.linkCorreoChef.setText(correo.getMensaje());
+        }
 
     }
 
@@ -152,6 +165,9 @@ public class ControladorCoGUI012 implements IControladorPantalla  {
 
     @FXML
     public void clickRedireccion(MouseEvent mouseEvent) {
+
+        HostServices hostServices = (HostServices) ((Stage)(this.linkCorreoChef.getScene().getWindow())).getProperties().get("hostServices");
+        hostServices.showDocument("https://mail.google.com/mail/?view=cm&fs=1&to=" + this.linkCorreoChef.getText()+ "&su=Consulta Cita Cooking");
 
     }
 

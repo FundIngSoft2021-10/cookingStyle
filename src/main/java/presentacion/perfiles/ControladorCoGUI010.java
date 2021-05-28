@@ -144,6 +144,9 @@ public class ControladorCoGUI010 implements IControladorPantalla {
         //Segidores
         this.textSeguidores.setVisible(false);
 
+        //Membresia
+        this.textMembresia.setVisible(false);
+
     }
 
     private void cargarChef(){
