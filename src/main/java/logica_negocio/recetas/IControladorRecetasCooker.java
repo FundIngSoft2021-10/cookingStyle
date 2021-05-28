@@ -5,6 +5,7 @@ import entidades.modelo.Categoria;
 import entidades.modelo.Chef;
 import entidades.modelo.LineaIngrediente;
 import entidades.modelo.Receta;
+import entidades.modelo.Reporte;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -152,4 +153,12 @@ public interface IControladorRecetasCooker {
      * @return DTOExito con confirmación de la acción
      */
     public DTOExito eliminarCalificacion (Receta receta);
+
+    /**
+     * Relaciona un reporte a una receta
+     * @param receta receta reportada
+     * @param reporte información del reporte
+     * @return DTOExito confirmando la acción
+     */
+    public DTOExito reportarReceta(Receta receta, Reporte reporte);
 }

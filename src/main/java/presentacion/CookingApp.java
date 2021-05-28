@@ -24,6 +24,7 @@ public class CookingApp extends Application {
                 }
             }
         });
+        primaryStage.getProperties().put("hostServices", this.getHostServices());
         primaryStage.setScene(scene);
         primaryStage.setFullScreen(true);
         primaryStage.show();

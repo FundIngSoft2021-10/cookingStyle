@@ -7,6 +7,7 @@ import entidades.modelo.Chef;
 import entidades.modelo.Dia;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -52,5 +53,19 @@ public class ControladorCBDCitas implements IControladorCBDCitas {
         return calendario;
     }
 
+    @Override
+    public String getCorreo (BigInteger idUsuario) throws SQLException {
+        String correo = null;
+        String consulta = "SELECT correo FROM credenciales WHERE idusuario =" + idUsuario;
+        try (PreparedStatement stmt = conexion.prepareStatement(consulta)) {
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                correo = rs.getString("correo");
+            }
+        } catch (SQLException sqle) {
+            throw sqle;
+        }
+        return correo;
+    }
 
 }

@@ -58,6 +58,8 @@ public class ControladorPBDRegAut implements IControladorPBDRegAut {
         }
     }
 
+
+
     private void crearUsuarioRol(TipoUsuario tipoUsuario, BigInteger idUsuario) throws SQLException {
         String insercion = "INSERT INTO " + tipoUsuario.toString().toLowerCase() + " (idUsuario) VALUES (?)";
 
