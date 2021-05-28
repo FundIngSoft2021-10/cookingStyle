@@ -33,7 +33,6 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class ControladorChGUI008 implements IControladorPantalla {
-
     private DTOSesion sesion;
     private IControladorRecetasChef controlChef;
     private IControladorRecetasCooker controlRecetas;
@@ -103,6 +102,8 @@ public class ControladorChGUI008 implements IControladorPantalla {
     public Text tagSegidores;
     @FXML
     public Text textNombreRec;
+    @FXML
+    public Text textPuntuacionReceta;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
