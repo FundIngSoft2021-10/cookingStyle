@@ -16,6 +16,7 @@ module cooking {
     opens presentacion.recetas to javafx.fxml;
     opens presentacion.perfiles to javafx.fxml;
     opens presentacion.comunicacion to javafx.fxml;
+    opens presentacion.administracion to javafx.fxml;
     exports presentacion;
     exports logica_negocio.perfiles;
     exports logica_negocio.recetas;

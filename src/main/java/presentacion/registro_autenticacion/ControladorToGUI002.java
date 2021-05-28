@@ -61,5 +61,10 @@ public class ControladorToGUI002 implements IControladorPantalla {
 
     @FXML
     public void clickIniciarAdmin(MouseEvent mouseEvent) {
+        try {
+            this.cargarPantalla((Event) mouseEvent, Pantalla.AD_GUI001_INICIARSESION, this.sesion, false);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
