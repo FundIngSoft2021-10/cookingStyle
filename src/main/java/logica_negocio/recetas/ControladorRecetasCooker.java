@@ -514,6 +514,7 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker {
 
     /**
      * @inheritDoc
+     *
      */
     @Override
     public DTOExito calificarReceta(Receta receta, int calificacion){

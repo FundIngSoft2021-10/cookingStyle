@@ -3,6 +3,7 @@ module cooking {
     requires javafx.fxml;
     requires javafx.web;
     requires java.sql;
+    requires org.controlsfx.controls;
 
     opens entidades.dto to org.junit.jupiter;
     opens entidades.modelo to org.junit.jupiter;
