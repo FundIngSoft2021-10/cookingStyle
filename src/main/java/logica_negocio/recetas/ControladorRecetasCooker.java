@@ -536,7 +536,11 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker {
                 promedio +=  valor;
             }
 
-            promedio = promedio/calificaciones.size();
+            if(calificaciones.size()!=0){
+                promedio = promedio/calificaciones.size();
+            } else {
+                promedio = 0;
+            }
 
             return new DTOCalificacion(promedio, true, "Promedio calculado");
 
@@ -555,7 +559,12 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker {
                 promedio +=  valor;
             }
 
-            promedio = promedio/calificaciones.size();
+            if(calificaciones.size()!=0){
+                promedio = promedio/calificaciones.size();
+            } else {
+                promedio = 0;
+            }
+
 
             return new DTOCalificacion(promedio, true, "Promedio calculado");
 
