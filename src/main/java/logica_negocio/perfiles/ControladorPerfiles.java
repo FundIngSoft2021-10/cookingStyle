@@ -22,6 +22,18 @@ public class ControladorPerfiles implements IControladorPerfiles{
      * @inheritDoc
      */
     @Override
+    public DTOExito verificarPerfil(BigInteger idusuario){
+        try {
+            Usuario usuario = controlPBD.buscarUsuario(idusuario);
+            if(usuario!=null){
+                return new DTOExito(true, "la cuenta ha sido creada!");
+            }
+            return new DTOExito(false,"cuenta no encontrada");
+        } catch (SQLException sqlException){
+            return new DTOExito(false, "error en la base de datos; "+ sqlException.getMessage());
+        }
+    }
+    @Override
     public DTOExito eliminarPerfil(BigInteger idusuario){
 
         try{

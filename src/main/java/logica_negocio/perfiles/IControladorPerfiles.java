@@ -19,4 +19,6 @@ public interface IControladorPerfiles {
     public DTOExito eliminarPerfil(BigInteger idusuario);
 
     public DTOPerfil modificarPerfil(Usuario usuario, String valorAModificar, String modificacion );
+
+    public DTOExito verificarPerfil(BigInteger idusuario);
 }

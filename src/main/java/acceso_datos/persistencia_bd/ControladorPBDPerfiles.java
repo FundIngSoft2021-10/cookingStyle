@@ -1,11 +1,16 @@
 package acceso_datos.persistencia_bd;
 
 import acceso_datos.conexion_bd.ControladorBDConexion;
+import entidades.modelo.Admin;
+import entidades.modelo.Chef;
+import entidades.modelo.Cooker;
+import entidades.modelo.Usuario;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ControladorPBDPerfiles implements IControladorPBDPerfiles{
@@ -51,6 +56,35 @@ public class ControladorPBDPerfiles implements IControladorPBDPerfiles{
             throw  sqle;
         }
 
+    }
+    @Override
+    public Usuario buscarUsuario(BigInteger idUsuario) throws SQLException {
+        String consulta = "SELECT * FROM usuario WHERE idUsuario = ?";
+
+        try {
+            PreparedStatement stmt = conexion.prepareStatement(consulta);
+            stmt.setBigDecimal(1, new BigDecimal(idUsuario));
+
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                Usuario usuario = new Usuario();
+                if (rs.getInt("idTipoUsuario") == 1) {
+                    usuario = new Admin(idUsuario, rs.getString("nombreUsuario"),
+                            rs.getDate("fechaCreacion"), rs.getString("nombre"));
+                } else if (rs.getInt("idTipoUsuario") == 2) {
+                    usuario = new Cooker(idUsuario, rs.getString("nombreUsuario"),
+                            rs.getDate("fechaCreacion"), rs.getString("nombre"));
+                } else if (rs.getInt("idTipoUsuario") == 3) {
+                    usuario = new Chef(idUsuario, rs.getString("nombreUsuario"),
+                            rs.getDate("fechaCreacion"), rs.getString("nombre"));
+                }
+                return usuario;
+            }
+        } catch (SQLException sqle) {
+            throw sqle;
+        }
+
+        return null;
     }
 
 }

@@ -21,7 +21,33 @@ public class UsuariosTest {
         perfiles = new ControladorPerfiles();
         registro = new ControladorRegAut();
     }
+    @Test
+    public void crearPerfilAdminTest(){
+        registro.registrarUsuario(TipoUsuario.ADMIN,"arianaG1@gmail.com","unicornios11","AriGrande","Ariana Grande");
+        DTOAutenticacion usuario = registro.autenticarUsuario(TipoUsuario.CHEF,"arianaG1@gmail.com","unicornios11");
 
+        DTOExito exito = perfiles.verificarPerfil(usuario.getUsuario().getIdUsuario());
+
+        assertTrue(exito.isEstado());
+    }
+    @Test
+    public void crearPerfilChefTest(){
+        registro.registrarUsuario(TipoUsuario.CHEF,"sartoben@gmail.com","GardfieldLasana","Sartoben","Santiago Vasquez");
+        DTOAutenticacion usuario = registro.autenticarUsuario(TipoUsuario.CHEF,"sartoben@gmail.com","GardfieldLasana");
+
+        DTOExito exito = perfiles.verificarPerfil(usuario.getUsuario().getIdUsuario());
+
+        assertTrue(exito.isEstado());
+    }
+    @Test
+    public void crearPerfilCookerTest(){
+        registro.registrarUsuario(TipoUsuario.COOKER,"mateoSarmiento@gmail.com","slimeRancher2","DevoraPlatillos","Mateo");
+        DTOAutenticacion usuario = registro.autenticarUsuario(TipoUsuario.CHEF,"mateoSarmiento@gmail.com","slimeRancher2");
+
+        DTOExito exito = perfiles.verificarPerfil(usuario.getUsuario().getIdUsuario());
+
+        assertTrue(exito.isEstado());
+    }
     @Test
     public void eliminarPerfilCookerTest(){
         registro.registrarUsuario(TipoUsuario.COOKER, "dmarroyo@gmail.com", "RosaNives", "DmArroyo", "Damaris");
