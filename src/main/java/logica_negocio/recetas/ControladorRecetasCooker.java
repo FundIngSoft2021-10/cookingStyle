@@ -499,6 +499,79 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker {
         return  recetas;
     }
 
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public DTOExito calificarChef(Chef chef, int calificacion){
+        try {
+            this.controlPBD.calificarChef(chef.getIdUsuario(), this.cooker.getIdUsuario(), calificacion);
+        } catch (SQLException e) {
+            return new DTOExito(false, "Error en la base de datos; " + e.getMessage());
+        }
+        return new DTOExito(true, "La calificación fue añadida con éxito");
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public DTOExito calificarReceta(Receta receta, int calificacion){
+        try {
+            this.controlPBD.calificarReceta(receta.getIdReceta(), this.cooker.getIdUsuario(), calificacion);
+        } catch (SQLException e) {
+            return new DTOExito(false, "Error en la base de datos; " + e.getMessage());
+        }
+        return new DTOExito(true, "La calificación fue añadida con éxito");
+    }
+
+    @Override
+    public DTOCalificacion promedioCalificacionReceta (Receta receta){
+
+        try {
+            List<Integer> calificaciones = this.controlCBD.listaCalificacionReceta(receta.getIdReceta());
+            float promedio = 0;
+            for(Integer valor: calificaciones){
+                promedio +=  valor;
+            }
+
+            promedio = promedio/calificaciones.size();
+
+            return new DTOCalificacion(promedio, true, "Promedio calculado");
+
+        } catch (SQLException e) {
+            return new DTOCalificacion(0, false, "Error en la base de datos; " + e.getMessage());
+        }
+    }
+
+    @Override
+    public DTOCalificacion promedioCalificacionChef (Chef chef){
+
+        try {
+            List<Integer> calificaciones = this.controlCBD.listaCalificacionChef(chef.getIdUsuario());
+            float promedio = 0;
+            for(Integer valor: calificaciones){
+                promedio +=  valor;
+            }
+
+            promedio = promedio/calificaciones.size();
+
+            return new DTOCalificacion(promedio, true, "Promedio calculado");
+
+        } catch (SQLException e) {
+            return new DTOCalificacion(0, false, "Error en la base de datos; " + e.getMessage());
+        }
+    }
+    @Override
+    public DTOExito eliminarCalificacion (Receta receta){
+        try {
+            this.controlPBD.eliminarCalificacion(receta.getIdReceta(), this.cooker.getIdUsuario());
+        } catch (SQLException e) {
+            return new DTOExito(false, "Error en la base de datos; " + e.getMessage());
+        }
+        return new DTOExito(true, "La calificación fue eliminada con éxito");
+    }
+
     private int mayor(List<Integer> ids){
         int mayor = 0;
 

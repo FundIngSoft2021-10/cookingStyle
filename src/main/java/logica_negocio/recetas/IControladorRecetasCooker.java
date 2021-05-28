@@ -2,6 +2,7 @@ package logica_negocio.recetas;
 
 import entidades.dto.*;
 import entidades.modelo.Categoria;
+import entidades.modelo.Chef;
 import entidades.modelo.LineaIngrediente;
 import entidades.modelo.Receta;
 import entidades.modelo.Reporte;
@@ -116,6 +117,42 @@ public interface IControladorRecetasCooker {
     public List<LineaIngrediente> ingredientesxReceta(BigInteger idReceta);
     public DTOExito agregarRecetaListaFavoritos(BigInteger idreceta);
     public List<DTOReceta> recetasChef(BigInteger idChef);
+
+    /**
+     * Calificar chef
+     * @param chef chef a calificar
+     * @param calificacion entero de calificación
+     * @return DTOExito con confirmación de la acción
+     */
+    public DTOExito calificarChef(Chef chef, int calificacion);
+
+    /**
+     * Calificar receta
+     * @param receta receta a calificar
+     * @param calificacion entero de calificación
+     * @return DTOExito con confirmación de la acción
+     */
+    public DTOExito calificarReceta(Receta receta, int calificacion);
+
+    /**
+     * Promedio de calificaciones de receta
+     * @param receta receta a promediar
+     * @return DTOCalificación con la información solicitada
+     */
+    public DTOCalificacion promedioCalificacionReceta (Receta receta);
+
+    /**
+     * Promedio de calificaciones de chef
+     * @param chef chef a promediar
+     * @return DTOCalificación con la información solicitada
+     */
+    public DTOCalificacion promedioCalificacionChef (Chef chef);
+    /**
+     * eliminar receta
+     * @param receta receta a calificar
+     * @return DTOExito con confirmación de la acción
+     */
+    public DTOExito eliminarCalificacion (Receta receta);
 
     /**
      * Relaciona un reporte a una receta
