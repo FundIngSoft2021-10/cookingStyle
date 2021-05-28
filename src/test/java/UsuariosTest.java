@@ -1,5 +1,6 @@
 import entidades.dto.DTOAutenticacion;
 import entidades.dto.DTOExito;
+import entidades.dto.DTOPerfil;
 import entidades.modelo.TipoUsuario;
 import logica_negocio.perfiles.ControladorPerfiles;
 import logica_negocio.registro_autenticacion.ControladorRegAut;
@@ -44,7 +45,7 @@ public class UsuariosTest {
     @Test
     public void eliminarPerfilAdmnTest(){
         registro.registrarUsuario(TipoUsuario.ADMIN, "ame@gmail.com", "Adriana", "Ame", "Amelia");
-        DTOAutenticacion usuario = registro.autenticarUsuario(TipoUsuario.CHEF, "ame@gmail.com", "Adriana");
+        DTOAutenticacion usuario = registro.autenticarUsuario(TipoUsuario.ADMIN, "ame@gmail.com", "Adriana");
 
         DTOExito exito = perfiles.eliminarPerfil(usuario.getUsuario().getIdUsuario());
 
@@ -57,6 +58,24 @@ public class UsuariosTest {
         assertTrue(exito.isEstado());
     }
 
+    @Test
+    public void modificarPerfilCookerTest()
+    {
+        registro.registrarUsuario(TipoUsuario.COOKER, "naizaquej3@gmail.com", "RosaNives", "Jess_4", "Jessica");
+        DTOAutenticacion usuario = registro.autenticarUsuario(TipoUsuario.COOKER, "naizaquej3@gmail.com", "RosaNives");
 
+        DTOPerfil perfilModificado = perfiles.modificarPerfil(usuario.getUsuario(), "nombre", "Sara");
+        assertTrue(perfilModificado.isEstado());
+    }
+
+    @Test
+    public void modificarPerfilChefTest()
+    {
+        registro.registrarUsuario(TipoUsuario.CHEF, "collante@gmail.com", "Lupita", "Cam84", "Camila Collante");
+        DTOAutenticacion usuario = registro.autenticarUsuario(TipoUsuario.CHEF, "collante@gmail.com", "Lupita");
+
+        DTOPerfil perfilModificado = perfiles.modificarPerfil(usuario.getUsuario(), "nombreUsuario", "Camila42");
+        assertTrue(perfilModificado.isEstado());
+    }
 
 }
