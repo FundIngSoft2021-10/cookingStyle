@@ -146,4 +146,10 @@ public interface IControladorRecetasCooker {
      * @return DTOCalificación con la información solicitada
      */
     public DTOCalificacion promedioCalificacionChef (Chef chef);
+    /**
+     * eliminar receta
+     * @param receta receta a calificar
+     * @return DTOExito con confirmación de la acción
+     */
+    public DTOExito eliminarCalificacion (Receta receta);
 }

@@ -562,4 +562,13 @@ public class ControladorRecetasCooker implements IControladorRecetasCooker {
             return new DTOCalificacion(0, false, "Error en la base de datos; " + e.getMessage());
         }
     }
+    @Override
+    public DTOExito eliminarCalificacion (Receta receta){
+        try {
+            this.controlPBD.eliminarCalificacion(receta.getIdReceta(), this.cooker.getIdUsuario());
+        } catch (SQLException e) {
+            return new DTOExito(false, "Error en la base de datos; " + e.getMessage());
+        }
+        return new DTOExito(true, "La calificación fue eliminada con éxito");
+    }
 }
