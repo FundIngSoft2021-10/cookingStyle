@@ -9,6 +9,7 @@ public class Reporte {
     private Date fecha;
     private boolean resuelto;
     private BigInteger idReceta;
+    private int idReporte;
 
     public Reporte(Cooker usuario, MotivoReporte motivo, Date fecha, boolean resuelto, BigInteger idReceta) {
         this.usuario = usuario;
@@ -18,11 +19,28 @@ public class Reporte {
         this.idReceta = idReceta;
     }
 
+    public Reporte(Cooker usuario, MotivoReporte motivo, Date fecha, boolean resuelto, BigInteger idReceta, int idReporte) {
+        this.usuario = usuario;
+        this.motivo = motivo;
+        this.fecha = fecha;
+        this.resuelto = resuelto;
+        this.idReceta = idReceta;
+        this.idReporte = idReporte;
+    }
+
     public Reporte(Cooker usuario, MotivoReporte motivo, boolean resuelto, BigInteger idReceta) {
         this.usuario = usuario;
         this.motivo = motivo;
         this.resuelto = resuelto;
         this.idReceta = idReceta;
+    }
+
+    public Reporte(Cooker usuario, MotivoReporte motivo, boolean resuelto, BigInteger idReceta, int idReporte) {
+        this.usuario = usuario;
+        this.motivo = motivo;
+        this.resuelto = resuelto;
+        this.idReceta = idReceta;
+        this.idReporte = idReporte;
     }
 
     public Reporte() {
@@ -66,5 +84,13 @@ public class Reporte {
 
     public void setIdReceta(BigInteger idReceta) {
         this.idReceta = idReceta;
+    }
+
+    public int getIdReporte() {
+        return idReporte;
+    }
+
+    public void setIdReporte(int idReporte) {
+        this.idReporte = idReporte;
     }
 }

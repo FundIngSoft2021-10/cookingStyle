@@ -78,5 +78,10 @@ public class ControladorAdGUI001 implements IControladorPantalla {
     }
 
     public void clickCancelar(ActionEvent actionEvent) {
+        try {
+            this.volverPantalla((Event) actionEvent, this.sesion);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

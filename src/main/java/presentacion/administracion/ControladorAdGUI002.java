@@ -25,6 +25,8 @@ public class ControladorAdGUI002 implements IControladorPantalla {
     public Text textReportes;
     @FXML
     public ImageView imgReportes;
+    @FXML
+    public ImageView btnCerrarSesion;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -41,6 +43,14 @@ public class ControladorAdGUI002 implements IControladorPantalla {
         try {
             this.cargarPantalla((Event) mouseEvent, Pantalla.AD_GUI003_VERREPORTES, this.sesion, false);
         } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void clickCerrar(MouseEvent mouseEvent) {
+        try {
+            this.cargarPantalla((Event) mouseEvent, Pantalla.TO_GUI002_INICIO, this.sesion, false);
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

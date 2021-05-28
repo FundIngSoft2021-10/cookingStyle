@@ -4,8 +4,11 @@ import acceso_datos.consultas_bd.ControladorCBDAdministrador;
 import acceso_datos.consultas_bd.ControladorCBDRecetas;
 import acceso_datos.consultas_bd.IControladorCBDAdministrador;
 import acceso_datos.consultas_bd.IControladorCBDRecetas;
+import acceso_datos.persistencia_bd.ControladorPBDAdministrador;
 import acceso_datos.persistencia_bd.ControladorPBDRecetasChef;
+import acceso_datos.persistencia_bd.IControladorPBDAdministrador;
 import acceso_datos.persistencia_bd.IControladorPBDRecetasChef;
+import entidades.dto.DTOExito;
 import entidades.dto.DTOReceta;
 import entidades.modelo.Receta;
 import entidades.modelo.Reporte;
@@ -18,6 +21,7 @@ import java.util.List;
 
 public class ControladorAdministrador implements IControladorAdministrador {
     private IControladorCBDRecetas controlCBDRecetas;
+    private IControladorPBDAdministrador controlPBDAdmin;
     private IControladorPBDRecetasChef controlPersistenciaBD;
     private IControladorCBDAdministrador controlCBDAdministrador;
 
@@ -25,6 +29,7 @@ public class ControladorAdministrador implements IControladorAdministrador {
         this.controlCBDRecetas = new ControladorCBDRecetas();
         this.controlPersistenciaBD = new ControladorPBDRecetasChef();
         this.controlCBDAdministrador = new ControladorCBDAdministrador();
+        this.controlPBDAdmin = new ControladorPBDAdministrador();
     }
     @Override
     public DTOReceta eliminarVideoInapropiado(BigInteger idreceta){
@@ -60,5 +65,15 @@ public class ControladorAdministrador implements IControladorAdministrador {
             reportesEncontrados = null;
         }
         return  reportesEncontrados;
+    }
+
+    @Override
+    public DTOExito eliminarReporte(int idReporte){
+        try {
+            this.controlPBDAdmin.eliminarReporte(idReporte);
+            return new DTOExito(true, "Reporte eliminado");
+        } catch (SQLException e) {
+            return new DTOExito(false, "Error en la base de datos; " + e.getMessage());
+        }
     }
 }

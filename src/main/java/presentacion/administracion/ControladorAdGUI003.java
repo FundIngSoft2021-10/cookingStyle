@@ -1,5 +1,6 @@
 package presentacion.administracion;
 
+import entidades.dto.DTOExito;
 import entidades.dto.DTOReceta;
 import entidades.dto.DTOSesion;
 import entidades.dto.Pantalla;
@@ -7,7 +8,9 @@ import entidades.modelo.Receta;
 import entidades.modelo.Reporte;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -23,6 +26,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class ControladorAdGUI003 implements IControladorPantalla {
@@ -33,6 +37,7 @@ public class ControladorAdGUI003 implements IControladorPantalla {
     private DTOReceta receta;
     private List<Reporte> reportes;
     private int contaReportes;
+    private int totalReportes;
 
     @FXML
     public TextArea textDetalleReporte;
@@ -78,6 +83,8 @@ public class ControladorAdGUI003 implements IControladorPantalla {
         //Cargar receta
         this.cargarReceta();
 
+        this.totalReportes = this.reportes.size();
+
     }
 
     private void cargarReportes(){
@@ -113,9 +120,54 @@ public class ControladorAdGUI003 implements IControladorPantalla {
     }
 
     public void clickAceptar(MouseEvent mouseEvent) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Eliminar Receta");
+        alert.setHeaderText(null);
+        alert.setContentText("¿Seguro quiere eliminar la receta?");
+        ButtonType buttonTypeAceptar = new ButtonType("Aceptar");
+        ButtonType buttonTypeCancel = new ButtonType("Cancelar");
+        alert.getButtonTypes().setAll(buttonTypeAceptar, buttonTypeCancel);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == buttonTypeAceptar){
+            DTOReceta recetaEliminada = this.controlAdmin.eliminarVideoInapropiado(this.receta.getReceta().getIdReceta());
+            if(recetaEliminada != null){
+                this.crearAlerta(Alert.AlertType.INFORMATION, "Receta eliminada con éxito");
+                this.controlAdmin.eliminarReporte(this.reportes.get(this.contaReportes).getIdReporte());
+                this.contaReportes++;
+                if (this.contaReportes >= this.totalReportes){
+                    try {
+                        this.cargarPantalla((Event) mouseEvent, Pantalla.AD_GUI002_INICIO, this.sesion, false);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    this.cargarReporte();
+                    this.cargarReceta();
+                }
+            } else{
+                this.crearAlerta(Alert.AlertType.ERROR, recetaEliminada.getMensaje());
+            }
+
+        } else if (result.get() == buttonTypeCancel){
+            return;
+        }
     }
 
     public void clickRechazar(MouseEvent mouseEvent) {
+
+        this.controlAdmin.eliminarReporte(this.reportes.get(this.contaReportes).getIdReporte());
+        this.contaReportes++;
+        if (this.contaReportes >= this.totalReportes){
+            try {
+                this.cargarPantalla((Event) mouseEvent, Pantalla.AD_GUI002_INICIO, this.sesion, false);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            this.cargarReporte();
+            this.cargarReceta();
+        }
     }
 
     public void clickVolver(MouseEvent mouseEvent) {

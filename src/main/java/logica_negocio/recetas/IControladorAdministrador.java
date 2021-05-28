@@ -1,5 +1,6 @@
 package logica_negocio.recetas;
 
+import entidades.dto.DTOExito;
 import entidades.dto.DTOReceta;
 import entidades.modelo.Reporte;
 
@@ -15,4 +16,6 @@ public interface IControladorAdministrador {
      * @return el total de reportes en el sistema
      */
     public List<Reporte> revisarReportes ();
+
+    public DTOExito eliminarReporte(int idReporte);
 }
