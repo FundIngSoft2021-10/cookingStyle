@@ -53,4 +53,6 @@ public interface IControladorRecetasChef {
     public List<String> categoriasxChef (BigInteger idChef);
 
     public DTOReceta buscarReceta(BigInteger idreceta);
+
+    public DTOReceta eliminarReceta(BigInteger idreceta);
 }
