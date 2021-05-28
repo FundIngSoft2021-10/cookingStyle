@@ -21,11 +21,11 @@
                         <Image url="@../../img/fondo3.png" />
                      </image>
                   </ImageView>
-                  <SplitPane dividerPositions="0.5" prefHeight="783.0" prefWidth="1600.0" style="-fx-background-color: transparent;">
+                  <SplitPane prefHeight="783.0" prefWidth="1600.0" style="-fx-background-color: transparent;">
                      <items>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="784.0" prefWidth="747.0">
                            <children>
-                              <ImageView fx:id="imgReportes" fitHeight="313.0" fitWidth="304.0" layoutX="238.0" layoutY="160.0" onMouseClicked="#clickReportes">
+                              <ImageView fx:id="imgReportes" fitHeight="213.0" fitWidth="224.0" layoutX="656.0" layoutY="198.0" onMouseClicked="#clickReportes" preserveRatio="true">
                                  <image>
                                     <Image url="@../../img/reportes.png" />
                                  </image>
@@ -33,7 +33,7 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </ImageView>
-                              <Text fx:id="textReportes" fill="#fcba03" layoutX="236.0" layoutY="520.0" onMouseClicked="#clickReportes" strokeType="OUTSIDE" strokeWidth="0.0" text="Ver Reportes">
+                              <Text fx:id="textReportes" fill="#fcba03" layoutX="602.0" layoutY="463.0" onMouseClicked="#clickReportes" strokeType="OUTSIDE" strokeWidth="0.0" text="Ver Reportes">
                                  <font>
                                     <Font name="Comic Sans MS" size="51.0" />
                                  </font>
@@ -48,18 +48,6 @@
                               </ImageView>
                            </children>
                         </AnchorPane>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-                           <children>
-                              <Text fill="#fcba03" layoutX="29.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Usuarios">
-                                 <font>
-                                    <Font name="Comic Sans MS" size="51.0" />
-                                 </font>
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                              </Text>
-                           </children>
-                        </AnchorPane>
                      </items>
                   </SplitPane>
                </children>
@@ -68,7 +56,7 @@
          <top>
             <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="114.0" prefWidth="1600.0" style="-fx-background-color: #fcba03;" BorderPane.alignment="CENTER">
                <children>
-                  <ImageView fx:id="chLogoCookingER" fitHeight="113.0" fitWidth="252.0" layoutX="664.0" layoutY="-6.0" preserveRatio="true" AnchorPane.leftAnchor="664.0">
+                  <ImageView fx:id="chLogoCookingER" fitHeight="113.0" fitWidth="252.0" layoutX="664.0" layoutY="1.0" preserveRatio="true" AnchorPane.leftAnchor="664.0">
                      <image>
                         <Image url="@../../img/CookingBlanco.png" />
                      </image>
