@@ -28,7 +28,15 @@ public enum Pantalla {
     CH_GUI008_PERFIL("/presentacion/perfiles/ChGUI008Perfil.fxml"),
     CH_GUI009_SUBIRRECETA("/presentacion/recetas/ChGUI009SubirReceta.fxml"),
     CH_GUI010_EDITARRECETA("/presentacion/recetas/ChGUI010EditarReceta.fxml"),
-    CH_GUI011_VERAGENDA("/presentacion/perfiles/ChGUI011VerAgenda.fxml");
+    CH_GUI011_VERAGENDA("/presentacion/perfiles/ChGUI011VerAgenda.fxml"),
+
+    //Pantallas del usuario Admin
+    AD_GUI001_INICIARSESION("/presentacion/administracion/AdGUI001IniciarSesion.fxml"),
+    AD_GUI002_INICIO("/presentacion/administracion/AdGUI002Inicio.fxml"),
+    AD_GUI003_VERREPORTES("/presentacion/administracion/AdGUI003VerReportes.fxml"),
+    AD_GUI004_VERRECETA("/presentacion/administracion/AdGUI004VerReceta.fxml"),
+    AD_GUI004_VERPASOSRECETA("/presentacion/administracion/AdGUI005VerPasosReceta.fxml"),
+    AD_GUI005_VERINGRECETA("/presentacion/administracion/AdGUI006RecetaIngredientes.fxml");
 
     public String fxml;
 

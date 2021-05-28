@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.administracion.ControladorAdGUI003">
    <children>
       <BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0">
          <center>
@@ -35,10 +35,10 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Text>
-                              <TextArea fx:id="textAreaDetalleReporte" layoutX="93.0" layoutY="154.0" prefHeight="408.0" prefWidth="611.0" promptText="Detalle Reporte" text="Usuario: Jessica Naizaque&#10;Fecha de Reporte: 21 de Abril 2021&#10;Hora de Reporte: 11:00 a.m&#10;Receta reportada: Lasagna&#10;Chef: Clayton Ramírez " />
-                              <Button fx:id="botonAceptarReporte" layoutX="411.0" layoutY="668.0" mnemonicParsing="false" style="-fx-background-color: #c2ff73; -fx-background-radius: 50;" text="Aceptar Reporte" />
-                              <Button fx:id="botonRechazarReporte" layoutX="263.0" layoutY="668.0" mnemonicParsing="false" style="-fx-background-color: #ff7383; -fx-background-radius: 50;" text="Rechazar Reporte" />
-                              <Text fx:id="adVolver" layoutX="25.0" layoutY="765.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Volver" underline="true">
+                              <TextArea fx:id="textDetalleReporte" layoutX="93.0" layoutY="154.0" prefHeight="408.0" prefWidth="611.0" promptText="Detalle Reporte" text="Usuario: Jessica Naizaque&#10;Fecha de Reporte: 21 de Abril 2021&#10;Hora de Reporte: 11:00 a.m&#10;Receta reportada: Lasagna&#10;Chef: Clayton Ramírez " />
+                              <Button fx:id="btnAceptar" layoutX="411.0" layoutY="668.0" mnemonicParsing="false" onMouseClicked="#clickAceptar" style="-fx-background-color: #c2ff73; -fx-background-radius: 50;" text="Aceptar Reporte" />
+                              <Button fx:id="btnRechazar" layoutX="263.0" layoutY="668.0" mnemonicParsing="false" onMouseClicked="#clickRechazar" style="-fx-background-color: #ff7383; -fx-background-radius: 50;" text="Rechazar Reporte" />
+                              <Text fx:id="btnVolver" layoutX="25.0" layoutY="765.0" onMouseClicked="#clickVolver" strokeType="OUTSIDE" strokeWidth="0.0" text="Volver" underline="true">
                                  <font>
                                     <Font name="Comic Sans MS" size="13.0" />
                                  </font>
@@ -55,13 +55,13 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Text>
-                              <ImageView fx:id="fotoRecetaReporte" fitHeight="292.0" fitWidth="479.0" layoutX="158.0" layoutY="110.0" pickOnBounds="true" preserveRatio="true" />
-                              <Text fx:id="nombreRecetaReporte" layoutX="234.0" layoutY="435.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre Receta" textAlignment="CENTER" wrappingWidth="327.7441101074219">
+                              <ImageView fx:id="imgReceta" fitHeight="292.0" fitWidth="479.0" layoutX="158.0" layoutY="110.0" pickOnBounds="true" preserveRatio="true" />
+                              <Text fx:id="textNomReceta" layoutX="234.0" layoutY="435.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre Receta" textAlignment="CENTER" wrappingWidth="327.7441101074219">
                                  <font>
                                     <Font name="Comic Sans MS" size="23.0" />
                                  </font>
                               </Text>
-                              <Text fx:id="nombreChefRecetaReporte" fill="#ff9f54" layoutX="221.0" layoutY="464.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre del Chef" textAlignment="CENTER" underline="true" wrappingWidth="352.19281005859375">
+                              <Text fx:id="textNomChef" fill="#ff9f54" layoutX="221.0" layoutY="464.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre del Chef" textAlignment="CENTER" underline="true" wrappingWidth="352.19281005859375">
                                  <font>
                                     <Font name="Comic Sans MS" size="20.0" />
                                  </font>
@@ -69,17 +69,17 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Text>
-                              <ImageView fx:id="iconoFavoritoReporte" fitHeight="53.0" fitWidth="57.0" layoutX="334.0" layoutY="491.0">
+                              <ImageView fx:id="btnFavoritos" fitHeight="53.0" fitWidth="57.0" layoutX="334.0" layoutY="491.0">
                                  <image>
                                     <Image url="@../../img/Favorita.png" />
                                  </image>
                               </ImageView>
-                              <ImageView fx:id="iconoReporteReporte" fitHeight="53.0" fitWidth="57.0" layoutX="403.0" layoutY="491.0">
+                              <ImageView fx:id="btnReportar" fitHeight="53.0" fitWidth="57.0" layoutX="403.0" layoutY="491.0">
                                  <image>
                                     <Image url="@../../img/reportar.png" />
                                  </image>
                               </ImageView>
-                              <Button fx:id="botonVerRecetaReporte" layoutX="340.0" layoutY="601.0" mnemonicParsing="false" style="-fx-background-color: #fcba03; -fx-background-radius: 50;" text="Ver Receta Completa" />
+                              <Button fx:id="btnVeReceta" layoutX="340.0" layoutY="601.0" mnemonicParsing="false" onMouseClicked="#clickVerReceta" style="-fx-background-color: #fcba03; -fx-background-radius: 50;" text="Ver Receta Completa" />
                            </children>
                         </AnchorPane>
                      </items>
@@ -90,7 +90,7 @@
          <top>
             <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="114.0" prefWidth="1600.0" style="-fx-background-color: #fcba03;" BorderPane.alignment="CENTER">
                <children>
-                  <ImageView fx:id="chLogoCookingER" fitHeight="113.0" fitWidth="252.0" layoutX="664.0" layoutY="-6.0" AnchorPane.leftAnchor="664.0">
+                  <ImageView fx:id="chLogoCookingER" fitHeight="113.0" fitWidth="252.0" layoutX="664.0" layoutY="-6.0" preserveRatio="true" AnchorPane.leftAnchor="664.0">
                      <image>
                         <Image url="@../../img/CookingBlanco.png" />
                      </image>

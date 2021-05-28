@@ -4,10 +4,7 @@ import entidades.dto.DTOExito;
 import entidades.dto.DTOReceta;
 import entidades.dto.DTOSesion;
 import entidades.dto.Pantalla;
-import entidades.modelo.Cooker;
-import entidades.modelo.MotivoReporte;
-import entidades.modelo.Receta;
-import entidades.modelo.Reporte;
+import entidades.modelo.*;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -150,7 +147,7 @@ public class ControladorCoGUI005 implements IControladorPantalla {
         if (result.get() == buttonTypeOne){
             // ... user chose "One"
             MotivoReporte motivo = new MotivoReporte(1, "Lenguaje ofensivo", "Usa lenguaje inapropiado");
-            Reporte reporte = new Reporte((Cooker) this.sesion.getUsuario(), motivo, false);
+            Reporte reporte = new Reporte((Cooker) this.sesion.getUsuario(), motivo, false, this.sesion.getRecetaCargada().getReceta().getIdReceta());
 
             DTOExito exito = this.controlRecetas.reportarReceta(this.sesion.getRecetaCargada().getReceta(), reporte);
 
@@ -159,7 +156,7 @@ public class ControladorCoGUI005 implements IControladorPantalla {
         } else if (result.get() == buttonTypeTwo) {
             // ... user chose "Two"
             MotivoReporte motivo = new MotivoReporte(2, "Video Inapropiado", "El video contiene cosas indebidas");
-            Reporte reporte = new Reporte((Cooker) this.sesion.getUsuario(), motivo, false);
+            Reporte reporte = new Reporte((Cooker) this.sesion.getUsuario(), motivo, false, this.sesion.getRecetaCargada().getReceta().getIdReceta());
             DTOExito exito = this.controlRecetas.reportarReceta(this.sesion.getRecetaCargada().getReceta(), reporte);
 
             this.crearAlerta(Alert.AlertType.INFORMATION, exito.getMensaje());
@@ -167,7 +164,7 @@ public class ControladorCoGUI005 implements IControladorPantalla {
         } else if (result.get() == buttonTypeThree) {
             // ... user chose "Three"
             MotivoReporte motivo = new MotivoReporte(3, "Discriminación", "El video contiene frases discriminatorias");
-            Reporte reporte = new Reporte((Cooker) this.sesion.getUsuario(), motivo, false);
+            Reporte reporte = new Reporte((Cooker) this.sesion.getUsuario(), motivo, false, this.sesion.getRecetaCargada().getReceta().getIdReceta());
             DTOExito exito = this.controlRecetas.reportarReceta(this.sesion.getRecetaCargada().getReceta(), reporte);
 
             this.crearAlerta(Alert.AlertType.INFORMATION, exito.getMensaje());
@@ -175,7 +172,7 @@ public class ControladorCoGUI005 implements IControladorPantalla {
         } else if (result.get() == buttonTypeFour) {
             // ... user chose "Four"
             MotivoReporte motivo = new MotivoReporte(3, "Violencia", "El chef es violento");
-            Reporte reporte = new Reporte((Cooker) this.sesion.getUsuario(), motivo, false);
+            Reporte reporte = new Reporte((Cooker) this.sesion.getUsuario(), motivo, false, this.sesion.getRecetaCargada().getReceta().getIdReceta());
             DTOExito exito = this.controlRecetas.reportarReceta(this.sesion.getRecetaCargada().getReceta(), reporte);
 
             this.crearAlerta(Alert.AlertType.INFORMATION, exito.getMensaje());
@@ -183,7 +180,7 @@ public class ControladorCoGUI005 implements IControladorPantalla {
         } else if (result.get() == buttonTypeFive) {
             // ... user chose "Five"
             MotivoReporte motivo = new MotivoReporte(2, "Video Inexistente", "No hay video de la receta");
-            Reporte reporte = new Reporte((Cooker) this.sesion.getUsuario(), motivo, false);
+            Reporte reporte = new Reporte((Cooker) this.sesion.getUsuario(), motivo, false, this.sesion.getRecetaCargada().getReceta().getIdReceta());
             DTOExito exito = this.controlRecetas.reportarReceta(this.sesion.getRecetaCargada().getReceta(), reporte);
 
             this.crearAlerta(Alert.AlertType.INFORMATION, exito.getMensaje());
@@ -191,7 +188,7 @@ public class ControladorCoGUI005 implements IControladorPantalla {
         } else if (result.get() == buttonTypeSix) {
             // ... user chose "Six"
             MotivoReporte motivo = new MotivoReporte(1, "Errores ortográficos", "Hay errores ortográficos en los pasos de las recetas");
-            Reporte reporte = new Reporte((Cooker) this.sesion.getUsuario(), motivo, false);
+            Reporte reporte = new Reporte((Cooker) this.sesion.getUsuario(), motivo, false, this.sesion.getRecetaCargada().getReceta().getIdReceta());
             DTOExito exito = this.controlRecetas.reportarReceta(this.sesion.getRecetaCargada().getReceta(), reporte);
 
             this.crearAlerta(Alert.AlertType.INFORMATION, exito.getMensaje());

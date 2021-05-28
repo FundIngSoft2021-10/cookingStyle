@@ -214,7 +214,7 @@ public class ControladorCBDRecetas implements IControladorCBDRecetas {
 
                 Cooker cooker = consultaCooker(idCooker);
                 MotivoReporte motivoReporte = consultaMotivoReporte(idMotivo);
-                Reporte resultado = new Reporte(cooker, motivoReporte, fecha, resuelto);
+                Reporte resultado = new Reporte(cooker, motivoReporte, fecha, resuelto, idReceta);
                 reportes.add(resultado);
             }
 
