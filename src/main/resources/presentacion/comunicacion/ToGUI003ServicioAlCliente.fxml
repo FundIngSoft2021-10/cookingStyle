@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.comunicacion.ControladorToGUI003">
+<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.comunicacion.ControladorToGUI003">
     <children>
         <BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0">
             <center>
@@ -44,7 +47,7 @@
                                         <Image url="@../../img/ServicioAlCliente.png" />
                                     </image>
                                 </ImageView>
-                        <TextArea fx:id="textAreaSC" editable="false" layoutX="66.0" layoutY="120.0" prefHeight="142.0" prefWidth="660.0" text="¿Tienes dudas? ¿Preguntas? ¿Solo deseas hablar con alguien? &#10;¡Pues no te preocupes! Tenemos un canal habilitado 24/7 mediante correo para que nos cuentes cómo podemos asesorarte&#10;&#10;Cocina a tu estilo. Cocina feliz. Cocina con Cooking&#10;" wrapText="true">
+                        <TextArea fx:id="textAreaSC" editable="false" layoutX="66.0" layoutY="120.0" prefHeight="142.0" prefWidth="660.0" text="¿Tienes dudas? ¿Preguntas? ¿Solo deseas hablar con alguien? &#10;¡Pues no te preocupes! Tenemos un canal habilitado mediante correo para que nos cuentes cómo podemos asesorarte&#10;&#10;Cocina a tu estilo. Cocina feliz. Cocina con Cooking&#10;" wrapText="true">
                            <font>
                               <Font name="Comic Sans MS" size="18.0" />
                            </font>
@@ -58,6 +61,46 @@
                                         <Font name="Comic Sans MS" size="23.0" />
                                     </font>
                                 </Text>
+                        <Text fill="#ff9f54" layoutX="69.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" text="¿Puedo volver a ver una receta?" wrappingWidth="611.8102722167969">
+                           <font>
+                              <Font name="Comic Sans MS" size="23.0" />
+                           </font>
+                        </Text>
+                        <TextArea fx:id="textAreaSC1" editable="false" layoutX="69.0" layoutY="156.0" prefHeight="100.0" prefWidth="660.0" text="¡Sí! Si te gusta mucho una receta y quieres seguirla viendo frecuentemente, o acceder a ella facilmente cuando la necesites, puedes a agregarla a tu lista de favoritos seleccionando el corazón.&#10;&#10;Podrás acceder a la lista de favoritos desde tu perfil.&#10;" wrapText="true">
+                           <font>
+                              <Font name="Comic Sans MS" size="18.0" />
+                           </font>
+                        </TextArea>
+                        <Text fill="#ff9f54" layoutX="69.0" layoutY="307.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ví algo inapropiado en una receta ¿Puedo reportarla?" wrappingWidth="611.8102722167969">
+                           <font>
+                              <Font name="Comic Sans MS" size="23.0" />
+                           </font>
+                        </Text>
+                        <TextArea fx:id="textAreaSC11" editable="false" layoutX="70.0" layoutY="320.0" prefHeight="100.0" prefWidth="660.0" text="¡Sí! Si tienes algun motivo para pensar que alguna de las recetas está incumpliendo las normas de la comunidad, puedes reportarla seleccionando el signo de exclamación.&#10;&#10;Uno de nuestro moderadores validará tu reporte, y si es correcto, eliminará la receta&#10;" wrapText="true">
+                           <font>
+                              <Font name="Comic Sans MS" size="18.0" />
+                           </font>
+                        </TextArea>
+                        <TextArea fx:id="textAreaSC111" editable="false" layoutX="70.0" layoutY="487.0" prefHeight="100.0" prefWidth="660.0" text="¡Sí! Dirígite a su perfil y selecciona &quot;Contactar al chef&quot;. También puedes ver su agenda de disponibilidad, y cuadrar una cita con él en alguno de esos espacios." wrapText="true">
+                           <font>
+                              <Font name="Comic Sans MS" size="18.0" />
+                           </font>
+                        </TextArea>
+                        <Text fill="#ff9f54" layoutX="69.0" layoutY="474.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Me gustó mucho un chef ¿Puedo contactarme con él?" wrappingWidth="611.8102722167969">
+                           <font>
+                              <Font name="Comic Sans MS" size="23.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#ff9f54" layoutX="70.0" layoutY="644.0" strokeType="OUTSIDE" strokeWidth="0.0" text="¿Cómo puedo ver los pasos e ingredientes de una receta?" wrappingWidth="611.8102722167969">
+                           <font>
+                              <Font name="Comic Sans MS" size="23.0" />
+                           </font>
+                        </Text>
+                        <TextArea fx:id="textAreaSC1111" editable="false" layoutX="70.0" layoutY="651.0" prefHeight="100.0" prefWidth="660.0" text="Todas las recetas tienen dos botones de &quot;Ver pasos&quot; y &quot;Ver ingredientes&quot;. Selecciónalos para poder verlos. Recuerda que siempre puedes seleccionar &quot;Volver&quot; para devolverte." wrapText="true">
+                           <font>
+                              <Font name="Comic Sans MS" size="18.0" />
+                           </font>
+                        </TextArea>
                             </children>
                         </AnchorPane>
                     </items>
