@@ -361,7 +361,7 @@ public class ControladorRecetasChef implements IControladorRecetasChef {
                 receta.setMensaje("la receta no se pudo eliminar");
             }
         }catch (SQLException sqlException){
-            receta.setMensaje("fallo en la base de datos");
+            receta.setMensaje("Error en la base de datos; " + sqlException.getMessage());
             receta.setReceta(null);
             receta.setAutor(null);
             receta.setEncontrado(false);

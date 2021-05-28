@@ -206,7 +206,6 @@ public class ControladorChGUI008 implements IControladorPantalla {
     }
 
     private void cargarRecetas(){
-
         this.recetas.addAll(this.controlRecetas.recetasChef(this.sesion.getUsuario().getIdUsuario()));
         //PRUEBA PARA VER
         //this.recetas.addAll(this.controlRecetas.recetasChef(BigInteger.valueOf(12)));
@@ -248,7 +247,43 @@ public class ControladorChGUI008 implements IControladorPantalla {
 
     @FXML
     public void clickEliminarReceta(MouseEvent mouseEvent) {
-        //todo: eliminar receta
+        if (this.recetas.size() > 0) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Eliminar receta");
+            alert.setHeaderText(null);
+            alert.setContentText("¿Seguro que desea eliminar esta receta?");
+            ButtonType buttonTypeAceptar = new ButtonType("Aceptar");
+            ButtonType buttonTypeCancel = new ButtonType("Cancelar");
+            alert.getButtonTypes().setAll(buttonTypeAceptar, buttonTypeCancel);
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == buttonTypeAceptar){
+                DTOReceta dto = this.controlChef.eliminarReceta(recetas.get(contadorRecetas).getReceta().getIdReceta());
+                if (dto.isEncontrado()) {
+                    this.recetas.remove(contadorRecetas);
+                    contadorRecetas = 0;
+                    if (contadorRecetas == 0)
+                        this.btnRecAnt.setVisible(false);
+                    if (this.recetas.size() <= 1) {
+                        this.btnRecSig.setVisible(false);
+                    } else {
+                        this.btnRecSig.setVisible(true);
+                    }
+                    if (this.recetas.size() == 0) {
+                        this.btnRecSig.setVisible(false);
+                        Image imagen = new Image("https://i.pinimg.com/736x/3a/ab/e0/3aabe0e9a520b9ad90407a82f85adb42.jpg");
+                        this.imgReceta.setImage(imagen);
+                    }
+                    if (this.recetas.size() != 0) {
+                        Image imagen = new Image(recetas.get(contadorRecetas).getReceta().getLinkImagen());
+                        this.imgReceta.setImage(imagen);
+                        this.textNombreRec.setText(recetas.get(contadorRecetas).getReceta().getNombre());
+                    }
+                }
+            } else if (result.get() == buttonTypeCancel){
+                return;
+            }
+        }
     }
 
     @FXML
