@@ -290,6 +290,7 @@ public class ControladorCoGUI010 implements IControladorPantalla {
             this.controlRecetas.calificarChef(this.sesion.getRecetaCargada().getAutor(), valor);
             this.btnEliminar.setVisible(true);
             this.btnCalificar.setVisible(false);
+            this.calificacionPromedio();
         }
     }
 
