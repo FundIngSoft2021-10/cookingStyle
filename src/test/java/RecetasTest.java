@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -113,6 +114,40 @@ public class RecetasTest {
         DTOReceta recetaa = controlAux.eliminarReceta(laReceta.getIdReceta());
 
         assertNotNull(recetaa);
+    }
+    @Test
+    public void timeoutBuscarRecetaTest() {
+        assertTimeout(Duration.ofSeconds(1), () -> controlCooker.buscarReceta("Carne"));
+    }
+
+    @Test
+    public void timeoutBuscarRecetaPorChefTest() {
+        assertTimeout(Duration.ofSeconds(1), () -> controlCooker.buscarRecetasChef("Santiago"));
+    }
+    @Test
+    public void timeoutBuscarRecetaPorCategoria() {
+        assertTimeout(Duration.ofSeconds(1), () -> controlCooker.buscarRecetasCategoria("Pescado"));
+    }
+
+    @Test
+    public void calificarRecetaTest() {
+
+        DTOAutenticacion usuario = registro.autenticarUsuario(TipoUsuario.CHEF, "testchef", "123");
+        IControladorRecetasChef controlAux = new ControladorRecetasChef((Chef) usuario.getUsuario());
+        controlCooker.setCooker(new Cooker(BigInteger.valueOf(14), "CamCollan", new Date(2021-4-20), "Camila Collante"));
+
+        // Crear Receta
+        List<LineaIngrediente> ingredientes = new ArrayList<>();
+        List<Categoria> categorias = new ArrayList<>();
+        List<PasoReceta> pasos = new ArrayList<>();
+        List<Calificacion> calificaciones = new ArrayList<>();
+        List<Reporte> reportes = new ArrayList<>();
+        BigInteger bigI = new BigInteger("1022");
+        Receta receta = new Receta(bigI,"Pasta Inglesa","La pasta inglesa más deliciosa",true,"https://www.youtube.com/watch?v=eovGDyel9d8",TipoVideo.YOUTUBE,true,"https://images-gmi-pmc.edge-generalmills.com/e1c318a2-f4c3-4854-8b54-a087015c47a9.jpg",ingredientes,pasos,categorias,calificaciones, reportes);
+        controlAux.subirReceta(receta.getNombre(),receta.getDescripcion(),receta.getLinkVideo(),receta.getTipoVideo(),receta.getLinkImagen(),receta.getLineasIngrediente(),receta.getCategorias(),receta.getPasosReceta());
+
+        DTOExito exito = controlCooker.calificarReceta(receta, 5);
+        assertTrue(exito.isEstado());
     }
 
 }
