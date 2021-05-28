@@ -20,6 +20,7 @@ public enum Pantalla {
     CO_GUI011_AGENDACHEF("/presentacion/perfiles/CoGUI011VerAgendaChef.fxml"),
     CO_GUI012_CONTACTARCHEF("/presentacion/comunicacion/CoGUI012ContactarChef.fxml"),
     CO_GUI013_PERFIL("/presentacion/perfiles/CoGUI013Perfil.fxml"),
+    CO_GUI014_EDITARPERFIL("/presentacion/perfiles/CoGUI014EditarPerfil.fxml"),
 
     // Pantallas del usuario Chef
     CH_GUI001_INICIARSESION("/presentacion/registro_autenticacion/ChGUI001IniciarSesion.fxml"),

@@ -1,11 +1,13 @@
 package presentacion.perfiles;
 
-import entidades.dto.*;
+import entidades.dto.DTOExito;
+import entidades.dto.DTORecetaMiniatura;
+import entidades.dto.DTOSesion;
+import entidades.dto.Pantalla;
 import entidades.modelo.Cooker;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
@@ -28,15 +30,12 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class ControladorCoGUI013 implements IControladorPantalla {
-
     private DTOSesion sesion;
     private IControladorPerfiles controlPerfiles;
     private IControladorRecetasCooker controlCooker;
     private int contadorRecetas;
     private List<DTORecetaMiniatura> recetas;
 
-    @FXML
-    public VBox vBPuntuaciones;
     @FXML
     public Text textNombReceta;
     @FXML
@@ -46,27 +45,7 @@ public class ControladorCoGUI013 implements IControladorPantalla {
     @FXML
     public Text textNombre;
     @FXML
-    public Text textBio;
-    @FXML
-    public Line ln1;
-    @FXML
-    public Line ln2;
-    @FXML
-    public Text textEdad;
-    @FXML
-    public Text textEdadInf;
-    @FXML
-    public Text textExp;
-    @FXML
-    public Text textInfExp;
-    @FXML
-    public Text testGustos;
-    @FXML
     public Text btnVolver;
-    @FXML
-    public TextArea textAreaGustos;
-    @FXML
-    public ImageView btnServicioCliente;
     @FXML
     public ImageView btnCerrarSesion;
     @FXML
@@ -82,7 +61,7 @@ public class ControladorCoGUI013 implements IControladorPantalla {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        btnEliminar.setVisible(false);
     }
 
     @Override
@@ -102,39 +81,22 @@ public class ControladorCoGUI013 implements IControladorPantalla {
         //Configuración flechas
 
         this.btnAntes.setVisible(false);
-        if(this.recetas.size()==1){
+        if (this.recetas.size() == 1) {
             this.btnSig.setVisible(false);
         }
-        if(this.recetas.size()==0){
+        if (this.recetas.size() == 0) {
             this.btnSig.setVisible(false);
             Image imagen = new Image("https://i.pinimg.com/736x/3a/ab/e0/3aabe0e9a520b9ad90407a82f85adb42.jpg");
             this.imgReceta.setImage(imagen);
         }
-        if(this.recetas.size()!=0){
+        if (this.recetas.size() != 0) {
             Image imagen = new Image(recetas.get(contadorRecetas).getLinkImagen());
             this.imgReceta.setImage(imagen);
             this.textNombReceta.setText(recetas.get(contadorRecetas).getNombreReceta());
         }
-
-        //Ocultar la biografía
-        this.ocultar();
     }
 
-    private void ocultar(){
-        //Biografía Cooker
-        this.ln1.setVisible(false);
-        this.textBio.setVisible(false);
-        this.ln2.setVisible(false);
-        this.textEdad.setVisible(false);
-        this.textEdadInf.setVisible(false);
-        this.textExp.setVisible(false);
-        this.textInfExp.setVisible(false);
-        this.testGustos.setVisible(false);
-        this.textAreaGustos.setVisible(false);
-    }
-
-    private void cargarCooker(){
-
+    private void cargarCooker() {
         //Nombre
         this.textNombre.setText(this.sesion.getUsuario().getNombre());
 
@@ -144,10 +106,9 @@ public class ControladorCoGUI013 implements IControladorPantalla {
 
         //Nombre usuario
         this.textNomUsuario.setText(this.sesion.getUsuario().getNombreUsuario());
-
     }
 
-    private void cargarRecetasFavoritas(){
+    private void cargarRecetasFavoritas() {
         this.recetas.addAll(this.controlCooker.recetasListaFavoritos());
     }
 
@@ -171,7 +132,6 @@ public class ControladorCoGUI013 implements IControladorPantalla {
     }
 
     public void clickEliminarPerfil(MouseEvent mouseEvent) {
-
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Eliminar Perfil");
         alert.setHeaderText(null);
@@ -181,7 +141,7 @@ public class ControladorCoGUI013 implements IControladorPantalla {
         alert.getButtonTypes().setAll(buttonTypeAceptar, buttonTypeCancel);
 
         Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == buttonTypeAceptar){
+        if (result.get() == buttonTypeAceptar) {
             DTOExito exito = this.controlPerfiles.eliminarPerfil(this.sesion.getUsuario().getIdUsuario());
             this.crearAlerta(Alert.AlertType.INFORMATION, exito.getMensaje());
 
@@ -191,7 +151,7 @@ public class ControladorCoGUI013 implements IControladorPantalla {
                 e.printStackTrace();
             }
 
-        } else if (result.get() == buttonTypeCancel){
+        } else if (result.get() == buttonTypeCancel) {
             return;
         }
 
@@ -211,11 +171,11 @@ public class ControladorCoGUI013 implements IControladorPantalla {
 
     public void clickSig(MouseEvent mouseEvent) {
         this.contadorRecetas++;
-        if(this.contadorRecetas == this.recetas.size()-1 ){
+        if (this.contadorRecetas == this.recetas.size() - 1) {
             this.btnSig.setVisible(false);
         }
         this.btnAntes.setVisible(true);
-        if(this.contadorRecetas-1 != this.recetas.size() ) {
+        if (this.contadorRecetas - 1 != this.recetas.size()) {
             Image imagen = new Image(recetas.get(contadorRecetas).getLinkImagen());
             this.imgReceta.setImage(imagen);
             this.textNombReceta.setText(recetas.get(contadorRecetas).getNombreReceta());
@@ -225,7 +185,7 @@ public class ControladorCoGUI013 implements IControladorPantalla {
     public void clickAntes(MouseEvent mouseEvent) {
         --this.contadorRecetas;
         this.btnSig.setVisible(true);
-        if(this.contadorRecetas == 0){
+        if (this.contadorRecetas == 0) {
             this.btnAntes.setVisible(false);
         }
         Image imagen = new Image(recetas.get(contadorRecetas).getLinkImagen());
