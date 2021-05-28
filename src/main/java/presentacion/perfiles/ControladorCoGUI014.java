@@ -81,6 +81,7 @@ public class ControladorCoGUI014 implements IControladorPantalla {
 
         //Configuración flechas
         this.configurarFlechas();
+        this.btnEliminarFavoritos.setVisible(false);
     }
 
     private void cargarCooker() {

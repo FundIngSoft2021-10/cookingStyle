@@ -1,9 +1,6 @@
 package presentacion.perfiles;
 
-import entidades.dto.DTOExito;
-import entidades.dto.DTOReceta;
-import entidades.dto.DTOSesion;
-import entidades.dto.Pantalla;
+import entidades.dto.*;
 import entidades.modelo.Chef;
 import entidades.modelo.Cooker;
 import javafx.event.Event;
@@ -136,7 +133,21 @@ public class ControladorChGUI008 implements IControladorPantalla {
             this.imgReceta.setImage(imagen);
             this.textNombreRec.setText(recetas.get(contadorRecetas).getReceta().getNombre());
         }
+        this.btmModificarAgenda.setVisible(false);
 
+        this.calificacionPromedioChef();
+        this.calificacionPromedioReceta();
+
+    }
+
+    private void calificacionPromedioChef(){
+        DTOCalificacion calificacion = this.controlRecetas.promedioCalificacionChef((Chef) this.sesion.getUsuario());
+        this.textPuntuacion.setText(Float.toString(calificacion.getValor()));
+    }
+
+    private void calificacionPromedioReceta(){
+        DTOCalificacion calificacion = this.controlRecetas.promedioCalificacionReceta(recetas.get(contadorRecetas).getReceta());
+        this.textPuntuacionReceta.setText(Float.toString(calificacion.getValor()));
     }
 
     //ELIMINAR DESPUÉS
@@ -260,6 +271,7 @@ public class ControladorChGUI008 implements IControladorPantalla {
             Image imagen = new Image(recetas.get(contadorRecetas).getReceta().getLinkImagen());
             this.imgReceta.setImage(imagen);
             this.textNombreRec.setText(recetas.get(contadorRecetas).getReceta().getNombre());
+            this.calificacionPromedioReceta();
         }
     }
 
@@ -273,6 +285,7 @@ public class ControladorChGUI008 implements IControladorPantalla {
         Image imagen = new Image(recetas.get(contadorRecetas).getReceta().getLinkImagen());
         this.imgReceta.setImage(imagen);
         this.textNombreRec.setText(recetas.get(contadorRecetas).getReceta().getNombre());
+        this.calificacionPromedioReceta();
     }
 
     @FXML

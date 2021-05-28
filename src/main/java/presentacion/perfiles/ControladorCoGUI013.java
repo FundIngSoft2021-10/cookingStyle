@@ -61,7 +61,6 @@ public class ControladorCoGUI013 implements IControladorPantalla {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        btnEliminar.setVisible(false);
     }
 
     @Override
@@ -158,6 +157,11 @@ public class ControladorCoGUI013 implements IControladorPantalla {
     }
 
     public void clickEditarPerfil(MouseEvent mouseEvent) {
+        try {
+            this.cargarPantalla((Event) mouseEvent, Pantalla.CO_GUI014_EDITARPERFIL, this.sesion, false);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void clickReceta(MouseEvent mouseEvent) {
