@@ -47,6 +47,18 @@ public class RecetasTest {
     }
 
     @Test
+    public void subirRecetaFailTest(){
+        List<LineaIngrediente> ingredientes = new ArrayList<>();
+        List<Categoria> categorias = new ArrayList<>();
+        List<PasoReceta> pasosReceta = new ArrayList<>();
+        DTOAutenticacion usuario = registro.autenticarUsuario(TipoUsuario.CHEF, "testchef", "123");
+        IControladorRecetasChef controlAux = new ControladorRecetasChef((Chef) usuario.getUsuario());
+
+        DTOExito exito = controlAux.subirReceta("Pizza", "Deliciosa pizza extravagante.", "watch?v=e9X3r5bxWzQ", TipoVideo.YOUTUBE, "https://i.blogs.es/6b1775/hamburguesa_rec/450_1000", ingredientes, categorias, pasosReceta );
+        assertFalse(exito.isEstado());
+    }
+
+    @Test
     public void añadirRecetaFavoritaTest() {
         controlCooker.setCooker(new Cooker(BigInteger.valueOf(14), "CamCollan", new Date(2021-4-20), "Camila Collante"));
         DTOExito exito = controlCooker.agregarRecetaListaFavoritos(BigInteger.valueOf(1001));
