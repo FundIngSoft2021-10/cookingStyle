@@ -117,18 +117,17 @@ public class RecetasTest {
     }
     @Test
     public void timeoutBuscarRecetaTest() {
-        assertTimeout(Duration.ofSeconds(1), () -> controlCooker.buscarReceta("Carne"));
+        assertTimeout(Duration.ofSeconds(1), () -> controlCooker.buscarReceta("Pollo"));
     }
 
     @Test
     public void timeoutBuscarRecetaPorChefTest() {
-        assertTimeout(Duration.ofSeconds(1), () -> controlCooker.buscarRecetasChef("Santiago"));
+        assertTimeout(Duration.ofSeconds(1), () -> controlCooker.buscarReceta("Alejandro"));
     }
     @Test
     public void timeoutBuscarRecetaPorCategoria() {
-        assertTimeout(Duration.ofSeconds(1), () -> controlCooker.buscarRecetasCategoria("Pescado"));
+        assertTimeout(Duration.ofSeconds(1), () -> controlCooker.buscarReceta("Pescado"));
     }
-
     @Test
     public void calificarRecetaTest() {
 
@@ -148,6 +147,16 @@ public class RecetasTest {
 
         DTOExito exito = controlCooker.calificarReceta(receta, 5);
         assertTrue(exito.isEstado());
+    }
+
+    @Test
+    public void timeoutSubirRecetaTest(){
+        List<LineaIngrediente> ingredientes = new ArrayList<>();
+        List<Categoria> categorias = new ArrayList<>();
+        List<PasoReceta> pasosReceta = new ArrayList<>();
+        DTOAutenticacion usuario = registro.autenticarUsuario(TipoUsuario.CHEF, "testchef", "123");
+        IControladorRecetasChef controlAux = new ControladorRecetasChef((Chef) usuario.getUsuario());
+        assertTimeout(Duration.ofSeconds(2), () -> controlAux.subirReceta("Hamburguesa", "Deliciosa hamburguesa extravagante.", "https://www.youtube.com/watch?v=e9X3r5bxWzQ", TipoVideo.YOUTUBE, "https://i.blogs.es/6b1775/hamburguesa_rec/450_1000.jpg", ingredientes, categorias, pasosReceta ));
     }
 
 }
