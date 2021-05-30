@@ -171,4 +171,38 @@ public class RecetasTest {
         assertTimeout(Duration.ofSeconds(2), () -> controlAux.subirReceta("Hamburguesa", "Deliciosa hamburguesa extravagante.", "https://www.youtube.com/watch?v=e9X3r5bxWzQ", TipoVideo.YOUTUBE, "https://i.blogs.es/6b1775/hamburguesa_rec/450_1000.jpg", ingredientes, categorias, pasosReceta ));
     }
 
+    @Test
+    public void reportarRecetaTest() {
+
+        DTOAutenticacion usuario = registro.autenticarUsuario(TipoUsuario.CHEF, "testchef", "123");
+        IControladorRecetasChef controlAux = new ControladorRecetasChef((Chef) usuario.getUsuario());
+        controlCooker.setCooker(new Cooker(BigInteger.valueOf(14), "CamCollan", new Date(2021-4-20), "Camila Collante"));
+        Reporte reporte = new Reporte(controlCooker.getCooker(),new MotivoReporte(67,"Malo", "La receta es mala"),new Date("30/05/2021"), false);
+
+        // Crear Receta
+        List<LineaIngrediente> ingredientes = new ArrayList<>();
+        List<Categoria> categorias = new ArrayList<>();
+        List<PasoReceta> pasos = new ArrayList<>();
+        List<Calificacion> calificaciones = new ArrayList<>();
+        List<Reporte> reportes = new ArrayList<>();
+        BigInteger bigI = new BigInteger("1022");
+        Receta receta = new Receta(bigI,"Pasta Bolognesa","La pasta bolognesa más deliciosa",true,"https://www.youtube.com/watch?v=eovGDyel9d8",TipoVideo.YOUTUBE,true,"https://images-gmi-pmc.edge-generalmills.com/e1c318a2-f4c3-4854-8b54-a087015c47a9.jpg",ingredientes,pasos,categorias,calificaciones, reportes);
+        controlAux.subirReceta(receta.getNombre(),receta.getDescripcion(),receta.getLinkVideo(),receta.getTipoVideo(),receta.getLinkImagen(),receta.getLineasIngrediente(),receta.getCategorias(),receta.getPasosReceta());
+
+        DTOExito exito = controlCooker.reportarReceta(receta,reporte);
+        assertTrue(exito.isEstado());
+    }
+    @Test
+    public void calificarChefTest() {
+
+        DTOAutenticacion usuario = registro.autenticarUsuario(TipoUsuario.CHEF, "testchef", "123");
+        IControladorRecetasChef controlAux = new ControladorRecetasChef((Chef) usuario.getUsuario());
+        controlCooker.setCooker(new Cooker(BigInteger.valueOf(14), "CamCollan", new Date(2021-4-20), "Camila Collante"));
+
+        // Crear Receta
+
+        DTOExito exito = controlCooker.calificarChef((Chef)usuario.getUsuario(), 5);
+        assertTrue(exito.isEstado());
+    }
+
 }
