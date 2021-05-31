@@ -12,7 +12,6 @@ import java.math.BigInteger;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class UsuariosTest {
-
     static ControladorPerfiles perfiles;
     static ControladorRegAut registro;
 
@@ -20,6 +19,36 @@ public class UsuariosTest {
     static void setUp(){
         perfiles = new ControladorPerfiles();
         registro = new ControladorRegAut();
+    }
+    @Test
+    public void autenticarCookerTest(){
+        DTOAutenticacion autenticacion = registro.autenticarUsuario(TipoUsuario.COOKER,"test.cooker","123");
+        assertTrue(autenticacion.isEstado());
+    }
+    @Test
+    public void autenticarChefTest(){
+        DTOAutenticacion autenticacion = registro.autenticarUsuario(TipoUsuario.CHEF,"test.chef","123");
+        assertTrue(autenticacion.isEstado());
+    }
+    @Test
+    public void autenticarAdminTest(){
+        DTOAutenticacion autenticacion = registro.autenticarUsuario(TipoUsuario.ADMIN,"test.admin","123");
+        assertTrue(autenticacion.isEstado());
+    }
+    @Test
+    public void autenticarCookerFalsoTest(){
+        DTOAutenticacion autenticacion = registro.autenticarUsuario(TipoUsuario.COOKER,"test.cooker","hola123");
+        assertFalse(autenticacion.isEstado());
+    }
+    @Test
+    public void autenticarChefFalsoTest(){
+        DTOAutenticacion autenticacion = registro.autenticarUsuario(TipoUsuario.CHEF,"test.chef","hola123");
+        assertFalse(autenticacion.isEstado());
+    }
+    @Test
+    public void autenticarAdminFalsoTest(){
+        DTOAutenticacion autenticacion = registro.autenticarUsuario(TipoUsuario.ADMIN,"test.admin","hola123");
+        assertFalse(autenticacion.isEstado());
     }
     @Test
     public void crearPerfilAdminTest(){
